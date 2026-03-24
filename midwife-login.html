@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midwife Login - MidConnect</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+        }
+        
+        .login-logo {
+            background: var(--bg-secondary);
+        }
+        
+        .login-logo i {
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body class="auth-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-user-nurse"></i>
+                </div>
+                <h2 class="mb-2" style="color: var(--primary-blue);">Midwife Portal</h2>
+                <p style="color: var(--gray); margin-bottom: 0;">Sign in to access your dashboard</p>
+            </div>
+
+            <form id="midwifeLoginForm">
+                <div class="form-group">
+                    <label for="employee_id" class="form-label">Employee ID</label>
+                    <div class="input-group">
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" class="form-control" id="employee_id" name="employee_id" 
+                               placeholder="Enter your employee ID" required>
+                    </div>
+                    <div class="error-message" id="employee_id_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" id="forgot-password-link">Forgot Password?</a>
+                    </div>
+                    <div class="error-message" id="password_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+                        <label for="remember_me" class="form-check-label">Remember me for 30 days</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success w-100 btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </div>
+
+                <div class="alert alert-danger" id="login-error" style="display: none;"></div>
+            </form>
+
+            <div class="back-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Reset Password</h4>
+                <button type="button" class="modal-close" onclick="closeForgotPasswordModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="reset_employee_id" class="form-label">Employee ID</label>
+                    <input type="text" class="form-control" id="reset_employee_id" name="employee_id" 
+                           placeholder="Enter your employee ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="reset_email" class="form-label">Registered Email</label>
+                    <input type="email" class="form-control" id="reset_email" name="email" 
+                           placeholder="Enter your registered email" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-paper-plane"></i> Send Reset Link
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/page-transitions.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script>
+        // Initialize midwife login
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMidwifeLogin();
+        });
+
+        function initializeMidwifeLogin() {
+            const form = document.getElementById('midwifeLoginForm');
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+
+            form.addEventListener('submit', handleMidwifeLogin);
+            forgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showForgotPasswordModal();
+            });
+        }
+
+        function handleMidwifeLogin(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const employeeId = formData.get('employee_id');
+            const password = formData.get('password');
+
+            // Clear previous errors
+            clearErrors();
+
+            // Validate inputs
+            if (!validateMidwifeLogin(employeeId, password)) {
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            submitBtn.disabled = true;
+
+            // Client-side authentication with predefined credentials
+            setTimeout(() => {
+                const validCredentials = [
+                    { employeeId: 'MW001', password: 'password', name: 'Priyanka Jayawardene', email: 'priyanka.jayawardene@health.gov.lk', phone: '+94771234567', mohOffice: 'MOH Colombo 01' },
+                    { employeeId: 'MW002', password: 'password', name: 'Sanduni Fernando', email: 'sanduni.fernando@health.gov.lk', phone: '+94777654321', mohOffice: 'MOH Gampaha' },
+                    { employeeId: 'MW003', password: 'password', name: 'Chamari Silva', email: 'chamari.silva@health.gov.lk', phone: '+94769876543', mohOffice: 'MOH Kandy' }
+                ];
+
+                const validUser = validCredentials.find(cred => 
+                    cred.employeeId === employeeId && 
+                    cred.password === password
+                );
+
+                if (validUser) {
+                    // Store midwife data
+                    const midwifeData = {
+                        id: validUser.employeeId,
+                        employeeId: validUser.employeeId,
+                        name: validUser.name,
+                        email: validUser.email,
+                        phone: validUser.phone,
+                        mohOffice: validUser.mohOffice,
+                        role: 'midwife',
+                        loginTime: new Date().toISOString()
+                    };
+                    localStorage.setItem('midwife_user', JSON.stringify(midwifeData));
+                    
+                    // Show success message briefly
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+                    
+                    // Redirect to midwife dashboard
+                    setTimeout(() => {
+                        window.location.href = 'midwife/dashboard.html';
+                    }, 500);
+                } else {
+                    showError('Invalid employee ID or password. Please check your credentials.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }, 1000); // Simulate network delay
+        }
+
+        function validateMidwifeLogin(employeeId, password) {
+            let isValid = true;
+
+            if (!employeeId || employeeId.length < 3) {
+                showFieldError('employee_id_error', 'Employee ID must be at least 3 characters');
+                isValid = false;
+            }
+
+            if (!password || password.length < 6) {
+                showFieldError('password_error', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('show');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.remove('show');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('login-error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function showFieldError(elementId, message) {
+            const errorDiv = document.getElementById(elementId);
+            errorDiv.textContent = message;
+        }
+
+        function togglePassword(inputId) {
+            console.log('togglePassword called with inputId:', inputId);
+            
+            const input = document.getElementById(inputId);
+            if (!input) {
+                console.error('Input not found:', inputId);
+                return;
+            }
+            
+            const inputGroup = input.parentNode;
+            const button = inputGroup.querySelector('.password-toggle');
+            if (!button) {
+                console.error('Button not found');
+                return;
+            }
+            
+            const icon = button.querySelector('i');
+            if (!icon) {
+                console.error('Icon not found');
+                return;
+            }
+            
+            console.log('Current input type:', input.type);
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                console.log('Changed to text, icon should be eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                console.log('Changed to password, icon should be eye');
+            }
+        }
+
+        function clearErrors() {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('employee_id_error').textContent = '';
+            document.getElementById('password_error').textContent = '';
+        }
+
+        // Handle forgot password form
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Handle password reset logic here
+            alert('Password reset link will be sent to your registered email.');
+            closeForgotPasswordModal();
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeForgotPasswordModal();
+            }
+        });
+    </script>
+</body>
+</html>

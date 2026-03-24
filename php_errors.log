@@ -1,0 +1,5 @@
+[11-Feb-2026 08:24:08 Europe/Berlin] Database query failed: SQLSTATE[HY000]: General error: 1 no such function: NOW
+[11-Feb-2026 08:24:09 Europe/Berlin] Admin login error: Database operation failed
+[11-Feb-2026 08:26:47 Europe/Berlin] PHP Warning:  Undefined array key "locked_until" in C:\Users\CHAMA COMPUTERS\Desktop\My Proffesional Stuffs\Final Year Web App\php\midwife_login.php on line 62
+[11-Feb-2026 08:26:47 Europe/Berlin] Database query failed: SQLSTATE[HY000]: General error: 1 no such column: login_attempts
+[11-Feb-2026 08:26:47 Europe/Berlin] Midwife login error: Database operation failed

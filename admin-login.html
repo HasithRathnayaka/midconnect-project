@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOH Admin Login - MidConnect</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark-blue));
+        }
+        
+        .login-logo {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+        }
+        
+        .login-logo i {
+            color: var(--white);
+        }
+
+        .input-group .form-select {
+            padding-left: 3.25rem;
+        }
+
+        .admin-notice {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--primary-light-blue);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .admin-notice h5 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-notice p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="auth-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-user-cog"></i>
+                </div>
+                <h2 class="mb-2" style="color: var(--primary-blue);">MOH Admin Portal</h2>
+                <p style="color: var(--gray); margin-bottom: 0;">Medical Officer of Health Dashboard</p>
+            </div>
+
+            <div class="admin-notice">
+                <h5><i class="fas fa-info-circle"></i> Administrative Access</h5>
+                <p>This portal is restricted to authorized Medical Officer of Health (MOH) personnel only. All activities are logged and monitored.</p>
+            </div>
+
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="admin_username" class="form-label">Username</label>
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-control" id="admin_username" name="username" 
+                               placeholder="Enter your username" required>
+                    </div>
+                    <div class="error-message" id="username_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin_password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="admin_password" name="password" 
+                               placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" id="forgot-password-link">Forgot Password?</a>
+                    </div>
+                    <div class="error-message" id="password_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="moh_office" class="form-label">MOH Office</label>
+                    <div class="input-group">
+                        <i class="fas fa-building input-icon"></i>
+                        <select class="form-control form-select" id="moh_office" name="moh_office" required>
+                            <option value="">Select your MOH office</option>
+                            <option value="attanagalla">MOH Attanagalla</option>
+                        </select>
+                    </div>
+                    <div class="error-message" id="moh_office_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="secure_session" name="secure_session">
+                        <label for="secure_session" class="form-check-label">Secure session (shared computer)</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary w-100 btn-lg">
+                        <i class="fas fa-shield-alt"></i> Secure Login
+                    </button>
+                </div>
+
+                <div class="alert alert-danger" id="login-error" style="display: none;"></div>
+            </form>
+
+            <div class="back-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <span style="margin: 0 1rem;">|</span>
+                <a href="midwife-login.html">
+                    <i class="fas fa-user-nurse"></i> Midwife Login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Admin Password Reset</h4>
+                <button type="button" class="modal-close" onclick="closeForgotPasswordModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="alert alert-info">
+                <i class="fas fa-exclamation-circle"></i>
+                <strong>Security Notice:</strong> Admin password reset requests require approval from the system administrator.
+            </div>
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="reset_username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="reset_username" name="username" 
+                           placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reset_email" class="form-label">Official Email</label>
+                    <input type="email" class="form-control" id="reset_email" name="email" 
+                           placeholder="Enter your official email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="reset_moh_office" class="form-label">MOH Office</label>
+                    <select class="form-control form-select" id="reset_moh_office" name="moh_office" required>
+                        <option value="">Select your MOH office</option>
+                        <option value="colombo_01">MOH Colombo 01</option>
+                        <option value="colombo_02">MOH Colombo 02</option>
+                        <option value="gampaha">MOH Gampaha</option>
+                        <option value="kalutara">MOH Kalutara</option>
+                        <option value="kandy">MOH Kandy</option>
+                        <!-- Add other MOH offices as needed -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-warning w-100">
+                        <i class="fas fa-paper-plane"></i> Submit Reset Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/page-transitions.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/theme-toggle.js"></script>
+    <script>
+        // Initialize admin login
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAdminLogin();
+        });
+
+        function initializeAdminLogin() {
+            const form = document.getElementById('adminLoginForm');
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+
+            form.addEventListener('submit', handleAdminLogin);
+            forgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showForgotPasswordModal();
+            });
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const username = formData.get('username');
+            const password = formData.get('password');
+            const mohOffice = formData.get('moh_office');
+
+            // Clear previous errors
+            clearErrors();
+
+            // Validate inputs
+            if (!validateAdminLogin(username, password, mohOffice)) {
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+            submitBtn.disabled = true;
+
+            // Client-side authentication with predefined credentials
+            setTimeout(() => {
+                const validCredentials = [
+                    { username: 'admin001', password: 'admin123456', mohOffice: 'attanagalla', mohOfficeName: 'MOH Attanagalla', name: 'Dr. Sarah Johnson', email: 'sarah.johnson@health.gov.lk' }
+                ];
+
+                // Enhanced debug logging
+                console.log('=== LOGIN DEBUG ===');
+                console.log('Username:', username, '(type:', typeof username, ', length:', username?.length, ')');
+                console.log('Password:', password, '(type:', typeof password, ', length:', password?.length, ')');
+                console.log('MOH Office:', mohOffice, '(type:', typeof mohOffice, ', length:', mohOffice?.length, ')');
+                console.log('Valid credentials:', validCredentials);
+                
+                // Check each credential individually
+                validCredentials.forEach((cred, index) => {
+                    console.log(`Credential ${index}:`);
+                    console.log('  Username match:', cred.username === username, `(${cred.username} === ${username})`);
+                    console.log('  Password match:', cred.password === password, `(${cred.password} === ${password})`);
+                    console.log('  MOH Office match:', cred.mohOffice === mohOffice, `(${cred.mohOffice} === ${mohOffice})`);
+                });
+                
+                const validUser = validCredentials.find(cred => 
+                    cred.username === username && 
+                    cred.password === password && 
+                    cred.mohOffice === mohOffice
+                );
+
+                console.log('Found valid user:', validUser);
+
+                if (validUser) {
+                    // Store admin data
+                    const adminData = {
+                        id: validUser.username,
+                        name: validUser.name,
+                        email: validUser.email,
+                        username: validUser.username,
+                        mohOffice: validUser.mohOfficeName,
+                        role: 'admin',
+                        loginTime: new Date().toISOString()
+                    };
+                    localStorage.setItem('admin_user', JSON.stringify(adminData));
+                    
+                    // Show success message briefly
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+                    
+                    // Redirect to admin dashboard
+                    setTimeout(() => {
+                        window.location.href = 'admin/dashboard.html';
+                    }, 500);
+                } else {
+                    showError('Invalid username, password, or MOH office. Please check your credentials.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
+            }, 1000); // Simulate network delay
+        }
+
+        function validateAdminLogin(username, password, mohOffice) {
+            let isValid = true;
+
+            if (!username || username.length < 3) {
+                showFieldError('username_error', 'Username must be at least 3 characters');
+                isValid = false;
+            }
+
+            if (!password || password.length < 6) {
+                showFieldError('password_error', 'Password must be at least 6 characters');
+                isValid = false;
+            }
+
+            if (!mohOffice) {
+                showFieldError('moh_office_error', 'Please select your MOH office');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function togglePassword(inputId) {
+            console.log('togglePassword called with inputId:', inputId);
+            
+            const input = document.getElementById(inputId);
+            if (!input) {
+                console.error('Input not found:', inputId);
+                return;
+            }
+            
+            const inputGroup = input.parentNode;
+            const button = inputGroup.querySelector('.password-toggle');
+            if (!button) {
+                console.error('Button not found');
+                return;
+            }
+            
+            const icon = button.querySelector('i');
+            if (!icon) {
+                console.error('Icon not found');
+                return;
+            }
+            
+            console.log('Current input type:', input.type);
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                console.log('Changed to text, icon should be eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                console.log('Changed to password, icon should be eye');
+            }
+        }
+
+        function showForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('show');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.remove('show');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('login-error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function showFieldError(elementId, message) {
+            const errorDiv = document.getElementById(elementId);
+            errorDiv.textContent = message;
+        }
+
+        function clearErrors() {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('username_error').textContent = '';
+            document.getElementById('password_error').textContent = '';
+            document.getElementById('moh_office_error').textContent = '';
+        }
+
+        // Handle forgot password form
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            // Simulate API call
+            setTimeout(() => {
+                alert('Password reset request submitted. System administrator will review and respond within 24 hours.');
+                closeForgotPasswordModal();
+            }, 1000);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeForgotPasswordModal();
+            }
+        });
+    </script>
+</body>
+</html>
