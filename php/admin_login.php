@@ -192,13 +192,8 @@ try {
     $notifications = $db->fetchAll($notificationsSql, [$admin['admin_id']]);
     
     // Return success response
-    Utils::jsonResponse([
-        'success' => true,
-        'message' => 'Login successful',
-        'user' => $userData,
-        'notifications' => $notifications,
-        'session_timeout' => $secureSession ? 1800 : 3600
-    ]);
+header("Location: ../admin/dashboard.php");
+exit();
     
 } catch (Exception $e) {
     error_log("Admin login error: " . $e->getMessage());

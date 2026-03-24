@@ -93,7 +93,8 @@
                         <i class="fas fa-building input-icon"></i>
                         <select class="form-control form-select" id="moh_office" name="moh_office" required>
                             <option value="">Select your MOH office</option>
-                            <option value="attanagalla">MOH Attanagalla</option>
+                            <option value="colombo_01">MOH Colombo 01</option>
+                            <option value="gampaha">MOH Gampaha</option>
                         </select>
                     </div>
                     <div class="error-message" id="moh_office_error"></div>
@@ -217,7 +218,8 @@
             // Client-side authentication with predefined credentials
             setTimeout(() => {
                 const validCredentials = [
-                    { username: 'admin001', password: 'admin123456', mohOffice: 'attanagalla', mohOfficeName: 'MOH Attanagalla', name: 'Dr. Sarah Johnson', email: 'sarah.johnson@health.gov.lk' }
+                    { username: 'admin001', password: 'admin123456', mohOffice: 'colombo_01', mohOfficeName: 'MOH Colombo 01', name: 'Dr. Sarah Johnson', email: 'sarah.johnson@health.gov.lk' },
+                    { username: 'admin002', password: 'admin123456', mohOffice: 'gampaha', mohOfficeName: 'MOH Gampaha', name: 'Dr. Kumara Silva', email: 'kumara.silva@health.gov.lk' }
                 ];
 
                 // Enhanced debug logging
@@ -261,7 +263,7 @@
                     
                     // Redirect to admin dashboard
                     setTimeout(() => {
-                        window.location.href = 'admin/dashboard.html';
+                        window.location.href = 'admin/dashboard.php';
                     }, 500);
                 } else {
                     showError('Invalid username, password, or MOH office. Please check your credentials.');
