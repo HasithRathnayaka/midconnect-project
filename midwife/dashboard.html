@@ -1327,7 +1327,7 @@
 
         .area-count {
             font-size: 0.8rem;
-            color: var(--text-muted);
+            color: var(--text-secondary);
         }
 
         .area-content-wrapper {
@@ -1369,7 +1369,66 @@
         .area-header p {
             margin: 0;
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: var(--text-secondary);
+        }
+
+        :root[data-theme='dark'] .duty-areas-container {
+            background: linear-gradient(135deg, #1b2638, #24364d);
+            border: 1px solid #334a66;
+        }
+
+        :root[data-theme='dark'] .duty-areas-title {
+            color: #e5edf8;
+        }
+
+        :root[data-theme='dark'] .duty-areas-title i {
+            color: #66b3ff;
+        }
+
+        :root[data-theme='dark'] .duty-area-btn {
+            background: linear-gradient(135deg, #2a3a52, #314762);
+            border-color: #3e5777;
+        }
+
+        :root[data-theme='dark'] .duty-area-btn:hover {
+            border-color: #66b3ff;
+            background: linear-gradient(135deg, #314e71, #3a5a80);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        :root[data-theme='dark'] .duty-area-btn.active {
+            border-color: #31c9bb;
+            background: linear-gradient(135deg, #264a49, #2f5f5d);
+            box-shadow: 0 4px 14px rgba(49, 201, 187, 0.28);
+        }
+
+        :root[data-theme='dark'] .duty-area-btn i {
+            color: #7cbcff;
+        }
+
+        :root[data-theme='dark'] .duty-area-btn.active i {
+            color: #31c9bb;
+        }
+
+        :root[data-theme='dark'] .duty-area-btn h5 {
+            color: #e5edf8;
+        }
+
+        :root[data-theme='dark'] .area-count {
+            color: #bfd0e5;
+        }
+
+        :root[data-theme='dark'] .area-header {
+            background: linear-gradient(135deg, #17263a, #1f324a);
+            border-left-color: #31c9bb;
+        }
+
+        :root[data-theme='dark'] .area-header h4 {
+            color: #e5edf8;
+        }
+
+        :root[data-theme='dark'] .area-header p {
+            color: #bfd0e5;
         }
     </style>
 </head>
@@ -5859,6 +5918,11 @@
         }
 
         function initializeCharts() {
+            const rootStyles = getComputedStyle(document.documentElement);
+            const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+            const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
+            const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
+
             // Weekly Performance Chart
             const weeklyCtx = document.getElementById('weeklyChart');
             if (weeklyCtx) {
@@ -5869,12 +5933,41 @@
                         datasets: [{
                             label: 'Activities Completed',
                             data: [3, 5, 4, 6, 4, 2, 1],
-                            backgroundColor: '#00A699'
+                            backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.75)' : 'rgba(0, 166, 153, 0.85)',
+                            borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
+                            borderWidth: 1.5,
+                            borderRadius: 6
                         }]
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: axisTextColor
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: axisTextColor
+                                },
+                                grid: {
+                                    color: gridColor
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: axisTextColor
+                                },
+                                grid: {
+                                    color: gridColor
+                                }
+                            }
+                        }
                     }
                 });
             }
@@ -5893,7 +5986,14 @@
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: axisTextColor
+                                }
+                            }
+                        }
                     }
                 });
             }
@@ -6862,6 +6962,11 @@
         function initializePerformanceChart() {
             const ctx = document.getElementById('performanceChart');
             if (ctx && !ctx.chart) {
+                const rootStyles = getComputedStyle(document.documentElement);
+                const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
+                const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
+
                 ctx.chart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -6869,15 +6974,23 @@
                         datasets: [{
                             label: 'Patients Served',
                             data: [95, 102, 118, 89, 125, 134, 127, 142, 156, 163, 148, 152],
-                            borderColor: '#00A699',
-                            backgroundColor: 'rgba(0, 166, 153, 0.1)',
+                            borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
+                            backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.18)' : 'rgba(0, 137, 123, 0.12)',
+                            pointBackgroundColor: isDarkTheme ? '#5eead4' : '#00897b',
+                            pointBorderColor: '#ffffff',
+                            borderWidth: 3,
+                            pointRadius: 3,
                             tension: 0.4,
                             fill: true
                         }, {
                             label: 'Home Visits',
                             data: [68, 75, 82, 71, 88, 92, 85, 95, 104, 98, 89, 96],
-                            borderColor: '#002E4F',
-                            backgroundColor: 'rgba(0, 46, 79, 0.1)',
+                            borderColor: isDarkTheme ? '#60a5fa' : '#00509e',
+                            backgroundColor: isDarkTheme ? 'rgba(96, 165, 250, 0.18)' : 'rgba(0, 80, 158, 0.12)',
+                            pointBackgroundColor: isDarkTheme ? '#93c5fd' : '#00509e',
+                            pointBorderColor: '#ffffff',
+                            borderWidth: 3,
+                            pointRadius: 3,
                             tension: 0.4,
                             fill: true
                         }]
@@ -6886,13 +6999,30 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
+                            x: {
+                                ticks: {
+                                    color: axisTextColor
+                                },
+                                grid: {
+                                    color: gridColor
+                                }
+                            },
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                ticks: {
+                                    color: axisTextColor
+                                },
+                                grid: {
+                                    color: gridColor
+                                }
                             }
                         },
                         plugins: {
                             legend: {
                                 position: 'top',
+                                labels: {
+                                    color: axisTextColor
+                                }
                             }
                         }
                     }

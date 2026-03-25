@@ -474,12 +474,42 @@
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script>
+        let activityChartInstance = null;
+        let performanceChartInstance = null;
+        let themeObserver = null;
+        let chartRefreshTimer = null;
+
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             initializeCharts();
+            setupThemeAwareCharts();
             setupNavigation();
             checkAuthentication();
         });
+
+        function setupThemeAwareCharts() {
+            if (themeObserver) {
+                return;
+            }
+
+            themeObserver = new MutationObserver(function(mutations) {
+                const isThemeMutation = mutations.some(function(mutation) {
+                    return mutation.type === 'attributes' && mutation.attributeName === 'data-theme';
+                });
+
+                if (!isThemeMutation) {
+                    return;
+                }
+
+                clearTimeout(chartRefreshTimer);
+                chartRefreshTimer = setTimeout(initializeCharts, 60);
+            });
+
+            themeObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
 
         function checkAuthentication() {
             const adminUser = localStorage.getItem('admin_user');
@@ -548,38 +578,85 @@
         }
 
         function initializeCharts() {
+            const rootStyles = getComputedStyle(document.documentElement);
+            const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+            const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
+            const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
+
+            if (activityChartInstance) {
+                activityChartInstance.destroy();
+            }
+
+            if (performanceChartInstance) {
+                performanceChartInstance.destroy();
+            }
+
             // Activity Chart
             const activityCtx = document.getElementById('activityChart').getContext('2d');
-            new Chart(activityCtx, {
+            activityChartInstance = new Chart(activityCtx, {
                 type: 'line',
                 data: {
                     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                     datasets: [{
                         label: 'Home Visits',
                         data: [12, 19, 15, 17, 20, 18, 22],
-                        borderColor: '#002E4F',
-                        backgroundColor: 'rgba(0, 46, 79, 0.1)',
-                        tension: 0.1
+                        borderColor: isDarkTheme ? '#60a5fa' : '#00509e',
+                        backgroundColor: isDarkTheme ? 'rgba(96, 165, 250, 0.16)' : 'rgba(0, 80, 158, 0.14)',
+                        pointBackgroundColor: isDarkTheme ? '#93c5fd' : '#00509e',
+                        pointBorderColor: '#ffffff',
+                        pointRadius: 3,
+                        borderWidth: 3,
+                        tension: 0.25
                     }, {
                         label: 'Vaccinations',
                         data: [8, 12, 10, 14, 16, 12, 18],
-                        borderColor: '#00A699',
-                        backgroundColor: 'rgba(0, 166, 153, 0.1)',
-                        tension: 0.1
+                        borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
+                        backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.16)' : 'rgba(0, 137, 123, 0.14)',
+                        pointBackgroundColor: isDarkTheme ? '#5eead4' : '#00897b',
+                        pointBorderColor: '#ffffff',
+                        pointRadius: 3,
+                        borderWidth: 3,
+                        tension: 0.25
                     }, {
                         label: 'Clinic Sessions',
                         data: [5, 7, 6, 8, 9, 7, 10],
-                        borderColor: '#00A699',
-                        backgroundColor: 'rgba(0, 166, 153, 0.1)',
-                        tension: 0.1
+                        borderColor: isDarkTheme ? '#f59e0b' : '#b45309',
+                        backgroundColor: isDarkTheme ? 'rgba(245, 158, 11, 0.16)' : 'rgba(180, 83, 9, 0.14)',
+                        pointBackgroundColor: isDarkTheme ? '#fcd34d' : '#b45309',
+                        pointBorderColor: '#ffffff',
+                        pointRadius: 3,
+                        borderWidth: 3,
+                        tension: 0.25
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: axisTextColor,
+                                boxWidth: 36
+                            }
+                        }
+                    },
                     scales: {
+                        x: {
+                            ticks: {
+                                color: axisTextColor
+                            },
+                            grid: {
+                                color: gridColor
+                            }
+                        },
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            ticks: {
+                                color: axisTextColor
+                            },
+                            grid: {
+                                color: gridColor
+                            }
                         }
                     }
                 }
@@ -587,7 +664,7 @@
 
             // Performance Chart
             const performanceCtx = document.getElementById('performanceChart').getContext('2d');
-            new Chart(performanceCtx, {
+            performanceChartInstance = new Chart(performanceCtx, {
                 type: 'doughnut',
                 data: {
                     labels: ['Completed', 'In Progress', 'Pending', 'Overdue'],
@@ -598,7 +675,14 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: axisTextColor
+                            }
+                        }
+                    }
                 }
             });
         }
