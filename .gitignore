@@ -1,0 +1,19 @@
+# Runtime/session artifacts
+sessions/
+php_errors.log
+
+# Local databases
+*.db
+*.sqlite
+
+# Office and document files (not source code)
+*.doc
+*.docx
+*.pdf
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+
+# Temporary files
+~$*
