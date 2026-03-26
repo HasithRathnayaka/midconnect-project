@@ -570,6 +570,36 @@ a:hover {
 
 .auth-page .form-control {
     padding-left: 3rem;
+    background-color: #ffffff;
+    border: 2px solid #e9ecef;
+    color: var(--text-primary);
+    caret-color: var(--text-primary);
+}
+
+.auth-page .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+.auth-page .form-control:focus,
+.auth-page .form-control:active,
+.auth-page .form-control:hover {
+    background-color: #ffffff;
+    color: var(--text-primary);
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 0.2rem rgba(0, 166, 153, 0.25);
+}
+
+.auth-page .form-control:-webkit-autofill,
+.auth-page .form-control:-webkit-autofill:hover,
+.auth-page .form-control:-webkit-autofill:focus,
+.auth-page .form-control:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary);
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+    box-shadow: 0 0 0 1000px #ffffff inset;
+    caret-color: var(--text-primary);
+    border: 2px solid #e9ecef;
+    transition: background-color 9999s ease-out 0s;
 }
 
 .auth-page .password-toggle {
@@ -596,6 +626,10 @@ a:hover {
 .auth-page .password-toggle:focus {
     color: var(--primary-blue);
     outline: none;
+}
+
+.auth-page .input-icon {
+    color: var(--gray);
 }
 
 .auth-page .forgot-password {
