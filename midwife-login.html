@@ -18,6 +18,72 @@
         .login-logo i {
             color: var(--primary-blue);
         }
+
+        .auth-page .input-group .form-control,
+        .auth-page .input-group .form-control:focus,
+        .auth-page .input-group .form-control:active,
+        .auth-page .input-group .form-control:hover {
+            background: #ffffff;
+            color: var(--text-primary);
+            border: 2px solid #e9ecef;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .form-control,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:focus,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:active,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:hover {
+            background: #081326;
+            color: #ffffff;
+            border: 2px solid #5fb1ff;
+            caret-color: #ffffff;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .form-control::placeholder {
+            color: #d6eaff;
+            opacity: 1;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .input-icon,
+        :root[data-theme='dark'] .auth-page .input-group .password-toggle {
+            color: #d6eaff;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .password-toggle:hover,
+        :root[data-theme='dark'] .auth-page .input-group .password-toggle:focus {
+            color: #ffffff;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:hover,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:focus,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:active {
+            -webkit-text-fill-color: #ffffff;
+            -webkit-box-shadow: 0 0 0 1000px #081326 inset;
+            box-shadow: 0 0 0 1000px #081326 inset;
+            caret-color: #ffffff;
+            border: 2px solid #5fb1ff;
+            transition: background-color 9999s ease-out 0s;
+        }
+
+        :root[data-theme='dark'] .auth-page .input-group .form-control:valid,
+        :root[data-theme='dark'] .auth-page .input-group .form-control:not(:placeholder-shown) {
+            background: #081326;
+            color: #ffffff;
+        }
+
+        .auth-page .input-group .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .auth-page .input-group .input-icon,
+        .auth-page .input-group .password-toggle {
+            color: var(--gray);
+        }
+
+        .auth-page .input-group .password-toggle:hover,
+        .auth-page .input-group .password-toggle:focus {
+            color: var(--primary-blue);
+        }
     </style>
 </head>
 <body class="auth-page">
