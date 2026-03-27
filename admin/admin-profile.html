@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - MidConnect</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-header h1,
+        .profile-header p {
+            color: white;
+        }
+
+        .profile-header h1 {
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .profile-header p {
+            margin: 0 0 1.5rem 0;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .profile-meta-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .profile-meta-item strong {
+            display: block;
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-meta-item span {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        .profile-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .profile-section h3 i {
+            color: var(--accent-teal);
+        }
+
+        .info-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #28a745;
+            margin-right: 0.5rem;
+        }
+
+        .divider {
+            border-top: 1px solid #e9ecef;
+            margin: 1.5rem 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-edit, .btn-change-password, .btn-back {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: var(--accent-teal);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: var(--secondary-dark-green);
+        }
+
+        .btn-change-password {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-change-password:hover {
+            background: var(--primary-light-blue);
+        }
+
+        .btn-back {
+            background: #e9ecef;
+            color: var(--text-primary);
+        }
+
+        .btn-back:hover {
+            background: #dee2e6;
+        }
+
+        .last-login-section {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+        }
+
+        .last-login-section p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .last-login-time {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-wrap: wrap;
+            }
+
+            .profile-meta {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .profile-header {
+                padding: 2rem 1rem;
+            }
+        }
+
+        :root[data-theme='dark'] .profile-section {
+            background: var(--bg-card);
+        }
+
+        :root[data-theme='dark'] .last-login-section {
+            background: var(--bg-secondary);
+        }
+
+        :root[data-theme='dark'] .divider {
+            border-top-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="../images/logoimage.png" alt="MidConnect Logo">
+                <span>MidConnect - Admin</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="dashboard.html"><i class="fas fa-arrow-left"></i> Back to Dashboard</a></li>
+                    <li><button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="../images/admin%20profile%20picture.png" alt="Dr. Sarah Johnson Profile Picture">
+                </div>
+                <h1>Dr. Sarah Johnson</h1>
+                <p>Medical Officer of Health (MOH) - Administrative Head</p>
+                <div class="profile-meta">
+                    <div class="profile-meta-item">
+                        <strong>Status</strong>
+                        <span style="color: #28a745;"><i class="fas fa-check-circle"></i> Active</span>
+                    </div>
+                    <div class="profile-meta-item">
+                        <strong>Office</strong>
+                        <span>MOH Colombo 01</span>
+                    </div>
+                    <div class="profile-meta-item">
+                        <strong>Permission Level</strong>
+                        <span>Full Access</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Personal Information Section -->
+                <div class="profile-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value">Dr. Sarah Johnson</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Email Address</div>
+                        <div class="info-value">sarah.johnson@moh.lk</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Phone Number</div>
+                        <div class="info-value">+94 112 345 678</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Date of Birth</div>
+                        <div class="info-value">March 15, 1985</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Gender</div>
+                        <div class="info-value">Female</div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="button-group">
+                        <button class="btn-edit" onclick="alert('Edit profile feature coming soon!')">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Office & Employment Section -->
+                <div class="profile-section">
+                    <h3><i class="fas fa-briefcase"></i> Office & Employment</h3>
+                    
+                    <div class="info-group">
+                        <div class="info-label">MOH Office</div>
+                        <div class="info-value">MOH Colombo 01</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Position</div>
+                        <div class="info-value">Medical Officer of Health</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Employee ID</div>
+                        <div class="info-value">MOH-ADM-001</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Join Date</div>
+                        <div class="info-value">January 10, 2018</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Experience</div>
+                        <div class="info-value">20+ Years in Public Health</div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="last-login-section">
+                        <p>Last Login</p>
+                        <div class="last-login-time">March 27, 2026 at 3:30 PM</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.75rem;">From: 127.0.0.1</p>
+                    </div>
+                </div>
+
+                <!-- Account Settings Section -->
+                <div class="profile-section">
+                    <h3><i class="fas fa-lock"></i> Security & Account</h3>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Account Status</div>
+                        <div class="info-value">
+                            <span class="status-indicator"></span>Active
+                        </div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Two-Factor Authentication</div>
+                        <div class="info-value">Enabled</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Last Password Change</div>
+                        <div class="info-value">February 20, 2026</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Login Sessions</div>
+                        <div class="info-value">2 Active Sessions</div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="button-group">
+                        <button class="btn-change-password" onclick="alert('Change password feature coming soon!')">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Permissions Section -->
+                <div class="profile-section">
+                    <h3><i class="fas fa-shield-alt"></i> Permissions & Role</h3>
+                    
+                    <div class="info-group">
+                        <div class="info-label">Admin Role</div>
+                        <div class="info-value">Senior Administrator</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Permission Level</div>
+                        <div class="info-value">Full System Access</div>
+                    </div>
+
+                    <div class="info-group">
+                        <div class="info-label">Can Manage</div>
+                        <div class="info-value">
+                            • Midwife Accounts<br>
+                            • Activities & Reports<br>
+                            • System Settings<br>
+                            • User Roles
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="button-group">
+                        <a href="dashboard.html" class="btn-back">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MidConnect - Digital Midwife Activity Tracking System. Ministry of Health, Sri Lanka.</p>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot">
+        <div class="chatbot-header">
+            <h3>MidConnect Support</h3>
+            <button class="chatbot-close" aria-label="Close chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                <p>Hello! 👋 Welcome to MidConnect Support. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-input-group">
+            <input type="text" id="chatbot-input" placeholder="Type your message..." class="chatbot-input">
+            <button id="chatbot-send" class="chatbot-send-btn" aria-label="Send message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chat">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <style>
+        /* Chatbot Widget Styles */
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            border-radius: var(--radius-lg);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 99;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chatbot.active {
+            display: flex;
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 166, 153, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 166, 153, 0.5);
+        }
+
+        .chatbot-toggle.active {
+            background: var(--danger-color);
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 1.25rem;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            transition: background 0.2s ease;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .message p {
+            margin: 0;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .bot-message p {
+            background: var(--bg-card);
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-teal);
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .user-message p {
+            background: var(--accent-teal);
+            color: white;
+        }
+
+        .chatbot-input-group {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: var(--bg-primary);
+            color: var(--text-color);
+        }
+
+        .chatbot-input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 2px rgba(0, 166, 153, 0.1);
+        }
+
+        .chatbot-send-btn {
+            padding: 0.75rem 1rem;
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .chatbot-send-btn:hover {
+            background: #008B7E;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-send-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Dark Mode Support */
+        :root[data-theme='dark'] .chatbot {
+            background: var(--bg-card);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        :root[data-theme='dark'] .chatbot-messages {
+            background: var(--bg-card);
+        }
+
+        :root[data-theme='dark'] .bot-message p {
+            background: #1a2a3a;
+            color: #e0e0e0;
+        }
+
+        :root[data-theme='dark'] .chatbot-input-group {
+            background: #0f1e2e;
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        :root[data-theme='dark'] .chatbot-input {
+            background: #081326;
+            color: #d6eaff;
+            border-color: #5fb1ff;
+        }
+
+        :root[data-theme='dark'] .chatbot-input::placeholder {
+            color: #8ba5c4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 512px) {
+            .chatbot {
+                width: calc(100vw - 2rem);
+                height: 400px;
+                right: 1rem;
+                left: 1rem;
+            }
+
+            .chatbot-toggle {
+                bottom: 30px;
+                right: 30px;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script src="../js/theme-toggle.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        // Chatbot Functionality
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbot = document.querySelector('.chatbot');
+        const chatbotClose = document.querySelector('.chatbot-close');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        // Toggle Chat Window
+        chatbotToggle.addEventListener('click', () => {
+            chatbot.classList.toggle('active');
+            chatbotToggle.classList.toggle('active');
+            if (chatbot.classList.contains('active')) {
+                chatbotInput.focus();
+            }
+        });
+
+        // Close Chat Window
+        chatbotClose.addEventListener('click', () => {
+            chatbot.classList.remove('active');
+            chatbotToggle.classList.remove('active');
+        });
+
+        // Send Message
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message === '') return;
+
+            // Add user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user-message';
+            userMessageDiv.innerHTML = `<p>${message}</p>`;
+            chatbotMessages.appendChild(userMessageDiv);
+
+            chatbotInput.value = '';
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+            // Simulate bot response
+            setTimeout(() => {
+                const responses = [
+                    "Thank you for your message! A support representative will be with you shortly.",
+                    "I'm glad you reached out. How can I assist you further?",
+                    "Your inquiry has been noted. Our team will get back to you soon.",
+                    "Is there anything else I can help you with today?",
+                    "Thanks for using MidConnect Support! 😊"
+                ];
+
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'message bot-message';
+                botMessageDiv.innerHTML = `<p>${randomResponse}</p>`;
+                chatbotMessages.appendChild(botMessageDiv);
+
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }, 500);
+        }
+
+        // Send on Enter Key
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Send Button Click
+        chatbotSend.addEventListener('click', sendMessage);
+    </script>
+</body>
+</html>
