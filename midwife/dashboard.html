@@ -1430,6 +1430,169 @@
         :root[data-theme='dark'] .area-header p {
             color: #bfd0e5;
         }
+
+        /* Timetable Styles */
+        .timetable-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timetable-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--white);
+            border: 1px solid #e9ecef;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-medium);
+            position: relative;
+        }
+
+        .timetable-item:hover {
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-1px);
+        }
+
+        .timetable-item.priority-high {
+            border-left: 4px solid #dc3545;
+        }
+
+        .timetable-item.priority-normal {
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .timetable-item.priority-low {
+            border-left: 4px solid var(--secondary-green);
+        }
+
+        .timetable-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+            margin-right: 1rem;
+            text-align: center;
+        }
+
+        .timetable-time .time {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .timetable-time .date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .timetable-details {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .timetable-details h6 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .timetable-details h6 i {
+            color: var(--primary-blue);
+        }
+
+        .timetable-details .location,
+        .timetable-details .duration {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .timetable-details .location i,
+        .timetable-details .duration i {
+            margin-right: 0.5rem;
+            width: 14px;
+        }
+
+        .timetable-actions {
+            display: flex;
+            gap: 0.5rem;
+            min-width: 120px;
+            justify-content: flex-end;
+        }
+
+        .timetable-controls {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+        }
+
+        .timetable-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .timetable-header h4 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .timetable-summary {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .timetable-summary h5 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .summary-card {
+            text-align: center;
+            padding: 1rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-light);
+        }
+
+        .summary-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        :root[data-theme='dark'] .timetable-item {
+            background: #2a3a52;
+            border-color: #3e5777;
+        }
+
+        :root[data-theme='dark'] .timetable-details h6 {
+            color: #e5edf8;
+        }
+
+        :root[data-theme='dark'] .timetable-controls,
+        :root[data-theme='dark'] .timetable-summary {
+            background: #1f324a;
+        }
+
+        :root[data-theme='dark'] .summary-card {
+            background: #2a3a52;
+        }
     </style>
 </head>
 <body>
@@ -1441,7 +1604,6 @@
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#" class="midwife-name">Madhavi Perera</a></li>
                     <li><a href="#" id="notifications"><i class="fas fa-bell"></i> <span class="badge">2</span></a></li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
@@ -1518,45 +1680,6 @@
                 </div>
 
                 <div class="row">
-                    <!-- Today's Schedule -->
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Today's Schedule</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="schedule-item">
-                                    <div class="schedule-time">09:00</div>
-                                    <div>
-                                        <strong>Home Visit</strong>
-                                        <p>Mrs. K. Silva - Follow-up consultation</p>
-                                    </div>
-                                </div>
-                                <div class="schedule-item">
-                                    <div class="schedule-time">11:00</div>
-                                    <div>
-                                        <strong>Vaccination Session</strong>
-                                        <p>Clinic Center - BCG vaccinations</p>
-                                    </div>
-                                </div>
-                                <div class="schedule-item">
-                                    <div class="schedule-time">14:00</div>
-                                    <div>
-                                        <strong>Prenatal Checkup</strong>
-                                        <p>Mrs. A. Fernando - 28 weeks</p>
-                                    </div>
-                                </div>
-                                <div class="schedule-item">
-                                    <div class="schedule-time">16:00</div>
-                                    <div>
-                                        <strong>Health Education</strong>
-                                        <p>Community Center - Nutrition talk</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Recent Activities -->
                     <div class="col-6">
                         <div class="card">
@@ -1695,6 +1818,9 @@
                     <div>
                         <button class="btn btn-primary" onclick="addScheduleItem()">
                             <i class="fas fa-plus"></i> Add Schedule Item
+                        </button>
+                        <button class="btn btn-info" onclick="showMyTimetable()">
+                            <i class="fas fa-calendar-alt"></i> My Timetable
                         </button>
                     </div>
                 </div>
@@ -3761,6 +3887,15 @@
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <!-- Home visit detailed record section -->
+                        <div id="home-visit-details-record" class="card mt-4" style="display: none;">
+                            <div class="card-header">
+                                <h4 class="card-title">Visit Details Record</h4>
+                            </div>
+                            <div class="card-body" id="home-visit-details-body">
+                                <p>Select a visit and click "View Details" to see full patient record here.</p>
                             </div>
                         </div>
                     </div>
@@ -6019,7 +6154,502 @@
         });
 
         function addScheduleItem() {
-            alert('Add schedule item functionality would be implemented here');
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Add New Schedule Item</h3>
+                        <button onclick="closeModal()" class="close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="scheduleItemForm">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Date *</label>
+                                        <input type="date" class="form-control" name="scheduleDate" required>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Time *</label>
+                                        <input type="time" class="form-control" name="scheduleTime" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Activity Type *</label>
+                                        <select class="form-control" name="activityType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="home-visit">Home Visit</option>
+                                            <option value="clinic">Clinic Session</option>
+                                            <option value="vaccination">Vaccination</option>
+                                            <option value="counseling">Counseling</option>
+                                            <option value="meeting">Meeting</option>
+                                            <option value="training">Training</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Duration (minutes)</label>
+                                        <select class="form-control" name="duration">
+                                            <option value="30">30 minutes</option>
+                                            <option value="45">45 minutes</option>
+                                            <option value="60">1 hour</option>
+                                            <option value="90">1.5 hours</option>
+                                            <option value="120">2 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Title/Description *</label>
+                                <input type="text" class="form-control" name="title" placeholder="Brief description of the activity" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" name="location" placeholder="Where will this take place?">
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Priority</label>
+                                        <select class="form-control" name="priority">
+                                            <option value="normal">Normal</option>
+                                            <option value="high">High</option>
+                                            <option value="urgent">Urgent</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Duty Area</label>
+                                        <select class="form-control" name="dutyArea">
+                                            <option value="uduthuththiripitiya">Uduthuththiripitiya</option>
+                                            <option value="kahabilihena">Kahabilihena</option>
+                                            <option value="opathella">Opathella</option>
+                                            <option value="ambalangoda">Ambalangoda</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" form="scheduleItemForm" class="btn btn-primary">Add to Schedule</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelector('input[name="scheduleDate"]').value = today;
+
+            document.getElementById('scheduleItemForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const scheduleData = Object.fromEntries(formData);
+                alert('Schedule item added successfully!\\n' +
+                      'Date: ' + scheduleData.scheduleDate + '\\n' +
+                      'Time: ' + scheduleData.scheduleTime + '\\n' +
+                      'Activity: ' + scheduleData.title);
+                closeModal();
+                // Here you would typically save to database or localStorage
+            });
+        }
+
+        function showMyTimetable() {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 900px;">
+                    <div class="modal-header">
+                        <h3>My Timetable</h3>
+                        <button onclick="closeModal()" class="close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="timetable-controls mb-3">
+                            <div class="d-flex justify-content-start gap-2 mb-3" role="tablist">
+                                <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
+                                <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
+                                <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
+                            </div>
+
+                            <div class="row" id="timetable-selectors">
+                                <div class="col-4">
+                                    <label class="form-label">Year</label>
+                                    <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData()">
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026" selected>2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                    </select>
+                                </div>
+                                <div class="col-4" id="timetable-month-wrapper">
+                                    <label class="form-label">Month</label>
+                                    <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData()">
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03" selected>March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="col-4" id="timetable-day-wrapper">
+                                    <label class="form-label">Day</label>
+                                    <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData()">
+                                        ${Array.from({ length: 31 }, (_, idx) => `<option value="${String(idx + 1).padStart(2, '0')}" ${idx + 1 === 27 ? 'selected' : ''}>${idx + 1}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="timetableContent">
+                            <!-- Timetable will be loaded here -->
+                            <div id="timetableHeader" class="timetable-header" style="display: none;">
+                                <h4 id="monthTitle"></h4>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Set default selected values
+            document.getElementById('timetableYear').value = '2026';
+            document.getElementById('timetableMonth').value = '03';
+            document.getElementById('timetableDay').value = '27';
+            setTimetableTab('month');
+
+            // Load initial timetable data
+            loadTimetableData();
+        }
+
+        let currentTimetableTab = 'month';
+
+        function syncTimetableInputs() {
+            const yearInput = document.getElementById('timetableYear');
+            const monthInput = document.getElementById('timetableMonth');
+            const dayInput = document.getElementById('timetableDay');
+            const selectedYear = yearInput.value || '2026';
+            const selectedMonth = monthInput.value || '03';
+            const selectedDay = dayInput.value || '01';
+
+            if (currentTimetableTab === 'year') {
+                monthInput.value = '01';
+                dayInput.value = '01';
+            } else if (currentTimetableTab === 'month') {
+                dayInput.value = '01';
+            } else if (currentTimetableTab === 'day') {
+                // keep all values as chosen
+            }
+
+            // Keep selected year aligned to actual data field
+            yearInput.value = selectedYear;
+            monthInput.value = selectedMonth;
+            dayInput.value = selectedDay;
+        }
+
+        function setTimetableTab(tabName) {
+            currentTimetableTab = tabName;
+
+            document.getElementById('tab-year').classList.toggle('active', tabName === 'year');
+            document.getElementById('tab-month').classList.toggle('active', tabName === 'month');
+            document.getElementById('tab-day').classList.toggle('active', tabName === 'day');
+
+            document.getElementById('timetable-month-wrapper').style.display = tabName === 'year' || tabName === 'month' ? 'block' : 'none';
+            document.getElementById('timetable-day-wrapper').style.display = tabName === 'day' || tabName === 'month' ? 'block' : 'none';
+
+            syncTimetableInputs();
+            loadTimetableData();
+        }
+
+        function loadTimetableData() {
+            const selectedYear = document.getElementById('timetableYear').value;
+            const selectedMonth = document.getElementById('timetableMonth').value;
+            const selectedDay = document.getElementById('timetableDay').value;
+            const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+
+            // Sample timetable data for each month of 2026 - in real implementation, this would come from database
+            const sampleData = {
+                '2026-01': [ // January
+                    { date: '2026-01-05', time: '09:00', activity: 'Home Visit - Mrs. Silva (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-01-07', time: '10:30', activity: 'Antenatal Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-01-12', time: '14:00', activity: 'Vaccination Session - BCG', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'normal' },
+                    { date: '2026-01-15', time: '09:30', activity: 'Home Visit - Mrs. Perera (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-01-20', time: '11:00', activity: 'Family Planning Counseling', type: 'counseling', duration: '30 min', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-01-25', time: '15:00', activity: 'Emergency Home Visit', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-01-28', time: '10:00', activity: 'Nutrition Education Workshop', type: 'training', duration: '2 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-02': [ // February
+                    { date: '2026-02-03', time: '09:15', activity: 'Home Visit - Mrs. Fernando (Postnatal)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-02-06', time: '11:00', activity: 'Prenatal Checkup Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-02-10', time: '13:30', activity: 'DPT Vaccination Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-02-14', time: '10:00', activity: 'Home Visit - Mrs. Wickramasinghe (32 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-02-18', time: '14:30', activity: 'Maternal Health Seminar', type: 'training', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-02-22', time: '09:45', activity: 'Follow-up Visit - High Risk Case', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-02-26', time: '15:30', activity: 'Monthly Staff Meeting', type: 'meeting', duration: '45 min', location: 'PHM Office', priority: 'normal' }
+                ],
+                '2026-03': [ // March
+                    { date: '2026-03-02', time: '09:00', activity: 'Home Visit - Mrs. Rajapaksa (Newborn)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'urgent' },
+                    { date: '2026-03-05', time: '10:30', activity: 'Well Baby Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-03-10', time: '14:00', activity: 'Measles Vaccination Drive', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-03-15', time: '11:15', activity: 'Home Visit - Mrs. Kumari (36 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'high' },
+                    { date: '2026-03-20', time: '13:45', activity: 'Breastfeeding Support Group', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-03-25', time: '09:30', activity: 'Emergency Prenatal Care', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-03-28', time: '15:00', activity: 'Health Education Session', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-04': [ // April
+                    { date: '2026-04-01', time: '09:30', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
+                    { date: '2026-04-05', time: '11:00', activity: 'Growth Monitoring Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-04-10', time: '14:30', activity: 'Polio Vaccination Round', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-04-15', time: '10:15', activity: 'Home Visit - Mrs. Chamika (24 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-04-20', time: '13:00', activity: 'Contraceptive Counseling', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-04-25', time: '09:45', activity: 'High Risk Pregnancy Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-04-28', time: '15:30', activity: 'Nutrition Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-05': [ // May
+                    { date: '2026-05-03', time: '09:00', activity: 'Home Visit - Mrs. Nirmala (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-05-07', time: '10:45', activity: 'Immunization Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-05-12', time: '14:15', activity: 'Vitamin A Supplementation', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-05-17', time: '11:30', activity: 'Home Visit - Mrs. Kamani (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-05-22', time: '13:45', activity: 'Postpartum Depression Screening', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-05-27', time: '09:15', activity: 'Emergency Delivery Assistance', type: 'home-visit', duration: '2 hours', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-05-30', time: '15:00', activity: 'Child Development Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-06': [ // June
+                    { date: '2026-06-02', time: '09:30', activity: 'Home Visit - Mrs. Sandya (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
+                    { date: '2026-06-06', time: '11:15', activity: 'School Health Program', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-06-11', time: '14:45', activity: 'MMR Vaccination Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-06-16', time: '10:00', activity: 'Home Visit - Mrs. Priyanka (32 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'high' },
+                    { date: '2026-06-21', time: '13:30', activity: 'Adolescent Health Education', type: 'counseling', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-06-26', time: '09:45', activity: 'Multiple Pregnancy Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-06-29', time: '15:30', time: '16:00', activity: 'Staff Training Session', type: 'training', duration: '2 hours', location: 'PHM Office', priority: 'normal' }
+                ],
+                '2026-07': [ // July
+                    { date: '2026-07-01', time: '09:00', activity: 'Home Visit - Mrs. Madhavi (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-07-05', time: '10:30', activity: 'Maternal & Child Health Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-07-10', time: '14:00', activity: 'Hepatitis B Vaccination', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-07-15', time: '11:45', activity: 'Home Visit - Mrs. Kumari (36 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'urgent' },
+                    { date: '2026-07-20', time: '13:15', activity: 'Family Planning Workshop', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-07-25', time: '09:30', activity: 'Preterm Labor Assessment', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-07-28', time: '15:00', activity: 'Emergency Preparedness Training', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-08': [ // August
+                    { date: '2026-08-03', time: '09:15', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
+                    { date: '2026-08-07', time: '11:00', activity: 'Nutrition Assessment Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-08-12', time: '14:30', activity: 'Japanese Encephalitis Vaccination', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-08-17', time: '10:45', activity: 'Home Visit - Mrs. Chamika (28 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-08-22', time: '13:00', activity: 'Mental Health Awareness', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-08-27', time: '09:15', activity: 'Gestational Diabetes Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-08-30', time: '15:30', activity: 'Infant Care Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-09': [ // September
+                    { date: '2026-09-02', time: '09:00', activity: 'Home Visit - Mrs. Nirmala (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-09-06', time: '10:30', activity: 'Developmental Assessment Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-09-11', time: '14:15', activity: 'DPT Booster Campaign', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-09-16', time: '11:30', activity: 'Home Visit - Mrs. Kamani (32 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-09-21', time: '13:45', activity: 'Domestic Violence Support', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-09-26', time: '09:45', activity: 'Preeclampsia Screening', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-09-29', time: '15:00', activity: 'First Aid Training', type: 'training', duration: '2 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-10': [ // October
+                    { date: '2026-10-01', time: '09:30', activity: 'Home Visit - Mrs. Sandya (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
+                    { date: '2026-10-05', time: '11:15', activity: 'Oral Health Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-10-10', time: '14:45', activity: 'Influenza Vaccination', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-10-15', time: '10:00', activity: 'Home Visit - Mrs. Priyanka (36 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'urgent' },
+                    { date: '2026-10-20', time: '13:30', activity: 'HIV/AIDS Awareness', type: 'counseling', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-10-25', time: '09:15', activity: 'Anemia Treatment Follow-up', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-10-28', time: '15:30', activity: 'Community Health Meeting', type: 'meeting', duration: '1 hour', location: 'PHM Office', priority: 'normal' }
+                ],
+                '2026-11': [ // November
+                    { date: '2026-11-03', time: '09:00', activity: 'Home Visit - Mrs. Madhavi (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
+                    { date: '2026-11-07', time: '10:45', activity: 'Eye Health Screening', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-11-12', time: '14:00', activity: 'Typhoid Vaccination', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-11-17', time: '11:30', activity: 'Home Visit - Mrs. Kumari (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-11-22', time: '13:15', activity: 'Reproductive Health Education', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-11-27', time: '09:30', activity: 'Thyroid Disorder Monitoring', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-11-30', time: '15:00', activity: 'Disaster Preparedness Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
+                ],
+                '2026-12': [ // December
+                    { date: '2026-12-02', time: '09:15', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
+                    { date: '2026-12-06', time: '11:00', activity: 'Year-End Health Review', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
+                    { date: '2026-12-11', time: '14:30', activity: 'COVID-19 Booster Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
+                    { date: '2026-12-16', time: '10:45', activity: 'Home Visit - Mrs. Chamika (32 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
+                    { date: '2026-12-21', time: '13:00', activity: 'Holiday Health Safety', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
+                    { date: '2026-12-26', time: '09:45', activity: 'Post-Holiday Health Check', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
+                    { date: '2026-12-29', time: '15:30', activity: 'Annual Performance Review', type: 'meeting', duration: '1.5 hours', location: 'PHM Office', priority: 'normal' }
+                ]
+            };
+
+            let data = [];
+            let viewType = '';
+
+            if (currentTimetableTab === 'year') {
+                Object.values(sampleData).forEach(monthItems => data.push(...monthItems));
+                viewType = 'year';
+            } else if (currentTimetableTab === 'month') {
+                const monthKey = selectedMonth || '2026-03';
+                data = sampleData[monthKey] || [];
+                viewType = monthKey;
+            } else {
+                if (selectedDate) {
+                    data = Object.values(sampleData).flat().filter(item => item.date === selectedDate);
+                } else {
+                    data = [];
+                }
+                viewType = 'day';
+            }
+
+            renderTimetable(data, viewType);
+            updateTimetableSummary(data);
+        }
+
+        function renderTimetable(data, viewType) {
+            const content = document.getElementById('timetableContent');
+            const header = document.getElementById('timetableHeader');
+            const monthTitle = document.getElementById('monthTitle');
+
+            // Show month header for monthly views
+            if (viewType && viewType.startsWith('2026-')) {
+                const monthNames = {
+                    '2026-01': 'January 2026',
+                    '2026-02': 'February 2026',
+                    '2026-03': 'March 2026',
+                    '2026-04': 'April 2026',
+                    '2026-05': 'May 2026',
+                    '2026-06': 'June 2026',
+                    '2026-07': 'July 2026',
+                    '2026-08': 'August 2026',
+                    '2026-09': 'September 2026',
+                    '2026-10': 'October 2026',
+                    '2026-11': 'November 2026',
+                    '2026-12': 'December 2026'
+                };
+                monthTitle.textContent = monthNames[viewType] || 'Timetable';
+                header.style.display = 'block';
+            } else {
+                header.style.display = 'none';
+            }
+
+            if (data.length === 0) {
+                content.innerHTML = '<div class="text-center text-muted"><i class="fas fa-calendar-times fa-3x mb-3"></i><p>No scheduled activities found for this month.</p></div>';
+                return;
+            }
+
+            let html = '<div class="timetable-list">';
+
+            data.forEach((item, index) => {
+                const activityIcon = getActivityIcon(item.type);
+                const priorityClass = item.priority === 'urgent' ? 'priority-high' :
+                                    item.priority === 'high' ? 'priority-normal' : 'priority-low';
+
+                html += `
+                    <div class="timetable-item ${priorityClass}">
+                        <div class="timetable-time">
+                            <div class="time">${item.time}</div>
+                            <div class="date">${formatDate(item.date)}</div>
+                        </div>
+                        <div class="timetable-details">
+                            <h6><i class="${activityIcon}"></i> ${item.activity}</h6>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${item.location}</p>
+                            <p class="duration"><i class="fas fa-clock"></i> ${item.duration}</p>
+                        </div>
+                        <div class="timetable-actions">
+                            <button class="btn btn-sm btn-info" onclick="viewTimetableItem(${index})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="editTimetableItem(${index})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteTimetableItem(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            content.innerHTML = html;
+        }
+
+        function updateTimetableSummary(data) {
+            const totalActivities = data.length;
+            const homeVisits = data.filter(item => item.type === 'home-visit').length;
+            const clinicSessions = data.filter(item => item.type === 'clinic').length;
+            const totalHours = data.reduce((sum, item) => {
+                const duration = parseInt(item.duration.split(' ')[0]);
+                return sum + (item.duration.includes('hour') ? duration : duration / 60);
+            }, 0);
+
+            document.getElementById('totalActivities').textContent = totalActivities;
+            document.getElementById('homeVisits').textContent = homeVisits;
+            document.getElementById('clinicSessions').textContent = clinicSessions;
+            document.getElementById('totalHours').textContent = totalHours.toFixed(1);
+        }
+
+        function getActivityIcon(type) {
+            const icons = {
+                'home-visit': 'fas fa-home',
+                'clinic': 'fas fa-hospital',
+                'vaccination': 'fas fa-syringe',
+                'counseling': 'fas fa-comments',
+                'meeting': 'fas fa-users',
+                'training': 'fas fa-graduation-cap',
+                'other': 'fas fa-calendar-check'
+            };
+            return icons[type] || 'fas fa-calendar-check';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+
+        function viewTimetableItem(index) {
+            alert('Viewing detailed information for timetable item ' + (index + 1));
+        }
+
+        function editTimetableItem(index) {
+            alert('Editing timetable item ' + (index + 1));
+        }
+
+        function deleteTimetableItem(index) {
+            if (confirm('Are you sure you want to delete this timetable item?')) {
+                alert('Timetable item ' + (index + 1) + ' deleted');
+                loadTimetableData(); // Refresh the timetable
+            }
+        }
+
+        function editTimetable() {
+            alert('Opening timetable editor...');
+            // Could open a more comprehensive editing interface
         }
 
         function generateReport() {
@@ -6222,8 +6852,71 @@
         }
 
         function viewPatientDetails(patientId) {
-            alert(`Viewing detailed information for patient ID: ${patientId}`);
-            // Implementation would show patient history and details
+            const patientRecords = {
+                1: {
+                    name: 'Mrs. Nirmala Fernando',
+                    age: 29,
+                    visitType: 'Postnatal Visit - Day 3',
+                    location: 'No. 45, Galle Road, Mount Lavinia',
+                    time: '09:00',
+                    duration: '45 min',
+                    notes: 'Follow-up on breastfeeding issues and jaundice monitoring',
+                    risk: 'Medium',
+                    lastVisit: '2026-03-20',
+                    doctorComments: 'Continue vitamin D and iron supplements'            
+                },
+                2: {
+                    name: 'Mrs. Kamani Wickramasinghe',
+                    age: 32,
+                    visitType: 'Antenatal Visit - 32 weeks',
+                    location: 'No. 78, Temple Road, Dehiwala',
+                    time: '10:30',
+                    duration: '30 min',
+                    notes: 'Routine checkup, monitor blood pressure and fetal growth',
+                    risk: 'High',
+                    lastVisit: '2026-03-19',
+                    doctorComments: 'Schedule ultrasound and monitor blood sugar'
+                },
+                3: {
+                    name: 'Mrs. Sandya Peris',
+                    age: 26,
+                    visitType: 'Postnatal Visit - Day 14',
+                    location: 'No. 23, Flower Road, Colombo 7',
+                    time: '14:00',
+                    duration: '40 min',
+                    notes: 'Check healing progress, discuss family planning',
+                    risk: 'Low',
+                    lastVisit: '2026-03-16',
+                    doctorComments: 'All fine, continue current postpartum diet'
+                }
+            };
+
+            const record = patientRecords[patientId];
+            const detailsCard = document.getElementById('home-visit-details-record');
+            const detailsBody = document.getElementById('home-visit-details-body');
+
+            if (!record) {
+                detailsBody.innerHTML = '<p class="text-danger">No records found for this visit.</p>';
+                detailsCard.style.display = 'block';
+                return;
+            }
+
+            detailsBody.innerHTML = `
+                <table class="table table-bordered">
+                    <tr><th>Patient Name</th><td>${record.name}</td></tr>
+                    <tr><th>Age</th><td>${record.age}</td></tr>
+                    <tr><th>Visit Type</th><td>${record.visitType}</td></tr>
+                    <tr><th>Location</th><td>${record.location}</td></tr>
+                    <tr><th>Time</th><td>${record.time}</td></tr>
+                    <tr><th>Duration</th><td>${record.duration}</td></tr>
+                    <tr><th>Notes</th><td>${record.notes}</td></tr>
+                    <tr><th>Risk Level</th><td>${record.risk}</td></tr>
+                    <tr><th>Last Visit</th><td>${record.lastVisit}</td></tr>
+                    <tr><th>Doctor Comments</th><td>${record.doctorComments}</td></tr>
+                </table>
+                <button class="btn btn-outline-secondary" onclick="document.getElementById('home-visit-details-record').style.display='none'">Close Details</button>
+            `;
+            detailsCard.style.display = 'block';
         }
 
         function rescheduleVisit(visitId) {
