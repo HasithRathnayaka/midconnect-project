@@ -6062,7 +6062,6 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Distribution Records</h4>
-                                <button class="btn btn-primary" onclick="showDistributionForm()">Record New Distribution</button>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -6071,6 +6070,7 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Beneficiary</th>
+                                                <th>Address</th>
                                                 <th>Packets</th>
                                                 <th>Category</th>
                                                 <th>Status</th>
@@ -6081,6 +6081,7 @@
                                             <tr data-id="1">
                                                 <td>2026-02-05</td>
                                                 <td>Mrs. K. Silva</td>
+                                                <td>45, Main Street, Uduthuththiripitiya</td>
                                                 <td>2</td>
                                                 <td>Pregnant Mother</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6093,6 +6094,7 @@
                                             <tr data-id="2">
                                                 <td>2026-02-05</td>
                                                 <td>Mrs. A. Fernando</td>
+                                                <td>12, Temple Road, Uduthuththiripitiya</td>
                                                 <td>3</td>
                                                 <td>Lactating Mother</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6105,6 +6107,7 @@
                                             <tr data-id="3">
                                                 <td>2026-02-04</td>
                                                 <td>Mrs. D. Jayawardene</td>
+                                                <td>8, School Lane, Uduthuththiripitiya</td>
                                                 <td>2</td>
                                                 <td>Child (6-23 months)</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6117,6 +6120,7 @@
                                             <tr data-id="4">
                                                 <td>2026-02-04</td>
                                                 <td>Mrs. P. Perera</td>
+                                                <td>23, Station Road, Uduthuththiripitiya</td>
                                                 <td>1</td>
                                                 <td>Pregnant Mother</td>
                                                 <td><span class="status-badge status-pending">Pending</span></td>
@@ -6147,9 +6151,6 @@
                                 </button>
                                 <button class="btn btn-danger btn-block mb-3" onclick="showRemoveDistributionForm()">
                                     <i class="fas fa-minus-circle"></i> Remove Distribution
-                                </button>
-                                <button class="btn btn-info btn-block mb-3" onclick="generateTriposhaPeport()">
-                                    <i class="fas fa-chart-bar"></i> Generate Report
                                 </button>
                             </div>
                         </div>
@@ -6196,223 +6197,47 @@
             </div>
             </div>
 
-            <!-- Opathella Area Content -->
-            <div class="area-content-wrapper" data-area="opathella">
-                <div class="area-header">
-                    <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Triposha Distribution</h4>
-                    <p>Coverage: 8 urban wards | Beneficiaries: 52 families | Distribution Center: Opathella PHC</p>
-                </div>
-
-                <!-- Statistics Cards -->
-                <div class="dashboard-stats">
-                    <div class="stat-card info editable-stat" onclick="editPacketsReceived()">
-                        <div class="stat-number" id="packets-received-month-opt">90</div>
-                        <div class="stat-label">Packets Received This Month</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+            <!-- Remove Distribution Modal -->
+            <div id="removeDistributionModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Remove Triposha Distribution</h3>
+                        <span class="close" onclick="closeRemoveDistributionModal()">&times;</span>
                     </div>
-                    <div class="stat-card warning editable-stat" onclick="editPacketsLeftPrevious()">
-                        <div class="stat-number" id="packets-left-previous-opt">12</div>
-                        <div class="stat-label">Packets Left from Previous Month</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-number" id="total-packets-opt">102</div>
-                        <div class="stat-label">Total Packets Available</div>
-                        <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
-                    </div>
-                    <div class="stat-card editable-stat" onclick="editPacketsDistributed()">
-                        <div class="stat-number" id="packets-distributed-opt">56</div>
-                        <div class="stat-label">Packets Distributed</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                    </div>
-                </div>
-
-                <!-- Distribution Management -->
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Distribution Records</h4>
-                                <button class="btn btn-primary" onclick="showDistributionForm()">Record New Distribution</button>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Beneficiary</th>
-                                                <th>Packets</th>
-                                                <th>Category</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="distribution-records-opt">
-                                            <tr data-id="1">
-                                                <td>2026-02-11</td>
-                                                <td>Mrs. S. Jayawardena</td>
-                                                <td>2</td>
-                                                <td>Child (6-23 months)</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'children')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="2">
-                                                <td>2026-02-10</td>
-                                                <td>Mrs. M. Silva</td>
-                                                <td>1</td>
-                                                <td>Pregnant Mother</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 1, 'pregnant')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="3">
-                                                <td>2026-02-09</td>
-                                                <td>Mrs. A. Perera</td>
-                                                <td>3</td>
-                                                <td>Lactating Mother</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 3, 'lactating')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="4">
-                                                <td>2026-02-08</td>
-                                                <td>Mrs. L. Fernando</td>
-                                                <td>2</td>
-                                                <td>Child (6-23 months)</td>
-                                                <td><span class="status-badge status-pending">Pending</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'children')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Warning:</strong> This action will permanently remove the distribution record and adjust packet counts.
                         </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Quick Actions</h4>
+                        <form id="removeDistributionForm">
+                            <div class="form-group">
+                                <label>Select Distribution to Remove</label>
+                                <select name="distribution_record" id="distributionSelect" required>
+                                    <option value="">Select a distribution record to remove</option>
+                                </select>
                             </div>
-                            <div class="card-body">
-                                <button class="btn btn-primary btn-block mb-3" onclick="showDistributionForm()">
-                                    <i class="fas fa-plus"></i> Record Distribution
-                                </button>
-                                <button class="btn btn-secondary btn-block mb-3" onclick="updateInventory()">
-                                    <i class="fas fa-box-open"></i> Update Inventory
-                                </button>
-                                <button class="btn btn-danger btn-block mb-3" onclick="showRemoveDistributionForm()">
-                                    <i class="fas fa-minus-circle"></i> Remove Distribution
-                                </button>
-                                <button class="btn btn-info btn-block mb-3" onclick="generateTriposhaPeport()">
-                                    <i class="fas fa-chart-bar"></i> Generate Report
-                                </button>
+                            <div class="form-group">
+                                <label>Reason for Removal (Optional)</label>
+                                <select name="removal_reason">
+                                    <option value="accidental">Accidental Distribution</option>
+                                    <option value="incorrect_beneficiary">Incorrect Beneficiary</option>
+                                    <option value="wrong_quantity">Wrong Quantity</option>
+                                    <option value="data_entry_error">Data Entry Error</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
-                        </div>
-
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h4 class="card-title">Monthly Summary</h4>
+                            <div class="form-group">
+                                <label>Additional Notes (Optional)</label>
+                                <textarea name="removal_notes" rows="3" placeholder="Additional details about the removal"></textarea>
                             </div>
-                            <div class="card-body">
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('pregnant')">
-                                    <span>Pregnant Mothers:</span>
-                                    <div>
-                                        <strong id="pregnant-packets-opt">18 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
-                                    </div>
-                                </div>
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('lactating')">
-                                    <span>Lactating Mothers:</span>
-                                    <div>
-                                        <strong id="lactating-packets-opt">24 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
-                                    </div>
-                                </div>
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('children')">
-                                    <span>Children (6-23m):</span>
-                                    <div>
-                                        <strong id="children-packets-opt">14 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="summary-item">
-                                    <span><strong>Total Distributed:</strong></span>
-                                    <strong class="text-success" id="total-distributed-summary-opt">56 packets</strong>
-                                </div>
-                                <div class="summary-item">
-                                    <span><strong>Remaining:</strong></span>
-                                    <strong class="text-warning" id="remaining-packets-opt">46 packets</strong>
-                                </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="closeRemoveDistributionModal()">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Remove Distribution</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <!-- Ambalangoda Area Content -->
-            <div class="area-content-wrapper" data-area="ambalangoda">
-                <div class="area-header">
-                    <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Triposha Distribution</h4>
-                    <p>Coverage: 18 villages | Beneficiaries: 95 families | Distribution Center: Ambalangoda DH</p>
-                </div>
-
-                <!-- Statistics Cards -->
-                <div class="dashboard-stats">
-                    <div class="stat-card info editable-stat" onclick="editPacketsReceived()">
-                        <div class="stat-number" id="packets-received-month-amb">180</div>
-                        <div class="stat-label">Packets Received This Month</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-            <div class="modal-body">
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>Warning:</strong> This action will permanently remove the distribution record and adjust packet counts.
-                </div>
-                <form id="removeDistributionForm">
-                    <div class="form-group">
-                        <label>Select Distribution to Remove</label>
-                        <select name="distribution_record" id="distributionSelect" required>
-                            <option value="">Select a distribution record to remove</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Reason for Removal (Optional)</label>
-                        <select name="removal_reason">
-                            <option value="accidental">Accidental Distribution</option>
-                            <option value="incorrect_beneficiary">Incorrect Beneficiary</option>
-                            <option value="wrong_quantity">Wrong Quantity</option>
-                            <option value="data_entry_error">Data Entry Error</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Additional Notes (Optional)</label>
-                        <textarea name="removal_notes" rows="3" placeholder="Additional details about the removal"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeRemoveDistributionModal()">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Remove Distribution</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div id="distributionModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
