@@ -186,7 +186,7 @@
     <script src="js/theme-toggle.js"></script>
     <script src="js/main.js"></script>
 
-    <!-- Chatbot Widget -->
+    <!-- Chatbot Widget 
     <div id="chatbot" class="chatbot">
         <div class="chatbot-header">
             <h4>MidConnect Support</h4>
@@ -196,11 +196,14 @@
         <div class="chatbot-input-group">
             <input type="text" id="chatbot-input" placeholder="Type your message..." class="chatbot-input">
             <button id="chatbot-send" class="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-        </div>
+        </div>-->
     </div>
-    <button id="chatbot-toggle" class="chatbot-toggle">
+    <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mkSuvkG19NuJ50hkdCPlJ";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+    <!--<button id="chatbot-toggle" class="chatbot-toggle">
         <i class="fas fa-comments"></i>
-    </button>
+    </button>-->
 
     <style>
         .chatbot-toggle {
