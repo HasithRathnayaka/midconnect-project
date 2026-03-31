@@ -1431,247 +1431,6 @@
             color: #bfd0e5;
         }
 
-        /* Modern Duty Area Cards */
-        .duty-area-card-modern {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-light);
-            border: 1px solid #e9ecef;
-            transition: var(--transition-medium);
-            height: 100%;
-        }
-
-        .duty-area-card-modern:hover {
-            box-shadow: var(--shadow-medium);
-            transform: translateY(-2px);
-        }
-
-        .duty-area-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #f1f3f4;
-        }
-
-        .duty-area-icon-large {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius-md);
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-
-        .duty-area-icon-large i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .duty-area-info h4 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .status-badge.status-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .duty-area-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 0.75rem;
-            background: #f8f9fa;
-            border-radius: var(--radius-md);
-            transition: var(--transition-medium);
-        }
-
-        .stat-item:hover {
-            background: #e9ecef;
-            transform: translateY(-1px);
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Compact Duty Area Cards */
-        .duty-area-container {
-            padding: 16px 0 20px;
-        }
-
-        .duty-areas-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-
-        .duty-area-btn {
-            background: #ffffff;
-            border: 2px solid #dfe6ea;
-            border-radius: 14px;
-            height: 120px;
-            transition: all 0.25s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .duty-area-btn i {
-            font-size: 28px;
-            color: #0b3b5a;
-        }
-
-        .duty-area-btn h5 {
-            font-size: 15px;
-            font-weight: 600;
-            color: #0b3b5a;
-            margin: 0;
-        }
-
-        .area-count {
-            font-size: 13px;
-            color: #7a8793;
-        }
-
-        .duty-area-btn:hover {
-            border-color: #10b9a7;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-        }
-
-        .duty-area-btn.active {
-            background: #e7f6ec;
-            border-color: #10b9a7;
-        }
-
-        .duty-area-btn.active i {
-            color: #10b9a7;
-        }
-
-        @media (max-width: 1024px) {
-            .duty-areas-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .duty-areas-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Dark theme for modern cards */
-        :root[data-theme='dark'] .duty-area-card-modern {
-            background: #1f324a;
-            border-color: #2c3e50;
-        }
-
-        :root[data-theme='dark'] .duty-area-header {
-            border-color: #2c3e50;
-        }
-
-        :root[data-theme='dark'] .duty-area-info h4 {
-            color: #e5edf8;
-        }
-
-        :root[data-theme='dark'] .stat-item {
-            background: #17263a;
-        }
-
-        :root[data-theme='dark'] .stat-item:hover {
-            background: #0f1929;
-        }
-
-        :root[data-theme='dark'] .stat-number {
-            color: #31c9bb;
-        }
-
-        :root[data-theme='dark'] .stat-label {
-            color: #8892a6;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .duty-area-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .duty-area-header {
-                margin-bottom: 1rem;
-            }
-
-            .duty-area-icon-large {
-                width: 50px;
-                height: 50px;
-            }
-
-            .duty-area-icon-large i {
-                font-size: 1.25rem;
-            }
-
-            .duty-area-info h4 {
-                font-size: 1.1rem;
-            }
-
-            .stat-number {
-                font-size: 1.25rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .duty-area-card-modern {
-                padding: 1rem;
-            }
-
-            .duty-area-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
-            }
-
-            .stat-item {
-                padding: 0.5rem;
-            }
-
-            .stat-number {
-                font-size: 1.1rem;
-            }
-
-            .stat-label {
-                font-size: 0.75rem;
-            }
-        }
-
         /* Timetable Styles */
         .timetable-list {
             display: flex;
@@ -1834,91 +1593,7 @@
         :root[data-theme='dark'] .summary-card {
             background: #2a3a52;
         }
-    
-/* counseling-session.html styles */
-.counseling-hero {
-            background: linear-gradient(135deg, var(--accent-teal), var(--secondary-light-green));
-            color: white;
-            border-radius: var(--radius-lg);
-            padding: 1.75rem 2rem;
-            margin-bottom: 1.75rem;
-        }
-        .counseling-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .counseling-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
-        :root[data-theme='dark'] .counseling-hero {
-            background: linear-gradient(135deg, #0f2d47, #146482);
-        }
-        
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: inline-block;
-        }
-        .status-badge.status-active { background-color: #d4edda; color: #155724; }
-
-/* health-education-session.html styles */
-.health-hero {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-dark-green));
-            color: white;
-            border-radius: var(--radius-lg);
-            padding: 1.75rem 2rem;
-            margin-bottom: 1.75rem;
-        }
-        .health-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .health-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
-        :root[data-theme='dark'] .health-hero {
-            background: linear-gradient(135deg, #1e3a5f, #0d4a44);
-        }
-        
-        .topic-pill {
-            display: inline-block;
-            padding: 0.25rem 0.6rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.8rem;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            margin-right: 0.35rem;
-        }
-
-/* emergency-responses.html styles */
-.emergency-hero {
-            background: linear-gradient(135deg, #c0392b, #e74c3c);
-            color: white;
-            border-radius: var(--radius-lg);
-            padding: 1.75rem 2rem;
-            margin-bottom: 1.75rem;
-        }
-        .emergency-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .emergency-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
-        :root[data-theme='dark'] .emergency-hero {
-            background: linear-gradient(135deg, #7f1d1d, #991b1b);
-        }
-        
-        .emergency-tile {
-            background: var(--white);
-            border-radius: var(--radius-md);
-            padding: 1rem 1.25rem;
-            border: 1px solid #e9ecef;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
-        }
-        .emergency-tile i {
-            font-size: 1.5rem;
-            color: var(--accent-red);
-            min-width: 2rem;
-            text-align: center;
-        }
-        .emergency-tile strong { display: block; color: var(--text-primary); }
-        .emergency-tile span { font-size: 0.9rem; color: var(--text-secondary); }
-        .priority-critical { border-left: 5px solid #c0392b; }
-        .priority-high { border-left: 5px solid #fd7e14; }
-        .priority-moderate { border-left: 5px solid var(--primary-blue); }
-
-</style>
+    </style>
 </head>
 <body>
     <header class="header">
@@ -1946,8 +1621,6 @@
                     <li><a href="#home-visits"><i class="fas fa-home"></i> Home Visits</a></li>
                     <li><a href="#vaccinations"><i class="fas fa-syringe"></i> Vaccinations</a></li>
                     <li><a href="#triposha"><i class="fas fa-box"></i> Triposha Distribution</a></li>
-                    <li><a href="#counseling-session"><i class="fas fa-comments"></i> Counseling Sessions</a></li>
-                    <li><a href="#health-education-session"><i class="fas fa-chalkboard-teacher"></i> Health Education Session</a></li>
                     <li><a href="#patients"><i class="fas fa-heart"></i> Maternal & Child Care</a></li>
                     <li><a href="#profile"><i class="fas fa-user"></i> My Profile</a></li>
                 </ul>
@@ -1978,58 +1651,76 @@
                     </div>
                 </div>
 
-                
-                <!-- Dynamic Dashboard Widgets -->
-                <div class="row" style="margin-bottom: 2rem;" id="dynamic-widgets-container">
-                    <!-- 1. Urgent Meetings -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-red); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-red);"><i class="fas fa-exclamation-triangle"></i> Urgent Meetings</h4>
-                            </div>
-                            <div class="card-body" id="widget-urgent" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
+                <!-- Stats Row -->
+                <div class="row" style="margin-bottom: 2rem;">
+                    <div class="col-3">
+                        <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">12</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">Activities This Week</div>
                         </div>
                     </div>
-                    
-                    <!-- 2. Upcoming Clinics -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--primary-blue); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--primary-blue);"><i class="fas fa-hospital"></i> Upcoming Clinics</h4>
-                            </div>
-                            <div class="card-body" id="widget-clinics" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
+                    <div class="col-3">
+                        <div class="card" style="border-left: 4px solid var(--accent-teal); text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">8</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">Home Visits</div>
                         </div>
                     </div>
-                    
-                    <!-- 3. Time Table -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--secondary-green); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--secondary-green);"><i class="fas fa-clock"></i> Today's Time Table</h4>
-                            </div>
-                            <div class="card-body" id="widget-timetable" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
+                    <div class="col-3">
+                        <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">25</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">Patients Served</div>
                         </div>
                     </div>
-                    
-                    <!-- 4. Notifications -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-orange); height: 100%;">
+                    <div class="col-3">
+                        <div class="card" style="border-left: 4px solid #fd7e14; text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue);">3</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;">Pending Reports</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Recent Activities -->
+                    <div class="col-6">
+                        <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-orange);"><i class="fas fa-bell"></i> Notifications & Alerts</h4>
+                                <h4 class="card-title">Recent Activities</h4>
                             </div>
-                            <div class="card-body" id="widget-notifications" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+                            <div class="card-body">
+                                <div class="activity-log-item">
+                                    <div>
+                                        <strong>Home Visit Completed</strong>
+                                        <p>Mrs. D. Jayawardene - Yesterday 15:30</p>
+                                    </div>
+                                    <span class="status-badge status-active">Completed</span>
+                                </div>
+                                <div class="activity-log-item">
+                                    <div>
+                                        <strong>Vaccination Record</strong>
+                                        <p>5 children vaccinated - Yesterday 11:00</p>
+                                    </div>
+                                    <span class="status-badge status-active">Completed</span>
+                                </div>
+                                <div class="activity-log-item">
+                                    <div>
+                                        <strong>Report Submitted</strong>
+                                        <p>Weekly activity report - Monday</p>
+                                    </div>
+                                    <span class="status-badge status-active">Submitted</span>
+                                </div>
+                                <div class="activity-log-item">
+                                    <div>
+                                        <strong>Counseling Session</strong>
+                                        <p>New mother guidance - Monday 14:00</p>
+                                    </div>
+                                    <span class="status-badge status-active">Completed</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-</div>
+
+            </div>
 
             <!-- Log Activity Section -->
             <div id="log-activity" class="content-section" style="display: none;">
@@ -2372,287 +2063,6 @@
             </div>
 
             <!-- Maternal and Child Care Section -->
-            
-<!-- counseling-session Section -->
-<div id="counseling-session" class="content-section" style="display: none;">
-                <div class="counseling-hero">
-                    <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
-                    <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
-                </div>
-
-                <div class="row" style="margin-bottom: 1.5rem;">
-                    <div class="col-6">
-                        <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">14</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Sessions this month</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">5</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Follow-ups scheduled</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <div class="card-header">
-                        <h4 class="card-title">Log counseling session</h4>
-                    </div>
-                    <div class="card-body">
-                        <form id="counselingForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date &amp; time</label>
-                                        <input type="datetime-local" class="form-control" name="session_datetime" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Client identifier</label>
-                                        <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Session focus</label>
-                                        <select class="form-control form-select" name="focus" required>
-                                            <option value="">Select</option>
-                                            <option value="antenatal">Antenatal care &amp; birth planning</option>
-                                            <option value="postnatal">Postnatal &amp; recovery</option>
-                                            <option value="breastfeeding">Breastfeeding &amp; nutrition</option>
-                                            <option value="family_planning">Family planning</option>
-                                            <option value="mental_health">Mental health &amp; emotional support</option>
-                                            <option value="gbv">Gender-based violence / safety</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Location</label>
-                                <select class="form-control form-select" name="location_type">
-                                    <option value="clinic">MOH clinic</option>
-                                    <option value="home">Home visit</option>
-                                    <option value="phone">Telephone</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Summary &amp; advice given</label>
-                                <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Follow-up required</label>
-                                <select class="form-control form-select" name="followup">
-                                    <option value="no">No</option>
-                                    <option value="yes">Yes — schedule</option>
-                                    <option value="referral">Referral to specialist</option>
-                                </select>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Recent counseling sessions</h4>
-                    </div>
-                    <div class="card-body" style="padding: 0;">
-                        <div style="overflow-x: auto;">
-                            <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: var(--bg-secondary); text-align: left;">
-                                        <th style="padding: 0.75rem 1rem;">Date</th>
-                                        <th style="padding: 0.75rem 1rem;">Focus</th>
-                                        <th style="padding: 0.75rem 1rem;">Location</th>
-                                        <th style="padding: 0.75rem 1rem;">Duration</th>
-                                        <th style="padding: 0.75rem 1rem;">Follow-up</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">26 Mar 2026, 10:15</td>
-                                        <td style="padding: 0.75rem 1rem;">Breastfeeding &amp; nutrition</td>
-                                        <td style="padding: 0.75rem 1rem;">MOH Clinic</td>
-                                        <td style="padding: 0.75rem 1rem;">45 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge status-active">Scheduled</span></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">24 Mar 2026, 14:00</td>
-                                        <td style="padding: 0.75rem 1rem;">Antenatal care</td>
-                                        <td style="padding: 0.75rem 1rem;">Home Visit</td>
-                                        <td style="padding: 0.75rem 1rem;">30 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #e9ecef; color: var(--text-primary);">None</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem 1rem;">22 Mar 2026, 09:30</td>
-                                        <td style="padding: 0.75rem 1rem;">Mental health support</td>
-                                        <td style="padding: 0.75rem 1rem;">Community Center</td>
-                                        <td style="padding: 0.75rem 1rem;">60 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #fff3cd; color: #856404;">Referral</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-</div>
-
-<!-- health-education-session Section -->
-<div id="health-education-session" class="content-section" style="display: none;">
-                <div class="health-hero">
-                    <h1><i class="fas fa-chalkboard-teacher"></i> Health education sessions</h1>
-                    <p>Group talks, demonstrations, and community awareness on maternal and child health topics.</p>
-                </div>
-
-                <div class="row" style="margin-bottom: 1.5rem;">
-                    <div class="col-4">
-                        <div class="card" style="border-left: 4px solid var(--accent-orange); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">8</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Sessions (90 days)</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">186</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Participants reached</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">4</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Upcoming</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <div class="card-header">
-                        <h4 class="card-title">Record health education session</h4>
-                    </div>
-                    <div class="card-body">
-                        <form id="healthEdForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Session date</label>
-                                        <input type="date" class="form-control" name="session_date" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Venue</label>
-                                        <input type="text" class="form-control" name="venue" placeholder="e.g. MOH clinic hall, village temple" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Main topic</label>
-                                        <select class="form-control form-select" name="topic" required>
-                                            <option value="">Select topic</option>
-                                            <option value="nutrition">Maternal nutrition &amp; iron</option>
-                                            <option value="danger_signs">Pregnancy danger signs</option>
-                                            <option value="newborn">Newborn care &amp; warmth</option>
-                                            <option value="immunization">Immunization schedule</option>
-                                            <option value="fp">Family planning methods</option>
-                                            <option value="dengue">Dengue &amp; environmental health</option>
-                                            <option value="mental">Perinatal mental wellbeing</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Audience</label>
-                                        <select class="form-control form-select" name="audience">
-                                            <option value="antenatal">Antenatal mothers</option>
-                                            <option value="postnatal">Postnatal mothers</option>
-                                            <option value="mixed">Mixed community</option>
-                                            <option value="adolescent">Adolescents</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Approx. attendees</label>
-                                        <input type="number" class="form-control" name="attendees" min="1" max="500" value="25" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <input type="number" class="form-control" name="duration_mins" min="15" max="180" value="45" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Materials used</label>
-                                        <input type="text" class="form-control" name="materials" placeholder="Flip chart, leaflets…">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Outcomes &amp; questions raised</label>
-                                <textarea class="form-control" name="outcomes" rows="3" placeholder="Key messages delivered and follow-up needs"></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Recent &amp; planned sessions</h4>
-                    </div>
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--secondary-green);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">28 Mar</div>
-                                <div>
-                                    <strong>Immunization schedule</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">MOH waiting area · 32 participants · Flip chart</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Upcoming</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">18 Mar</div>
-                                <div>
-                                    <strong>Pregnancy danger signs</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Community centre · 28 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">05 Mar</div>
-                                <div>
-                                    <strong>Newborn care &amp; breastfeeding</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Clinic hall · 41 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-</div>
-
             <div id="patients" class="content-section" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Maternal and Child Care</h2>
@@ -5394,33 +4804,6 @@
 
             <!-- Profile Section -->
             <div id="profile" class="content-section" style="display: none;">
-                <!-- My Duty Areas Section -->
-                <h2 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 2rem; font-weight: 600;">My Duty Areas</h2>
-                <div class="duty-area-container">
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">4 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">3 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">2 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">5 appointments</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>My Profile</h2>
                     <div>
@@ -5987,6 +5370,90 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Duty Area Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="card-title"><i class="fas fa-map-marker-alt"></i> My Duty Areas</h4>
+                        <p class="mb-0 text-muted">Service areas under your responsibility</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 mb-3">
+                                <div class="duty-area-card" style="cursor: default; pointer-events: none;">
+                                    <div class="duty-area-icon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <div class="duty-area-name">Udathuththiripitiya</div>
+                                    <div class="duty-area-status">
+                                        <span class="status-badge status-active">Primary</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mb-3">
+                                <div class="duty-area-card" style="cursor: default; pointer-events: none;">
+                                    <div class="duty-area-icon">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="duty-area-name">Kahabilihena</div>
+                                    <div class="duty-area-status">
+                                        <span class="status-badge status-secondary">Secondary</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mb-3">
+                                <div class="duty-area-card" style="cursor: default; pointer-events: none;">
+                                    <div class="duty-area-icon">
+                                        <i class="fas fa-tree"></i>
+                                    </div>
+                                    <div class="duty-area-name">Opathella</div>
+                                    <div class="duty-area-status">
+                                        <span class="status-badge status-secondary">Secondary</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mb-3">
+                                <div class="duty-area-card" style="cursor: default; pointer-events: none;">
+                                    <div class="duty-area-icon">
+                                        <i class="fas fa-city"></i>
+                                    </div>
+                                    <div class="duty-area-name">Ambalangoda</div>
+                                    <div class="duty-area-status">
+                                        <span class="status-badge status-secondary">Secondary</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="duty-area-summary mt-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="summary-stat">
+                                        <div class="summary-number">4</div>
+                                        <div class="summary-label">Total Areas</div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="summary-stat">
+                                        <div class="summary-number">1,245</div>
+                                        <div class="summary-label">Total Population</div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="summary-stat">
+                                        <div class="summary-number">156</div>
+                                        <div class="summary-label">Active Patients</div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="summary-stat">
+                                        <div class="summary-number">23</div>
+                                        <div class="summary-label">Pregnant Mothers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Triposha Distribution Section -->
@@ -6062,6 +5529,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Distribution Records</h4>
+                                <button class="btn btn-primary" onclick="showDistributionForm()">Record New Distribution</button>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -6070,7 +5538,6 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Beneficiary</th>
-                                                <th>Address</th>
                                                 <th>Packets</th>
                                                 <th>Category</th>
                                                 <th>Status</th>
@@ -6081,7 +5548,6 @@
                                             <tr data-id="1">
                                                 <td>2026-02-05</td>
                                                 <td>Mrs. K. Silva</td>
-                                                <td>45, Main Street, Uduthuththiripitiya</td>
                                                 <td>2</td>
                                                 <td>Pregnant Mother</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6094,7 +5560,6 @@
                                             <tr data-id="2">
                                                 <td>2026-02-05</td>
                                                 <td>Mrs. A. Fernando</td>
-                                                <td>12, Temple Road, Uduthuththiripitiya</td>
                                                 <td>3</td>
                                                 <td>Lactating Mother</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6107,7 +5572,6 @@
                                             <tr data-id="3">
                                                 <td>2026-02-04</td>
                                                 <td>Mrs. D. Jayawardene</td>
-                                                <td>8, School Lane, Uduthuththiripitiya</td>
                                                 <td>2</td>
                                                 <td>Child (6-23 months)</td>
                                                 <td><span class="status-badge status-active">Completed</span></td>
@@ -6120,7 +5584,6 @@
                                             <tr data-id="4">
                                                 <td>2026-02-04</td>
                                                 <td>Mrs. P. Perera</td>
-                                                <td>23, Station Road, Uduthuththiripitiya</td>
                                                 <td>1</td>
                                                 <td>Pregnant Mother</td>
                                                 <td><span class="status-badge status-pending">Pending</span></td>
@@ -6151,6 +5614,9 @@
                                 </button>
                                 <button class="btn btn-danger btn-block mb-3" onclick="showRemoveDistributionForm()">
                                     <i class="fas fa-minus-circle"></i> Remove Distribution
+                                </button>
+                                <button class="btn btn-info btn-block mb-3" onclick="generateTriposhaPeport()">
+                                    <i class="fas fa-chart-bar"></i> Generate Report
                                 </button>
                             </div>
                         </div>
@@ -6197,47 +5663,248 @@
             </div>
             </div>
 
-            <!-- Remove Distribution Modal -->
-            <div id="removeDistributionModal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Remove Triposha Distribution</h3>
-                        <span class="close" onclick="closeRemoveDistributionModal()">&times;</span>
+            <!-- Kahabilihena Area Content -->
+            <div class="area-content-wrapper" data-area="kahabilihena">
+                <div class="area-header">
+                    <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Triposha Distribution</h4>
+                    <p>Coverage: 12 villages | Beneficiaries: 68 families | Distribution Center: Kahabilihena RH</p>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card info">
+                        <div class="stat-number">120</div>
+                        <div class="stat-label">Packets Received This Month</div>
                     </div>
-                    <div class="modal-body">
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <strong>Warning:</strong> This action will permanently remove the distribution record and adjust packet counts.
+                    <div class="stat-card warning">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Packets Left from Previous Month</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number">138</div>
+                        <div class="stat-label">Total Packets Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">75</div>
+                        <div class="stat-label">Packets Distributed</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Distributions - Kahabilihena</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Beneficiary</th>
+                                            <th>Packets</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2026-02-11</td>
+                                            <td>Mrs. D. Perera</td>
+                                            <td>2</td>
+                                            <td>Lactating Mother</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2026-02-10</td>
+                                            <td>Mrs. N. Fernando</td>
+                                            <td>3</td>
+                                            <td>Pregnant Mother</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <form id="removeDistributionForm">
-                            <div class="form-group">
-                                <label>Select Distribution to Remove</label>
-                                <select name="distribution_record" id="distributionSelect" required>
-                                    <option value="">Select a distribution record to remove</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Reason for Removal (Optional)</label>
-                                <select name="removal_reason">
-                                    <option value="accidental">Accidental Distribution</option>
-                                    <option value="incorrect_beneficiary">Incorrect Beneficiary</option>
-                                    <option value="wrong_quantity">Wrong Quantity</option>
-                                    <option value="data_entry_error">Data Entry Error</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Additional Notes (Optional)</label>
-                                <textarea name="removal_notes" rows="3" placeholder="Additional details about the removal"></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" class="btn btn-secondary" onclick="closeRemoveDistributionModal()">Cancel</button>
-                                <button type="submit" class="btn btn-danger">Remove Distribution</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Opathella Area Content -->
+            <div class="area-content-wrapper" data-area="opathella">
+                <div class="area-header">
+                    <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Triposha Distribution</h4>
+                    <p>Coverage: 8 urban wards | Beneficiaries: 52 families | Distribution Center: Opathella PHC</p>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card info">
+                        <div class="stat-number">90</div>
+                        <div class="stat-label">Packets Received This Month</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Packets Left from Previous Month</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number">102</div>
+                        <div class="stat-label">Total Packets Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">56</div>
+                        <div class="stat-label">Packets Distributed</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Distributions - Opathella</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Beneficiary</th>
+                                            <th>Packets</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2026-02-11</td>
+                                            <td>Mrs. S. Jayawardena</td>
+                                            <td>2</td>
+                                            <td>Child (6-23 months)</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2026-02-10</td>
+                                            <td>Mrs. M. Silva</td>
+                                            <td>1</td>
+                                            <td>Pregnant Mother</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ambalangoda Area Content -->
+            <div class="area-content-wrapper" data-area="ambalangoda">
+                <div class="area-header">
+                    <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Triposha Distribution</h4>
+                    <p>Coverage: 18 villages | Beneficiaries: 95 families | Distribution Center: Ambalangoda DH</p>
+                </div>
+                <div class="dashboard-stats">
+                    <div class="stat-card info">
+                        <div class="stat-number">180</div>
+                        <div class="stat-label">Packets Received This Month</div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-number">30</div>
+                        <div class="stat-label">Packets Left from Previous Month</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-number">210</div>
+                        <div class="stat-label">Total Packets Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">105</div>
+                        <div class="stat-label">Packets Distributed</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Distributions - Ambalangoda</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Beneficiary</th>
+                                            <th>Packets</th>
+                                            <th>Category</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2026-02-11</td>
+                                            <td>Mrs. R. Bandara</td>
+                                            <td>3</td>
+                                            <td>Lactating Mother</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2026-02-11</td>
+                                            <td>Mrs. T. Fernando</td>
+                                            <td>2</td>
+                                            <td>Pregnant Mother</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2026-02-10</td>
+                                            <td>Mrs. K. Rajapaksha</td>
+                                            <td>2</td>
+                                            <td>Child (6-23 months)</td>
+                                            <td><span class="status-badge status-active">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Distribution Modal -->
+    <div id="removeDistributionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Remove Triposha Distribution</h3>
+                <span class="close" onclick="closeRemoveDistributionModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Warning:</strong> This action will permanently remove the distribution record and adjust packet counts.
+                </div>
+                <form id="removeDistributionForm">
+                    <div class="form-group">
+                        <label>Select Distribution to Remove</label>
+                        <select name="distribution_record" id="distributionSelect" required>
+                            <option value="">Select a distribution record to remove</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Removal (Optional)</label>
+                        <select name="removal_reason">
+                            <option value="accidental">Accidental Distribution</option>
+                            <option value="incorrect_beneficiary">Incorrect Beneficiary</option>
+                            <option value="wrong_quantity">Wrong Quantity</option>
+                            <option value="data_entry_error">Data Entry Error</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes (Optional)</label>
+                        <textarea name="removal_notes" rows="3" placeholder="Additional details about the removal"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeRemoveDistributionModal()">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Remove Distribution</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="distributionModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
@@ -6287,10 +5954,6 @@
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             setupNavigation();
-            
-            applyHashSection();
-            loadDashboardWidgets();
-
             checkAuthentication();
             initializeCharts();
             setCurrentDateTime();
@@ -6309,144 +5972,6 @@
             document.querySelector('.midwife-name').textContent = user.name || 'Midwife User';
         }
 
-        
-        function loadDashboardWidgets() {
-            // Static data for dashboard widgets
-            const widgetData = {
-                urgent_meetings: [
-                    {
-                        description: "High-risk pregnancy follow-up",
-                        scheduled_date: "31 Mar 2026",
-                        start_time: "09:00",
-                        location: "MOH Clinic - Room 3"
-                    },
-                    {
-                        description: "Postnatal emergency review",
-                        scheduled_date: "31 Mar 2026",
-                        start_time: "11:30",
-                        location: "Uduthuththiripitiya CHC"
-                    }
-                ],
-                upcoming_clinics: [
-                    {
-                        description: "Antenatal Clinic - Routine Check",
-                        scheduled_date: "01 Apr 2026",
-                        start_time: "08:30",
-                        location: "Kahabilihena RH"
-                    },
-                    {
-                        description: "Child Growth Monitoring",
-                        scheduled_date: "02 Apr 2026",
-                        start_time: "09:00",
-                        location: "Opathella PHC"
-                    },
-                    {
-                        description: "Family Planning Session",
-                        scheduled_date: "03 Apr 2026",
-                        start_time: "10:00",
-                        location: "Ambalangoda DH"
-                    }
-                ],
-                timetable: [
-                    {
-                        start_time: "08:00",
-                        estimated_end_time: "09:00",
-                        description: "Home Visit - Mrs. K. Silva",
-                        location: "Uduthuththiripitiya Village",
-                        patient_name: "Pregnant - 32 weeks"
-                    },
-                    {
-                        start_time: "10:00",
-                        estimated_end_time: "10:30",
-                        description: "Vaccination Session",
-                        location: "MOH Clinic",
-                        patient_name: "Pediatric vaccines"
-                    },
-                    {
-                        start_time: "14:00",
-                        estimated_end_time: "15:00",
-                        description: "Counseling - Breastfeeding support",
-                        location: "Community Center",
-                        patient_name: "Mrs. A. Fernando"
-                    }
-                ],
-                notifications: [
-                    {
-                        title: "Vaccine Stock Alert",
-                        message: "DPT-3 vaccine stock is running low. Please reorder before Friday."
-                    },
-                    {
-                        title: "Monthly Report Due",
-                        message: "Submit your monthly activity report by April 5th."
-                    },
-                    {
-                        title: "Training Session",
-                        message: "Newborn care training scheduled for April 2nd at 2 PM."
-                    }
-                ]
-            };
-
-            const d = widgetData;
-
-            // Urgent Meetings
-            const wu = document.getElementById('widget-urgent');
-            if (d.urgent_meetings.length === 0) {
-                wu.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No urgent meetings.</div>';
-            } else {
-                wu.innerHTML = d.urgent_meetings.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            // Clinics
-            const wc = document.getElementById('widget-clinics');
-            if (d.upcoming_clinics.length === 0) {
-                wc.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No upcoming clinics scheduled.</div>';
-            } else {
-                wc.innerHTML = d.upcoming_clinics.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            // Time Table
-            const wt = document.getElementById('widget-timetable');
-            if (d.timetable.length === 0) {
-                wt.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No schedule for today.</div>';
-            } else {
-                wt.innerHTML = d.timetable.map(m => `
-                    <div style="padding: 0.75rem; border-left: 4px solid var(--secondary-green); margin-bottom: 0.5rem; background: #f8f9fa;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.start_time} - ${m.estimated_end_time}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dark); margin-top: 0.15rem;">${m.description}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary);">${m.patient_name ? m.patient_name + ' | ' : ''}${m.location}</div>
-                    </div>
-                `).join('');
-            }
-
-            // Notifications
-            const wn = document.getElementById('widget-notifications');
-            if (d.notifications.length === 0) {
-                wn.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No new notifications.</div>';
-            } else {
-                wn.innerHTML = d.notifications.map(n => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef; position: relative;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${n.title}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${n.message}</div>
-                        <span class="badge" style="position: absolute; top: 0.75rem; right: 0.75rem; background: var(--accent-orange);">New</span>
-                    </div>
-                `).join('');
-            }
-        }
-
         function setupNavigation() {
             const menuLinks = document.querySelectorAll('.sidebar-menu a');
             const contentSections = document.querySelectorAll('.content-section');
@@ -6457,12 +5982,8 @@
 
             menuLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href') || '';
-                    if (!href.startsWith('#')) {
-                        return;
-                    }
                     e.preventDefault();
-                    const targetSectionId = href.substring(1);
+                    const targetSectionId = this.getAttribute('href').substring(1);
                     const nextSection = document.getElementById(targetSectionId);
 
                     if (!nextSection || nextSection === currentSection) {
@@ -6497,47 +6018,6 @@
             });
 
             // Logout functionality
-            
-            // ================= Added form logic ================= //
-            // Counseling session
-            const counselingForm = document.getElementById('counselingForm');
-            if (counselingForm) {
-                const cInput = counselingForm.querySelector('input[name="session_datetime"]');
-                if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
-                counselingForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Counseling session saved successfully.');
-                    e.target.reset();
-                    if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
-                });
-            }
-
-            // Health Education session
-            const healthEdForm = document.getElementById('healthEdForm');
-            if (healthEdForm) {
-                const hInput = healthEdForm.querySelector('input[name="session_date"]');
-                if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
-                healthEdForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Health education session recorded successfully.');
-                    e.target.reset();
-                    if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
-                });
-            }
-
-            // Emergency session
-            const emergencyForm = document.getElementById('emergencyForm');
-            if (emergencyForm) {
-                const eInput = emergencyForm.querySelector('input[name="incident_datetime"]');
-                if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
-                emergencyForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Emergency response entry saved.');
-                    e.target.reset();
-                    if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
-                });
-            }
-
             document.getElementById('logout').addEventListener('click', function(e) {
                 e.preventDefault();
                 if (confirm('Are you sure you want to logout?')) {
@@ -6545,13 +6025,6 @@
                     window.location.href = '../midwife-login.html';
                 }
             });
-        }
-
-        function applyHashSection() {
-            const hash = window.location.hash;
-            if (!hash || hash.length < 2) return;
-            const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
-            if (link) link.click();
         }
 
         function showLogActivity() {
@@ -9104,113 +8577,6 @@
             alert(`Primary duty area changed to: ${areaNames[areaName]}`);
         }
 
-        // Triposha Distribution Data for All Areas
-        const triposhaData = {
-            uduthuththiripitiya: {
-                header: {
-                    title: "Uduthuththiripitiya Area - Triposha Distribution",
-                    details: "Coverage: 15 villages | Beneficiaries: 85 families | Distribution Center: Uduthuththiripitiya CHC"
-                },
-                stats: {
-                    received: 150,
-                    left: 25,
-                    total: 175,
-                    distributed: 98
-                },
-                records: [
-                    { id: 1, date: "2026-02-05", beneficiary: "Mrs. K. Silva", packets: 2, category: "Pregnant Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-05", beneficiary: "Mrs. A. Fernando", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-04", beneficiary: "Mrs. D. Jayawardene", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-04", beneficiary: "Mrs. P. Perera", packets: 1, category: "Pregnant Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 35,
-                    lactating: 42,
-                    children: 21,
-                    totalDistributed: 98,
-                    remaining: 77
-                }
-            },
-            kahabilihena: {
-                header: {
-                    title: "Kahabilihena Area - Triposha Distribution",
-                    details: "Coverage: 12 villages | Beneficiaries: 68 families | Distribution Center: Kahabilihena RH"
-                },
-                stats: {
-                    received: 120,
-                    left: 18,
-                    total: 138,
-                    distributed: 75
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. D. Perera", packets: 2, category: "Lactating Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-10", beneficiary: "Mrs. N. Fernando", packets: 3, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-09", beneficiary: "Mrs. K. Silva", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-08", beneficiary: "Mrs. R. Gunawardena", packets: 1, category: "Pregnant Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 28,
-                    lactating: 32,
-                    children: 15,
-                    totalDistributed: 75,
-                    remaining: 63
-                }
-            },
-            opathella: {
-                header: {
-                    title: "Opathella Area - Triposha Distribution",
-                    details: "Coverage: 8 urban wards | Beneficiaries: 52 families | Distribution Center: Opathella PHC"
-                },
-                stats: {
-                    received: 90,
-                    left: 12,
-                    total: 102,
-                    distributed: 56
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. S. Jayawardena", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 2, date: "2026-02-10", beneficiary: "Mrs. M. Silva", packets: 1, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-09", beneficiary: "Mrs. A. Perera", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 4, date: "2026-02-08", beneficiary: "Mrs. L. Fernando", packets: 2, category: "Child (6-23 months)", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 18,
-                    lactating: 24,
-                    children: 14,
-                    totalDistributed: 56,
-                    remaining: 46
-                }
-            },
-            ambalangoda: {
-                header: {
-                    title: "Ambalangoda Area - Triposha Distribution",
-                    details: "Coverage: 18 villages | Beneficiaries: 95 families | Distribution Center: Ambalangoda DH"
-                },
-                stats: {
-                    received: 180,
-                    left: 30,
-                    total: 210,
-                    distributed: 105
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. R. Bandara", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-11", beneficiary: "Mrs. T. Fernando", packets: 2, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-10", beneficiary: "Mrs. K. Rajapaksha", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-09", beneficiary: "Mrs. S. Silva", packets: 3, category: "Lactating Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 38,
-                    lactating: 45,
-                    children: 22,
-                    totalDistributed: 105,
-                    remaining: 105
-                }
-            }
-        };
-
-        // Current active area for Triposha
-        let currentTriposhaArea = 'uduthuththiripitiya';
-
         // Switch between duty areas in different sections
         function switchArea(sectionId, areaName) {
             // Find the section container
@@ -9232,69 +8598,17 @@
                 clickedButton.classList.add('active');
             }
             
-            // For Triposha section, update content dynamically
-            if (sectionId === 'triposha' && triposhaData[areaName]) {
-                currentTriposhaArea = areaName;
-                updateTriposhaContent(areaName);
-            } else {
-                // For other sections, use traditional show/hide
-                const contentWrappers = section.querySelectorAll('.area-content-wrapper');
-                contentWrappers.forEach(wrapper => {
-                    wrapper.classList.remove('active');
-                });
-                
-                const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
-                if (selectedWrapper) {
-                    selectedWrapper.classList.add('active');
-                }
+            // Hide all area content wrappers in this section
+            const contentWrappers = section.querySelectorAll('.area-content-wrapper');
+            contentWrappers.forEach(wrapper => {
+                wrapper.classList.remove('active');
+            });
+            
+            // Show the selected area content
+            const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
+            if (selectedWrapper) {
+                selectedWrapper.classList.add('active');
             }
-        }
-
-        // Update Triposha content dynamically
-        function updateTriposhaContent(areaName) {
-            const data = triposhaData[areaName];
-            if (!data) return;
-
-            // Update header
-            const headerTitle = document.querySelector('#triposha .area-header h4');
-            const headerDetails = document.querySelector('#triposha .area-header p');
-            if (headerTitle) headerTitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.header.title}`;
-            if (headerDetails) headerDetails.textContent = data.header.details;
-
-            // Update stats
-            document.getElementById('packets-received-month').textContent = data.stats.received;
-            document.getElementById('packets-left-previous').textContent = data.stats.left;
-            document.getElementById('total-packets').textContent = data.stats.total;
-            document.getElementById('packets-distributed').textContent = data.stats.distributed;
-
-            // Update distribution records table
-            const tbody = document.getElementById('distribution-records');
-            if (tbody) {
-                tbody.innerHTML = data.records.map(record => {
-                    const categoryType = record.category.toLowerCase().includes('pregnant') ? 'pregnant' : 
-                                        record.category.toLowerCase().includes('lactating') ? 'lactating' : 'children';
-                    return `
-                    <tr data-id="${record.id}">
-                        <td>${record.date}</td>
-                        <td>${record.beneficiary}</td>
-                        <td>${record.packets}</td>
-                        <td>${record.category}</td>
-                        <td><span class="status-badge ${record.status === 'Completed' ? 'status-active' : 'status-pending'}">${record.status}</span></td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, ${record.packets}, '${categoryType}')" title="Remove this distribution">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `}).join('');
-            }
-
-            // Update monthly summary
-            document.getElementById('pregnant-packets').textContent = data.summary.pregnant + ' packets';
-            document.getElementById('lactating-packets').textContent = data.summary.lactating + ' packets';
-            document.getElementById('children-packets').textContent = data.summary.children + ' packets';
-            document.getElementById('total-distributed-summary').textContent = data.summary.totalDistributed + ' packets';
-            document.getElementById('remaining-packets').textContent = data.summary.remaining + ' packets';
         }
 
         // Time-based greeting
@@ -9320,7 +8634,7 @@
     </script>
 
     <!-- Chatbot Widget -->
-    <!--<div id="chatbot" class="chatbot">
+    <div id="chatbot" class="chatbot">
         <div class="chatbot-header">
             <h4>MidConnect Support</h4>
             <button id="chatbot-close" class="chatbot-close">&times;</button>
@@ -9330,12 +8644,12 @@
             <input type="text" id="chatbot-input" placeholder="Type your message..." class="chatbot-input">
             <button id="chatbot-send" class="chatbot-send"><i class="fas fa-paper-plane"></i></button>
         </div>
-    </div> 
+    </div>
     <button id="chatbot-toggle" class="chatbot-toggle">
         <i class="fas fa-comments"></i>
-    </button> -->
+    </button>
 
-    <!--<style>
+    <style>
         .chatbot-toggle {
             position: fixed;
             bottom: 2rem;
@@ -9512,9 +8826,9 @@
                 bottom: calc(4.5rem + 1rem);
             }
         }
-    </style> -->
+    </style>
 
-    <!--<script>
+    <script>
         const chatbotToggle = document.getElementById('chatbot-toggle');
         const chatbot = document.getElementById('chatbot');
         const chatbotClose = document.getElementById('chatbot-close');
@@ -9565,18 +8879,6 @@
         chatbotInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
         });
-
-        // Duty Area Cards Functionality - Disabled (non-clickable)
-        // const dutyCards = document.querySelectorAll('.duty-area-btn');
-        // dutyCards.forEach(card => {
-        //     card.addEventListener('click', () => {
-        //         dutyCards.forEach(c => c.classList.remove('active'));
-        //         card.classList.add('active');
-        //     });
-        // });
-    </script> -->
-    <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mkSuvkG19NuJ50hkdCPlJ";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+    </script>
 </body>
 </html>
