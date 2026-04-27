@@ -408,3 +408,34 @@ SELECT
 FROM midwives m
 LEFT JOIN performance_metrics pm ON m.midwife_id = pm.midwife_id
 WHERE pm.metric_date >= DATE('now', '-30 days') OR pm.metric_date IS NULL;
+
+-- ========================================
+-- HOME VISITS TABLE
+-- ========================================
+
+CREATE TABLE IF NOT EXISTS home_visits (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    midwife_id INTEGER NOT NULL,
+    patient_name TEXT NOT NULL,
+    contact_number TEXT,
+    address TEXT,
+    visit_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME,
+    duration_minutes INTEGER,
+    duty_area TEXT NOT NULL,
+    visit_type TEXT DEFAULT 'routine',
+    priority TEXT DEFAULT 'normal',
+    reason TEXT,
+    status TEXT DEFAULT 'scheduled',
+    notes TEXT,
+    completed_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (midwife_id) REFERENCES midwives(midwife_id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_home_visit_midwife ON home_visits (midwife_id);
+CREATE INDEX IF NOT EXISTS idx_home_visit_date ON home_visits (visit_date);
+CREATE INDEX IF NOT EXISTS idx_home_visit_status ON home_visits (status);
+CREATE INDEX IF NOT EXISTS idx_home_visit_area ON home_visits (duty_area);

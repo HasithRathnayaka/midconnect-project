@@ -405,25 +405,41 @@
     </style>
 </head>
 <body>
+    <!-- START: navbar.php -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <img src="../images/logoimage.png" alt="MidConnect Logo">
-                <span>MidConnect - Admin</span>
+            <div class="header-left">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="logo">
+                    <img src="../images/logoimage.png" alt="MidConnect Logo">
+                    <span>MidConnect - Admin</span>
+                </div>
             </div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="admin-profile.html" class="admin-name"><i class="fas fa-user-circle"></i> Dr. Sarah Johnson</a></li>
                     <li><a href="#" id="notifications"><i class="fas fa-bell"></i> <span class="badge">3</span></a></li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                    <li><button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button></li>
+                    <li class="nav-actions">
+                        <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button>
+                        <button type="button" class="profile-link" id="navbarProfileBtn" aria-label="Open profile page">
+                            <img src="../images/profile picture.png" alt="Profile" class="navbar-profile-img" id="navbar-profile-pic">
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
+    <!-- END: navbar.php -->
 
     <div class="main-content">
-        <div class="sidebar">
+        <!-- START: sidebar.php -->
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">&times;</button>
             <div class="sidebar-menu">
                 <ul>
                     <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
@@ -441,6 +457,10 @@
                 </ul>
             </div>
         </div>
+        <!-- END: sidebar.php -->
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <div class="content-with-sidebar">
 
@@ -1524,7 +1544,114 @@
             setupThemeAwareCharts();
             setupNavigation();
             checkAuthentication();
+            setupSidebarToggle();
+            setupProfileButtonNavigation();
         });
+
+        // Sidebar Toggle Functionality
+        function setupSidebarToggle() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('active');
+                hamburgerBtn.classList.add('active');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
+
+            hamburgerBtn.addEventListener('click', function() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+
+            sidebarCloseBtn.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar when a menu link is clicked
+            var menuLinks = document.querySelectorAll('.sidebar-menu a');
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', closeSidebar);
+            });
+        }
+
+        // Profile Button Navigation - Opens Profile Section
+        function setupProfileButtonNavigation() {
+            const profileBtn = document.getElementById('navbarProfileBtn');
+            const profileImg = document.getElementById('navbar-profile-pic');
+            const contentSections = document.querySelectorAll('.content-section');
+            const sidebarMenuLinks = document.querySelectorAll('.sidebar-menu a');
+            const SECTION_TRANSITION_MS = 200;
+
+            function navigateToProfile() {
+                const profileSection = document.getElementById('profile');
+                if (!profileSection) return;
+
+                // Find currently visible section
+                let currentSection = Array.from(contentSections).find(section =>
+                    window.getComputedStyle(section).display !== 'none' && section.id !== 'profile'
+                );
+
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('section-slide-in', 'section-slide-out');
+                });
+
+                // Update sidebar active state
+                sidebarMenuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#profile') {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Close sidebar if open (mobile)
+                const sidebar = document.getElementById('sidebar');
+                const sidebarOverlay = document.getElementById('sidebarOverlay');
+                const hamburgerBtn = document.getElementById('hamburgerBtn');
+                if (sidebar && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+                    if (hamburgerBtn) hamburgerBtn.classList.remove('active');
+                }
+
+                // Show profile section with animation
+                if (currentSection) {
+                    currentSection.classList.add('section-slide-out');
+                    setTimeout(() => {
+                        profileSection.style.display = 'block';
+                        profileSection.classList.add('section-slide-in');
+                    }, SECTION_TRANSITION_MS);
+                } else {
+                    profileSection.style.display = 'block';
+                    profileSection.classList.add('section-slide-in');
+                }
+
+                // Update URL hash
+                window.location.hash = 'profile';
+            }
+
+            if (profileBtn) {
+                profileBtn.addEventListener('click', navigateToProfile);
+            }
+            if (profileImg) {
+                profileImg.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigateToProfile();
+                });
+            }
+        }
 
         function setupThemeAwareCharts() {
             if (themeObserver) {
@@ -1706,6 +1833,21 @@
                 if (confirm('Are you sure you want to logout?')) {
                     localStorage.removeItem('admin_user');
                     window.location.href = '../admin-login.html';
+                }
+            });
+
+            // Handle browser back/forward buttons
+            window.addEventListener('hashchange', function() {
+                const hash = window.location.hash;
+                if (!hash || hash.length < 2) {
+                    // If no hash, go to dashboard
+                    const dashboardLink = document.querySelector('.sidebar-menu a[href="#dashboard"]');
+                    if (dashboardLink) dashboardLink.click();
+                    return;
+                }
+                const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
+                if (link) {
+                    link.click();
                 }
             });
         }

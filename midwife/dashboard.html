@@ -1921,23 +1921,40 @@
 </style>
 </head>
 <body>
+    <!-- START: navbar.php -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <img src="../images/logoimage.png" alt="MidConnect Logo">
-                <span>MidConnect</span>
+            <div class="header-left">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="logo">
+                    <img src="../images/logoimage.png" alt="MidConnect Logo">
+                    <span>MidConnect</span>
+                </div>
             </div>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#" id="notifications"><i class="fas fa-bell"></i> <span class="badge">2</span></a></li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <li class="nav-actions">
+                        <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button>
+                        <button type="button" class="profile-link" id="navbarProfileBtn" aria-label="Open profile page">
+                            <img src="../images/profile picture.png" alt="Profile" class="navbar-profile-img" id="navbar-profile-pic">
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
+    <!-- END: navbar.php -->
 
     <div class="main-content">
-        <div class="sidebar">
+        <!-- START: sidebar.php -->
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">&times;</button>
             <div class="sidebar-menu">
                 <ul>
                     <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
@@ -1953,6 +1970,10 @@
                 </ul>
             </div>
         </div>
+        <!-- END: sidebar.php -->
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <div class="content-with-sidebar">
             <!-- Dashboard Overview -->
@@ -6287,9 +6308,12 @@
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
             setupNavigation();
+            setupSidebarToggle();
+            setupProfileButtonNavigation();
             
             applyHashSection();
             loadDashboardWidgets();
+            loadHomeVisits();
 
             checkAuthentication();
             initializeCharts();
@@ -6297,6 +6321,111 @@
             updateTotalPackets();
             updateRemainingPackets();
         });
+
+        // Sidebar Toggle Functionality
+        function setupSidebarToggle() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('active');
+                hamburgerBtn.classList.add('active');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
+
+            hamburgerBtn.addEventListener('click', function() {
+                if (sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            });
+
+            sidebarCloseBtn.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar when a menu link is clicked
+            var menuLinks = document.querySelectorAll('.sidebar-menu a');
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', closeSidebar);
+            });
+        }
+
+        // Profile Button Navigation - Opens Profile Section
+        function setupProfileButtonNavigation() {
+            const profileBtn = document.getElementById('navbarProfileBtn');
+            const profileImg = document.getElementById('navbar-profile-pic');
+            const contentSections = document.querySelectorAll('.content-section');
+            const sidebarMenuLinks = document.querySelectorAll('.sidebar-menu a');
+            const SECTION_TRANSITION_MS = 200;
+
+            function navigateToProfile() {
+                const profileSection = document.getElementById('profile');
+                if (!profileSection) return;
+
+                // Find currently visible section
+                let currentSection = Array.from(contentSections).find(section =>
+                    window.getComputedStyle(section).display !== 'none' && section.id !== 'profile'
+                );
+
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('section-slide-in', 'section-slide-out');
+                });
+
+                // Update sidebar active state
+                sidebarMenuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#profile') {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Close sidebar if open (mobile)
+                const sidebar = document.getElementById('sidebar');
+                const sidebarOverlay = document.getElementById('sidebarOverlay');
+                const hamburgerBtn = document.getElementById('hamburgerBtn');
+                if (sidebar && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+                    if (hamburgerBtn) hamburgerBtn.classList.remove('active');
+                }
+
+                // Show profile section with animation
+                if (currentSection) {
+                    currentSection.classList.add('section-slide-out');
+                    setTimeout(() => {
+                        profileSection.style.display = 'block';
+                        profileSection.classList.add('section-slide-in');
+                    }, SECTION_TRANSITION_MS);
+                } else {
+                    profileSection.style.display = 'block';
+                    profileSection.classList.add('section-slide-in');
+                }
+
+                // Update URL hash
+                window.location.hash = 'profile';
+            }
+
+            if (profileBtn) {
+                profileBtn.addEventListener('click', navigateToProfile);
+            }
+            if (profileImg) {
+                profileImg.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigateToProfile();
+                });
+            }
+        }
 
         function checkAuthentication() {
             const midwifeUser = localStorage.getItem('midwife_user');
@@ -6553,6 +6682,21 @@
             const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
             if (link) link.click();
         }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash;
+            if (!hash || hash.length < 2) {
+                // If no hash, go to dashboard
+                const dashboardLink = document.querySelector('.sidebar-menu a[href="#dashboard"]');
+                if (dashboardLink) dashboardLink.click();
+                return;
+            }
+            const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
+            if (link) {
+                link.click();
+            }
+        });
 
         function showLogActivity() {
             document.querySelector('[href="#log-activity"]').click();
@@ -7184,7 +7328,239 @@
         }
 
         // Home Visits Functions
+        let currentHomeVisits = [];
+        let currentArea = 'uduthuththiripitiya';
+        
+        async function loadHomeVisits() {
+            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+            const midwifeId = user.id || 1;
+            
+            try {
+                const response = await fetch(`../php/home_visits.php?action=get&midwife_id=${midwifeId}&area=${currentArea}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentHomeVisits = result.data;
+                    renderHomeVisits();
+                    updateHomeVisitStats();
+                }
+            } catch (error) {
+                console.error('Error loading home visits:', error);
+            }
+        }
+        
+        function renderHomeVisits() {
+            const visitList = document.querySelector('#scheduled-visits .visit-list');
+            if (!visitList) return;
+            
+            const scheduledVisits = currentHomeVisits.filter(v => v.status !== 'completed');
+            
+            if (scheduledVisits.length === 0) {
+                visitList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No scheduled visits. Click "Schedule New Visit" to add one.</p></div>';
+                return;
+            }
+            
+            visitList.innerHTML = scheduledVisits.map((visit, index) => {
+                const priorityClass = visit.priority === 'high' || visit.priority === 'urgent' ? 'priority-high' : 'priority-normal';
+                const statusBadge = getStatusBadge(visit.status);
+                
+                return `
+                    <div class="visit-item ${priorityClass}">
+                        <div class="visit-time">
+                            <span class="time">${visit.start_time}</span>
+                            <span class="duration">${visit.duration_minutes || 45} min</span>
+                        </div>
+                        <div class="visit-details">
+                            <h5>${visit.patient_name}</h5>
+                            <p class="address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${visit.address || 'Address not specified'}
+                            </p>
+                            <p class="visit-type">
+                                <span class="badge badge-${getVisitBadgeClass(visit.visit_type)}">${formatVisitType(visit.visit_type)}</span>
+                                <span class="badge badge-${visit.priority === 'urgent' ? 'urgent' : visit.priority === 'high' ? 'warning' : 'info'}">${visit.priority}</span>
+                            </p>
+                            ${visit.notes ? `<p class="notes">${visit.notes}</p>` : ''}
+                        </div>
+                        <div class="visit-actions">
+                            <button class="btn btn-success btn-sm" onclick="completeVisit(${visit.id})">
+                                <i class="fas fa-check"></i> Complete
+                            </button>
+                            <button class="btn btn-info btn-sm" onclick="viewVisitDetails(${visit.id})">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteVisit(${visit.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function updateHomeVisitStats() {
+            const today = currentHomeVisits.filter(v => v.visit_date === new Date().toISOString().split('T')[0]);
+            const completed = today.filter(v => v.status === 'completed').length;
+            const pending = today.filter(v => v.status === 'scheduled' || v.status === 'in_progress').length;
+            const urgent = today.filter(v => v.priority === 'urgent' || v.priority === 'high').length;
+            
+            const statCards = document.querySelectorAll('#home-visits .stat-card');
+            if (statCards.length >= 4) {
+                statCards[0].querySelector('h3').textContent = today.length;
+                statCards[1].querySelector('h3').textContent = pending;
+                statCards[2].querySelector('h3').textContent = completed;
+                statCards[3].querySelector('h3').textContent = urgent;
+            }
+        }
+        
+        function getStatusBadge(status) {
+            const badges = {
+                'scheduled': '<span class="badge badge-primary">Scheduled</span>',
+                'in_progress': '<span class="badge badge-warning">In Progress</span>',
+                'completed': '<span class="badge badge-success">Completed</span>',
+                'cancelled': '<span class="badge badge-secondary">Cancelled</span>'
+            };
+            return badges[status] || badges['scheduled'];
+        }
+        
+        function getVisitBadgeClass(type) {
+            const classes = {
+                'antenatal': 'success',
+                'postnatal': 'primary',
+                'family-planning': 'info',
+                'emergency': 'danger',
+                'routine': 'primary'
+            };
+            return classes[type] || 'primary';
+        }
+        
+        function formatVisitType(type) {
+            const types = {
+                'antenatal': 'Antenatal Visit',
+                'postnatal': 'Postnatal Visit',
+                'family-planning': 'Family Planning',
+                'emergency': 'Emergency Follow-up',
+                'routine': 'Routine Visit'
+            };
+            return types[type] || type;
+        }
+        
+        function viewVisitDetails(visitId) {
+            const visit = currentHomeVisits.find(v => v.id === visitId);
+            if (!visit) return;
+            
+            const detailsCard = document.getElementById('home-visit-details-record');
+            const detailsBody = document.getElementById('home-visit-details-body');
+            
+            detailsBody.innerHTML = `
+                <table class="table table-bordered">
+                    <tr><th>Patient Name</th><td>${visit.patient_name}</td></tr>
+                    <tr><th>Contact</th><td>${visit.contact_number || 'Not provided'}</td></tr>
+                    <tr><th>Address</th><td>${visit.address || 'Not provided'}</td></tr>
+                    <tr><th>Visit Date</th><td>${visit.visit_date}</td></tr>
+                    <tr><th>Time</th><td>${visit.start_time}</td></tr>
+                    <tr><th>Duty Area</th><td>${visit.duty_area}</td></tr>
+                    <tr><th>Visit Type</th><td>${formatVisitType(visit.visit_type)}</td></tr>
+                    <tr><th>Priority</th><td>${visit.priority}</td></tr>
+                    <tr><th>Status</th><td>${getStatusBadge(visit.status)}</td></tr>
+                    <tr><th>Reason</th><td>${visit.reason || 'Not specified'}</td></tr>
+                    <tr><th>Notes</th><td>${visit.notes || 'No notes'}</td></tr>
+                    <tr><th>Created</th><td>${visit.created_at || 'N/A'}</td></tr>
+                </table>
+                <button class="btn btn-outline-secondary" onclick="document.getElementById('home-visit-details-record').style.display='none'">Close</button>
+            `;
+            detailsCard.style.display = 'block';
+        }
+        
+        async function completeVisit(visitId) {
+            const notes = prompt('Enter visit notes/summary:');
+            if (notes === null) return;
+            
+            try {
+                const response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notes: notes, end_time: new Date().toTimeString().slice(0, 5) })
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Visit marked as completed!');
+                    loadHomeVisits();
+                    renderCompletedVisits();
+                }
+            } catch (error) {
+                console.error('Error completing visit:', error);
+                alert('Error completing visit');
+            }
+        }
+        
+        async function deleteVisit(visitId) {
+            if (!confirm('Are you sure you want to delete this visit?')) return;
+            
+            try {
+                const response = await fetch(`../php/home_visits.php?action=delete&id=${visitId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Visit deleted!');
+                    loadHomeVisits();
+                }
+            } catch (error) {
+                console.error('Error deleting visit:', error);
+            }
+        }
+        
+        function renderCompletedVisits() {
+            const completedList = document.querySelector('#completed-visits .completed-visit-list');
+            if (!completedList) return;
+            
+            const completedVisits = currentHomeVisits.filter(v => v.status === 'completed');
+            
+            if (completedVisits.length === 0) {
+                completedList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No completed visits yet.</p></div>';
+                return;
+            }
+            
+            completedList.innerHTML = completedVisits.map(visit => `
+                <div class="completed-visit-item">
+                    <div class="visit-timestamp">
+                        <span class="date">${visit.visit_date}</span>
+                        <span class="time">${visit.start_time}${visit.end_time ? ' - ' + visit.end_time : ''}</span>
+                    </div>
+                    <div class="visit-summary">
+                        <h5>${visit.patient_name}</h5>
+                        <p class="visit-type">${formatVisitType(visit.visit_type)}</p>
+                        <p class="outcome">
+                            <span class="status-badge status-success">Completed</span>
+                            ${visit.notes || ''}
+                        </p>
+                    </div>
+                    <div class="visit-actions">
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewVisitDetails(${visit.id})">
+                            <i class="fas fa-file-alt"></i> View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function switchArea(section, area) {
+            currentArea = area;
+            
+            document.querySelectorAll('.duty-area-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.duty-area-btn').classList.add('active');
+            
+            document.querySelectorAll('.area-content-wrapper').forEach(w => w.classList.remove('active'));
+            const targetArea = document.querySelector(`.area-content-wrapper[data-area="${area}"]`);
+            if (targetArea) targetArea.classList.add('active');
+            
+            loadHomeVisits();
+        }
+        
         function scheduleNewVisit() {
+            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+            
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
             modal.innerHTML = `
@@ -7199,56 +7575,37 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-label">Patient Name *</label>
-                                        <select class="form-control" required>
-                                            <option value="">Select Patient</option>
-                                            <option value="1">Mrs. Amara Silva</option>
-                                            <option value="2">Mrs. Nayani Perera</option>
-                                            <option value="3">Mrs. Kumari Fernando</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="visit_patient_name" placeholder="Enter patient name" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
+                                        <label class="form-label">Contact Number</label>
+                                        <input type="tel" class="form-control" id="visit_contact" placeholder="+94 XX XXX XXXX">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Address *</label>
+                                <input type="text" class="form-control" id="visit_address" placeholder="Enter patient address" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
                                         <label class="form-label">Visit Type *</label>
-                                        <select class="form-control" required>
+                                        <select class="form-control" id="visit_type" required>
                                             <option value="antenatal">Antenatal Visit</option>
                                             <option value="postnatal">Postnatal Visit</option>
                                             <option value="family-planning">Family Planning</option>
                                             <option value="emergency">Emergency Follow-up</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <select class="form-control">
-                                            <option value="30">30 minutes</option>
-                                            <option value="45">45 minutes</option>
-                                            <option value="60">1 hour</option>
-                                            <option value="90">1.5 hours</option>
+                                            <option value="routine">Routine Visit</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-label">Priority</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="visit_priority">
                                             <option value="normal">Normal</option>
                                             <option value="high">High</option>
                                             <option value="urgent">Urgent</option>
@@ -7256,28 +7613,97 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Date *</label>
+                                        <input type="date" class="form-control" id="visit_date" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Time *</label>
+                                        <input type="time" class="form-control" id="visit_time" required>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Duration (min)</label>
+                                        <input type="number" class="form-control" id="visit_duration" value="45" min="15" max="180">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Reason for Visit</label>
+                                <textarea class="form-control" id="visit_reason" rows="2" placeholder="Reason for the home visit..."></textarea>
+                            </div>
                             <div class="form-group">
                                 <label class="form-label">Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Additional notes for the visit..."></textarea>
+                                <textarea class="form-control" id="visit_notes" rows="2" placeholder="Additional notes..."></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="newVisitForm" class="btn btn-primary">Schedule Visit</button>
+                        <button type="button" class="btn btn-primary" onclick="saveNewVisit()">Schedule Visit</button>
                     </div>
                 </div>
             `;
             document.body.appendChild(modal);
-
-            document.getElementById('newVisitForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Visit scheduled successfully!');
-                closeModal();
-            });
+            
+            document.getElementById('visit_date').valueAsDate = new Date();
+        }
+        
+        async function saveNewVisit() {
+            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+            const midwifeId = user.id || 1;
+            
+            const visitData = {
+                midwife_id: midwifeId,
+                patient_name: document.getElementById('visit_patient_name').value,
+                contact_number: document.getElementById('visit_contact').value,
+                address: document.getElementById('visit_address').value,
+                visit_type: document.getElementById('visit_type').value,
+                priority: document.getElementById('visit_priority').value,
+                visit_date: document.getElementById('visit_date').value,
+                start_time: document.getElementById('visit_time').value,
+                duration_minutes: parseInt(document.getElementById('visit_duration').value),
+                duty_area: currentArea,
+                reason: document.getElementById('visit_reason').value,
+                notes: document.getElementById('visit_notes').value,
+                status: 'scheduled'
+            };
+            
+            if (!visitData.patient_name || !visitData.visit_date || !visitData.start_time) {
+                alert('Please fill in all required fields (Patient Name, Date, Time)');
+                return;
+            }
+            
+            try {
+                const response = await fetch('../php/home_visits.php?action=create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(visitData)
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Home visit scheduled successfully!');
+                    closeModal();
+                    loadHomeVisits();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error saving visit:', error);
+                alert('Error saving visit. Please try again.');
+            }
         }
 
         function quickVisitLog() {
+            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+            const pendingVisits = currentHomeVisits.filter(v => v.status === 'scheduled');
+            
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
             modal.innerHTML = `
@@ -7289,19 +7715,19 @@
                     <div class="modal-body">
                         <form id="quickLogForm">
                             <div class="form-group">
-                                <label class="form-label">Patient *</label>
-                                <select class="form-control" required>
+                                <label class="form-label">Select Visit *</label>
+                                <select class="form-control" id="quick_visit_id" required>
                                     <option value="">Select from today's visits</option>
-                                    <option value="1">Mrs. Nirmala Fernando - 09:00</option>
-                                    <option value="2">Mrs. Kamani Wickramasinghe - 10:30</option>
-                                    <option value="3">Mrs. Sandya Peris - 14:00</option>
+                                    ${pendingVisits.map(v => `
+                                        <option value="${v.id}">${v.patient_name} - ${v.start_time} (${formatVisitType(v.visit_type)})</option>
+                                    `).join('')}
                                 </select>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-label">Visit Status *</label>
-                                        <select class="form-control" required>
+                                        <select class="form-control" id="quick_status" required>
                                             <option value="completed">Completed Successfully</option>
                                             <option value="partial">Partially Completed</option>
                                             <option value="cancelled">Patient Not Available</option>
@@ -7311,34 +7737,66 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Follow-up Required</label>
-                                        <select class="form-control">
-                                            <option value="no">No</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="urgent">Urgent</option>
-                                        </select>
+                                        <label class="form-label">End Time</label>
+                                        <input type="time" class="form-control" id="quick_end_time" value="${new Date().toTimeString().slice(0, 5)}">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Visit Summary *</label>
-                                <textarea class="form-control" rows="4" required placeholder="Brief summary of the visit, findings, and actions taken..."></textarea>
+                                <label class="form-label">Visit Summary / Notes *</label>
+                                <textarea class="form-control" id="quick_notes" rows="4" required placeholder="Brief summary of the visit, findings, and actions taken..."></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="quickLogForm" class="btn btn-success">Log Visit</button>
+                        <button type="button" class="btn btn-success" onclick="saveQuickVisit()">Log Visit</button>
                     </div>
                 </div>
             `;
             document.body.appendChild(modal);
-
-            document.getElementById('quickLogForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Visit logged successfully!');
-                closeModal();
-            });
+        }
+        
+        async function saveQuickVisit() {
+            const visitId = document.getElementById('quick_visit_id').value;
+            const status = document.getElementById('quick_status').value;
+            const endTime = document.getElementById('quick_end_time').value;
+            const notes = document.getElementById('quick_notes').value;
+            
+            if (!visitId || !notes) {
+                alert('Please select a visit and enter notes');
+                return;
+            }
+            
+            try {
+                let response;
+                if (status === 'completed') {
+                    response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ notes: notes, end_time: endTime })
+                    });
+                } else {
+                    response = await fetch(`../php/home_visits.php?action=update&id=${visitId}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: status, notes: notes })
+                    });
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Visit logged successfully!');
+                    closeModal();
+                    loadHomeVisits();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error logging visit:', error);
+                alert('Error logging visit');
+            }
         }
 
         function switchVisitTab(tabName) {
@@ -9580,3 +10038,7 @@
 </script>
 </body>
 </html>
+</html>
+
+
+
