@@ -109,6 +109,8 @@ try {
     SessionManager::set('user_type', 'midwife');
     SessionManager::set('user_id', $midwife['midwife_id']);
     SessionManager::set('employee_id', $midwife['employee_id']);
+    SessionManager::set('assigned_area', $midwife['assigned_area']);
+    SessionManager::set('name', $midwife['full_name']);
     
     // Set remember me cookie if requested
     if ($rememberMe) {

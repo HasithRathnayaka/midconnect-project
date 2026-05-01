@@ -65,7 +65,7 @@ const AuthManager = {
         // Check for midwife session
         const midwifeUser = MidConnect.Utils.storage.get('midwife_user');
         if (midwifeUser && currentPage.includes('midwife-login')) {
-            window.location.href = 'midwife/dashboard.html';
+            window.location.href = 'midwife_dashboard.php';
         }
     },
 
@@ -178,7 +178,7 @@ const AuthManager = {
         MidConnect.SessionManager.init(userType);
 
         // Redirect to appropriate dashboard
-        const redirectUrl = userType === 'admin' ? 'admin/dashboard.html' : 'midwife/dashboard.html';
+        const redirectUrl = userType === 'admin' ? 'admin/dashboard.html' : 'midwife_dashboard.php';
         
         // Show success message briefly before redirect
         MidConnect.NotificationSystem.show('Login successful! Redirecting...', 'success', 1500);

@@ -26,7 +26,7 @@ try {
     }
     
     // Validate area against known areas
-    $validAreas = ['Uduthuththiripitiya', 'Kahambilihena', 'Opathella', 'Ambalangoda', 'Colombo'];
+    $validAreas = ['Uduthuththiripitiya', 'Kahabilihena', 'Opathella', 'Ambalangoda', 'Colombo'];
     if (!in_array($adminArea, $validAreas)) {
         Utils::jsonResponse(['success' => false, 'message' => 'Invalid area specified'], 400);
     }

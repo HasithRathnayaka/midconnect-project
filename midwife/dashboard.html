@@ -1861,13 +1861,13 @@
 /* health-education-session.html styles */
 .health-hero {
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-dark-green));
-            color: white;
+            color: #ffffff;
             border-radius: var(--radius-lg);
             padding: 1.75rem 2rem;
             margin-bottom: 1.75rem;
         }
-        .health-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .health-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
+        .health-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; color: #ffffff !important; text-shadow: 0 2px 8px rgba(0,0,0,0.35); }
+        .health-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; color: rgba(255,255,255,0.95) !important; text-shadow: 0 1px 5px rgba(0,0,0,0.25); }
         :root[data-theme='dark'] .health-hero {
             background: linear-gradient(135deg, #1e3a5f, #0d4a44);
         }
@@ -1920,7 +1920,7 @@
 
 </style>
 </head>
-<body>
+<body class="dashboard-with-sidebar">
     <!-- START: navbar.php -->
     <header class="header">
         <div class="container">
@@ -4371,13 +4371,10 @@
                 <div class="tab-container">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#" onclick="switchVisitTab('scheduled')">Scheduled Visits</a>
+                            <a class="nav-link active" href="#" onclick="switchVisitTab('scheduled', event)">Scheduled Visits</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVisitTab('completed')">Completed Visits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVisitTab('route-planning')">Route Planning</a>
+                            <a class="nav-link" href="#" onclick="switchVisitTab('completed', event)">Completed Visits</a>
                         </li>
                     </ul>
                 </div>
@@ -4537,65 +4534,6 @@
                                         <button class="btn btn-outline-primary btn-sm" onclick="viewVisitReport(1)">
                                             <i class="fas fa-file-alt"></i> View Report
                                         </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Route Planning Tab -->
-                <div id="route-planning" class="tab-content" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Optimize Your Daily Route</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="route-optimization">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="route-map">
-                                            <div class="map-placeholder">
-                                                <i class="fas fa-map"></i>
-                                                <p>Interactive Map will be displayed here</p>
-                                                <button class="btn btn-primary" onclick="loadMap()">Load Route Map</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="route-summary">
-                                            <h5>Route Summary</h5>
-                                            <div class="route-stats">
-                                                <div class="stat-item">
-                                                    <span class="label">Total Distance:</span>
-                                                    <span class="value">24.5 km</span>
-                                                </div>
-                                                <div class="stat-item">
-                                                    <span class="label">Estimated Time:</span>
-                                                    <span class="value">3h 45min</span>
-                                                </div>
-                                                <div class="stat-item">
-                                                    <span class="label">Visits:</span>
-                                                    <span class="value">8 patients</span>
-                                                </div>
-                                            </div>
-                                            
-                                            <h5>Route Order</h5>
-                                            <div class="route-order">
-                                                <div class="route-stop">
-                                                    <span class="stop-number">1</span>
-                                                    <span class="stop-name">Mrs. Nirmala Fernando</span>
-                                                </div>
-                                                <div class="route-stop">
-                                                    <span class="stop-number">2</span>
-                                                    <span class="stop-name">Mrs. Kamani Wickramasinghe</span>
-                                                </div>
-                                                <div class="route-stop">
-                                                    <span class="stop-number">3</span>
-                                                    <span class="stop-name">Mrs. Sandya Peris</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -6315,6 +6253,11 @@
             loadDashboardWidgets();
             loadHomeVisits();
 
+            const initialVisitTab = getVisitTabFromUrl();
+            if (initialVisitTab === 'completed') {
+                switchVisitTab('completed');
+            }
+
             checkAuthentication();
             initializeCharts();
             setCurrentDateTime();
@@ -7342,6 +7285,7 @@
                 if (result.success) {
                     currentHomeVisits = result.data;
                     renderHomeVisits();
+                    renderCompletedVisits();
                     updateHomeVisitStats();
                 }
             } catch (error) {
@@ -7486,8 +7430,8 @@
                 
                 if (result.success) {
                     alert('Visit marked as completed!');
-                    loadHomeVisits();
-                    renderCompletedVisits();
+                    await loadHomeVisits();
+                    switchVisitTab('completed');
                 }
             } catch (error) {
                 console.error('Error completing visit:', error);
@@ -7543,19 +7487,6 @@
                     </div>
                 </div>
             `).join('');
-        }
-        
-        function switchArea(section, area) {
-            currentArea = area;
-            
-            document.querySelectorAll('.duty-area-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.closest('.duty-area-btn').classList.add('active');
-            
-            document.querySelectorAll('.area-content-wrapper').forEach(w => w.classList.remove('active'));
-            const targetArea = document.querySelector(`.area-content-wrapper[data-area="${area}"]`);
-            if (targetArea) targetArea.classList.add('active');
-            
-            loadHomeVisits();
         }
         
         function scheduleNewVisit() {
@@ -7789,7 +7720,10 @@
                 if (result.success) {
                     alert('Visit logged successfully!');
                     closeModal();
-                    loadHomeVisits();
+                    await loadHomeVisits();
+                    if (status === 'completed') {
+                        switchVisitTab('completed');
+                    }
                 } else {
                     alert('Error: ' + result.message);
                 }
@@ -7799,25 +7733,36 @@
             }
         }
 
-        function switchVisitTab(tabName) {
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            
-            // Show selected tab content
-            const selectedTab = document.getElementById(tabName + '-visits') || document.getElementById(tabName);
+        function switchVisitTab(tabName, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const navLinks = document.querySelectorAll('#home-visits .tab-container .nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            const tabContents = document.querySelectorAll('#home-visits .tab-content');
+            tabContents.forEach(content => content.style.display = 'none');
+
+            const selectedTab = document.getElementById(tabName + '-visits');
             if (selectedTab) {
                 selectedTab.style.display = 'block';
             }
-            
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
+
+            let activeLink = event?.target;
+            if (!activeLink) {
+                activeLink = document.querySelector(`#home-visits .tab-container .nav-link[onclick*="switchVisitTab('${tabName}'"]`);
+            }
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        function getVisitTabFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const tab = params.get('visitTab') || params.get('tab') || 'scheduled';
+            return tab === 'completed' ? 'completed' : 'scheduled';
         }
 
         function filterVisitsByDate(period) {
@@ -8714,6 +8659,8 @@
 
         // Tab switching function for Maternal and Child Care
         function switchCareTab(tabName) {
+            event.preventDefault();
+            event.stopPropagation();
             // Remove active class from all nav links
             const navLinks = document.querySelectorAll('#patients .nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
@@ -8733,10 +8680,13 @@
             } else if (tabName === 'children') {
                 document.getElementById('children-tab').classList.remove('hidden');
             }
+            return false;
         }
 
         // Tab switching function for Mother categories
         function switchMotherTab(tabName) {
+            event.preventDefault();
+            event.stopPropagation();
             // Remove active class from all mother sub-nav links
             const motherNavLinks = document.querySelectorAll('#mothers-tab .nav-link');
             motherNavLinks.forEach(link => link.classList.remove('active'));
@@ -8757,10 +8707,13 @@
             } else if (tabName === 'postnatal') {
                 document.getElementById('postnatal-mothers').classList.remove('hidden');
             }
+            return false;
         }
 
         // Tab switching function for Children categories
         function switchChildrenTab(tabName) {
+            event.preventDefault();
+            event.stopPropagation();
             // Remove active class from all children sub-nav links
             const childrenNavLinks = document.querySelectorAll('#children-tab .nav-link');
             childrenNavLinks.forEach(link => link.classList.remove('active'));
@@ -8781,6 +8734,7 @@
             } else if (tabName === 'childs') {
                 document.getElementById('childs-children').classList.remove('hidden');
             }
+            return false;
         }
 
         // Update Mother Details Functions
@@ -9670,41 +9624,47 @@
         let currentTriposhaArea = 'uduthuththiripitiya';
 
         // Switch between duty areas in different sections
-        function switchArea(sectionId, areaName) {
-            // Find the section container
+        function switchArea(sectionId, areaName, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
             const section = document.getElementById(sectionId);
             if (!section) {
                 console.error('Section not found:', sectionId);
                 return;
             }
-            
-            // Remove active class from all area buttons in this section
+
             const buttons = section.querySelectorAll('.duty-area-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to the clicked button
-            const clickedButton = Array.from(buttons).find(btn => 
-                btn.getAttribute('onclick').includes(`'${areaName}'`)
+
+            const clickedButton = Array.from(buttons).find(btn =>
+                btn.getAttribute('onclick')?.includes(`'${areaName}'`)
             );
             if (clickedButton) {
                 clickedButton.classList.add('active');
             }
-            
-            // For Triposha section, update content dynamically
+
             if (sectionId === 'triposha' && triposhaData[areaName]) {
                 currentTriposhaArea = areaName;
                 updateTriposhaContent(areaName);
-            } else {
-                // For other sections, use traditional show/hide
-                const contentWrappers = section.querySelectorAll('.area-content-wrapper');
-                contentWrappers.forEach(wrapper => {
-                    wrapper.classList.remove('active');
-                });
-                
-                const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
-                if (selectedWrapper) {
-                    selectedWrapper.classList.add('active');
-                }
+                return;
+            }
+
+            const contentWrappers = section.querySelectorAll('.area-content-wrapper');
+            contentWrappers.forEach(wrapper => {
+                wrapper.classList.remove('active');
+            });
+
+            const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
+            if (selectedWrapper) {
+                selectedWrapper.classList.add('active');
+            }
+
+            if (sectionId === 'home-visits') {
+                currentArea = areaName;
+                loadHomeVisits();
             }
         }
 
@@ -10039,6 +9999,5 @@
 </body>
 </html>
 </html>
-
 
 
