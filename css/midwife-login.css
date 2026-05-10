@@ -1,0 +1,119 @@
+body {
+    position: relative;
+    background: transparent;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/back4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    filter: blur(5px) brightness(1);
+    z-index: -1;
+    transition: filter 0.3s ease;
+}
+
+:root[data-theme='dark'] body::before {
+    filter: blur(5px) brightness(0.5);
+}
+
+.login-container {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.login-logo {
+    background: linear-gradient(135deg, var(--accent-teal), var(--secondary-green));
+}
+
+.login-logo i {
+    color: var(--white);
+}
+
+.midwife-notice {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--accent-teal);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.midwife-notice h5 {
+    color: var(--accent-teal);
+    margin-bottom: 0.5rem;
+}
+
+.midwife-notice p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+.auth-page .input-group .form-control,
+.auth-page .input-group .form-control:focus,
+.auth-page .input-group .form-control:active,
+.auth-page .input-group .form-control:hover {
+    background: #ffffff;
+    color: var(--text-primary);
+    border: 2px solid #e9ecef;
+}
+
+:root[data-theme='dark'] .auth-page .input-group .form-control,
+:root[data-theme='dark'] .auth-page .input-group .form-control:focus,
+:root[data-theme='dark'] .auth-page .input-group .form-control:active,
+:root[data-theme='dark'] .auth-page .input-group .form-control:hover {
+    background: #081326;
+    color: #ffffff;
+    border: 2px solid #5fb1ff;
+    caret-color: #ffffff;
+}
+
+:root[data-theme='dark'] .auth-page .input-group .form-control::placeholder {
+    color: #d6eaff;
+    opacity: 1;
+}
+
+:root[data-theme='dark'] .auth-page .input-group .input-icon,
+:root[data-theme='dark'] .auth-page .input-group .password-toggle {
+    color: #d6eaff;
+}
+
+:root[data-theme='dark'] .auth-page .input-group .password-toggle:hover,
+:root[data-theme='dark'] .auth-page .input-group .password-toggle:focus {
+    color: #ffffff;
+}
+
+:root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill,
+:root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:hover,
+:root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:focus,
+:root[data-theme='dark'] .auth-page .input-group .form-control:-webkit-autofill:active {
+    -webkit-text-fill-color: #ffffff;
+    -webkit-box-shadow: 0 0 0 1000px #081326 inset;
+    box-shadow: 0 0 0 1000px #081326 inset;
+    caret-color: #ffffff;
+    border: 2px solid #5fb1ff;
+    transition: background-color 9999s ease-out 0s;
+}
+
+.auth-page .input-group .form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+.auth-page .input-group .input-icon,
+.auth-page .input-group .password-toggle {
+    color: var(--gray);
+}
+
+.auth-page .input-group .password-toggle:hover,
+.auth-page .input-group .password-toggle:focus {
+    color: var(--accent-teal);
+}

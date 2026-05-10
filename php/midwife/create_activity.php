@@ -4,7 +4,36 @@
  * Handles creation of new midwife activities
  */
 
-require_once 'config.php';
+require_once '../config.php';
+
+
+
+session_start();
+
+$userType = $_SESSION['user_type'] ?? null;
+
+$userId = $_SESSION['user_id'] ?? null;
+$sessionId = session_id();
+
+
+?>
+
+<h1>hello boss</h1>
+
+<script>
+console.log("Session ID:", <?php echo json_encode($sessionId); ?>);
+console.log("User Type:", <?php echo json_encode($userType); ?>);
+console.log("User ID:", <?php echo json_encode($userId); ?>);
+</script>
+
+
+
+
+
+
+
+
+
 
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

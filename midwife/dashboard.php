@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'midwife') {
+    header('Location: ../midwife-login.html');
+    exit;
+}
+
+echo '<script>';
+echo 'console.log("Session:", ' . json_encode($_SESSION) . ');';
+echo '</script>';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2056,7 +2070,7 @@
             <div id="log-activity" class="content-section" style="display: none;">
                 <h2>Log New Activity</h2>
                 <div class="activity-form">
-                    <form id="activityForm">
+                    <form action="../php/midwife/create_activity.php" method="POST" >
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">

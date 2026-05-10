@@ -71,6 +71,26 @@ MidConnect/
 
 ## 🚀 Installation Guide
 
+---
+
+## 🐳 Docker (PHP/Apache)
+
+This project is Dockerized to run **without changing any app files**.
+
+### Build & Start
+```bash
+docker compose up --build
+```
+
+### Open the app
+- http://localhost:8080
+
+### Stop
+```bash
+docker compose down
+```
+
+
 ### Prerequisites
 - **Web Server**: Apache/Nginx with PHP support
 - **PHP**: Version 8.0 or higher

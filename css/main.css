@@ -900,20 +900,6 @@ a:hover {
     background-color: var(--bg-secondary);
 }
 
-#children-tab .nav-tabs {
-    width: 100%;
-}
-
-#children-tab .nav-tabs .nav-item {
-    flex: 1;
-    margin-right: 0;
-}
-
-#children-tab .nav-tabs .nav-link {
-    text-align: center;
-    width: 100%;
-}
-
 .nav-tabs .nav-link.active {
     color: var(--primary-blue);
     background-color: var(--white);
