@@ -1,3 +1,3 @@
 <?php
-header('Location: midwife/dashboard.html');
+header('Location: midwife/dashboard.php');
 exit;

@@ -1939,11 +1939,7 @@ echo '</script>';
     <header class="header">
         <div class="container">
             <div class="header-left">
-                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
+                
                 <div class="logo">
                     <img src="../images/logoimage.png" alt="MidConnect Logo">
                     <span>MidConnect</span>
@@ -1951,7 +1947,6 @@ echo '</script>';
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#" id="notifications"><i class="fas fa-bell"></i> <span class="badge">2</span></a></li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     <li class="nav-actions">
                         <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button>
@@ -1968,7 +1963,6 @@ echo '</script>';
     <div class="main-content">
         <!-- START: sidebar.php -->
         <div class="sidebar" id="sidebar">
-            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close menu">&times;</button>
             <div class="sidebar-menu">
                 <ul>
                     <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
