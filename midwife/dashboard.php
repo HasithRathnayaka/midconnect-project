@@ -18,6 +18,7 @@ echo '</script>';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Midwife Dashboard - MidConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1932,6 +1933,27 @@ echo '</script>';
         .priority-high { border-left: 5px solid #fd7e14; }
         .priority-moderate { border-left: 5px solid var(--primary-blue); }
 
+
+        #addScheduleModal,
+        #timetableModal {
+            z-index: 1060 !important;
+        }
+
+        #addScheduleModal .modal-dialog,
+        #timetableModal .modal-dialog {
+            z-index: 1070 !important;
+            pointer-events: auto;
+        }
+
+        #addScheduleModal .modal-content,
+        #timetableModal .modal-content {
+            pointer-events: auto;
+        }
+
+        .modal-backdrop {
+            z-index: 1050 !important;
+        }
+
 </style>
 </head>
 <body class="dashboard-with-sidebar">
@@ -2154,112 +2176,64 @@ echo '</script>';
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>My Schedule</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="addScheduleItem()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addScheduleModal">
                             <i class="fas fa-plus"></i> Add Schedule Item
                         </button>
-                        <button class="btn btn-info" onclick="showMyTimetable()">
+<!-- if needed, you can uncomment the following button to enable the timetable modal for viewing detailed schedules. Make sure to implement the modal functionality in your JavaScript code to display the timetable when this button is clicked. -->
+<!--                     
+                        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#timetableModal">
                             <i class="fas fa-calendar-alt"></i> My Timetable
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 
-                <!-- Duty Areas Selection -->
                 <div class="duty-areas-container">
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
+
                     <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('schedule', 'uduthuththiripitiya')">
+                        <div class="duty-area-btn active" data-area="all" onclick="switchScheduleArea('all')">
+                            <i class="fas fa-list"></i>
+                            <h5>All Areas</h5>
+                            <div class="area-count">All schedules</div>
+                        </div>
+
+                        <div class="duty-area-btn" data-area="Uduthuththiripitiya" onclick="switchScheduleArea('Uduthuththiripitiya')">
                             <i class="fas fa-home"></i>
                             <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">4 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'kahabilihena')">
+
+                        <div class="duty-area-btn" data-area="Kahabilihena" onclick="switchScheduleArea('Kahabilihena')">
                             <i class="fas fa-hospital"></i>
                             <h5>Kahabilihena</h5>
-                            <div class="area-count">3 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'opathella')">
+
+                        <div class="duty-area-btn" data-area="Opathella" onclick="switchScheduleArea('Opathella')">
                             <i class="fas fa-city"></i>
                             <h5>Opathella</h5>
-                            <div class="area-count">2 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'ambalangoda')">
+
+                        <div class="duty-area-btn" data-area="Ambalangoda" onclick="switchScheduleArea('Ambalangoda')">
                             <i class="fas fa-tree"></i>
                             <h5>Ambalangoda</h5>
-                            <div class="area-count">5 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area Schedule</h4>
-                        <p>Clinic Hours: 8:00 AM - 4:00 PM | Contact: +94 37 226 5432</p>
+                        <h4>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="selectedAreaTitle">All Area Schedule</span>
+                        </h4>
+                        <p id="selectedAreaInfo">Loading schedules...</p>
                     </div>
-                    <div class="card">
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Activity</th>
-                                    <th>Location</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>09:00</td>
-                                    <td>Home Visit - Mrs. K. Silva</td>
-                                    <td>No. 45, Galle Road</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11:00</td>
-                                    <td>Vaccination Session</td>
-                                    <td>Clinic Center</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>14:00</td>
-                                    <td>Health Education Session</td>
-                                    <td>Community Hall</td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                        <button class="btn btn-warning btn-sm">Reschedule</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>16:00</td>
-                                    <td>Follow-up Visit - Mrs. R. Perera</td>
-                                    <td>No. 12, Main Street</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                </div>
 
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area Schedule</h4>
-                        <p>Clinic Hours: 8:30 AM - 3:30 PM | Contact: +94 37 205 6789</p>
-                    </div>
                     <div class="card">
                         <div class="card-body">
                             <table class="table">
@@ -2272,126 +2246,10 @@ echo '</script>';
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>08:30</td>
-                                        <td>Clinic Opening</td>
-                                        <td>Kahabilihena MOH Office</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>10:00</td>
-                                        <td>Home Visit - Mrs. A. Dissanayake</td>
-                                        <td>Kahabilihena South</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>13:00</td>
-                                        <td>Vaccination Clinic</td>
-                                        <td>Kahabilihena RH</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area Schedule</h4>
-                        <p>Clinic Hours: 8:00 AM - 5:00 PM | Contact: +94 37 222 3456</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
+                                <tbody id="scheduleTableBody">
                                     <tr>
-                                        <th>Time</th>
-                                        <th>Activity</th>
-                                        <th>Location</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>09:30</td>
-                                        <td>Antenatal Clinic</td>
-                                        <td>Opathella PHC</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>15:00</td>
-                                        <td>Health Education Session</td>
-                                        <td>City Community Center</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area Schedule</h4>
-                        <p>Clinic Hours: 7:30 AM - 4:00 PM | Contact: +94 37 267 8901</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Activity</th>
-                                        <th>Location</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>07:30</td>
-                                        <td>Mobile Clinic Setup</td>
-                                        <td>Ambalangoda East</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09:00</td>
-                                        <td>Home Visit - Mrs. S. Rajapaksha</td>
-                                        <td>Ambalangoda Village</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>11:30</td>
-                                        <td>Postnatal Care Visit</td>
-                                        <td>Ambalangoda North</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>14:00</td>
-                                        <td>Triposha Distribution</td>
-                                        <td>Ambalangoda DH</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>16:00</td>
-                                        <td>Follow-up Visit - Mrs. M. Bandara</td>
-                                        <td>Ambalangoda South</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
+                                        <td colspan="5" style="text-align:center;">Loading schedules...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -2401,9 +2259,9 @@ echo '</script>';
             </div>
 
             <!-- Maternal and Child Care Section -->
-            
-<!-- counseling-session Section -->
-<div id="counseling-session" class="content-section" style="display: none;">
+                        
+            <!-- counseling-session Section -->
+            <div id="counseling-session" class="content-section" style="display: none;">
                 <div class="counseling-hero">
                     <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
                     <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
@@ -6205,6 +6063,8 @@ echo '</script>';
                     </div>
                 </div>
             </div>
+
+
     <div id="distributionModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
@@ -6248,9 +6108,276 @@ echo '</script>';
         </div>
     </div>
 
+
+
+    <!--  addScheduleModal -->
+
+    <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel">Add New Schedule Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="scheduleItemForm" action="../php/midwife/create_schedule.php" method="POST">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date *</label>
+                                <input type="date" class="form-control" name="scheduled_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Time *</label>
+                                <input type="time" class="form-control" name="start_time" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Activity Type *</label>
+                                <select class="form-control" name="activity_type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="HOME_VISIT">Home Visit</option>
+                                    <option value="CLINIC_VISIT">Clinic Session</option>
+                                    <option value="VACCINATION">Vaccination</option>
+                                    <option value="COUNSELING">Counseling</option>
+                                    <option value="MEETING">Meeting</option>
+                                    <option value="HEALTH_EDUCATION">Health Education</option>
+                                    <option value="EMERGENCY_RESPONSE">Emergency Response</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Duration</label>
+                                <select class="form-control" name="duration">
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="90">1.5 hours</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Title / Description *</label>
+                        <input type="text" class="form-control" name="description" placeholder="Brief description of the activity" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" name="patient_name" placeholder="Patient name if applicable">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location *</label>
+                        <input type="text" class="form-control" name="location" placeholder="Where will this take place?" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-control" name="priority_level">
+                                    <option value="normal">Normal</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Duty Area / Working Area</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="duty_area" 
+                                    placeholder="Enter working area" 
+                                    required
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add to Schedule</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- timetableModal -->
+
+
+<div class="modal fade" id="timetableModal" tabindex="-1" role="dialog" aria-labelledby="timetableModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="timetableModalLabel">My Timetable</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="timetable-controls mb-3">
+                    <div class="d-flex justify-content-start mb-3" role="tablist" style="gap: 0.5rem;">
+                        <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
+                        <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
+                        <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
+                    </div>
+
+                    <div class="row" id="timetable-selectors">
+                        <div class="col-4">
+                            <label class="form-label">Year</label>
+                            <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
+
+                        <div class="col-4" id="timetable-month-wrapper">
+                            <label class="form-label">Month</label>
+                            <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03" selected>March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+
+                        <div class="col-4" id="timetable-day-wrapper">
+                            <label class="form-label">Day</label>
+                            <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="01">1</option>
+                                <option value="02">2</option>
+                                <option value="03">3</option>
+                                <option value="04">4</option>
+                                <option value="05">5</option>
+                                <option value="06">6</option>
+                                <option value="07">7</option>
+                                <option value="08">8</option>
+                                <option value="09">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27" selected>27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="timetableContent">
+                    <div id="timetableHeader" class="timetable-header" style="display: none;">
+                        <h4 id="monthTitle"></h4>
+                    </div>
+
+                    <div id="timetableBody">
+                        <p class="text-muted mb-0">Select year, month, or day to view timetable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+      
+
+
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/midwife/create_activity.js"></script>
+    <script src="../js/midwife/create-schedule.js"></script>
+    <script src="../js/midwife/load-schedules.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        $('#timetableModal').on('shown.bs.modal', function () {
+
+            if (typeof setTimetableTab === 'function') {
+
+                setTimetableTab('year');
+
+            }
+
+            if (typeof syncTimetableInputs === 'function') {
+
+                syncTimetableInputs();
+
+            }
+
+            if (typeof loadTimetableData === 'function') {
+
+                loadTimetableData();
+
+            }
+
+        });
+    </script>
+    
     <script>
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -6776,202 +6903,8 @@ echo '</script>';
             document.querySelector('[href="#dashboard"]').click();
         });
 
-        function addScheduleItem() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Add New Schedule Item</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="scheduleItemForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" name="scheduleDate" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" name="scheduleTime" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Activity Type *</label>
-                                        <select class="form-control" name="activityType" required>
-                                            <option value="">Select Type</option>
-                                            <option value="home-visit">Home Visit</option>
-                                            <option value="clinic">Clinic Session</option>
-                                            <option value="vaccination">Vaccination</option>
-                                            <option value="counseling">Counseling</option>
-                                            <option value="meeting">Meeting</option>
-                                            <option value="training">Training</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <select class="form-control" name="duration">
-                                            <option value="30">30 minutes</option>
-                                            <option value="45">45 minutes</option>
-                                            <option value="60">1 hour</option>
-                                            <option value="90">1.5 hours</option>
-                                            <option value="120">2 hours</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Title/Description *</label>
-                                <input type="text" class="form-control" name="title" placeholder="Brief description of the activity" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" placeholder="Where will this take place?">
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Priority</label>
-                                        <select class="form-control" name="priority">
-                                            <option value="normal">Normal</option>
-                                            <option value="high">High</option>
-                                            <option value="urgent">Urgent</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duty Area</label>
-                                        <select class="form-control" name="dutyArea">
-                                            <option value="uduthuththiripitiya">Uduthuththiripitiya</option>
-                                            <option value="kahabilihena">Kahabilihena</option>
-                                            <option value="opathella">Opathella</option>
-                                            <option value="ambalangoda">Ambalangoda</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="scheduleItemForm" class="btn btn-primary">Add to Schedule</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Set default date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.querySelector('input[name="scheduleDate"]').value = today;
-
-            document.getElementById('scheduleItemForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const scheduleData = Object.fromEntries(formData);
-                alert('Schedule item added successfully!\\n' +
-                      'Date: ' + scheduleData.scheduleDate + '\\n' +
-                      'Time: ' + scheduleData.scheduleTime + '\\n' +
-                      'Activity: ' + scheduleData.title);
-                closeModal();
-                // Here you would typically save to database or localStorage
-            });
-        }
-
-        function showMyTimetable() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content" style="max-width: 900px;">
-                    <div class="modal-header">
-                        <h3>My Timetable</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="timetable-controls mb-3">
-                            <div class="d-flex justify-content-start gap-2 mb-3" role="tablist">
-                                <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
-                                <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
-                                <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
-                            </div>
-
-                            <div class="row" id="timetable-selectors">
-                                <div class="col-4">
-                                    <label class="form-label">Year</label>
-                                    <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026" selected>2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                    </select>
-                                </div>
-                                <div class="col-4" id="timetable-month-wrapper">
-                                    <label class="form-label">Month</label>
-                                    <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03" selected>March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                </div>
-                                <div class="col-4" id="timetable-day-wrapper">
-                                    <label class="form-label">Day</label>
-                                    <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        ${Array.from({ length: 31 }, (_, idx) => `<option value="${String(idx + 1).padStart(2, '0')}" ${idx + 1 === 27 ? 'selected' : ''}>${idx + 1}</option>`).join('')}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="timetableContent">
-                            <!-- Timetable will be loaded here -->
-                            <div id="timetableHeader" class="timetable-header" style="display: none;">
-                                <h4 id="monthTitle"></h4>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Set default selected values
-            document.getElementById('timetableYear').value = '2026';
-            document.getElementById('timetableMonth').value = '03';
-            document.getElementById('timetableDay').value = '27';
-            setTimetableTab('month');
-
-            // Load initial timetable data
-            loadTimetableData();
-        }
+    
+ 
 
         let currentTimetableTab = 'month';
 
