@@ -2175,110 +2175,60 @@ echo '</script>';
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addScheduleModal">
                             <i class="fas fa-plus"></i> Add Schedule Item
                         </button>
-                      
+
                         <button class="btn btn-info" onclick="showMyTimetable()">
                             <i class="fas fa-calendar-alt"></i> My Timetable
                         </button>
                     </div>
                 </div>
 
-                <!-- Duty Areas Selection -->
                 <div class="duty-areas-container">
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
+
                     <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('schedule', 'uduthuththiripitiya')">
+                        <div class="duty-area-btn active" data-area="all" onclick="switchScheduleArea('all')">
+                            <i class="fas fa-list"></i>
+                            <h5>All Areas</h5>
+                            <div class="area-count">All schedules</div>
+                        </div>
+
+                        <div class="duty-area-btn" data-area="Uduthuththiripitiya" onclick="switchScheduleArea('Uduthuththiripitiya')">
                             <i class="fas fa-home"></i>
                             <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">4 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'kahabilihena')">
+
+                        <div class="duty-area-btn" data-area="Kahabilihena" onclick="switchScheduleArea('Kahabilihena')">
                             <i class="fas fa-hospital"></i>
                             <h5>Kahabilihena</h5>
-                            <div class="area-count">3 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'opathella')">
+
+                        <div class="duty-area-btn" data-area="Opathella" onclick="switchScheduleArea('Opathella')">
                             <i class="fas fa-city"></i>
                             <h5>Opathella</h5>
-                            <div class="area-count">2 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
-                        <div class="duty-area-btn" onclick="switchArea('schedule', 'ambalangoda')">
+
+                        <div class="duty-area-btn" data-area="Ambalangoda" onclick="switchScheduleArea('Ambalangoda')">
                             <i class="fas fa-tree"></i>
                             <h5>Ambalangoda</h5>
-                            <div class="area-count">5 appointments</div>
+                            <div class="area-count">View schedules</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area Schedule</h4>
-                        <p>Clinic Hours: 8:00 AM - 4:00 PM | Contact: +94 37 226 5432</p>
+                        <h4>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="selectedAreaTitle">All Area Schedule</span>
+                        </h4>
+                        <p id="selectedAreaInfo">Loading schedules...</p>
                     </div>
-                    <div class="card">
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Activity</th>
-                                    <th>Location</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>09:00</td>
-                                    <td>Home Visit - Mrs. K. Silva</td>
-                                    <td>No. 45, Galle Road</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>11:00</td>
-                                    <td>Vaccination Session</td>
-                                    <td>Clinic Center</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>14:00</td>
-                                    <td>Health Education Session</td>
-                                    <td>Community Hall</td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                        <button class="btn btn-warning btn-sm">Reschedule</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>16:00</td>
-                                    <td>Follow-up Visit - Mrs. R. Perera</td>
-                                    <td>No. 12, Main Street</td>
-                                    <td><span class="status-badge status-active">Scheduled</span></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm">Complete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                </div>
 
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area Schedule</h4>
-                        <p>Clinic Hours: 8:30 AM - 3:30 PM | Contact: +94 37 205 6789</p>
-                    </div>
                     <div class="card">
                         <div class="card-body">
                             <table class="table">
@@ -2291,126 +2241,10 @@ echo '</script>';
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>08:30</td>
-                                        <td>Clinic Opening</td>
-                                        <td>Kahabilihena MOH Office</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>10:00</td>
-                                        <td>Home Visit - Mrs. A. Dissanayake</td>
-                                        <td>Kahabilihena South</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>13:00</td>
-                                        <td>Vaccination Clinic</td>
-                                        <td>Kahabilihena RH</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area Schedule</h4>
-                        <p>Clinic Hours: 8:00 AM - 5:00 PM | Contact: +94 37 222 3456</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
+                                <tbody id="scheduleTableBody">
                                     <tr>
-                                        <th>Time</th>
-                                        <th>Activity</th>
-                                        <th>Location</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>09:30</td>
-                                        <td>Antenatal Clinic</td>
-                                        <td>Opathella PHC</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>15:00</td>
-                                        <td>Health Education Session</td>
-                                        <td>City Community Center</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area Schedule</h4>
-                        <p>Clinic Hours: 7:30 AM - 4:00 PM | Contact: +94 37 267 8901</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Activity</th>
-                                        <th>Location</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>07:30</td>
-                                        <td>Mobile Clinic Setup</td>
-                                        <td>Ambalangoda East</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>09:00</td>
-                                        <td>Home Visit - Mrs. S. Rajapaksha</td>
-                                        <td>Ambalangoda Village</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>11:30</td>
-                                        <td>Postnatal Care Visit</td>
-                                        <td>Ambalangoda North</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>14:00</td>
-                                        <td>Triposha Distribution</td>
-                                        <td>Ambalangoda DH</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>16:00</td>
-                                        <td>Follow-up Visit - Mrs. M. Bandara</td>
-                                        <td>Ambalangoda South</td>
-                                        <td><span class="status-badge status-active">Scheduled</span></td>
-                                        <td><button class="btn btn-success btn-sm">Complete</button></td>
+                                        <td colspan="5" style="text-align:center;">Loading schedules...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -2420,9 +2254,9 @@ echo '</script>';
             </div>
 
             <!-- Maternal and Child Care Section -->
-            
-<!-- counseling-session Section -->
-<div id="counseling-session" class="content-section" style="display: none;">
+                        
+            <!-- counseling-session Section -->
+            <div id="counseling-session" class="content-section" style="display: none;">
                 <div class="counseling-hero">
                     <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
                     <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
@@ -6396,6 +6230,7 @@ echo '</script>';
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/midwife/create_activity.js"></script>
     <script src="../js/midwife/create-schedule.js"></script>
+    <script src="../js/midwife/load-schedules.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
