@@ -2064,7 +2064,7 @@ echo '</script>';
             <div id="log-activity" class="content-section" style="display: none;">
                 <h2>Log New Activity</h2>
                 <div class="activity-form">
-                    <form action="../php/midwife/create_activity.php" method="POST" >
+                    <form id="createActivityForm" action="../php/midwife/create_activity.php" method="POST">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -6250,6 +6250,7 @@ echo '</script>';
 
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
+    <script src="../js/midwife/create_activity.js"></script>
     <script>
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {

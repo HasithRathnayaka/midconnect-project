@@ -63,9 +63,9 @@ MidConnect/
 ├── database/
 │   └── midconnect_schema.sql # Database schema
 ├── admin/
-│   └── dashboard.html        # Admin dashboard
+│   └── dashboard.php        # Admin dashboard
 ├── midwife/
-│   └── dashboard.html        # Midwife dashboard
+│   └── dashboard.php        # Midwife dashboard
 └── images/                   # Image assets
 ```
 

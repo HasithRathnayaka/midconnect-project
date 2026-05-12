@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const dashboardPath = path.join(__dirname, 'midwife', 'dashboard.html');
+const dashboardPath = path.join(__dirname, 'midwife', 'dashboard.php');
 let content = fs.readFileSync(dashboardPath, 'utf8');
 
 const htmlToInject = `

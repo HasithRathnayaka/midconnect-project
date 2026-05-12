@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const dashPath = path.join(__dirname, 'admin', 'dashboard.html');
+const dashPath = path.join(__dirname, 'admin', 'dashboard.php');
 
 const newDashboard = `<!DOCTYPE html>
 <html lang="en">

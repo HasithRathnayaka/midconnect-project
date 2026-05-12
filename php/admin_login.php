@@ -192,7 +192,7 @@ try {
     $notifications = $db->fetchAll($notificationsSql, [$admin['admin_id']]);
     
     // Return success response
-header("Location: ../admin/dashboard.html");
+header("Location: ../admin/dashboard.php");
 exit();
     
 } catch (Exception $e) {

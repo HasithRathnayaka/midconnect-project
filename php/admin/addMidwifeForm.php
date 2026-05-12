@@ -4,7 +4,7 @@ session_start();
 require_once  '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../../admin/dashboard.html');
+    header('Location: ../../admin/dashboard.php');
     exit;
 }
 
@@ -104,7 +104,7 @@ try {
         ':hire_date' => $startDate
     ]);
 
-    header('Location: ../../admin/dashboard.html?midwife_added=1');
+    header('Location: ../../admin/dashboard.php?midwife_added=1');
     exit;
 
 } catch (PDOException $e) {

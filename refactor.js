@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const basePath = path.join(__dirname, 'midwife');
-const dashboardPath = path.join(basePath, 'dashboard.html');
+const dashboardPath = path.join(basePath, 'dashboard.php');
 
 let dashboardHtml = fs.readFileSync(dashboardPath, 'utf8');
 

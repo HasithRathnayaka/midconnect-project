@@ -17,3 +17,4 @@ php_errors.log
 
 # Temporary files
 ~$*
+docker-compose.yml
