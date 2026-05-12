@@ -1933,21 +1933,25 @@ echo '</script>';
         .priority-high { border-left: 5px solid #fd7e14; }
         .priority-moderate { border-left: 5px solid var(--primary-blue); }
 
-        #addScheduleModal {
+
+        #addScheduleModal,
+        #timetableModal {
             z-index: 1060 !important;
         }
 
-        .modal-backdrop {
-            z-index: 1050 !important;
-        }
-
-        #addScheduleModal .modal-dialog {
+        #addScheduleModal .modal-dialog,
+        #timetableModal .modal-dialog {
             z-index: 1070 !important;
             pointer-events: auto;
         }
 
-        #addScheduleModal .modal-content {
+        #addScheduleModal .modal-content,
+        #timetableModal .modal-content {
             pointer-events: auto;
+        }
+
+        .modal-backdrop {
+            z-index: 1050 !important;
         }
 
 </style>
@@ -2175,10 +2179,11 @@ echo '</script>';
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addScheduleModal">
                             <i class="fas fa-plus"></i> Add Schedule Item
                         </button>
-
-                        <button class="btn btn-info" onclick="showMyTimetable()">
+<!-- if needed, you can uncomment the following button to enable the timetable modal for viewing detailed schedules. Make sure to implement the modal functionality in your JavaScript code to display the timetable when this button is clicked. -->
+<!--                     
+                        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#timetableModal">
                             <i class="fas fa-calendar-alt"></i> My Timetable
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 
@@ -6058,6 +6063,8 @@ echo '</script>';
                     </div>
                 </div>
             </div>
+
+
     <div id="distributionModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
@@ -6223,6 +6230,119 @@ echo '</script>';
         </div>
     </div>
 </div>
+
+
+
+<!-- timetableModal -->
+
+
+<div class="modal fade" id="timetableModal" tabindex="-1" role="dialog" aria-labelledby="timetableModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="timetableModalLabel">My Timetable</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="timetable-controls mb-3">
+                    <div class="d-flex justify-content-start mb-3" role="tablist" style="gap: 0.5rem;">
+                        <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
+                        <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
+                        <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
+                    </div>
+
+                    <div class="row" id="timetable-selectors">
+                        <div class="col-4">
+                            <label class="form-label">Year</label>
+                            <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
+
+                        <div class="col-4" id="timetable-month-wrapper">
+                            <label class="form-label">Month</label>
+                            <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03" selected>March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+
+                        <div class="col-4" id="timetable-day-wrapper">
+                            <label class="form-label">Day</label>
+                            <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData();">
+                                <option value="01">1</option>
+                                <option value="02">2</option>
+                                <option value="03">3</option>
+                                <option value="04">4</option>
+                                <option value="05">5</option>
+                                <option value="06">6</option>
+                                <option value="07">7</option>
+                                <option value="08">8</option>
+                                <option value="09">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27" selected>27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="timetableContent">
+                    <div id="timetableHeader" class="timetable-header" style="display: none;">
+                        <h4 id="monthTitle"></h4>
+                    </div>
+
+                    <div id="timetableBody">
+                        <p class="text-muted mb-0">Select year, month, or day to view timetable.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
+            </div>
+
+        </div>
+    </div>
+</div>
       
 
 
@@ -6234,6 +6354,30 @@ echo '</script>';
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        $('#timetableModal').on('shown.bs.modal', function () {
+
+            if (typeof setTimetableTab === 'function') {
+
+                setTimetableTab('year');
+
+            }
+
+            if (typeof syncTimetableInputs === 'function') {
+
+                syncTimetableInputs();
+
+            }
+
+            if (typeof loadTimetableData === 'function') {
+
+                loadTimetableData();
+
+            }
+
+        });
+    </script>
+    
     <script>
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -6760,86 +6904,7 @@ echo '</script>';
         });
 
     
-        function showMyTimetable() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content" style="max-width: 900px;">
-                    <div class="modal-header">
-                        <h3>My Timetable</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="timetable-controls mb-3">
-                            <div class="d-flex justify-content-start gap-2 mb-3" role="tablist">
-                                <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
-                                <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
-                                <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
-                            </div>
-
-                            <div class="row" id="timetable-selectors">
-                                <div class="col-4">
-                                    <label class="form-label">Year</label>
-                                    <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                        <option value="2026" selected>2026</option>
-                                        <option value="2027">2027</option>
-                                        <option value="2028">2028</option>
-                                    </select>
-                                </div>
-                                <div class="col-4" id="timetable-month-wrapper">
-                                    <label class="form-label">Month</label>
-                                    <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03" selected>March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                </div>
-                                <div class="col-4" id="timetable-day-wrapper">
-                                    <label class="form-label">Day</label>
-                                    <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData()">
-                                        ${Array.from({ length: 31 }, (_, idx) => `<option value="${String(idx + 1).padStart(2, '0')}" ${idx + 1 === 27 ? 'selected' : ''}>${idx + 1}</option>`).join('')}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="timetableContent">
-                            <!-- Timetable will be loaded here -->
-                            <div id="timetableHeader" class="timetable-header" style="display: none;">
-                                <h4 id="monthTitle"></h4>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Set default selected values
-            document.getElementById('timetableYear').value = '2026';
-            document.getElementById('timetableMonth').value = '03';
-            document.getElementById('timetableDay').value = '27';
-            setTimetableTab('month');
-
-            // Load initial timetable data
-            loadTimetableData();
-        }
+ 
 
         let currentTimetableTab = 'month';
 
