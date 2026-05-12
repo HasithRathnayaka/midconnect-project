@@ -357,3 +357,80 @@ function escapeHtml(value) {
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;');
 }
+
+
+function switchVisitTab(tabName, event) {
+    if (event) {
+        event.preventDefault();
+    }
+
+    const scheduledTab = document.getElementById('scheduled-visits');
+    const completedTab = document.getElementById('completed-visits');
+
+    if (!scheduledTab || !completedTab) {
+        console.error('Visit tab containers not found');
+        return;
+    }
+
+    // Hide both tabs first
+    scheduledTab.style.display = 'none';
+    completedTab.style.display = 'none';
+
+    // Remove active class from both tab buttons
+    const tabLinks = document.querySelectorAll('#home-visits .nav-tabs .nav-link');
+    tabLinks.forEach(link => {
+        link.classList.remove('active');
+    });
+
+    // Show selected tab
+    if (tabName === 'scheduled') {
+        scheduledTab.style.display = 'block';
+
+        const scheduledLink = document.querySelector('#home-visits .nav-tabs .nav-link[onclick*="scheduled"]');
+        if (scheduledLink) {
+            scheduledLink.classList.add('active');
+        }
+    }
+
+    if (tabName === 'completed') {
+        completedTab.style.display = 'block';
+
+        const completedLink = document.querySelector('#home-visits .nav-tabs .nav-link[onclick*="completed"]');
+        if (completedLink) {
+            completedLink.classList.add('active');
+        }
+    }
+}
+
+
+function completeHomeVisit(visitId) {
+    if (!visitId) {
+        alert('Invalid visit ID.');
+        return;
+    }
+
+    if (!confirm('Are you sure you want to mark this visit as completed?')) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('visit_id', visitId);
+
+    fetch('../php/midwife/complete_home_visit.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+
+            if (data.success) {
+                loadHomeVisitData(); // reload UI after completing
+            }
+        })
+        .catch(error => {
+            console.error('Complete Home Visit Error:', error);
+            alert('Server error while completing home visit.');
+        });
+}
