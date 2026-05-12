@@ -1935,17 +1935,20 @@ echo '</script>';
 
 
         #addScheduleModal,
+        #scheduleVisitModal,
         #timetableModal {
             z-index: 1060 !important;
         }
 
         #addScheduleModal .modal-dialog,
+        #scheduleVisitModal .modal-dialog,
         #timetableModal .modal-dialog {
             z-index: 1070 !important;
             pointer-events: auto;
         }
 
         #addScheduleModal .modal-content,
+        #scheduleVisitModal .modal-content ,
         #timetableModal .modal-content {
             pointer-events: auto;
         }
@@ -2186,6 +2189,8 @@ echo '</script>';
                         </button> -->
                     </div>
                 </div>
+
+                
 
                 <div class="duty-areas-container">
                     <div class="duty-areas-title">
@@ -4140,9 +4145,11 @@ echo '</script>';
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Home Visits Management</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="scheduleNewVisit()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVisitModal">
                             <i class="fas fa-plus"></i> Schedule New Visit
                         </button>
+
+
                         <button class="btn btn-success" onclick="quickVisitLog()">
                             <i class="fas fa-clipboard-check"></i> Quick Visit Log
                         </button>
@@ -6343,6 +6350,123 @@ echo '</script>';
         </div>
     </div>
 </div>
+
+
+
+
+<!-- scheduleVisitModal -->
+
+<div class="modal fade" id="scheduleVisitModal" tabindex="-1" role="dialog" aria-labelledby="scheduleVisitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="scheduleVisitModalLabel">Schedule New Home Visit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="newVisitForm" action="../php/midwife/create_home_visit.php" method="POST">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Patient Name *</label>
+                                <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address *</label>
+                        <input type="text" class="form-control" name="address" placeholder="Enter patient address" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Visit Type *</label>
+                                <select class="form-control" name="visit_type" required>
+                                    <option value="antenatal">Antenatal Visit</option>
+                                    <option value="postnatal">Postnatal Visit</option>
+                                    <option value="family-planning">Family Planning</option>
+                                    <option value="emergency">Emergency Follow-up</option>
+                                    <option value="routine">Routine Visit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-control" name="priority">
+                                    <option value="normal">Normal</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-label">Date *</label>
+                                <input type="date" class="form-control" name="visit_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-label">Time *</label>
+                                <input type="time" class="form-control" name="start_time" required>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-label">Duration (min)</label>
+                                <input type="number" class="form-control" name="duration_minutes" value="45" min="15" max="180">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Duty Area / Working Area *</label>
+                        <input type="text" class="form-control" name="duty_area" placeholder="Enter working area" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Reason for Visit</label>
+                        <textarea class="form-control" name="reason" rows="2" placeholder="Reason for the home visit..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="2" placeholder="Additional notes..."></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Schedule Visit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
       
 
 
@@ -6351,6 +6475,7 @@ echo '</script>';
     <script src="../js/midwife/create_activity.js"></script>
     <script src="../js/midwife/create-schedule.js"></script>
     <script src="../js/midwife/load-schedules.js"></script>
+    <script src="../js/midwife/create-home-visit.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -7429,102 +7554,6 @@ echo '</script>';
                     </div>
                 </div>
             `).join('');
-        }
-        
-        function scheduleNewVisit() {
-            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Schedule New Home Visit</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="newVisitForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Patient Name *</label>
-                                        <input type="text" class="form-control" id="visit_patient_name" placeholder="Enter patient name" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" id="visit_contact" placeholder="+94 XX XXX XXXX">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Address *</label>
-                                <input type="text" class="form-control" id="visit_address" placeholder="Enter patient address" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Visit Type *</label>
-                                        <select class="form-control" id="visit_type" required>
-                                            <option value="antenatal">Antenatal Visit</option>
-                                            <option value="postnatal">Postnatal Visit</option>
-                                            <option value="family-planning">Family Planning</option>
-                                            <option value="emergency">Emergency Follow-up</option>
-                                            <option value="routine">Routine Visit</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Priority</label>
-                                        <select class="form-control" id="visit_priority">
-                                            <option value="normal">Normal</option>
-                                            <option value="high">High</option>
-                                            <option value="urgent">Urgent</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" id="visit_date" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" id="visit_time" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (min)</label>
-                                        <input type="number" class="form-control" id="visit_duration" value="45" min="15" max="180">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Reason for Visit</label>
-                                <textarea class="form-control" id="visit_reason" rows="2" placeholder="Reason for the home visit..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" id="visit_notes" rows="2" placeholder="Additional notes..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="saveNewVisit()">Schedule Visit</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            document.getElementById('visit_date').valueAsDate = new Date();
         }
         
         async function saveNewVisit() {
