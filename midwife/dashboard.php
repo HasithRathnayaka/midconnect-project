@@ -18,6 +18,7 @@ echo '</script>';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Midwife Dashboard - MidConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1932,6 +1933,23 @@ echo '</script>';
         .priority-high { border-left: 5px solid #fd7e14; }
         .priority-moderate { border-left: 5px solid var(--primary-blue); }
 
+        #addScheduleModal {
+            z-index: 1060 !important;
+        }
+
+        .modal-backdrop {
+            z-index: 1050 !important;
+        }
+
+        #addScheduleModal .modal-dialog {
+            z-index: 1070 !important;
+            pointer-events: auto;
+        }
+
+        #addScheduleModal .modal-content {
+            pointer-events: auto;
+        }
+
 </style>
 </head>
 <body class="dashboard-with-sidebar">
@@ -2154,9 +2172,10 @@ echo '</script>';
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>My Schedule</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="addScheduleItem()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addScheduleModal">
                             <i class="fas fa-plus"></i> Add Schedule Item
                         </button>
+                      
                         <button class="btn btn-info" onclick="showMyTimetable()">
                             <i class="fas fa-calendar-alt"></i> My Timetable
                         </button>
@@ -6248,9 +6267,138 @@ echo '</script>';
         </div>
     </div>
 
+
+
+    <!--  addScheduleModal -->
+
+    <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="addScheduleModalLabel">Add New Schedule Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="scheduleItemForm" action="../php/midwife/create_schedule.php" method="POST">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date *</label>
+                                <input type="date" class="form-control" name="scheduled_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Time *</label>
+                                <input type="time" class="form-control" name="start_time" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Activity Type *</label>
+                                <select class="form-control" name="activity_type" required>
+                                    <option value="">Select Type</option>
+                                    <option value="HOME_VISIT">Home Visit</option>
+                                    <option value="CLINIC_VISIT">Clinic Session</option>
+                                    <option value="VACCINATION">Vaccination</option>
+                                    <option value="COUNSELING">Counseling</option>
+                                    <option value="MEETING">Meeting</option>
+                                    <option value="HEALTH_EDUCATION">Health Education</option>
+                                    <option value="EMERGENCY_RESPONSE">Emergency Response</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Duration</label>
+                                <select class="form-control" name="duration">
+                                    <option value="30">30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">1 hour</option>
+                                    <option value="90">1.5 hours</option>
+                                    <option value="120">2 hours</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Title / Description *</label>
+                        <input type="text" class="form-control" name="description" placeholder="Brief description of the activity" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" name="patient_name" placeholder="Patient name if applicable">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location *</label>
+                        <input type="text" class="form-control" name="location" placeholder="Where will this take place?" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Priority</label>
+                                <select class="form-control" name="priority_level">
+                                    <option value="normal">Normal</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Duty Area / Working Area</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="duty_area" 
+                                    placeholder="Enter working area" 
+                                    required
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add to Schedule</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+      
+
+
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/midwife/create_activity.js"></script>
+    <script src="../js/midwife/create-schedule.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script>
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
@@ -6776,122 +6924,7 @@ echo '</script>';
             document.querySelector('[href="#dashboard"]').click();
         });
 
-        function addScheduleItem() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Add New Schedule Item</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="scheduleItemForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" name="scheduleDate" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" name="scheduleTime" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Activity Type *</label>
-                                        <select class="form-control" name="activityType" required>
-                                            <option value="">Select Type</option>
-                                            <option value="home-visit">Home Visit</option>
-                                            <option value="clinic">Clinic Session</option>
-                                            <option value="vaccination">Vaccination</option>
-                                            <option value="counseling">Counseling</option>
-                                            <option value="meeting">Meeting</option>
-                                            <option value="training">Training</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <select class="form-control" name="duration">
-                                            <option value="30">30 minutes</option>
-                                            <option value="45">45 minutes</option>
-                                            <option value="60">1 hour</option>
-                                            <option value="90">1.5 hours</option>
-                                            <option value="120">2 hours</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Title/Description *</label>
-                                <input type="text" class="form-control" name="title" placeholder="Brief description of the activity" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" placeholder="Where will this take place?">
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Priority</label>
-                                        <select class="form-control" name="priority">
-                                            <option value="normal">Normal</option>
-                                            <option value="high">High</option>
-                                            <option value="urgent">Urgent</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duty Area</label>
-                                        <select class="form-control" name="dutyArea">
-                                            <option value="uduthuththiripitiya">Uduthuththiripitiya</option>
-                                            <option value="kahabilihena">Kahabilihena</option>
-                                            <option value="opathella">Opathella</option>
-                                            <option value="ambalangoda">Ambalangoda</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="scheduleItemForm" class="btn btn-primary">Add to Schedule</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            // Set default date to today
-            const today = new Date().toISOString().split('T')[0];
-            document.querySelector('input[name="scheduleDate"]').value = today;
-
-            document.getElementById('scheduleItemForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const scheduleData = Object.fromEntries(formData);
-                alert('Schedule item added successfully!\\n' +
-                      'Date: ' + scheduleData.scheduleDate + '\\n' +
-                      'Time: ' + scheduleData.scheduleTime + '\\n' +
-                      'Activity: ' + scheduleData.title);
-                closeModal();
-                // Here you would typically save to database or localStorage
-            });
-        }
-
+    
         function showMyTimetable() {
             const modal = document.createElement('div');
             modal.className = 'modal-overlay';
