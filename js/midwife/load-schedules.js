@@ -98,9 +98,10 @@ function renderSchedules(schedules) {
                     <br><small>${priority}</small>
                 </td>
                 <td>
-                    <button class="btn btn-success btn-sm" onclick="completeSchedule(${item.schedule_id})">
-                        Complete
-                    </button>
+                    ${item.status === 'completed'
+                        ? '<span class="status-badge status-active">Completed</span>'
+                        : `<button class="btn btn-success btn-sm" onclick="completeSchedule(${item.schedule_id})">Complete</button>`
+                    }
                 </td>
             </tr>
         `;
@@ -122,7 +123,30 @@ function switchScheduleArea(area) {
 }
 
 function completeSchedule(scheduleId) {
-    alert('Complete function can be connected next. Schedule ID: ' + scheduleId);
+    if (!confirm('Are you sure you want to complete this schedule item?')) {
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('schedule_id', scheduleId);
+
+    fetch('../php/midwife/complete_schedule.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin'
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+
+            if (data.success) {
+                loadSchedules();
+            }
+        })
+        .catch(error => {
+            console.error('Complete Schedule Error:', error);
+            alert('Server error while completing schedule item.');
+        });
 }
 
 function formatTime(timeString) {
