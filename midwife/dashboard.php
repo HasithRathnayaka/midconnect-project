@@ -2011,55 +2011,41 @@ echo '</script>';
             border-left: 5px solid var(--primary-blue);
         }
 
-
         #addScheduleModal,
-
         #scheduleVisitModal,
-
         #timetableModal,
         #updateVaccineInventoryModal,
         #triposhaInventoryModal,
-
         #triposhaDistributionModal,
-        #scheduleVaccinationModal {
-
+        #scheduleVaccinationModal,
+        #maternalRecordModal,
+        #childRecordModal {
             z-index: 1060 !important;
-
         }
 
         #addScheduleModal .modal-dialog,
-
         #scheduleVisitModal .modal-dialog,
-        #triposhaDistributionModal .modal-dialog,
-        #triposhaInventoryModal .modal-dialog,
-
-
-        #updateVaccineInventoryModal .modal-dialog,
-
         #timetableModal .modal-dialog,
-
-        #scheduleVaccinationModal .modal-dialog {
-
+        #updateVaccineInventoryModal .modal-dialog,
+        #triposhaInventoryModal .modal-dialog,
+        #triposhaDistributionModal .modal-dialog,
+        #scheduleVaccinationModal .modal-dialog,
+        #maternalRecordModal .modal-dialog,
+        #childRecordModal .modal-dialog {
             z-index: 1070 !important;
-
             pointer-events: auto !important;
-
         }
 
         #addScheduleModal .modal-content,
-
         #scheduleVisitModal .modal-content,
-        #triposhaDistributionModal .modal-content,
+        #timetableModal .modal-content,
+        #updateVaccineInventoryModal .modal-content,
         #triposhaInventoryModal .modal-content,
-
-
-
-        #updateVaccineInventoryModal .modal-dialog #timetableModal .modal-content,
-
-        #scheduleVaccinationModal .modal-content {
-
+        #triposhaDistributionModal .modal-content,
+        #scheduleVaccinationModal .modal-content,
+        #maternalRecordModal .modal-content,
+        #childRecordModal .modal-content {
             pointer-events: auto !important;
-
         }
 
         .modal-backdrop {
@@ -2668,1600 +2654,550 @@ echo '</script>';
 
 
 
-            <div id="patients" class="content-section" style="display: none;">
+            <div id="patients" class="content-section section-slide-in" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
-                    <h2>Maternal and Child Care</h2>
-                    <input type="text" class="form-control" placeholder="Search records..." style="max-width: 300px;">
+                <h2>Maternal and Child Care</h2>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="careSearchInput"
+                    placeholder="Search records..."
+                    style="max-width: 300px;"
+                >
+            </div>
+
+    <!-- Duty Areas Selection -->
+    <div class="duty-areas-container">
+        <div class="duty-areas-title">
+            <i class="fas fa-map-marker-alt"></i> Select Duty Area
+        </div>
+
+        <!-- JS will load real area counts here -->
+        <div class="duty-areas-grid" id="careAreaGrid">
+            <div class="duty-area-btn active" onclick="switchMaternalChildArea('uduthuththiripitiya')">
+                <i class="fas fa-home"></i>
+                <h5>Uduthuththiripitiya</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('kahabilihena')">
+                <i class="fas fa-hospital"></i>
+                <h5>Kahabilihena</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('opathella')">
+                <i class="fas fa-city"></i>
+                <h5>Opathella</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('ambalangoda')">
+                <i class="fas fa-tree"></i>
+                <h5>Ambalangoda</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selected Area Content -->
+    <div class="area-content-wrapper active">
+        <div class="area-header">
+            <h4 id="careAreaTitle">
+                <i class="fas fa-map-marker-alt"></i> Maternal &amp; Child Care
+            </h4>
+            <p id="careAreaSubtitle">Loading records...</p>
+        </div>
+
+        <!-- Main Tabs -->
+        <div class="tab-container">
+            <ul class="nav nav-tabs" style="width: 100%;">
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link active"
+                        href="#"
+                        data-care-main-tab="mothers"
+                        onclick="switchCareTab('mothers', event)"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-female"></i> Mothers
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-care-main-tab="children"
+                        onclick="switchCareTab('children', event)"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-child"></i> Children
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Mothers Tab -->
+        <div id="mothers-tab" class="tab-content" style="display: block;">
+            <div class="tab-container" style="margin-top: 1rem;">
+                <ul class="nav nav-tabs" style="width: 100%;">
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link active"
+                            href="#"
+                            data-mother-tab="pregnant"
+                            onclick="switchMotherTab('pregnant', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-baby"></i> Pregnant Mothers
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link"
+                            href="#"
+                            data-mother-tab="lactating"
+                            onclick="switchMotherTab('lactating', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-child"></i> Lactating Mothers
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link"
+                            href="#"
+                            data-mother-tab="postnatal"
+                            onclick="switchMotherTab('postnatal', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-procedures"></i> Postnatal Mothers
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-top: 1rem;">
+                <div class="card-header d-flex justify-between align-center">
+                    <h5 class="card-title" id="motherTableTitle" style="margin: 0;">
+                        Pregnant Mothers
+                    </h5>
+
+                    <button
+                        class="btn btn-primary btn-sm"
+                        type="button"
+                        onclick="openMaternalRecordModal()"
+                    >
+                        <i class="fas fa-plus"></i>
+                        <span id="motherAddButtonText">Add Pregnant Mother</span>
+                    </button>
                 </div>
 
-                <!-- Duty Areas Selection -->
-                <div class="duty-areas-container">
-                    <div class="duty-areas-title">
-                        <i class="fas fa-map-marker-alt"></i> Select Duty Area
-                    </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('patients', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">45 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">38 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">28 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">52 active patients</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead id="motherTableHead">
+                                <tr>
+                                    <th>Mother's Name</th>
+                                    <th>Age</th>
+                                    <th>Weeks Pregnant</th>
+                                    <th>Last Visit</th>
+                                    <th>Next Appointment</th>
+                                    <th>Risk Level</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Maternal & Child Care</h4>
-                        <p>Coverage: 15 villages | Pregnant: 12, Lactating: 18, Children: 45 | Clinic: Uduthuththiripitiya CHC</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header d-flex justify-between align-center">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Kumari Silva</td>
-                                                <td>28</td>
-                                                <td>32 weeks</td>
-                                                <td>2026-02-03</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 1, 'Mrs. Kumari Silva', 28, '32', '2026-02-03', '2026-02-10', 'Low Risk')">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Priyanka Perera</td>
-                                                <td>26</td>
-                                                <td>24 weeks</td>
-                                                <td>2026-01-30</td>
-                                                <td>2026-02-13</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 2, 'Mrs. Priyanka Perera', 26, '24', '2026-01-30', '2026-02-13', 'Low Risk')">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Sanduni Wickramasinghe</td>
-                                                <td>35</td>
-                                                <td>38 weeks</td>
-                                                <td>2026-02-01</td>
-                                                <td>2026-02-08</td>
-                                                <td><span class="status-badge status-danger">High Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 3, 'Mrs. Sanduni Wickramasinghe', 35, '38', '2026-02-01', '2026-02-08', 'High Risk')">Update</button>
-                                                    <button class="btn btn-danger btn-sm">Urgent</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Chamika Rajapaksa</td>
-                                                <td>29</td>
-                                                <td>16 weeks</td>
-                                                <td>2026-01-28</td>
-                                                <td>2026-02-25</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 4, 'Mrs. Chamika Rajapaksa', 29, '16', '2026-01-28', '2026-02-25', 'Low Risk')">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header d-flex justify-between align-center">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Breastfeeding Status</th>
-                                                <th>Last Visit</th>
-                                                <th>Support Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Anura Fernando</td>
-                                                <td>32</td>
-                                                <td>2 weeks</td>
-                                                <td>Exclusive breastfeeding</td>
-                                                <td>2026-01-28</td>
-                                                <td><span class="status-badge status-success">Good Support</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 5, 'Mrs. Anura Fernando', 32, '2 weeks', '2026-01-28', 'Exclusive breastfeeding', 'Good Support')">Update</button>
-                                                    <button class="btn btn-success btn-sm">Support</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Nishani Gamage</td>
-                                                <td>27</td>
-                                                <td>6 weeks</td>
-                                                <td>Mixed feeding</td>
-                                                <td>2026-02-02</td>
-                                                <td><span class="status-badge status-warning">Needs Support</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 6, 'Mrs. Nishani Gamage', 27, '6 weeks', '2026-02-02', 'Mixed feeding', 'Needs Support')">Update</button>
-                                                    <button class="btn btn-primary btn-sm">Counsel</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Shalika Mendis</td>
-                                                <td>30</td>
-                                                <td>4 weeks</td>
-                                                <td>Exclusive breastfeeding</td>
-                                                <td>2026-01-31</td>
-                                                <td><span class="status-badge status-success">Good Support</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 7, 'Mrs. Shalika Mendis', 30, '4 weeks', '2026-01-31', 'Exclusive breastfeeding', 'Good Support')">Update</button>
-                                                    <button class="btn btn-success btn-sm">Support</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header d-flex justify-between align-center">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Last Visit</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Dilani Perera</td>
-                                                <td>31</td>
-                                                <td>2026-01-15</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-01</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 8, 'Mrs. Dilani Perera', 31, '2026-01-15', '2026-02-01', 'Normal Delivery', 'Good Recovery')">Update</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Malika Jayasinghe</td>
-                                                <td>33</td>
-                                                <td>2026-01-08</td>
-                                                <td>C-Section</td>
-                                                <td>Slow Recovery</td>
-                                                <td>2026-02-03</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 9, 'Mrs. Malika Jayasinghe', 33, '2026-01-08', '2026-02-03', 'C-Section', 'Slow Recovery')">Update</button>
-                                                    <button class="btn btn-primary btn-sm">Monitor</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Chathurika Silva</td>
-                                                <td>28</td>
-                                                <td>2025-12-20</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Excellent Recovery</td>
-                                                <td>2026-01-25</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 10, 'Mrs. Chathurika Silva', 28, '2025-12-20', '2026-01-25', 'Normal Delivery', 'Excellent Recovery')">Update</button>
-                                                    <button class="btn btn-success btn-sm">Complete</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Roshani Fernando</td>
-                                                <td>25</td>
-                                                <td>2026-01-28</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-04</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 11, 'Mrs. Roshani Fernando', 25, '2026-01-28', '2026-02-04', 'Normal Delivery', 'Good Recovery')">Update</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Fernando</td>
-                                                <td>Mrs. Anura Fernando</td>
-                                                <td>2026-01-22</td>
-                                                <td>3.2 kg</td>
-                                                <td>2026-02-01</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Baby Rajapaksa</td>
-                                                <td>Mrs. Nishani Rajapaksa</td>
-                                                <td>2026-01-15</td>
-                                                <td>2.8 kg</td>
-                                                <td>2026-01-29</td>
-                                                <td><span class="status-badge status-warning">Monitoring</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-primary btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Baby Gamage</td>
-                                                <td>Mrs. Shalika Gamage</td>
-                                                <td>2025-12-28</td>
-                                                <td>3.5 kg</td>
-                                                <td>2026-01-25</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Parent/Guardian</th>
-                                                <th>Weight</th>
-                                                <th>Height</th>
-                                                <th>Last Check-up</th>
-                                                <th>Development Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Sahan Perera</td>
-                                                <td>2 years</td>
-                                                <td>Mrs. Priyanka Perera</td>
-                                                <td>12.5 kg</td>
-                                                <td>85 cm</td>
-                                                <td>2026-02-03</td>
-                                                <td><span class="status-badge status-success">Normal</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nimali Silva</td>
-                                                <td>3 years</td>
-                                                <td>Mrs. Kumari Silva</td>
-                                                <td>14.2 kg</td>
-                                                <td>95 cm</td>
-                                                <td>2026-01-28</td>
-                                                <td><span class="status-badge status-success">Normal</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-info btn-sm">Assessment</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Kasun Mendis</td>
-                                                <td>18 months</td>
-                                                <td>Mrs. Chamani Mendis</td>
-                                                <td>10.8 kg</td>
-                                                <td>78 cm</td>
-                                                <td>2026-02-01</td>
-                                                <td><span class="status-badge status-warning">Delayed</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-primary btn-sm">Therapy</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Parent/Guardian</th>
-                                                <th>School</th>
-                                                <th>Last Health Check</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Amal Wickramasinghe</td>
-                                                <td>5 years</td>
-                                                <td>Mrs. Sanduni Wickramasinghe</td>
-                                                <td>Sunshine Pre-School</td>
-                                                <td>2026-01-25</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tharindu Fernando</td>
-                                                <td>6 years</td>
-                                                <td>Mrs. Anura Fernando</td>
-                                                <td>Little Stars School</td>
-                                                <td>2026-02-02</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-info btn-sm">Dental</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Sachini Gamage</td>
-                                                <td>4 years</td>
-                                                <td>Mrs. Shalika Gamage</td>
-                                                <td>Rainbow Kindergarten</td>
-                                                <td>2026-01-30</td>
-                                                <td><span class="status-badge status-warning">Vision Issue</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                    <button class="btn btn-danger btn-sm">Referral</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Maternal & Child Care</h4>
-                        <p>Coverage: 12 villages | Pregnant: 10, Lactating: 15, Children: 38 | Clinic: Kahabilihena RH</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Nishani Rajapaksha</td>
-                                                <td>27</td>
-                                                <td>28 weeks</td>
-                                                <td>2026-02-08</td>
-                                                <td>2026-02-15</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Ayesha Dissanayake</td>
-                                                <td>25</td>
-                                                <td>20 weeks</td>
-                                                <td>2026-02-06</td>
-                                                <td>2026-02-20</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Darshika Perera</td>
-                                                <td>29</td>
-                                                <td>3 months</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Dilini Wickramasinghe</td>
-                                                <td>26</td>
-                                                <td>2026-02-01</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-08</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Perera</td>
-                                                <td>Mrs. Darshika Perera</td>
-                                                <td>2025-11-15</td>
-                                                <td>3.1 kg</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Sanduni Rajapaksha</td>
-                                                <td>2 years</td>
-                                                <td>Mrs. Nishani Rajapaksha</td>
-                                                <td>2026-02-05</td>
-                                                <td>12.5 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Kavindu Dissanayake</td>
-                                                <td>5 years</td>
-                                                <td>Mrs. Ayesha Dissanayake</td>
-                                                <td>Sunshine School</td>
-                                                <td>2026-02-03</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Maternal & Child Care</h4>
-                        <p>Coverage: 8 urban wards | Pregnant: 8, Lactating: 12, Children: 28 | Clinic: Opathella PHC</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Chamari Silva</td>
-                                                <td>24</td>
-                                                <td>20 weeks</td>
-                                                <td>2026-02-09</td>
-                                                <td>2026-02-16</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Tharanga Jayawardena</td>
-                                                <td>30</td>
-                                                <td>32 weeks</td>
-                                                <td>2026-02-10</td>
-                                                <td>2026-02-17</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Kumari Jayasinghe</td>
-                                                <td>28</td>
-                                                <td>2 months</td>
-                                                <td>2026-02-08</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Malini Wickramasinghe</td>
-                                                <td>31</td>
-                                                <td>2026-02-03</td>
-                                                <td>C-Section</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-14</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Jayasinghe</td>
-                                                <td>Mrs. Kumari Jayasinghe</td>
-                                                <td>2025-12-10</td>
-                                                <td>3.3 kg</td>
-                                                <td>2026-02-08</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Thisara Silva</td>
-                                                <td>18 months</td>
-                                                <td>Mrs. Chamari Silva</td>
-                                                <td>2026-02-07</td>
-                                                <td>11.2 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Dineth Jayawardena</td>
-                                                <td>6 years</td>
-                                                <td>Mrs. Tharanga Jayawardena</td>
-                                                <td>Central School</td>
-                                                <td>2026-02-05</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Maternal & Child Care</h4>
-                        <p>Coverage: 18 villages | Pregnant: 15, Lactating: 20, Children: 52 | Clinic: Ambalangoda DH</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Sandya Fernando</td>
-                                                <td>26</td>
-                                                <td>36 weeks</td>
-                                                <td>2026-02-11</td>
-                                                <td>2026-02-14</td>
-                                                <td><span class="status-badge status-warning">High Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Nimalika Silva</td>
-                                                <td>26</td>
-                                                <td>32 weeks</td>
-                                                <td>2026-02-09</td>
-                                                <td>2026-02-16</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Ruvini Bandara</td>
-                                                <td>28</td>
-                                                <td>6 months</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>29</td>
-                                                <td>4 months</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>29</td>
-                                                <td>4 months</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Menaka Liyanage</td>
-                                                <td>27</td>
-                                                <td>2026-01-30</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Excellent Recovery</td>
-                                                <td>2026-02-13</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Tharusha Bandara</td>
-                                                <td>Mrs. Ruvini Bandara</td>
-                                                <td>2025-08-15</td>
-                                                <td>3.4 kg</td>
-                                                <td>2026-02-09</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Baby Rajapaksha</td>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>2025-10-20</td>
-                                                <td>3.0 kg</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Hasini Fernando</td>
-                                                <td>2.5 years</td>
-                                                <td>Mrs. Sandya Fernando</td>
-                                                <td>2026-02-08</td>
-                                                <td>13.1 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Lakshitha Silva</td>
-                                                <td>7 years</td>
-                                                <td>Mrs. Nimalika Silva</td>
-                                                <td>Seaside School</td>
-                                                <td>2026-02-04</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Piyumi Liyanage</td>
-                                                <td>5 years</td>
-                                                <td>Mrs. Menaka Liyanage</td>
-                                                <td>Ocean View Kindergarten</td>
-                                                <td>2026-02-06</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                            <tbody id="motherTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-muted">Loading records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Children Tab -->
+        <div id="children-tab" class="tab-content hidden" style="display: none;">
+            <div class="tab-container" style="margin-top: 1rem;">
+                <ul class="nav nav-tabs" style="width: 100%;">
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link active"
+                            href="#"
+                            data-child-tab="newborns"
+                            onclick="switchChildrenTab('newborns', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-baby"></i> Newborns
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link"
+                            href="#"
+                            data-child-tab="young"
+                            onclick="switchChildrenTab('young', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-baby-carriage"></i> Young Children
+                        </a>
+                    </li>
+
+                    <li class="nav-item" style="flex: 1; margin-right: 0;">
+                        <a
+                            class="nav-link"
+                            href="#"
+                            data-child-tab="childs"
+                            onclick="switchChildrenTab('childs', event)"
+                            style="text-align: center;"
+                        >
+                            <i class="fas fa-child"></i> Childs
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-top: 1rem;">
+                <div class="card-header d-flex justify-between align-center">
+                    <h5 class="card-title" id="childTableTitle" style="margin: 0;">
+                        Newborns
+                    </h5>
+
+                    <button
+                        class="btn btn-primary btn-sm"
+                        type="button"
+                        onclick="openChildRecordModal()"
+                    >
+                        <i class="fas fa-plus"></i>
+                        <span id="childAddButtonText">Add Newborn</span>
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead id="childTableHead">
+                                <tr>
+                                    <th>Baby's Name</th>
+                                    <th>Mother's Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Birth Weight</th>
+                                    <th>Last Check-up</th>
+                                    <th>Health Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="childTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-muted">Loading records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Maternal Record Modal -->
+<div class="modal fade" id="maternalRecordModal" tabindex="-1" role="dialog" aria-labelledby="maternalRecordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="maternalRecordForm" action="../php/midwife/save_maternal_record.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="maternalRecordModalLabel">Maternal Care Record</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="mother_id" id="maternalMotherId">
+                    <input type="hidden" name="duty_area" id="maternalDutyArea">
+                    <input type="hidden" name="category" id="maternalCategory">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" id="maternalMotherName" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" id="maternalAge" min="10" max="80">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pregnant fields -->
+                    <div class="row maternal-field maternal-pregnant-field">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Weeks Pregnant</label>
+                                <input type="number" class="form-control" name="weeks_pregnant" id="maternalWeeksPregnant" min="1" max="45">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Risk Level</label>
+                                <select class="form-control" name="risk_level" id="maternalRiskLevel">
+                                    <option value="Low Risk">Low Risk</option>
+                                    <option value="Medium Risk">Medium Risk</option>
+                                    <option value="High Risk">High Risk</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lactating fields -->
+                    <div class="row maternal-field maternal-lactating-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Baby's Age</label>
+                                <input type="text" class="form-control" name="baby_age" id="maternalBabyAge" placeholder="Example: 2 weeks">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Breastfeeding Status</label>
+                                <input type="text" class="form-control" name="breastfeeding_status" id="maternalBreastfeedingStatus" placeholder="Example: Exclusive breastfeeding">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row maternal-field maternal-lactating-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Support Level</label>
+                                <select class="form-control" name="support_level" id="maternalSupportLevel">
+                                    <option value="">Select support level</option>
+                                    <option value="Good Support">Good Support</option>
+                                    <option value="Needs Support">Needs Support</option>
+                                    <option value="Critical Support">Critical Support</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Postnatal fields -->
+                    <div class="row maternal-field maternal-postnatal-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Date</label>
+                                <input type="date" class="form-control" name="delivery_date" id="maternalDeliveryDate">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Type</label>
+                                <select class="form-control" name="delivery_type" id="maternalDeliveryType">
+                                    <option value="">Select delivery type</option>
+                                    <option value="Normal Delivery">Normal Delivery</option>
+                                    <option value="C-Section">C-Section</option>
+                                    <option value="Assisted Delivery">Assisted Delivery</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row maternal-field maternal-postnatal-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Recovery Status</label>
+                                <input type="text" class="form-control" name="recovery_status" id="maternalRecoveryStatus" placeholder="Example: Good Recovery">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Common fields -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit" id="maternalLastVisit">
+                            </div>
+                        </div>
+
+                        <div class="col-6 maternal-field maternal-pregnant-field">
+                            <div class="form-group">
+                                <label class="form-label">Next Appointment</label>
+                                <input type="date" class="form-control" name="next_appointment" id="maternalNextAppointment">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" name="contact_number" id="maternalContactNumber">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" id="maternalAddress" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" id="maternalNotes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Child Record Modal -->
+<div class="modal fade" id="childRecordModal" tabindex="-1" role="dialog" aria-labelledby="childRecordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="childRecordForm" action="../php/midwife/save_child_record.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="childRecordModalLabel">Child Care Record</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="child_id" id="childId">
+                    <input type="hidden" name="duty_area" id="childDutyArea">
+                    <input type="hidden" name="child_category" id="childCategory">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Child's Name *</label>
+                                <input type="text" class="form-control" name="child_name" id="childName" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother / Guardian</label>
+                                <input type="text" class="form-control" name="mother_name" id="childMotherName">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newborn fields -->
+                    <div class="row child-field child-newborns-field">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth" id="childDateOfBirth">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Birth Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="birth_weight" id="childBirthWeight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Young / Child fields -->
+                    <div class="row child-field child-young-field child-childs-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age_label" id="childAgeLabel" placeholder="Example: 2 years">
+                            </div>
+                        </div>
+
+                        <div class="col-6 child-field child-young-field" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label">Current Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="current_weight" id="childCurrentWeight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row child-field child-young-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" step="0.01" class="form-control" name="height_cm" id="childHeightCm">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Development Status</label>
+                                <input type="text" class="form-control" name="development_status" id="childDevelopmentStatus" placeholder="Example: Normal">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row child-field child-childs-field" style="display: none;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">School</label>
+                                <input type="text" class="form-control" name="school" id="childSchool">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Common fields -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup" id="childLastCheckup">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" id="childHealthStatus" placeholder="Example: Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" id="childNotes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
             <!-- Home Visits Section -->
             <div id="home-visits" class="content-section section-slide-in" style="display: none;">
@@ -6169,7 +5105,6 @@ echo '</script>';
                 </div>
             </div>
 
-            
 
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
@@ -6183,6 +5118,7 @@ echo '</script>';
             <script src="../js/midwife/load-triposha.js"></script>
             <script src="../js/midwife/load-health-education-sessions.js"></script>
             <script src="../js/midwife/load-counseling-sessions.js"></script>
+            <script src="../js/midwife/maternal-child-care-tabs.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -8704,92 +7640,35 @@ echo '</script>';
                     alert('Generating data export... You will receive a download link via email within 24 hours.');
                 }
 
-                // Tab switching function for Maternal and Child Care
-                function switchCareTab(tabName) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    // Remove active class from all nav links
-                    const navLinks = document.querySelectorAll('#patients .nav-link');
-                    navLinks.forEach(link => link.classList.remove('active'));
+     su
+                // // Tab switching function for Mother categories
+                // function switchMotherTab(tabName) {
+                //     event.preventDefault();
+                //     event.stopPropagation();
+                //     // Remove active class from all mother sub-nav links
+                //     const motherNavLinks = document.querySelectorAll('#mothers-tab .nav-link');
+                //     motherNavLinks.forEach(link => link.classList.remove('active'));
 
-                    // Hide all tab contents
-                    const tabContents = document.querySelectorAll('#patients .tab-content');
-                    tabContents.forEach(content => content.classList.add('hidden'));
+                //     // Hide all mother tab contents
+                //     document.getElementById('pregnant-mothers').classList.add('hidden');
+                //     document.getElementById('lactating-mothers').classList.add('hidden');
+                //     document.getElementById('postnatal-mothers').classList.add('hidden');
 
-                    // Add active class to clicked nav link
-                    event.target.classList.add('active');
+                //     // Add active class to clicked nav link
+                //     event.target.classList.add('active');
 
-                    // Show selected tab content
-                    if (tabName === 'mothers') {
-                        document.getElementById('mothers-tab').classList.remove('hidden');
-                        // Show pregnant mothers by default
-                        document.getElementById('pregnant-mothers').classList.remove('hidden');
-                    } else if (tabName === 'children') {
-                        document.getElementById('children-tab').classList.remove('hidden');
-                    }
-                    return false;
-                }
+                //     // Show selected mother tab content
+                //     if (tabName === 'pregnant') {
+                //         document.getElementById('pregnant-mothers').classList.remove('hidden');
+                //     } else if (tabName === 'lactating') {
+                //         document.getElementById('lactating-mothers').classList.remove('hidden');
+                //     } else if (tabName === 'postnatal') {
+                //         document.getElementById('postnatal-mothers').classList.remove('hidden');
+                //     }
+                //     return false;
+                // }
 
-                // Tab switching function for Mother categories
-                function switchMotherTab(tabName) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    // Remove active class from all mother sub-nav links
-                    const motherNavLinks = document.querySelectorAll('#mothers-tab .nav-link');
-                    motherNavLinks.forEach(link => link.classList.remove('active'));
-
-                    // Hide all mother tab contents
-                    document.getElementById('pregnant-mothers').classList.add('hidden');
-                    document.getElementById('lactating-mothers').classList.add('hidden');
-                    document.getElementById('postnatal-mothers').classList.add('hidden');
-
-                    // Add active class to clicked nav link
-                    event.target.classList.add('active');
-
-                    // Show selected mother tab content
-                    if (tabName === 'pregnant') {
-                        document.getElementById('pregnant-mothers').classList.remove('hidden');
-                    } else if (tabName === 'lactating') {
-                        document.getElementById('lactating-mothers').classList.remove('hidden');
-                    } else if (tabName === 'postnatal') {
-                        document.getElementById('postnatal-mothers').classList.remove('hidden');
-                    }
-                    return false;
-                }
-
-                // Tab switching function for Children categories
-                function switchChildrenTab(tabName) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    // Remove active class from all children sub-nav links
-                    const childrenNavLinks = document.querySelectorAll('#children-tab .nav-link');
-                    childrenNavLinks.forEach(link => link.classList.remove('active'));
-
-                    // Hide all children tab contents
-                    document.getElementById('newborns-children').classList.add('hidden');
-                    document.getElementById('young-children').classList.add('hidden');
-                    document.getElementById('childs-children').classList.add('hidden');
-
-                    // Add active class to clicked nav link
-                    event.target.classList.add('active');
-
-                    // Show selected children tab content
-                    if (tabName === 'newborns') {
-                        document.getElementById('newborns-children').classList.remove('hidden');
-                    } else if (tabName === 'young') {
-                        document.getElementById('young-children').classList.remove('hidden');
-                    } else if (tabName === 'childs') {
-                        document.getElementById('childs-children').classList.remove('hidden');
-                    }
-                    return false;
-                }
-
-                // Update Mother Details Functions
-                function updateMother(type, id, name, age, ...additionalData) {
-                    // Show comprehensive profile modal instead of basic update
-                    showComprehensiveMotherProfile(type, id, name, age, ...additionalData);
-                }
-
+       
                 function showComprehensiveMotherProfile(type, id, name, age, ...additionalData) {
                     const modal = document.createElement('div');
                     modal.className = 'modal-overlay';
