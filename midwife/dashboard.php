@@ -2018,6 +2018,8 @@ echo '</script>';
 
         #timetableModal,
         #updateVaccineInventoryModal,
+        #triposhaInventoryModal,
+        
         #triposhaDistributionModal,
         #scheduleVaccinationModal {
 
@@ -2029,6 +2031,7 @@ echo '</script>';
 
         #scheduleVisitModal .modal-dialog,
         #triposhaDistributionModal .modal-dialog,
+        #triposhaInventoryModal .modal-dialog,
 
 
         #updateVaccineInventoryModal .modal-dialog,
@@ -2047,6 +2050,8 @@ echo '</script>';
 
         #scheduleVisitModal .modal-content,
         #triposhaDistributionModal .modal-content,
+        #triposhaInventoryModal .modal-content,
+
 
 
         #updateVaccineInventoryModal .modal-dialog #timetableModal .modal-content,
