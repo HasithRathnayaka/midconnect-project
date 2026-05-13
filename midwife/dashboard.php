@@ -2365,140 +2365,152 @@ echo '</script>';
 
             <!-- counseling-session Section -->
             <div id="counseling-session" class="content-section" style="display: none;">
-                <div class="counseling-hero">
-                    <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
-                    <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
-                </div>
+    <div class="counseling-hero">
+        <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
+        <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
+    </div>
 
-                <div class="row" style="margin-bottom: 1.5rem;">
-                    <div class="col-6">
-                        <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">14</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Sessions this month</div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">5</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Follow-ups scheduled</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom: 1.5rem;">
-                    <div class="card-header">
-                        <h4 class="card-title">Log counseling session</h4>
-                    </div>
-                    <div class="card-body">
-                        <form id="counselingForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date &amp; time</label>
-                                        <input type="datetime-local" class="form-control" name="session_datetime" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
-                                        <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Client identifier</label>
-                                        <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Session focus</label>
-                                        <select class="form-control form-select" name="focus" required>
-                                            <option value="">Select</option>
-                                            <option value="antenatal">Antenatal care &amp; birth planning</option>
-                                            <option value="postnatal">Postnatal &amp; recovery</option>
-                                            <option value="breastfeeding">Breastfeeding &amp; nutrition</option>
-                                            <option value="family_planning">Family planning</option>
-                                            <option value="mental_health">Mental health &amp; emotional support</option>
-                                            <option value="gbv">Gender-based violence / safety</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Location</label>
-                                <select class="form-control form-select" name="location_type">
-                                    <option value="clinic">MOH clinic</option>
-                                    <option value="home">Home visit</option>
-                                    <option value="phone">Telephone</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Summary &amp; advice given</label>
-                                <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Follow-up required</label>
-                                <select class="form-control form-select" name="followup">
-                                    <option value="no">No</option>
-                                    <option value="yes">Yes — schedule</option>
-                                    <option value="referral">Referral to specialist</option>
-                                </select>
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Recent counseling sessions</h4>
-                    </div>
-                    <div class="card-body" style="padding: 0;">
-                        <div style="overflow-x: auto;">
-                            <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
-                                <thead>
-                                    <tr style="background: var(--bg-secondary); text-align: left;">
-                                        <th style="padding: 0.75rem 1rem;">Date</th>
-                                        <th style="padding: 0.75rem 1rem;">Focus</th>
-                                        <th style="padding: 0.75rem 1rem;">Location</th>
-                                        <th style="padding: 0.75rem 1rem;">Duration</th>
-                                        <th style="padding: 0.75rem 1rem;">Follow-up</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">26 Mar 2026, 10:15</td>
-                                        <td style="padding: 0.75rem 1rem;">Breastfeeding &amp; nutrition</td>
-                                        <td style="padding: 0.75rem 1rem;">MOH Clinic</td>
-                                        <td style="padding: 0.75rem 1rem;">45 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge status-active">Scheduled</span></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">24 Mar 2026, 14:00</td>
-                                        <td style="padding: 0.75rem 1rem;">Antenatal care</td>
-                                        <td style="padding: 0.75rem 1rem;">Home Visit</td>
-                                        <td style="padding: 0.75rem 1rem;">30 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #e9ecef; color: var(--text-primary);">None</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 0.75rem 1rem;">22 Mar 2026, 09:30</td>
-                                        <td style="padding: 0.75rem 1rem;">Mental health support</td>
-                                        <td style="padding: 0.75rem 1rem;">Community Center</td>
-                                        <td style="padding: 0.75rem 1rem;">60 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #fff3cd; color: #856404;">Referral</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+    <div class="row" style="margin-bottom: 1.5rem;">
+        <div class="col-6">
+            <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
+                <div id="counselingSessionsThisMonth" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                    Sessions this month
                 </div>
             </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
+                <div id="counselingFollowupsScheduled" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                    Follow-ups scheduled
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+            <h4 class="card-title">Log counseling session</h4>
+        </div>
+
+        <div class="card-body">
+            <form id="counselingForm" action="../php/midwife/create_counseling_session.php" method="POST">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label">Date &amp; time *</label>
+                            <input type="datetime-local" class="form-control" name="session_datetime" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label">Duration (minutes) *</label>
+                            <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label">Client identifier *</label>
+                            <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label">Session focus *</label>
+                            <select class="form-control form-select" name="focus" required>
+                                <option value="">Select</option>
+                                <option value="antenatal">Antenatal care &amp; birth planning</option>
+                                <option value="postnatal">Postnatal &amp; recovery</option>
+                                <option value="breastfeeding">Breastfeeding &amp; nutrition</option>
+                                <option value="family_planning">Family planning</option>
+                                <option value="mental_health">Mental health &amp; emotional support</option>
+                                <option value="gbv">Gender-based violence / safety</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <select class="form-control form-select" name="location_type">
+                        <option value="clinic">MOH clinic</option>
+                        <option value="home">Home visit</option>
+                        <option value="phone">Telephone</option>
+                        <option value="community">Community Center</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Summary &amp; advice given *</label>
+                    <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Follow-up required</label>
+                    <select class="form-control form-select" name="followup" id="counselingFollowupSelect">
+                        <option value="no">No</option>
+                        <option value="yes">Yes — schedule</option>
+                        <option value="referral">Referral to specialist</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Follow-up Date</label>
+                    <input type="date" class="form-control" name="followup_date">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Referral Details</label>
+                    <textarea class="form-control" name="referral_details" rows="2" placeholder="Add referral details if applicable"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save session
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Recent counseling sessions</h4>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+            <div style="overflow-x: auto;">
+                <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--bg-secondary); text-align: left;">
+                            <th style="padding: 0.75rem 1rem;">Date</th>
+                            <th style="padding: 0.75rem 1rem;">Focus</th>
+                            <th style="padding: 0.75rem 1rem;">Location</th>
+                            <th style="padding: 0.75rem 1rem;">Duration</th>
+                            <th style="padding: 0.75rem 1rem;">Follow-up</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="counselingSessionTableBody">
+                        <tr>
+                            <td colspan="5" class="text-muted" style="padding: 0.75rem 1rem;">
+                                Loading counseling sessions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- health-education-session Section -->
             <div id="health-education-session" class="content-section" style="display: none;">
@@ -6170,6 +6182,7 @@ echo '</script>';
             <script src="../js/midwife/load-vaccinations.js"></script>
             <script src="../js/midwife/schedule-vaccination.js"></script>
             <script src="../js/midwife/load-triposha.js"></script>
+            <script src="../js/midwife/load-counseling-sessions.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
