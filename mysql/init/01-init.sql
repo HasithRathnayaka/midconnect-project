@@ -862,6 +862,10 @@ ALTER TABLE home_visits AUTO_INCREMENT = 11;
 
 
 
+ALTER TABLE triposha_inventory
+ADD UNIQUE KEY unique_triposha_inventory_month_area (midwife_id, duty_area, inventory_month);
+
+
 
 
 

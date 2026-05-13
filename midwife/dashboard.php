@@ -2018,7 +2018,7 @@ echo '</script>';
 
         #timetableModal,
         #updateVaccineInventoryModal,
-
+        #triposhaDistributionModal,
         #scheduleVaccinationModal {
 
             z-index: 1060 !important;
@@ -2028,6 +2028,7 @@ echo '</script>';
         #addScheduleModal .modal-dialog,
 
         #scheduleVisitModal .modal-dialog,
+        #triposhaDistributionModal .modal-dialog,
 
 
         #updateVaccineInventoryModal .modal-dialog,
@@ -2045,6 +2046,7 @@ echo '</script>';
         #addScheduleModal .modal-content,
 
         #scheduleVisitModal .modal-content,
+        #triposhaDistributionModal .modal-content,
 
 
         #updateVaccineInventoryModal .modal-dialog #timetableModal .modal-content,
@@ -4389,7 +4391,7 @@ echo '</script>';
             </div>
 
             <!-- Vaccinations Section -->
-            <div id="vaccinations" class="content-section section-slide-in" style="display: block;">
+            <div id="vaccinations" class="content-section section-slide-in" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Vaccination Management</h2>
                     <div>
@@ -5206,213 +5208,284 @@ echo '</script>';
             </div>
 
             <!-- Triposha Distribution Section -->
-            <div id="triposha" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h2><i class="fas fa-box"></i> Triposha Distribution Management</h2>
-                    <p>Manage Triposha packet distribution and inventory tracking</p>
-                </div>
+           <div id="triposha" class="content-section section-slide-in" style="display: none;">
+    <div class="page-header">
+        <h2><i class="fas fa-box"></i> Triposha Distribution Management</h2>
+        <p>Manage Triposha packet distribution and inventory tracking</p>
+    </div>
 
-                <!-- Duty Areas Selection -->
-                <div class="duty-areas-container">
-                    <div class="duty-areas-title">
-                        <i class="fas fa-map-marker-alt"></i> Select Duty Area
-                    </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('triposha', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">98 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">75 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">56 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">105 packets distributed</div>
-                        </div>
-                    </div>
-                </div>
+    <div class="duty-areas-container">
+        <div class="duty-areas-title">
+            <i class="fas fa-map-marker-alt"></i> Select Duty Area
+        </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Triposha Distribution</h4>
-                        <p>Coverage: 15 villages | Beneficiaries: 85 families | Distribution Center: Uduthuththiripitiya CHC</p>
-                    </div>
+        <div class="duty-areas-grid" id="triposhaAreaGrid">
+            <div class="duty-area-btn active">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h5>Loading...</h5>
+                <div class="area-count">Please wait</div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Statistics Cards -->
-                    <div class="dashboard-stats">
-                        <div class="stat-card info editable-stat" onclick="editPacketsReceived()">
-                            <div class="stat-number" id="packets-received-month">150</div>
-                            <div class="stat-label">Packets Received This Month</div>
-                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                        </div>
-                        <div class="stat-card warning editable-stat" onclick="editPacketsLeftPrevious()">
-                            <div class="stat-number" id="packets-left-previous">25</div>
-                            <div class="stat-label">Packets Left from Previous Month</div>
-                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                        </div>
-                        <div class="stat-card success">
-                            <div class="stat-number" id="total-packets">175</div>
-                            <div class="stat-label">Total Packets Available</div>
-                            <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
-                        </div>
-                        <div class="stat-card editable-stat" onclick="editPacketsDistributed()">
-                            <div class="stat-number" id="packets-distributed">98</div>
-                            <div class="stat-label">Packets Distributed</div>
-                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                        </div>
+    <div class="area-content-wrapper active">
+        <div class="area-header">
+            <h4 id="triposhaAreaTitle">
+                <i class="fas fa-map-marker-alt"></i> Triposha Distribution
+            </h4>
+            <p id="triposhaAreaSubtitle">Loading Triposha data...</p>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card info editable-stat" onclick="openTriposhaInventoryModal()">
+                <div class="stat-number" id="packets-received-month">0</div>
+                <div class="stat-label">Packets Received This Month</div>
+                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+            </div>
+
+            <div class="stat-card warning editable-stat" onclick="openTriposhaInventoryModal()">
+                <div class="stat-number" id="packets-left-previous">0</div>
+                <div class="stat-label">Packets Left from Previous Month</div>
+                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-number" id="total-packets">0</div>
+                <div class="stat-label">Total Packets Available</div>
+                <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
+            </div>
+
+            <div class="stat-card editable-stat" onclick="openTriposhaInventoryModal()">
+                <div class="stat-number" id="packets-distributed">0</div>
+                <div class="stat-label">Packets Distributed</div>
+                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Distribution Records</h4>
                     </div>
 
-                    <!-- Distribution Management -->
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Distribution Records</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Beneficiary</th>
-                                                    <th>Address</th>
-                                                    <th>Packets</th>
-                                                    <th>Category</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="distribution-records">
-                                                <tr data-id="1">
-                                                    <td>2026-02-05</td>
-                                                    <td>Mrs. K. Silva</td>
-                                                    <td>45, Main Street, Uduthuththiripitiya</td>
-                                                    <td>2</td>
-                                                    <td>Pregnant Mother</td>
-                                                    <td><span class="status-badge status-active">Completed</span></td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'pregnant')" title="Remove this distribution">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr data-id="2">
-                                                    <td>2026-02-05</td>
-                                                    <td>Mrs. A. Fernando</td>
-                                                    <td>12, Temple Road, Uduthuththiripitiya</td>
-                                                    <td>3</td>
-                                                    <td>Lactating Mother</td>
-                                                    <td><span class="status-badge status-active">Completed</span></td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 3, 'lactating')" title="Remove this distribution">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr data-id="3">
-                                                    <td>2026-02-04</td>
-                                                    <td>Mrs. D. Jayawardene</td>
-                                                    <td>8, School Lane, Uduthuththiripitiya</td>
-                                                    <td>2</td>
-                                                    <td>Child (6-23 months)</td>
-                                                    <td><span class="status-badge status-active">Completed</span></td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'children')" title="Remove this distribution">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr data-id="4">
-                                                    <td>2026-02-04</td>
-                                                    <td>Mrs. P. Perera</td>
-                                                    <td>23, Station Road, Uduthuththiripitiya</td>
-                                                    <td>1</td>
-                                                    <td>Pregnant Mother</td>
-                                                    <td><span class="status-badge status-pending">Pending</span></td>
-                                                    <td>
-                                                        <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 1, 'pregnant')" title="Remove this distribution">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Beneficiary</th>
+                                        <th>Address</th>
+                                        <th>Packets</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
 
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Quick Actions</h4>
-                                </div>
-                                <div class="card-body">
-                                    <button class="btn btn-primary btn-block mb-3" onclick="showDistributionForm()">
-                                        <i class="fas fa-plus"></i> Record Distribution
-                                    </button>
-                                    <button class="btn btn-secondary btn-block mb-3" onclick="updateInventory()">
-                                        <i class="fas fa-box-open"></i> Update Inventory
-                                    </button>
-                                    <button class="btn btn-danger btn-block mb-3" onclick="showRemoveDistributionForm()">
-                                        <i class="fas fa-minus-circle"></i> Remove Distribution
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Monthly Summary</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="summary-item editable-summary" onclick="editCategorySummary('pregnant')">
-                                        <span>Pregnant Mothers:</span>
-                                        <div>
-                                            <strong id="pregnant-packets">35 packets</strong>
-                                            <i class="fas fa-edit edit-icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="summary-item editable-summary" onclick="editCategorySummary('lactating')">
-                                        <span>Lactating Mothers:</span>
-                                        <div>
-                                            <strong id="lactating-packets">42 packets</strong>
-                                            <i class="fas fa-edit edit-icon"></i>
-                                        </div>
-                                    </div>
-                                    <div class="summary-item editable-summary" onclick="editCategorySummary('children')">
-                                        <span>Children (6-23m):</span>
-                                        <div>
-                                            <strong id="children-packets">21 packets</strong>
-                                            <i class="fas fa-edit edit-icon"></i>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="summary-item">
-                                        <span><strong>Total Distributed:</strong></span>
-                                        <strong class="text-success" id="total-distributed-summary">98 packets</strong>
-                                    </div>
-                                    <div class="summary-item">
-                                        <span><strong>Remaining:</strong></span>
-                                        <strong class="text-warning" id="remaining-packets">77 packets</strong>
-                                    </div>
-                                </div>
-                            </div>
+                                <tbody id="distribution-records">
+                                    <tr>
+                                        <td colspan="7">Loading records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Quick Actions</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <button class="btn btn-primary btn-block mb-3" type="button" data-toggle="modal" data-target="#triposhaDistributionModal">
+                            <i class="fas fa-plus"></i> Record Distribution
+                        </button>
+
+                        <button class="btn btn-secondary btn-block mb-3" onclick="openTriposhaInventoryModal()">
+                            <i class="fas fa-box-open"></i> Update Inventory
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h4 class="card-title">Monthly Summary</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="summary-item">
+                            <span>Pregnant Mothers:</span>
+                            <div>
+                                <strong id="pregnant-packets">0 packets</strong>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Lactating Mothers:</span>
+                            <div>
+                                <strong id="lactating-packets">0 packets</strong>
+                            </div>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Children (6-23m):</span>
+                            <div>
+                                <strong id="children-packets">0 packets</strong>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="summary-item">
+                            <span><strong>Total Distributed:</strong></span>
+                            <strong class="text-success" id="total-distributed-summary">0 packets</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span><strong>Remaining:</strong></span>
+                            <strong class="text-warning" id="remaining-packets">0 packets</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Triposha Inventory Modal -->
+    <div class="modal fade" id="triposhaInventoryModal" tabindex="-1" role="dialog" aria-labelledby="triposhaInventoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="triposhaInventoryModalLabel">Update Triposha Inventory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="triposhaInventoryForm" action="../php/midwife/save_triposha_inventory.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="duty_area" id="triposhaInventoryDutyArea">
+
+                        <div class="form-group">
+                            <label class="form-label">Inventory Month *</label>
+                            <input type="month" class="form-control" name="inventory_month" id="triposhaInventoryMonth" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Packets Received This Month *</label>
+                            <input type="number" class="form-control" name="packets_received" id="triposhaPacketsReceived" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Packets Left from Previous Month *</label>
+                            <input type="number" class="form-control" name="packets_left_previous" id="triposhaPacketsLeftPrevious" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="notes" id="triposhaInventoryNotes" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Inventory
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Triposha Distribution Modal -->
+    <div class="modal fade" id="triposhaDistributionModal" tabindex="-1" role="dialog" aria-labelledby="triposhaDistributionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="triposhaDistributionModalLabel">Record Triposha Distribution</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="triposhaDistributionForm" action="../php/midwife/create_triposha_distribution.php" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Duty Area *</label>
+                            <input type="text" class="form-control" name="duty_area" id="triposhaDistributionDutyArea" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Date *</label>
+                                    <input type="date" class="form-control" name="distribution_date" id="triposhaDistributionDate" required>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="form-label">Category *</label>
+                                    <select class="form-control" name="category" required>
+                                        <option value="">Select category</option>
+                                        <option value="pregnant">Pregnant Mother</option>
+                                        <option value="lactating">Lactating Mother</option>
+                                        <option value="children">Child (6-23 months)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Beneficiary Name *</label>
+                            <input type="text" class="form-control" name="beneficiary_name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" name="address">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Packets *</label>
+                            <input type="number" class="form-control" name="packets" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-control" name="status">
+                                <option value="completed">Completed</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" name="notes" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Distribution
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
             <!-- Remove Distribution Modal -->
             <div id="removeDistributionModal" class="modal" style="display: none;">
                 <div class="modal-content">
@@ -6091,6 +6164,7 @@ echo '</script>';
             <script src="../js/midwife/load-home-visits.js"></script>
             <script src="../js/midwife/load-vaccinations.js"></script>
             <script src="../js/midwife/schedule-vaccination.js"></script>
+            <script src="../js/midwife/load-triposha.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
