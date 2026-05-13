@@ -2017,6 +2017,7 @@ echo '</script>';
         #scheduleVisitModal,
 
         #timetableModal,
+        #updateVaccineInventoryModal,
 
         #scheduleVaccinationModal {
 
@@ -2027,6 +2028,9 @@ echo '</script>';
         #addScheduleModal .modal-dialog,
 
         #scheduleVisitModal .modal-dialog,
+
+
+        #updateVaccineInventoryModal .modal-dialog,
 
         #timetableModal .modal-dialog,
 
@@ -2042,7 +2046,8 @@ echo '</script>';
 
         #scheduleVisitModal .modal-content,
 
-        #timetableModal .modal-content,
+
+        #updateVaccineInventoryModal .modal-dialog #timetableModal .modal-content,
 
         #scheduleVaccinationModal .modal-content {
 
@@ -2114,7 +2119,7 @@ echo '</script>';
                             <h2 id="greeting-text">Good Morning, Madhavi!</h2>
                             <p>Ready to make a difference in your community today. You have 5 scheduled activities.</p>
                         </div>
-                       
+
                     </div>
                 </div>
 
@@ -5981,6 +5986,102 @@ echo '</script>';
             </div>
 
 
+
+
+            <!-- updatevaccinationinventorymodel -->
+
+            <div class="modal fade" id="updateVaccineInventoryModal" tabindex="-1" role="dialog" aria-labelledby="updateVaccineInventoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateVaccineInventoryModalLabel">
+                                Update Vaccine Inventory
+                            </h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="updateVaccineInventoryForm" action="../php/midwife/update_vaccine_inventory.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label class="form-label">Select Vaccine *</label>
+                                    <select class="form-control" name="vaccine_id" id="inventoryVaccineSelect" required>
+                                        <option value="">Loading vaccines...</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Stock Quantity *</label>
+                                            <input type="number" class="form-control" name="stock_quantity" id="inventoryStockQuantity" min="0" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Minimum Stock Level *</label>
+                                            <input type="number" class="form-control" name="minimum_stock_level" id="inventoryMinimumStock" min="0" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Batch Number</label>
+                                            <input type="text" class="form-control" name="batch_number" id="inventoryBatchNumber" placeholder="Example: DPT-2026-001">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Expiry Date</label>
+                                            <input type="date" class="form-control" name="expiry_date" id="inventoryExpiryDate">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Status *</label>
+                                    <select class="form-control" name="status" id="inventoryStatus" required>
+                                        <option value="available">Available</option>
+                                        <option value="low_stock">Low Stock</option>
+                                        <option value="expired">Expired</option>
+                                        <option value="unavailable">Unavailable</option>
+                                    </select>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    Select a vaccine first. Existing inventory values will automatically fill into the form.
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Inventory
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
             <script src="../js/midwife/create_activity.js"></script>
@@ -8130,83 +8231,6 @@ echo '</script>';
                     });
                 }
 
-                function updateInventory() {
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Update Vaccine Inventory</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="inventoryUpdateForm">
-                            <div class="form-group">
-                                <label class="form-label">Vaccine Type *</label>
-                                <select class="form-control" required>
-                                    <option value="">Select Vaccine</option>
-                                    <option value="dpt">DPT Vaccine</option>
-                                    <option value="opv">OPV (Oral Polio)</option>
-                                    <option value="hepatitis-b">Hepatitis B</option>
-                                    <option value="tetanus">Tetanus Toxoid</option>
-                                    <option value="mmr">MMR Vaccine</option>
-                                    <option value="influenza">Influenza</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Action Type *</label>
-                                        <select class="form-control" required>
-                                            <option value="received">Stock Received</option>
-                                            <option value="used">Stock Used</option>
-                                            <option value="expired">Mark as Expired</option>
-                                            <option value="adjustment">Stock Adjustment</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Quantity *</label>
-                                        <input type="number" class="form-control" min="1" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Batch Number</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Expiry Date</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Additional notes about this inventory update..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="inventoryUpdateForm" class="btn btn-info">Update Inventory</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
-
-                    document.getElementById('inventoryUpdateForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        alert('Inventory updated successfully!');
-                        closeModal();
-                    });
-                }
-
 
                 function printSchedule() {
                     alert('Printing vaccination schedule...');
@@ -9310,9 +9334,7 @@ echo '</script>';
                     updateRemainingPackets();
                 }
 
-                function updateInventory() {
-                    editPacketsReceived();
-                }
+
 
                 function updateTotalPackets() {
                     const received = parseInt(document.getElementById('packets-received-month').textContent) || 0;

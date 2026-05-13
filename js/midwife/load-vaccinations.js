@@ -466,14 +466,7 @@ function quickVaccinationLog() {
     alert('Quick vaccination log can be connected next.');
 }
 
-function updateInventory() {
-    switchVaccinationTab('inventory');
 
-    const inventoryTab = document.querySelector('#vaccinations .nav-tabs .nav-link:nth-child(2)');
-    if (inventoryTab) {
-        inventoryTab.click();
-    }
-}
 
 function checkExpiring() {
     const today = new Date();
@@ -665,3 +658,143 @@ function escapeHtml(value) {
 function escapeJs(value) {
     return String(value ?? '').replaceAll("'", "\\'");
 }
+
+
+
+function updateInventory() {
+    populateInventoryUpdateModal();
+
+    if (typeof $ !== 'undefined') {
+        $('#updateVaccineInventoryModal').modal('show');
+    } else {
+        alert('Bootstrap modal is not available. Please check jQuery and Bootstrap JS.');
+    }
+}
+
+function populateInventoryUpdateModal() {
+    const vaccineSelect = document.getElementById('inventoryVaccineSelect');
+
+    if (!vaccineSelect) {
+        console.error('inventoryVaccineSelect not found');
+        return;
+    }
+
+    if (!allVaccineInventory || allVaccineInventory.length === 0) {
+        vaccineSelect.innerHTML = '<option value="">No vaccines found</option>';
+        return;
+    }
+
+    vaccineSelect.innerHTML = '<option value="">Select Vaccine</option>';
+
+    allVaccineInventory.forEach(function (vaccine) {
+        const option = document.createElement('option');
+
+        option.value = vaccine.vaccine_id;
+        option.textContent = vaccine.vaccine_name + ' (' + vaccine.vaccine_code + ')';
+
+        vaccineSelect.appendChild(option);
+    });
+
+    clearInventoryUpdateFields();
+}
+
+function clearInventoryUpdateFields() {
+    setInputValue('inventoryStockQuantity', '');
+    setInputValue('inventoryMinimumStock', '');
+    setInputValue('inventoryBatchNumber', '');
+    setInputValue('inventoryExpiryDate', '');
+    setInputValue('inventoryStatus', 'available');
+}
+
+function fillInventoryUpdateFields(vaccineId) {
+    const vaccine = allVaccineInventory.find(function (item) {
+        return Number(item.vaccine_id) === Number(vaccineId);
+    });
+
+    if (!vaccine) {
+        clearInventoryUpdateFields();
+        return;
+    }
+
+    setInputValue('inventoryStockQuantity', vaccine.stock_quantity || 0);
+    setInputValue('inventoryMinimumStock', vaccine.minimum_stock_level || 10);
+    setInputValue('inventoryBatchNumber', vaccine.batch_number || '');
+    setInputValue('inventoryExpiryDate', vaccine.expiry_date || '');
+    setInputValue('inventoryStatus', vaccine.status || 'available');
+}
+
+function setInputValue(id, value) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.value = value;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const vaccineSelect = document.getElementById('inventoryVaccineSelect');
+
+    if (vaccineSelect) {
+        vaccineSelect.addEventListener('change', function () {
+            fillInventoryUpdateFields(this.value);
+        });
+    }
+
+    const inventoryForm = document.getElementById('updateVaccineInventoryForm');
+
+    if (inventoryForm) {
+        inventoryForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            }
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    alert(data.message);
+
+                    if (data.success) {
+                        if (typeof $ !== 'undefined') {
+                            $('#updateVaccineInventoryModal').modal('hide');
+                        }
+
+                        form.reset();
+
+                        if (typeof loadVaccinations === 'function') {
+                            loadVaccinations();
+                        }
+
+                        switchVaccinationTab('inventory');
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Update Inventory Error:', error);
+                    alert('Server error while updating inventory.');
+
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                });
+        });
+    }
+});
