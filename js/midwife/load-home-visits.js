@@ -11,7 +11,7 @@ const fixedDutyAreas = [
     'kahabilihena',
     'opathella',
     'ambalangoda',
-    'sfd'
+
 ];
 
 function loadHomeVisitData() {
@@ -291,7 +291,7 @@ function formatAreaName(value) {
         'kahabilihena': 'Kahabilihena',
         'opathella': 'Opathella',
         'ambalangoda': 'Ambalangoda',
-        'sfd': 'SFD'
+     
     };
 
     return areaMap[normalizeArea(value)] || String(value || '-');

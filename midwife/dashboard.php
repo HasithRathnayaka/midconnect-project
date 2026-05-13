@@ -2013,22 +2013,41 @@ echo '</script>';
 
 
         #addScheduleModal,
+
         #scheduleVisitModal,
-        #timetableModal {
+
+        #timetableModal,
+
+        #scheduleVaccinationModal {
+
             z-index: 1060 !important;
+
         }
 
         #addScheduleModal .modal-dialog,
+
         #scheduleVisitModal .modal-dialog,
-        #timetableModal .modal-dialog {
+
+        #timetableModal .modal-dialog,
+
+        #scheduleVaccinationModal .modal-dialog {
+
             z-index: 1070 !important;
-            pointer-events: auto;
+
+            pointer-events: auto !important;
+
         }
 
         #addScheduleModal .modal-content,
+
         #scheduleVisitModal .modal-content,
-        #timetableModal .modal-content {
-            pointer-events: auto;
+
+        #timetableModal .modal-content,
+
+        #scheduleVaccinationModal .modal-content {
+
+            pointer-events: auto !important;
+
         }
 
         .modal-backdrop {
@@ -4380,7 +4399,7 @@ echo '</script>';
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Vaccination Management</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="scheduleVaccination()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVaccinationModal">
                             <i class="fas fa-plus"></i> Schedule Vaccination
                         </button>
                         <button class="btn btn-success" onclick="quickVaccinationLog()">
@@ -6266,6 +6285,139 @@ echo '</script>';
 
 
 
+<!-- Schedule New Vaccination -->
+
+
+            <div class="modal fade" id="scheduleVaccinationModal" tabindex="-1" role="dialog" aria-labelledby="scheduleVaccinationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="scheduleVaccinationModalLabel">Schedule New Vaccination</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="newVaccinationForm" action="../php/midwife/create_vaccination.php" method="POST">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Patient Name *</label>
+                                <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Patient Age</label>
+                                <input type="number" class="form-control" name="patient_age" min="0" max="120" placeholder="Age">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Duty Area *</label>
+                                <input type="text" class="form-control" name="duty_area" placeholder="Enter duty area" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" name="address" placeholder="Enter patient address">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Vaccine Category *</label>
+                                <select class="form-control" name="vaccine_category" id="vaccineCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="pediatric">Pediatric Vaccines</option>
+                                    <option value="maternal">Maternal Vaccines</option>
+                                    <option value="adult">Adult Vaccines</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Vaccine *</label>
+                                <select class="form-control" name="vaccine_code" id="vaccineOptions" required>
+                                    <option value="">Select category first</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date *</label>
+                                <input type="date" class="form-control" name="vaccination_date" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Time *</label>
+                                <input type="time" class="form-control" name="vaccination_time" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location *</label>
+                        <input type="text" class="form-control" name="location" placeholder="Clinic / home / community location" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Dose Number</label>
+                                <input type="text" class="form-control" name="dose_number" placeholder="Example: 1st dose, 2nd dose, Booster">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Next Due Date</label>
+                                <input type="date" class="form-control" name="next_due_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Special Instructions / Notes</label>
+                        <textarea class="form-control" name="notes" rows="3" placeholder="Any special instructions or notes..."></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Schedule Vaccination
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
@@ -6274,6 +6426,7 @@ echo '</script>';
             <script src="../js/midwife/load-schedules.js"></script>
             <script src="../js/midwife/create-home-visit.js"></script>
             <script src="../js/midwife/load-home-visits.js"></script>
+            <script src="../js/midwife/schedule-vaccination.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -8332,113 +8485,9 @@ echo '</script>';
                     document.head.appendChild(styleElement);
                 }
 
-                // Vaccination Management Functions
-                function scheduleVaccination() {
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Schedule New Vaccination</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="newVaccinationForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Patient *</label>
-                                        <select class="form-control" required>
-                                            <option value="">Select Patient</option>
-                                            <option value="1">Baby Amara Silva (4 months)</option>
-                                            <option value="2">Mrs. Nayani Perera (Pregnant)</option>
-                                            <option value="3">Baby Sahan Fernando (6 months)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Vaccine Category *</label>
-                                        <select class="form-control" required onchange="updateVaccineOptions(this.value)">
-                                            <option value="">Select Category</option>
-                                            <option value="pediatric">Pediatric Vaccines</option>
-                                            <option value="maternal">Maternal Vaccines</option>
-                                            <option value="adult">Adult Vaccines</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Vaccines to Administer *</label>
-                                <div class="vaccine-checkboxes" id="vaccineOptions">
-                                    <p>Select a category first</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Special Instructions</label>
-                                <textarea class="form-control" rows="3" placeholder="Any special instructions or notes..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="newVaccinationForm" class="btn btn-primary">Schedule Vaccination</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
+       
 
-                    document.getElementById('newVaccinationForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        alert('Vaccination scheduled successfully!');
-                        closeModal();
-                    });
-                }
-
-                function updateVaccineOptions(category) {
-                    const vaccineOptions = document.getElementById('vaccineOptions');
-                    let options = '';
-
-                    if (category === 'pediatric') {
-                        options = `
-                    <label><input type="checkbox" value="dpt"> DPT (Diphtheria, Pertussis, Tetanus)</label>
-                    <label><input type="checkbox" value="opv"> OPV (Oral Polio Vaccine)</label>
-                    <label><input type="checkbox" value="hepatitis-b"> Hepatitis B</label>
-                    <label><input type="checkbox" value="mmr"> MMR (Measles, Mumps, Rubella)</label>
-                    <label><input type="checkbox" value="hib"> Hib (Haemophilus influenzae type b)</label>
-                `;
-                    } else if (category === 'maternal') {
-                        options = `
-                    <label><input type="checkbox" value="tetanus-toxoid"> Tetanus Toxoid</label>
-                    <label><input type="checkbox" value="influenza"> Influenza</label>
-                    <label><input type="checkbox" value="pertussis"> Tdap (Tetanus, Diphtheria, Pertussis)</label>
-                `;
-                    } else if (category === 'adult') {
-                        options = `
-                    <label><input type="checkbox" value="influenza"> Influenza</label>
-                    <label><input type="checkbox" value="pneumococcal"> Pneumococcal</label>
-                    <label><input type="checkbox" value="hepatitis-b"> Hepatitis B</label>
-                    <label><input type="checkbox" value="tetanus"> Tetanus/Diphtheria</label>
-                `;
-                    }
-
-                    vaccineOptions.innerHTML = options;
-                }
-
+              
                 function quickVaccinationLog() {
                     const modal = document.createElement('div');
                     modal.className = 'modal-overlay';
