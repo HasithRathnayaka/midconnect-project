@@ -2019,7 +2019,7 @@ echo '</script>';
         #timetableModal,
         #updateVaccineInventoryModal,
         #triposhaInventoryModal,
-        
+
         #triposhaDistributionModal,
         #scheduleVaccinationModal {
 
@@ -2365,155 +2365,155 @@ echo '</script>';
 
             <!-- counseling-session Section -->
             <div id="counseling-session" class="content-section" style="display: none;">
-    <div class="counseling-hero">
-        <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
-        <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
-    </div>
+                <div class="counseling-hero">
+                    <h1><i class="fas fa-comments"></i> Counseling Sessions</h1>
+                    <p>Record one-to-one or family counseling for antenatal, postnatal, and psychosocial support.</p>
+                </div>
 
-    <div class="row" style="margin-bottom: 1.5rem;">
-        <div class="col-6">
-            <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
-                <div id="counselingSessionsThisMonth" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
-                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
-                    Sessions this month
+                <div class="row" style="margin-bottom: 1.5rem;">
+                    <div class="col-6">
+                        <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
+                            <div id="counselingSessionsThisMonth" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                                Sessions this month
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
+                            <div id="counselingFollowupsScheduled" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                                Follow-ups scheduled
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <div class="card-header">
+                        <h4 class="card-title">Log counseling session</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="counselingForm" action="../php/midwife/create_counseling_session.php" method="POST">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Date &amp; time *</label>
+                                        <input type="datetime-local" class="form-control" name="session_datetime" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Duration (minutes) *</label>
+                                        <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Client identifier *</label>
+                                        <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Session focus *</label>
+                                        <select class="form-control form-select" name="focus" required>
+                                            <option value="">Select</option>
+                                            <option value="antenatal">Antenatal care &amp; birth planning</option>
+                                            <option value="postnatal">Postnatal &amp; recovery</option>
+                                            <option value="breastfeeding">Breastfeeding &amp; nutrition</option>
+                                            <option value="family_planning">Family planning</option>
+                                            <option value="mental_health">Mental health &amp; emotional support</option>
+                                            <option value="gbv">Gender-based violence / safety</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <select class="form-control form-select" name="location_type">
+                                    <option value="clinic">MOH clinic</option>
+                                    <option value="home">Home visit</option>
+                                    <option value="phone">Telephone</option>
+                                    <option value="community">Community Center</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Summary &amp; advice given *</label>
+                                <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Follow-up required</label>
+                                <select class="form-control form-select" name="followup" id="counselingFollowupSelect">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes — schedule</option>
+                                    <option value="referral">Referral to specialist</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Follow-up Date</label>
+                                <input type="date" class="form-control" name="followup_date">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Referral Details</label>
+                                <textarea class="form-control" name="referral_details" rows="2" placeholder="Add referral details if applicable"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save session
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Recent counseling sessions</h4>
+                    </div>
+
+                    <div class="card-body" style="padding: 0;">
+                        <div style="overflow-x: auto;">
+                            <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: var(--bg-secondary); text-align: left;">
+                                        <th style="padding: 0.75rem 1rem;">Date</th>
+                                        <th style="padding: 0.75rem 1rem;">Focus</th>
+                                        <th style="padding: 0.75rem 1rem;">Location</th>
+                                        <th style="padding: 0.75rem 1rem;">Duration</th>
+                                        <th style="padding: 0.75rem 1rem;">Follow-up</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="counselingSessionTableBody">
+                                    <tr>
+                                        <td colspan="5" class="text-muted" style="padding: 0.75rem 1rem;">
+                                            Loading counseling sessions...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-6">
-            <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
-                <div id="counselingFollowupsScheduled" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
-                <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
-                    Follow-ups scheduled
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card" style="margin-bottom: 1.5rem;">
-        <div class="card-header">
-            <h4 class="card-title">Log counseling session</h4>
-        </div>
-
-        <div class="card-body">
-            <form id="counselingForm" action="../php/midwife/create_counseling_session.php" method="POST">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="form-label">Date &amp; time *</label>
-                            <input type="datetime-local" class="form-control" name="session_datetime" required>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="form-label">Duration (minutes) *</label>
-                            <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="form-label">Client identifier *</label>
-                            <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label class="form-label">Session focus *</label>
-                            <select class="form-control form-select" name="focus" required>
-                                <option value="">Select</option>
-                                <option value="antenatal">Antenatal care &amp; birth planning</option>
-                                <option value="postnatal">Postnatal &amp; recovery</option>
-                                <option value="breastfeeding">Breastfeeding &amp; nutrition</option>
-                                <option value="family_planning">Family planning</option>
-                                <option value="mental_health">Mental health &amp; emotional support</option>
-                                <option value="gbv">Gender-based violence / safety</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Location</label>
-                    <select class="form-control form-select" name="location_type">
-                        <option value="clinic">MOH clinic</option>
-                        <option value="home">Home visit</option>
-                        <option value="phone">Telephone</option>
-                        <option value="community">Community Center</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Summary &amp; advice given *</label>
-                    <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Follow-up required</label>
-                    <select class="form-control form-select" name="followup" id="counselingFollowupSelect">
-                        <option value="no">No</option>
-                        <option value="yes">Yes — schedule</option>
-                        <option value="referral">Referral to specialist</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Follow-up Date</label>
-                    <input type="date" class="form-control" name="followup_date">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Referral Details</label>
-                    <textarea class="form-control" name="referral_details" rows="2" placeholder="Add referral details if applicable"></textarea>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save session
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Recent counseling sessions</h4>
-        </div>
-
-        <div class="card-body" style="padding: 0;">
-            <div style="overflow-x: auto;">
-                <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
-                    <thead>
-                        <tr style="background: var(--bg-secondary); text-align: left;">
-                            <th style="padding: 0.75rem 1rem;">Date</th>
-                            <th style="padding: 0.75rem 1rem;">Focus</th>
-                            <th style="padding: 0.75rem 1rem;">Location</th>
-                            <th style="padding: 0.75rem 1rem;">Duration</th>
-                            <th style="padding: 0.75rem 1rem;">Follow-up</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="counselingSessionTableBody">
-                        <tr>
-                            <td colspan="5" class="text-muted" style="padding: 0.75rem 1rem;">
-                                Loading counseling sessions...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
             <!-- health-education-session Section -->
-            <div id="health-education-session" class="content-section" style="display: none;">
+            <div id="health-education-session" class="content-section section-slide-in" style="display: none;">
                 <div class="health-hero">
                     <h1><i class="fas fa-chalkboard-teacher"></i> Health education sessions</h1>
                     <p>Group talks, demonstrations, and community awareness on maternal and child health topics.</p>
@@ -2522,20 +2522,28 @@ echo '</script>';
                 <div class="row" style="margin-bottom: 1.5rem;">
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--accent-orange); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">8</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Sessions (90 days)</div>
+                            <div id="healthEdSessions90Days" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Sessions (90 days)
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">186</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Participants reached</div>
+                            <div id="healthEdParticipantsReached" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Participants reached
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">4</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Upcoming</div>
+                            <div id="healthEdUpcomingCount" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Upcoming
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2544,26 +2552,29 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Record health education session</h4>
                     </div>
+
                     <div class="card-body">
-                        <form id="healthEdForm">
+                        <form id="healthEdForm" action="../php/midwife/create_health_education_session.php" method="POST">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Session date</label>
+                                        <label class="form-label">Session date *</label>
                                         <input type="date" class="form-control" name="session_date" required>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Venue</label>
+                                        <label class="form-label">Venue *</label>
                                         <input type="text" class="form-control" name="venue" placeholder="e.g. MOH clinic hall, village temple" required>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Main topic</label>
+                                        <label class="form-label">Main topic *</label>
                                         <select class="form-control form-select" name="topic" required>
                                             <option value="">Select topic</option>
                                             <option value="nutrition">Maternal nutrition &amp; iron</option>
@@ -2577,6 +2588,7 @@ echo '</script>';
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-label">Audience</label>
@@ -2589,32 +2601,49 @@ echo '</script>';
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-label">Approx. attendees</label>
+                                        <label class="form-label">Approx. attendees *</label>
                                         <input type="number" class="form-control" name="attendees" min="1" max="500" value="25" required>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
+                                        <label class="form-label">Duration (minutes) *</label>
                                         <input type="number" class="form-control" name="duration_mins" min="15" max="180" value="45" required>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label class="form-label">Materials used</label>
-                                        <input type="text" class="form-control" name="materials" placeholder="Flip chart, leaflets…">
+                                        <input type="text" class="form-control" name="materials" placeholder="Flip chart, leaflets...">
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-label">Outcomes &amp; questions raised</label>
                                 <textarea class="form-control" name="outcomes" rows="3" placeholder="Key messages delivered and follow-up needs"></textarea>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control form-select" name="status">
+                                    <option value="completed">Completed</option>
+                                    <option value="upcoming">Upcoming</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save session
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -2624,36 +2653,20 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Recent &amp; planned sessions</h4>
                     </div>
+
                     <div class="card-body">
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--secondary-green);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">28 Mar</div>
-                                <div>
-                                    <strong>Immunization schedule</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">MOH waiting area · 32 participants · Flip chart</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Upcoming</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">18 Mar</div>
-                                <div>
-                                    <strong>Pregnancy danger signs</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Community centre · 28 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">05 Mar</div>
-                                <div>
-                                    <strong>Newborn care &amp; breastfeeding</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Clinic hall · 41 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
+                        <div id="healthEducationSessionList" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <p class="text-muted">Loading health education sessions...</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
 
             <div id="patients" class="content-section" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
@@ -5225,284 +5238,284 @@ echo '</script>';
             </div>
 
             <!-- Triposha Distribution Section -->
-           <div id="triposha" class="content-section section-slide-in" style="display: none;">
-    <div class="page-header">
-        <h2><i class="fas fa-box"></i> Triposha Distribution Management</h2>
-        <p>Manage Triposha packet distribution and inventory tracking</p>
-    </div>
+            <div id="triposha" class="content-section section-slide-in" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-box"></i> Triposha Distribution Management</h2>
+                    <p>Manage Triposha packet distribution and inventory tracking</p>
+                </div>
 
-    <div class="duty-areas-container">
-        <div class="duty-areas-title">
-            <i class="fas fa-map-marker-alt"></i> Select Duty Area
-        </div>
-
-        <div class="duty-areas-grid" id="triposhaAreaGrid">
-            <div class="duty-area-btn active">
-                <i class="fas fa-spinner fa-spin"></i>
-                <h5>Loading...</h5>
-                <div class="area-count">Please wait</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="area-content-wrapper active">
-        <div class="area-header">
-            <h4 id="triposhaAreaTitle">
-                <i class="fas fa-map-marker-alt"></i> Triposha Distribution
-            </h4>
-            <p id="triposhaAreaSubtitle">Loading Triposha data...</p>
-        </div>
-
-        <div class="dashboard-stats">
-            <div class="stat-card info editable-stat" onclick="openTriposhaInventoryModal()">
-                <div class="stat-number" id="packets-received-month">0</div>
-                <div class="stat-label">Packets Received This Month</div>
-                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-            </div>
-
-            <div class="stat-card warning editable-stat" onclick="openTriposhaInventoryModal()">
-                <div class="stat-number" id="packets-left-previous">0</div>
-                <div class="stat-label">Packets Left from Previous Month</div>
-                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-            </div>
-
-            <div class="stat-card success">
-                <div class="stat-number" id="total-packets">0</div>
-                <div class="stat-label">Total Packets Available</div>
-                <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
-            </div>
-
-            <div class="stat-card editable-stat" onclick="openTriposhaInventoryModal()">
-                <div class="stat-number" id="packets-distributed">0</div>
-                <div class="stat-label">Packets Distributed</div>
-                <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Distribution Records</h4>
+                <div class="duty-areas-container">
+                    <div class="duty-areas-title">
+                        <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Beneficiary</th>
-                                        <th>Address</th>
-                                        <th>Packets</th>
-                                        <th>Category</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id="distribution-records">
-                                    <tr>
-                                        <td colspan="7">Loading records...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="duty-areas-grid" id="triposhaAreaGrid">
+                        <div class="duty-area-btn active">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h5>Loading...</h5>
+                            <div class="area-count">Please wait</div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Quick Actions</h4>
+                <div class="area-content-wrapper active">
+                    <div class="area-header">
+                        <h4 id="triposhaAreaTitle">
+                            <i class="fas fa-map-marker-alt"></i> Triposha Distribution
+                        </h4>
+                        <p id="triposhaAreaSubtitle">Loading Triposha data...</p>
                     </div>
 
-                    <div class="card-body">
-                        <button class="btn btn-primary btn-block mb-3" type="button" data-toggle="modal" data-target="#triposhaDistributionModal">
-                            <i class="fas fa-plus"></i> Record Distribution
-                        </button>
-
-                        <button class="btn btn-secondary btn-block mb-3" onclick="openTriposhaInventoryModal()">
-                            <i class="fas fa-box-open"></i> Update Inventory
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h4 class="card-title">Monthly Summary</h4>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="summary-item">
-                            <span>Pregnant Mothers:</span>
-                            <div>
-                                <strong id="pregnant-packets">0 packets</strong>
-                            </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card info editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-received-month">0</div>
+                            <div class="stat-label">Packets Received This Month</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
                         </div>
 
-                        <div class="summary-item">
-                            <span>Lactating Mothers:</span>
-                            <div>
-                                <strong id="lactating-packets">0 packets</strong>
-                            </div>
+                        <div class="stat-card warning editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-left-previous">0</div>
+                            <div class="stat-label">Packets Left from Previous Month</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
                         </div>
 
-                        <div class="summary-item">
-                            <span>Children (6-23m):</span>
-                            <div>
-                                <strong id="children-packets">0 packets</strong>
-                            </div>
+                        <div class="stat-card success">
+                            <div class="stat-number" id="total-packets">0</div>
+                            <div class="stat-label">Total Packets Available</div>
+                            <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
                         </div>
 
-                        <hr>
-
-                        <div class="summary-item">
-                            <span><strong>Total Distributed:</strong></span>
-                            <strong class="text-success" id="total-distributed-summary">0 packets</strong>
-                        </div>
-
-                        <div class="summary-item">
-                            <span><strong>Remaining:</strong></span>
-                            <strong class="text-warning" id="remaining-packets">0 packets</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Triposha Inventory Modal -->
-    <div class="modal fade" id="triposhaInventoryModal" tabindex="-1" role="dialog" aria-labelledby="triposhaInventoryModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="triposhaInventoryModalLabel">Update Triposha Inventory</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form id="triposhaInventoryForm" action="../php/midwife/save_triposha_inventory.php" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" name="duty_area" id="triposhaInventoryDutyArea">
-
-                        <div class="form-group">
-                            <label class="form-label">Inventory Month *</label>
-                            <input type="month" class="form-control" name="inventory_month" id="triposhaInventoryMonth" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Packets Received This Month *</label>
-                            <input type="number" class="form-control" name="packets_received" id="triposhaPacketsReceived" min="0" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Packets Left from Previous Month *</label>
-                            <input type="number" class="form-control" name="packets_left_previous" id="triposhaPacketsLeftPrevious" min="0" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Notes</label>
-                            <textarea class="form-control" name="notes" id="triposhaInventoryNotes" rows="3"></textarea>
+                        <div class="stat-card editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-distributed">0</div>
+                            <div class="stat-label">Packets Distributed</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Inventory
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Triposha Distribution Modal -->
-    <div class="modal fade" id="triposhaDistributionModal" tabindex="-1" role="dialog" aria-labelledby="triposhaDistributionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="triposhaDistributionModalLabel">Record Triposha Distribution</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form id="triposhaDistributionForm" action="../php/midwife/create_triposha_distribution.php" method="POST">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="form-label">Duty Area *</label>
-                            <input type="text" class="form-control" name="duty_area" id="triposhaDistributionDutyArea" required>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Date *</label>
-                                    <input type="date" class="form-control" name="distribution_date" id="triposhaDistributionDate" required>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Distribution Records</h4>
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label class="form-label">Category *</label>
-                                    <select class="form-control" name="category" required>
-                                        <option value="">Select category</option>
-                                        <option value="pregnant">Pregnant Mother</option>
-                                        <option value="lactating">Lactating Mother</option>
-                                        <option value="children">Child (6-23 months)</option>
-                                    </select>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Beneficiary</th>
+                                                    <th>Address</th>
+                                                    <th>Packets</th>
+                                                    <th>Category</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="distribution-records">
+                                                <tr>
+                                                    <td colspan="7">Loading records...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Beneficiary Name *</label>
-                            <input type="text" class="form-control" name="beneficiary_name" required>
-                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Quick Actions</h4>
+                                </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address">
-                        </div>
+                                <div class="card-body">
+                                    <button class="btn btn-primary btn-block mb-3" type="button" data-toggle="modal" data-target="#triposhaDistributionModal">
+                                        <i class="fas fa-plus"></i> Record Distribution
+                                    </button>
 
-                        <div class="form-group">
-                            <label class="form-label">Packets *</label>
-                            <input type="number" class="form-control" name="packets" min="1" required>
-                        </div>
+                                    <button class="btn btn-secondary btn-block mb-3" onclick="openTriposhaInventoryModal()">
+                                        <i class="fas fa-box-open"></i> Update Inventory
+                                    </button>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Status</label>
-                            <select class="form-control" name="status">
-                                <option value="completed">Completed</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                        </div>
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h4 class="card-title">Monthly Summary</h4>
+                                </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Notes</label>
-                            <textarea class="form-control" name="notes" rows="3"></textarea>
+                                <div class="card-body">
+                                    <div class="summary-item">
+                                        <span>Pregnant Mothers:</span>
+                                        <div>
+                                            <strong id="pregnant-packets">0 packets</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="summary-item">
+                                        <span>Lactating Mothers:</span>
+                                        <div>
+                                            <strong id="lactating-packets">0 packets</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="summary-item">
+                                        <span>Children (6-23m):</span>
+                                        <div>
+                                            <strong id="children-packets">0 packets</strong>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="summary-item">
+                                        <span><strong>Total Distributed:</strong></span>
+                                        <strong class="text-success" id="total-distributed-summary">0 packets</strong>
+                                    </div>
+
+                                    <div class="summary-item">
+                                        <span><strong>Remaining:</strong></span>
+                                        <strong class="text-warning" id="remaining-packets">0 packets</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Distribution
-                        </button>
+                <!-- Triposha Inventory Modal -->
+                <div class="modal fade" id="triposhaInventoryModal" tabindex="-1" role="dialog" aria-labelledby="triposhaInventoryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="triposhaInventoryModalLabel">Update Triposha Inventory</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form id="triposhaInventoryForm" action="../php/midwife/save_triposha_inventory.php" method="POST">
+                                <div class="modal-body">
+                                    <input type="hidden" name="duty_area" id="triposhaInventoryDutyArea">
+
+                                    <div class="form-group">
+                                        <label class="form-label">Inventory Month *</label>
+                                        <input type="month" class="form-control" name="inventory_month" id="triposhaInventoryMonth" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets Received This Month *</label>
+                                        <input type="number" class="form-control" name="packets_received" id="triposhaPacketsReceived" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets Left from Previous Month *</label>
+                                        <input type="number" class="form-control" name="packets_left_previous" id="triposhaPacketsLeftPrevious" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" name="notes" id="triposhaInventoryNotes" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Inventory
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
-                </form>
+                </div>
 
+                <!-- Triposha Distribution Modal -->
+                <div class="modal fade" id="triposhaDistributionModal" tabindex="-1" role="dialog" aria-labelledby="triposhaDistributionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="triposhaDistributionModalLabel">Record Triposha Distribution</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form id="triposhaDistributionForm" action="../php/midwife/create_triposha_distribution.php" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Duty Area *</label>
+                                        <input type="text" class="form-control" name="duty_area" id="triposhaDistributionDutyArea" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Date *</label>
+                                                <input type="date" class="form-control" name="distribution_date" id="triposhaDistributionDate" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Category *</label>
+                                                <select class="form-control" name="category" required>
+                                                    <option value="">Select category</option>
+                                                    <option value="pregnant">Pregnant Mother</option>
+                                                    <option value="lactating">Lactating Mother</option>
+                                                    <option value="children">Child (6-23 months)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Beneficiary Name *</label>
+                                        <input type="text" class="form-control" name="beneficiary_name" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="address">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets *</label>
+                                        <input type="number" class="form-control" name="packets" min="1" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control" name="status">
+                                            <option value="completed">Completed</option>
+                                            <option value="pending">Pending</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Distribution
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
             <!-- Remove Distribution Modal -->
             <div id="removeDistributionModal" class="modal" style="display: none;">
                 <div class="modal-content">
@@ -5588,8 +5601,6 @@ echo '</script>';
                     </div>
                 </div>
             </div>
-
-
 
             <!--  addScheduleModal -->
 
@@ -5711,10 +5722,7 @@ echo '</script>';
                 </div>
             </div>
 
-
-
             <!-- timetableModal -->
-
 
             <div class="modal fade" id="timetableModal" tabindex="-1" role="dialog" aria-labelledby="timetableModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -5823,8 +5831,6 @@ echo '</script>';
                     </div>
                 </div>
             </div>
-
-
 
 
             <!-- scheduleVisitModal -->
@@ -5939,8 +5945,6 @@ echo '</script>';
                     </div>
                 </div>
             </div>
-
-
 
             <!-- Schedule New Vaccination -->
 
@@ -6076,8 +6080,6 @@ echo '</script>';
             </div>
 
 
-
-
             <!-- updatevaccinationinventorymodel -->
 
             <div class="modal fade" id="updateVaccineInventoryModal" tabindex="-1" role="dialog" aria-labelledby="updateVaccineInventoryModalLabel" aria-hidden="true">
@@ -6167,10 +6169,7 @@ echo '</script>';
                 </div>
             </div>
 
-
-
-
-
+            
 
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
@@ -6182,6 +6181,7 @@ echo '</script>';
             <script src="../js/midwife/load-vaccinations.js"></script>
             <script src="../js/midwife/schedule-vaccination.js"></script>
             <script src="../js/midwife/load-triposha.js"></script>
+            <script src="../js/midwife/load-health-education-sessions.js"></script>
             <script src="../js/midwife/load-counseling-sessions.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
