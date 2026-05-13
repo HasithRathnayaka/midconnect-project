@@ -2110,22 +2110,11 @@ echo '</script>';
             <div id="dashboard" class="content-section">
                 <div class="welcome-banner">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-10">
                             <h2 id="greeting-text">Good Morning, Madhavi!</h2>
                             <p>Ready to make a difference in your community today. You have 5 scheduled activities.</p>
                         </div>
-                        <div class="col-4 text-center">
-                            <div class="progress-ring">
-                                <svg width="120" height="120">
-                                    <circle class="background" cx="60" cy="60" r="50"></circle>
-                                    <circle class="progress" cx="60" cy="60" r="50"
-                                        stroke-dasharray="314.16"
-                                        stroke-dashoffset="78.54"></circle>
-                                </svg>
-                                <div class="progress-text">75%</div>
-                            </div>
-                            <p>Daily Goals</p>
-                        </div>
+                       
                     </div>
                 </div>
 
@@ -4395,16 +4384,18 @@ echo '</script>';
             </div>
 
             <!-- Vaccinations Section -->
-            <div id="vaccinations" class="content-section" style="display: none;">
+            <div id="vaccinations" class="content-section section-slide-in" style="display: block;">
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Vaccination Management</h2>
                     <div>
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVaccinationModal">
                             <i class="fas fa-plus"></i> Schedule Vaccination
                         </button>
+
                         <button class="btn btn-success" onclick="quickVaccinationLog()">
                             <i class="fas fa-syringe"></i> Quick Vaccination Log
                         </button>
+
                         <button class="btn btn-info" onclick="updateInventory()">
                             <i class="fas fa-boxes"></i> Update Inventory
                         </button>
@@ -4416,35 +4407,23 @@ echo '</script>';
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('vaccinations', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">12 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">8 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">6 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">10 scheduled today</div>
+
+                    <div class="duty-areas-grid" id="vaccinationAreaGrid">
+                        <div class="duty-area-btn active">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h5>Loading...</h5>
+                            <div class="area-count">Please wait</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <!-- Selected Area Content -->
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Vaccinations</h4>
-                        <p>Coverage: 15 villages | Pediatric: 8, Maternal: 4 | Clinic: Uduthuththiripitiya CHC</p>
+                        <h4 id="vaccinationAreaTitle">
+                            <i class="fas fa-map-marker-alt"></i> Vaccinations
+                        </h4>
+                        <p id="vaccinationAreaSubtitle">Loading vaccination data...</p>
                     </div>
 
                     <!-- Vaccination Statistics Cards -->
@@ -4455,172 +4434,90 @@ echo '</script>';
                                     <i class="fas fa-calendar-check"></i>
                                 </div>
                                 <div class="stat-info">
-                                    <h3>12</h3>
+                                    <h3 id="vaccinationTodayCount">0</h3>
                                     <span>Today's Schedule</span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-3">
                             <div class="stat-card">
                                 <div class="stat-icon">
                                     <i class="fas fa-syringe"></i>
                                 </div>
                                 <div class="stat-info">
-                                    <h3>8</h3>
+                                    <h3 id="vaccinationCompletedCount">0</h3>
                                     <span>Completed</span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-3">
                             <div class="stat-card">
                                 <div class="stat-icon">
                                     <i class="fas fa-exclamation-circle"></i>
                                 </div>
                                 <div class="stat-info">
-                                    <h3>3</h3>
+                                    <h3 id="vaccinationOverdueCount">0</h3>
                                     <span>Overdue</span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-3">
                             <div class="stat-card">
                                 <div class="stat-icon">
                                     <i class="fas fa-boxes"></i>
                                 </div>
                                 <div class="stat-info">
-                                    <h3>15</h3>
+                                    <h3 id="vaccinationStockCount">0</h3>
                                     <span>Vaccines in Stock</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tabs for different vaccination views -->
+                    <!-- Tabs -->
                     <div class="tab-container">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#" onclick="switchVaccinationTab('scheduled')">Today's Schedule</a>
+                                <a class="nav-link active" href="#" onclick="switchVaccinationTab('scheduled', event)">Today's Schedule</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="switchVaccinationTab('inventory')">Vaccine Inventory</a>
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('inventory', event)">Vaccine Inventory</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="switchVaccinationTab('records')">Patient Records</a>
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('records', event)">Patient Records</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="switchVaccinationTab('overdue')">Overdue Vaccines</a>
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('overdue', event)">Overdue Vaccines</a>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Today's Schedule Tab -->
-                    <div id="scheduled-vaccinations" class="tab-content">
+                    <div id="scheduled-vaccinations" class="tab-content" style="display: block;">
                         <div class="card">
                             <div class="card-header d-flex justify-between align-center">
                                 <h4 class="card-title">Today's Vaccination Schedule</h4>
+
                                 <div class="d-flex gap-2">
-                                    <select class="form-control" style="width: 180px;" onchange="filterVaccinations(this.value)">
+                                    <select class="form-control" id="vaccinationCategoryFilter" style="width: 180px;" onchange="filterVaccinations(this.value)">
                                         <option value="all">All Vaccines</option>
                                         <option value="pediatric">Pediatric</option>
                                         <option value="maternal">Maternal</option>
-                                        <option value="routine">Routine Adult</option>
+                                        <option value="adult">Adult</option>
                                     </select>
+
                                     <button class="btn btn-outline-primary" onclick="printSchedule()">
                                         <i class="fas fa-print"></i> Print Schedule
                                     </button>
                                 </div>
                             </div>
+
                             <div class="card-body">
-                                <div class="vaccination-schedule">
-                                    <div class="vaccination-item high-priority">
-                                        <div class="vaccine-time">
-                                            <span class="time">09:00</span>
-                                            <span class="duration">15 min</span>
-                                        </div>
-                                        <div class="vaccine-details">
-                                            <h5>Baby Kamal Silva (2 months)</h5>
-                                            <div class="patient-info">
-                                                <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Nayani Silva</span>
-                                                <span class="contact"><i class="fas fa-phone"></i> +94 77 555 0123</span>
-                                            </div>
-                                            <div class="vaccine-info">
-                                                <span class="vaccine-badge pediatric">DPT-1</span>
-                                                <span class="vaccine-badge pediatric">OPV-1</span>
-                                                <span class="vaccine-badge pediatric">Hep B-1</span>
-                                            </div>
-                                            <p class="notes">First dose of routine pediatric series. Check weight and temperature.</p>
-                                        </div>
-                                        <div class="vaccine-actions">
-                                            <button class="btn btn-success btn-sm" onclick="administerVaccine(1)">
-                                                <i class="fas fa-syringe"></i> Administer
-                                            </button>
-                                            <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(1)">
-                                                <i class="fas fa-history"></i> History
-                                            </button>
-                                            <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(1)">
-                                                <i class="fas fa-calendar-alt"></i> Reschedule
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="vaccination-item normal-priority">
-                                        <div class="vaccine-time">
-                                            <span class="time">10:30</span>
-                                            <span class="duration">10 min</span>
-                                        </div>
-                                        <div class="vaccine-details">
-                                            <h5>Mrs. Priyanka Fernando (28 years)</h5>
-                                            <div class="patient-info">
-                                                <span class="pregnancy-status"><i class="fas fa-baby"></i> 28 weeks pregnant</span>
-                                                <span class="contact"><i class="fas fa-phone"></i> +94 71 444 5678</span>
-                                            </div>
-                                            <div class="vaccine-info">
-                                                <span class="vaccine-badge maternal">Tetanus Toxoid - 2nd dose</span>
-                                            </div>
-                                            <p class="notes">Second TT dose for pregnancy. Check previous reaction history.</p>
-                                        </div>
-                                        <div class="vaccine-actions">
-                                            <button class="btn btn-success btn-sm" onclick="administerVaccine(2)">
-                                                <i class="fas fa-syringe"></i> Administer
-                                            </button>
-                                            <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(2)">
-                                                <i class="fas fa-history"></i> History
-                                            </button>
-                                            <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(2)">
-                                                <i class="fas fa-calendar-alt"></i> Reschedule
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="vaccination-item normal-priority">
-                                        <div class="vaccine-time">
-                                            <span class="time">14:00</span>
-                                            <span class="duration">20 min</span>
-                                        </div>
-                                        <div class="vaccine-details">
-                                            <h5>Mrs. Kumari Wickramasinghe (35 years)</h5>
-                                            <div class="patient-info">
-                                                <span class="condition"><i class="fas fa-heart"></i> Diabetic patient</span>
-                                                <span class="contact"><i class="fas fa-phone"></i> +94 76 333 9876</span>
-                                            </div>
-                                            <div class="vaccine-info">
-                                                <span class="vaccine-badge adult">Influenza Vaccine</span>
-                                                <span class="vaccine-badge adult">Pneumococcal</span>
-                                            </div>
-                                            <p class="notes">Annual flu vaccine + pneumococcal for high-risk patient.</p>
-                                        </div>
-                                        <div class="vaccine-actions">
-                                            <button class="btn btn-success btn-sm" onclick="administerVaccine(3)">
-                                                <i class="fas fa-syringe"></i> Administer
-                                            </button>
-                                            <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(3)">
-                                                <i class="fas fa-history"></i> History
-                                            </button>
-                                            <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(3)">
-                                                <i class="fas fa-calendar-alt"></i> Reschedule
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="vaccination-schedule" id="scheduledVaccinationList">
+                                    <p class="text-muted">Loading scheduled vaccinations...</p>
                                 </div>
                             </div>
                         </div>
@@ -4631,88 +4528,21 @@ echo '</script>';
                         <div class="card">
                             <div class="card-header d-flex justify-between align-center">
                                 <h4 class="card-title">Vaccine Inventory Status</h4>
+
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-warning" onclick="checkExpiring()">
                                         <i class="fas fa-exclamation-triangle"></i> Check Expiring
                                     </button>
+
                                     <button class="btn btn-primary" onclick="orderSupplies()">
                                         <i class="fas fa-shopping-cart"></i> Order Supplies
                                     </button>
                                 </div>
                             </div>
+
                             <div class="card-body">
-                                <div class="inventory-grid">
-                                    <div class="inventory-item good-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">DPT Vaccine</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">25 doses</span>
-                                            <span class="expiry-date">Exp: Jun 2025</span>
-                                        </div>
-                                        <div class="stock-status good">Good Stock</div>
-                                    </div>
-
-                                    <div class="inventory-item low-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">OPV (Oral Polio)</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">8 doses</span>
-                                            <span class="expiry-date">Exp: Mar 2025</span>
-                                        </div>
-                                        <div class="stock-status low">Low Stock</div>
-                                    </div>
-
-                                    <div class="inventory-item good-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">Hepatitis B</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">18 doses</span>
-                                            <span class="expiry-date">Exp: Aug 2025</span>
-                                        </div>
-                                        <div class="stock-status good">Good Stock</div>
-                                    </div>
-
-                                    <div class="inventory-item critical-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">Tetanus Toxoid</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">3 doses</span>
-                                            <span class="expiry-date">Exp: Apr 2025</span>
-                                        </div>
-                                        <div class="stock-status critical">Critical</div>
-                                    </div>
-
-                                    <div class="inventory-item good-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">MMR Vaccine</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">12 doses</span>
-                                            <span class="expiry-date">Exp: Jul 2025</span>
-                                        </div>
-                                        <div class="stock-status good">Good Stock</div>
-                                    </div>
-
-                                    <div class="inventory-item low-stock">
-                                        <div class="vaccine-icon">
-                                            <i class="fas fa-vial"></i>
-                                        </div>
-                                        <div class="vaccine-name">Influenza</div>
-                                        <div class="stock-info">
-                                            <span class="stock-level">6 doses</span>
-                                            <span class="expiry-date">Exp: Feb 2025</span>
-                                        </div>
-                                        <div class="stock-status low">Low Stock</div>
-                                    </div>
+                                <div class="inventory-grid" id="vaccineInventoryGrid">
+                                    <p class="text-muted">Loading vaccine inventory...</p>
                                 </div>
                             </div>
                         </div>
@@ -4723,52 +4553,32 @@ echo '</script>';
                         <div class="card">
                             <div class="card-header d-flex justify-between align-center">
                                 <h4 class="card-title">Patient Vaccination Records</h4>
-                                <input type="text" class="form-control" placeholder="Search patient..." style="max-width: 300px;">
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vaccinationPatientSearch"
+                                    placeholder="Search patient..."
+                                    style="max-width: 300px;"
+                                    onkeyup="renderVaccinationPatientRecords()">
                             </div>
+
                             <div class="card-body">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Patient Name</th>
-                                            <th>Age/DOB</th>
+                                            <th>Age</th>
                                             <th>Last Vaccine</th>
                                             <th>Next Due</th>
-                                            <th>Completion %</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+
+                                    <tbody id="vaccinationPatientRecordBody">
                                         <tr>
-                                            <td>Baby Amara Silva</td>
-                                            <td>4 months</td>
-                                            <td>DPT-2, OPV-2 (Nov 15)</td>
-                                            <td><span class="due-soon">DPT-3 (Dec 20)</span></td>
-                                            <td>
-                                                <div class="completion-bar">
-                                                    <div class="completion-fill" style="width: 60%"></div>
-                                                    <span>60%</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View Card</button>
-                                                <button class="btn btn-success btn-sm">Schedule</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Baby Sahan Peris</td>
-                                            <td>6 months</td>
-                                            <td>DPT-3, OPV-3 (Dec 10)</td>
-                                            <td><span class="due-later">MMR (Mar 15, 2025)</span></td>
-                                            <td>
-                                                <div class="completion-bar">
-                                                    <div class="completion-fill" style="width: 75%"></div>
-                                                    <span>75%</span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View Card</button>
-                                                <button class="btn btn-success btn-sm">Schedule</button>
-                                            </td>
+                                            <td colspan="6">Loading records...</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -4782,258 +4592,10 @@ echo '</script>';
                             <div class="card-header">
                                 <h4 class="card-title">Overdue Vaccinations</h4>
                             </div>
+
                             <div class="card-body">
-                                <div class="overdue-list">
-                                    <div class="overdue-item urgent">
-                                        <div class="overdue-info">
-                                            <h5>Baby Nimal Fernando</h5>
-                                            <p class="vaccine-details">DPT-2, OPV-2, Hep B-2</p>
-                                            <p class="overdue-duration">
-                                                <i class="fas fa-clock"></i>
-                                                <span class="overdue-text">15 days overdue</span>
-                                            </p>
-                                        </div>
-                                        <div class="contact-info">
-                                            <p><i class="fas fa-user"></i> Mother: Mrs. Sandya Fernando</p>
-                                            <p><i class="fas fa-phone"></i> +94 77 123 4567</p>
-                                        </div>
-                                        <div class="overdue-actions">
-                                            <button class="btn btn-danger btn-sm" onclick="contactPatient(1)">
-                                                <i class="fas fa-phone"></i> Call Now
-                                            </button>
-                                            <button class="btn btn-primary btn-sm" onclick="scheduleOverdue(1)">
-                                                <i class="fas fa-calendar-plus"></i> Schedule
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Vaccinations</h4>
-                        <p>Coverage: 12 villages | Pediatric: 6, Maternal: 2 | Clinic: Kahabilihena RH</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info">
-                                    <h3>8</h3><span>Today's Schedule</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info">
-                                    <h3>6</h3><span>Completed</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info">
-                                    <h3>2</h3><span>Overdue</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info">
-                                    <h3>12</h3><span>Vaccines in Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Kahabilihena</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">10:00</span>
-                                        <span class="duration">15 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Baby Sithum Perera (4 months)</h5>
-                                        <div class="patient-info">
-                                            <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Dilini Perera</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge pediatric">DPT-2</span>
-                                            <span class="vaccine-badge pediatric">OPV-2</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Vaccinations</h4>
-                        <p>Coverage: 8 urban wards | Pediatric: 4, Maternal: 2 | Clinic: Opathella PHC</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info">
-                                    <h3>6</h3><span>Today's Schedule</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info">
-                                    <h3>5</h3><span>Completed</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info">
-                                    <h3>1</h3><span>Overdue</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info">
-                                    <h3>18</h3><span>Vaccines in Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Opathella</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">11:00</span>
-                                        <span class="duration">10 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Kumari Jayawardena (30 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="pregnancy-status"><i class="fas fa-baby"></i> 24 weeks pregnant</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge maternal">TT-1</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Vaccinations</h4>
-                        <p>Coverage: 18 villages | Pediatric: 7, Maternal: 3 | Clinic: Ambalangoda DH</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info">
-                                    <h3>10</h3><span>Today's Schedule</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info">
-                                    <h3>7</h3><span>Completed</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info">
-                                    <h3>4</h3><span>Overdue</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info">
-                                    <h3>14</h3><span>Vaccines in Stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Ambalangoda</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item high-priority">
-                                    <div class="vaccine-time">
-                                        <span class="time">09:30</span>
-                                        <span class="duration">15 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Baby Tharusha Bandara (6 months)</h5>
-                                        <div class="patient-info">
-                                            <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Chamari Bandara</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge pediatric">DPT-3</span>
-                                            <span class="vaccine-badge pediatric">OPV-3</span>
-                                            <span class="vaccine-badge pediatric">Hep B-3</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
-                                </div>
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">14:00</span>
-                                        <span class="duration">10 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Nimalika Silva (26 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="pregnancy-status"><i class="fas fa-baby"></i> 32 weeks pregnant</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge maternal">TT-2</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
+                                <div class="overdue-list" id="overdueVaccinationList">
+                                    <p class="text-muted">Loading overdue vaccinations...</p>
                                 </div>
                             </div>
                         </div>
@@ -6285,138 +5847,138 @@ echo '</script>';
 
 
 
-<!-- Schedule New Vaccination -->
+            <!-- Schedule New Vaccination -->
 
 
             <div class="modal fade" id="scheduleVaccinationModal" tabindex="-1" role="dialog" aria-labelledby="scheduleVaccinationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="scheduleVaccinationModalLabel">Schedule New Vaccination</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="scheduleVaccinationModalLabel">Schedule New Vaccination</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="newVaccinationForm" action="../php/midwife/create_vaccination.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Name *</label>
+                                            <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Age</label>
+                                            <input type="number" class="form-control" name="patient_age" min="0" max="120" placeholder="Age">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Contact Number</label>
+                                            <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Duty Area *</label>
+                                            <input type="text" class="form-control" name="duty_area" placeholder="Enter duty area" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" name="address" placeholder="Enter patient address">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Vaccine Category *</label>
+                                            <select class="form-control" name="vaccine_category" id="vaccineCategory" required>
+                                                <option value="">Select Category</option>
+                                                <option value="pediatric">Pediatric Vaccines</option>
+                                                <option value="maternal">Maternal Vaccines</option>
+                                                <option value="adult">Adult Vaccines</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Vaccine *</label>
+                                            <select class="form-control" name="vaccine_code" id="vaccineOptions" required>
+                                                <option value="">Select category first</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Date *</label>
+                                            <input type="date" class="form-control" name="vaccination_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Time *</label>
+                                            <input type="time" class="form-control" name="vaccination_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Location *</label>
+                                    <input type="text" class="form-control" name="location" placeholder="Clinic / home / community location" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Dose Number</label>
+                                            <input type="text" class="form-control" name="dose_number" placeholder="Example: 1st dose, 2nd dose, Booster">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Next Due Date</label>
+                                            <input type="date" class="form-control" name="next_due_date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Special Instructions / Notes</label>
+                                    <textarea class="form-control" name="notes" rows="3" placeholder="Any special instructions or notes..."></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Schedule Vaccination
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
             </div>
-
-            <form id="newVaccinationForm" action="../php/midwife/create_vaccination.php" method="POST">
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Patient Name *</label>
-                                <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Patient Age</label>
-                                <input type="number" class="form-control" name="patient_age" min="0" max="120" placeholder="Age">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Contact Number</label>
-                                <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Duty Area *</label>
-                                <input type="text" class="form-control" name="duty_area" placeholder="Enter duty area" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-control" name="address" placeholder="Enter patient address">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Vaccine Category *</label>
-                                <select class="form-control" name="vaccine_category" id="vaccineCategory" required>
-                                    <option value="">Select Category</option>
-                                    <option value="pediatric">Pediatric Vaccines</option>
-                                    <option value="maternal">Maternal Vaccines</option>
-                                    <option value="adult">Adult Vaccines</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Vaccine *</label>
-                                <select class="form-control" name="vaccine_code" id="vaccineOptions" required>
-                                    <option value="">Select category first</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Date *</label>
-                                <input type="date" class="form-control" name="vaccination_date" required>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Time *</label>
-                                <input type="time" class="form-control" name="vaccination_time" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Location *</label>
-                        <input type="text" class="form-control" name="location" placeholder="Clinic / home / community location" required>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Dose Number</label>
-                                <input type="text" class="form-control" name="dose_number" placeholder="Example: 1st dose, 2nd dose, Booster">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Next Due Date</label>
-                                <input type="date" class="form-control" name="next_due_date">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Special Instructions / Notes</label>
-                        <textarea class="form-control" name="notes" rows="3" placeholder="Any special instructions or notes..."></textarea>
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Schedule Vaccination
-                    </button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
 
 
             <script src="../js/page-transitions.js"></script>
@@ -6426,6 +5988,7 @@ echo '</script>';
             <script src="../js/midwife/load-schedules.js"></script>
             <script src="../js/midwife/create-home-visit.js"></script>
             <script src="../js/midwife/load-home-visits.js"></script>
+            <script src="../js/midwife/load-vaccinations.js"></script>
             <script src="../js/midwife/schedule-vaccination.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -7965,7 +7528,7 @@ echo '</script>';
                 let currentHomeVisits = [];
                 let currentArea = 'uduthuththiripitiya';
 
-                
+
 
                 function renderHomeVisits() {
                     const visitList = document.querySelector('#scheduled-visits .visit-list');
@@ -8090,7 +7653,7 @@ echo '</script>';
                     detailsCard.style.display = 'block';
                 }
 
-                
+
                 async function deleteVisit(visitId) {
                     if (!confirm('Are you sure you want to delete this visit?')) return;
 
@@ -8301,7 +7864,7 @@ echo '</script>';
                     }
                 }
 
-                
+
                 function getVisitTabFromUrl() {
                     const params = new URLSearchParams(window.location.search);
                     const tab = params.get('visitTab') || params.get('tab') || 'scheduled';
@@ -8485,9 +8048,9 @@ echo '</script>';
                     document.head.appendChild(styleElement);
                 }
 
-       
 
-              
+
+
                 function quickVaccinationLog() {
                     const modal = document.createElement('div');
                     modal.className = 'modal-overlay';
@@ -8644,32 +8207,6 @@ echo '</script>';
                     });
                 }
 
-                function switchVaccinationTab(tabName) {
-                    // Remove active class from all nav links
-                    document.querySelectorAll('#vaccinations .nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-
-                    // Hide all tab contents in vaccination section
-                    document.querySelectorAll('#vaccinations .tab-content').forEach(content => {
-                        content.style.display = 'none';
-                    });
-
-                    // Show selected tab content
-                    const selectedTab = document.getElementById(tabName + '-vaccinations');
-                    if (selectedTab) {
-                        selectedTab.style.display = 'block';
-                    }
-
-                    // Add active class to clicked nav link
-                    if (event && event.target) {
-                        event.target.classList.add('active');
-                    }
-                }
-
-                function filterVaccinations(category) {
-                    alert(`Filtering vaccinations by category: ${category}`);
-                }
 
                 function printSchedule() {
                     alert('Printing vaccination schedule...');
@@ -8681,13 +8218,6 @@ echo '</script>';
                     }
                 }
 
-                function viewVaccineHistory(patientId) {
-                    alert(`Viewing vaccination history for patient ID: ${patientId}`);
-                }
-
-                function rescheduleVaccine(patientId) {
-                    alert(`Rescheduling vaccination for patient ID: ${patientId}`);
-                }
 
                 function checkExpiring() {
                     alert('Checking for vaccines expiring in the next 30 days...');
@@ -8705,44 +8235,6 @@ echo '</script>';
                     alert(`Scheduling overdue vaccination for patient ID: ${patientId}`);
                 }
 
-                // Add CSS styles for vaccination checkboxes
-                const vaccinationStyles = `
-            <style>
-                .vaccine-checkboxes {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    padding: 1rem;
-                    background: var(--bg-secondary);
-                    border-radius: var(--radius-md);
-                }
-                
-                .vaccine-checkboxes label {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    border-radius: var(--radius-sm);
-                    transition: var(--transition-medium);
-                }
-                
-                .vaccine-checkboxes label:hover {
-                    background: var(--white);
-                }
-                
-                .vaccine-checkboxes input[type="checkbox"] {
-                    margin: 0;
-                }
-            </style>
-        `;
-
-                if (!document.querySelector('#vaccination-styles')) {
-                    const styleElement = document.createElement('div');
-                    styleElement.id = 'vaccination-styles';
-                    styleElement.innerHTML = vaccinationStyles;
-                    document.head.appendChild(styleElement);
-                }
 
                 // Profile Management Functions
                 function editProfile() {
@@ -10585,4 +10077,3 @@ echo '</script>';
 </body>
 
 </html>
-
