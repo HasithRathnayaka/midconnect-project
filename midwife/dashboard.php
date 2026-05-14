@@ -23,6 +23,7 @@ echo '</script>';
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/midwife/midwife-dashbord.css">
     <style>
         .welcome-banner {
             background: linear-gradient(135deg, var(--accent-teal), var(--secondary-light-green));
@@ -3272,9 +3273,7 @@ body.modal-open {
                             <i class="fas fa-plus"></i> Schedule Vaccination
                         </button>
 
-                        <button class="btn btn-success" onclick="quickVaccinationLog()">
-                            <i class="fas fa-syringe"></i> Quick Vaccination Log
-                        </button>
+                    
 
                         <button class="btn btn-info" onclick="updateInventory()">
                             <i class="fas fa-boxes"></i> Update Inventory
@@ -3484,601 +3483,168 @@ body.modal-open {
             </div>
 
             <!-- Profile Section -->
-            <div id="profile" class="content-section" style="display: none;">
-                <!-- My Duty Areas Section -->
-                <h2 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 2rem; font-weight: 600;">My Duty Areas</h2>
-                <div class="duty-area-container">
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">4 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">3 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">2 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">5 appointments</div>
-                        </div>
-                    </div>
+<div id="profile" class="content-section section-slide-in" style="display: none;">
+    <div class="d-flex justify-between align-center mb-3">
+        <h2>My Profile</h2>
+
+        <div>
+            <button class="btn btn-primary" type="button" onclick="editProfile()">
+                <i class="fas fa-edit"></i> Edit Profile
+            </button>
+
+            <button class="btn btn-info" type="button" onclick="changePassword()">
+                <i class="fas fa-key"></i> Change Password
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Left Profile Summary -->
+        <div class="col-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img
+                        id="profileImage"
+                        src="../images/profile picture.png"
+                        alt="Profile Image"
+                        style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;"
+                    >
+
+                    <h3 id="profileFullName">Loading...</h3>
+                    <p class="text-muted">Registered Midwife</p>
+
+                    <p>
+                        <strong>Employee ID:</strong>
+                        <span id="profileEmployeeId">Loading...</span>
+                    </p>
+
+                    <span class="status-badge status-active" id="profileStatus">Loading...</span>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title">Quick Details</h4>
                 </div>
 
-                <div class="d-flex justify-between align-center mb-3">
-                    <h2>My Profile</h2>
-                    <div>
-                        <button class="btn btn-primary" onclick="editProfile()">
-                            <i class="fas fa-edit"></i> Edit Profile
-                        </button>
-                        <button class="btn btn-info" onclick="changePassword()">
-                            <i class="fas fa-key"></i> Change Password
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Profile Tabs -->
-                <div class="tab-container">
-                    <ul class="nav nav-tabs" style="width: 100%;">
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link active" href="#" onclick="switchProfileTab('personal')" style="text-align: center;">Personal Info</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('professional')" style="text-align: center;">Professional Details</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('performance')" style="text-align: center;">Performance</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('settings')" style="text-align: center;">Settings</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Personal Info Tab -->
-                <div id="personal-profile" class="tab-content">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <div class="profile-picture-container">
-                                        <div class="profile-picture" id="profileImage" role="button" tabindex="0" aria-label="View profile photo" onclick="openProfileImagePreview()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfileImagePreview();}">
-                                            <img src="../images/profile%20picture.png" alt="Midwife Profile Picture">
-                                        </div>
-                                    </div>
-                                    <h4 class="mt-3">Mrs. Madhavi Jayawardene</h4>
-                                    <p class="text-muted">Registered Midwife</p>
-                                    <p class="employee-id">Employee ID: MW001</p>
-                                    <div class="profile-badges">
-                                        <span class="badge badge-success">Active</span>
-                                        <span class="badge badge-info">Certified</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Quick Stats Card -->
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h5 class="card-title">Quick Stats</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="stat-row">
-                                        <span class="stat-label">Years of Service</span>
-                                        <span class="stat-value">5.2 years</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Patients Served</span>
-                                        <span class="stat-value">1,248</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Deliveries Assisted</span>
-                                        <span class="stat-value">324</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Success Rate</span>
-                                        <span class="stat-value">98.5%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Personal Information</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Full Name:</strong>
-                                            <p>Madhavi Jayawardene</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Date of Birth:</strong>
-                                            <p>June 03, 1980</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>NIC Number:</strong>
-                                            <p>199007500123</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Gender:</strong>
-                                            <p>Female</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Marital Status:</strong>
-                                            <p>Married</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Languages:</strong>
-                                            <p>Sinhala, English</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Contact Information</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Email Address:</strong>
-                                            <p>Madhavi.Jayawardene@health.gov.lk</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Personal Email:</strong>
-                                            <p>madhavi.jayawardene@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Mobile Phone:</strong>
-                                            <p>+94 77 123 4567</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Home Phone:</strong>
-                                            <p>+94 11 234 5678</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Address Information</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <strong>Home Address:</strong>
-                                            <p>57/1/A Pitipana, Homagama </p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Postal Code:</strong>
-                                            <p>11104</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>District:</strong>
-                                            <p>Colombo</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Emergency Contact</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Contact Name:</strong>
-                                            <p>Sunil Perera (Husband)</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Contact Number:</strong>
-                                            <p>+94 71 987 6543</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Professional Details Tab -->
-                <div id="professional-profile" class="tab-content" style="display: none;">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Professional Qualifications</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="qualification-item">
-                                        <h6>Diploma in Midwifery</h6>
-                                        <p class="institution">University of Colombo - Faculty of Medicine</p>
-                                        <p class="year">Graduated: 2019</p>
-                                        <p class="grade">Grade: First Class</p>
-                                    </div>
-                                    <hr>
-                                    <div class="qualification-item">
-                                        <h6>Certificate in Maternal & Child Health</h6>
-                                        <p class="institution">Ministry of Health, Sri Lanka</p>
-                                        <p class="year">Completed: 2020</p>
-                                        <p class="grade">Grade: Distinction</p>
-                                    </div>
-                                    <hr>
-                                    <div class="qualification-item">
-                                        <h6>Basic Life Support (BLS) Certification</h6>
-                                        <p class="institution">Sri Lankan Heart Association</p>
-                                        <p class="year">Valid until: December 2025</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Professional Memberships</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="membership-item">
-                                        <h6>Sri Lanka Nursing Council</h6>
-                                        <p>License No: MW-2020-001234</p>
-                                        <p>Valid until: January 2026</p>
-                                        <span class="badge badge-success">Active</span>
-                                    </div>
-                                    <hr>
-                                    <div class="membership-item">
-                                        <h6>Midwives Association of Sri Lanka</h6>
-                                        <p>Member since: 2020</p>
-                                        <span class="badge badge-info">Member</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Work Assignment</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Department:</strong>
-                                            <p>Community Health Services</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Position:</strong>
-                                            <p>Registered Midwife</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Assigned Area:</strong>
-                                            <p>Udathuthththiripitiya</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Coverage Population:</strong>
-                                            <p>~3,600 residents</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Start Date:</strong>
-                                            <p>January 15, 2020</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Employment Type:</strong>
-                                            <p>Permanent Full-time</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>MOH Office:</strong>
-                                            <p>MOH Attanagalla</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Work Schedule:</strong>
-                                            <p>Mon-Fri, 8:00 AM - 4:30 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Supervisor:</strong>
-                                            <p>Dr. Nayani Fernando</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Working Area:</strong>
-                                            <p>Udathuthththiripitiya</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Recent Training & Development</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="training-item">
-                                        <h6>Advanced Neonatal Resuscitation</h6>
-                                        <p class="training-date">Completed: November 2024</p>
-                                        <p class="training-provider">Perinatal Society of Sri Lanka</p>
-                                        <span class="badge badge-primary">16 Hours</span>
-                                    </div>
-                                    <hr>
-                                    <div class="training-item">
-                                        <h6>Digital Health Records Management</h6>
-                                        <p class="training-date">Completed: September 2024</p>
-                                        <p class="training-provider">Ministry of Health</p>
-                                        <span class="badge badge-info">8 Hours</span>
-                                    </div>
-                                    <hr>
-                                    <div class="training-item">
-                                        <h6>Mental Health First Aid</h6>
-                                        <p class="training-date">Completed: July 2024</p>
-                                        <p class="training-provider">National Institute of Mental Health</p>
-                                        <span class="badge badge-success">12 Hours</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Performance Tab -->
-                <div id="performance-profile" class="tab-content" style="display: none;">
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>1,248</h3>
-                                    <span>Patients Served</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +15% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-baby"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>324</h3>
-                                    <span>Deliveries Assisted</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +8% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>892</h3>
-                                    <span>Home Visits</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +12% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-syringe"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>567</h3>
-                                    <span>Vaccinations Given</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +20% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-body">
+                    <div class="summary-item">
+                        <span>Assigned Area:</span>
+                        <strong id="quickAssignedArea">Loading...</strong>
                     </div>
 
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Performance Trends</h4>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="performanceChart" height="100"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Performance Rating</h4>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="performance-score">
-                                        <div class="score-circle">
-                                            <span class="score-number">9.2</span>
-                                            <span class="score-max">/10</span>
-                                        </div>
-                                    </div>
-                                    <h5 class="mt-3">Excellent Performance</h5>
-                                    <p class="text-muted">Based on patient feedback, supervisor evaluation, and key metrics</p>
-
-                                    <div class="rating-breakdown">
-                                        <div class="rating-item">
-                                            <span>Patient Care Quality</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="rating-item">
-                                            <span>Professional Knowledge</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="rating-item">
-                                            <span>Communication Skills</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="summary-item">
+                        <span>MOH Office:</span>
+                        <strong id="quickMohOffice">Loading...</strong>
                     </div>
-                </div>
 
-                <!-- Settings Tab -->
-                <div id="settings-profile" class="tab-content" style="display: none;">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Notification Preferences</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Email Notifications</h6>
-                                            <p>Receive updates and reminders via email</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>SMS Alerts</h6>
-                                            <p>Get urgent notifications via SMS</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Push Notifications</h6>
-                                            <p>Browser push notifications for updates</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Weekly Report</h6>
-                                            <p>Receive weekly performance summary</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="summary-item">
+                        <span>Experience:</span>
+                        <strong id="quickExperienceYears">Loading...</strong>
+                    </div>
 
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">System Preferences</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label class="form-label">Language</label>
-                                        <select class="form-control">
-                                            <option value="en" selected>English</option>
-                                            <option value="si">Sinhala</option>
-                                            <option value="ta">Tamil</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Date Format</label>
-                                        <select class="form-control">
-                                            <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
-                                            <option value="mm/dd/yyyy">MM/DD/YYYY</option>
-                                            <option value="yyyy-mm-dd">YYYY-MM-DD</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Time Format</label>
-                                        <select class="form-control">
-                                            <option value="24h" selected>24 Hour (14:30)</option>
-                                            <option value="12h">12 Hour (2:30 PM)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Dashboard Theme</label>
-                                        <select class="form-control">
-                                            <option value="light" selected>Light Theme</option>
-                                            <option value="dark">Dark Theme</option>
-                                            <option value="auto">Auto (System)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Privacy & Security</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Two-Factor Authentication</h6>
-                                            <p>Add extra security to your account</p>
-                                        </div>
-                                        <button class="btn btn-outline-primary btn-sm">Enable</button>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Session Timeout</h6>
-                                            <p>Auto-logout after inactivity</p>
-                                        </div>
-                                        <select class="form-control" style="width: 120px;">
-                                            <option value="30">30 minutes</option>
-                                            <option value="60" selected>1 hour</option>
-                                            <option value="120">2 hours</option>
-                                        </select>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Data Export</h6>
-                                            <p>Download your activity data</p>
-                                        </div>
-                                        <button class="btn btn-outline-info btn-sm" onclick="exportData()">Export</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="summary-item">
+                        <span>Last Login:</span>
+                        <strong id="quickLastLogin">Loading...</strong>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Right Profile Details -->
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Personal Information</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Full Name</label>
+                                <p id="profileInfoFullName">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Date of Birth</label>
+                                <p id="profileInfoBirthDate">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Email Address</label>
+                                <p id="profileInfoEmail">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Phone Number</label>
+                                <p id="profileInfoPhone">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <label>Address</label>
+                        <p id="profileInfoAddress">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title">Professional Details</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Hire Date</label>
+                                <p id="profileInfoHireDate">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Experience</label>
+                                <p id="profileInfoExperienceYears">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Assigned Area</label>
+                                <p id="profileInfoAssignedArea">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>MOH Office</label>
+                                <p id="profileInfoMohOffice">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <label>Last Login</label>
+                        <p id="profileInfoLastLogin">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Triposha Distribution Section -->
             <div id="triposha" class="content-section section-slide-in" style="display: none;">
@@ -5013,7 +4579,7 @@ body.modal-open {
             </div>
 
 
-<<!-- =========================================================
+<!-- =========================================================
      1. Pregnant Mother Modal
      Table: maternal_care_records
      Category: pregnant
@@ -5640,6 +5206,7 @@ body.modal-open {
             <script src="../js/midwife/load-counseling-sessions.js"></script>
             <script src="../js/midwife/maternal-child-care-tabs.js"></script>
             <script src="../js/midwife/maternal-child-care.js"></script>
+            <script src="../js/midwife/midwife-profile.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -5727,74 +5294,7 @@ body.modal-open {
                     });
                 }
 
-                // Profile Button Navigation - Opens Profile Section
-                function setupProfileButtonNavigation() {
-                    const profileBtn = document.getElementById('navbarProfileBtn');
-                    const profileImg = document.getElementById('navbar-profile-pic');
-                    const contentSections = document.querySelectorAll('.content-section');
-                    const sidebarMenuLinks = document.querySelectorAll('.sidebar-menu a');
-                    const SECTION_TRANSITION_MS = 200;
-
-                    function navigateToProfile() {
-                        const profileSection = document.getElementById('profile');
-                        if (!profileSection) return;
-
-                        // Find currently visible section
-                        let currentSection = Array.from(contentSections).find(section =>
-                            window.getComputedStyle(section).display !== 'none' && section.id !== 'profile'
-                        );
-
-                        // Hide all content sections
-                        contentSections.forEach(section => {
-                            section.style.display = 'none';
-                            section.classList.remove('section-slide-in', 'section-slide-out');
-                        });
-
-                        // Update sidebar active state
-                        sidebarMenuLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === '#profile') {
-                                link.classList.add('active');
-                            }
-                        });
-
-                        // Close sidebar if open (mobile)
-                        const sidebar = document.getElementById('sidebar');
-                        const sidebarOverlay = document.getElementById('sidebarOverlay');
-                        const hamburgerBtn = document.getElementById('hamburgerBtn');
-                        if (sidebar && sidebar.classList.contains('open')) {
-                            sidebar.classList.remove('open');
-                            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                            if (hamburgerBtn) hamburgerBtn.classList.remove('active');
-                        }
-
-                        // Show profile section with animation
-                        if (currentSection) {
-                            currentSection.classList.add('section-slide-out');
-                            setTimeout(() => {
-                                profileSection.style.display = 'block';
-                                profileSection.classList.add('section-slide-in');
-                            }, SECTION_TRANSITION_MS);
-                        } else {
-                            profileSection.style.display = 'block';
-                            profileSection.classList.add('section-slide-in');
-                        }
-
-                        // Update URL hash
-                        window.location.hash = 'profile';
-                    }
-
-                    if (profileBtn) {
-                        profileBtn.addEventListener('click', navigateToProfile);
-                    }
-                    if (profileImg) {
-                        profileImg.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            navigateToProfile();
-                        });
-                    }
-                }
-
+           
                 function checkAuthentication() {
                     const midwifeUser = localStorage.getItem('midwife_user');
                     if (!midwifeUser) {
@@ -5807,139 +5307,7 @@ body.modal-open {
                 }
 
 
-                function loadDashboardWidgets() {
-                    // Static data for dashboard widgets
-                    const widgetData = {
-                        urgent_meetings: [{
-                                description: "High-risk pregnancy follow-up",
-                                scheduled_date: "31 Mar 2026",
-                                start_time: "09:00",
-                                location: "MOH Clinic - Room 3"
-                            },
-                            {
-                                description: "Postnatal emergency review",
-                                scheduled_date: "31 Mar 2026",
-                                start_time: "11:30",
-                                location: "Uduthuththiripitiya CHC"
-                            }
-                        ],
-                        upcoming_clinics: [{
-                                description: "Antenatal Clinic - Routine Check",
-                                scheduled_date: "01 Apr 2026",
-                                start_time: "08:30",
-                                location: "Kahabilihena RH"
-                            },
-                            {
-                                description: "Child Growth Monitoring",
-                                scheduled_date: "02 Apr 2026",
-                                start_time: "09:00",
-                                location: "Opathella PHC"
-                            },
-                            {
-                                description: "Family Planning Session",
-                                scheduled_date: "03 Apr 2026",
-                                start_time: "10:00",
-                                location: "Ambalangoda DH"
-                            }
-                        ],
-                        timetable: [{
-                                start_time: "08:00",
-                                estimated_end_time: "09:00",
-                                description: "Home Visit - Mrs. K. Silva",
-                                location: "Uduthuththiripitiya Village",
-                                patient_name: "Pregnant - 32 weeks"
-                            },
-                            {
-                                start_time: "10:00",
-                                estimated_end_time: "10:30",
-                                description: "Vaccination Session",
-                                location: "MOH Clinic",
-                                patient_name: "Pediatric vaccines"
-                            },
-                            {
-                                start_time: "14:00",
-                                estimated_end_time: "15:00",
-                                description: "Counseling - Breastfeeding support",
-                                location: "Community Center",
-                                patient_name: "Mrs. A. Fernando"
-                            }
-                        ],
-                        notifications: [{
-                                title: "Vaccine Stock Alert",
-                                message: "DPT-3 vaccine stock is running low. Please reorder before Friday."
-                            },
-                            {
-                                title: "Monthly Report Due",
-                                message: "Submit your monthly activity report by April 5th."
-                            },
-                            {
-                                title: "Training Session",
-                                message: "Newborn care training scheduled for April 2nd at 2 PM."
-                            }
-                        ]
-                    };
-
-                    const d = widgetData;
-
-                    // Urgent Meetings
-                    const wu = document.getElementById('widget-urgent');
-                    if (d.urgent_meetings.length === 0) {
-                        wu.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No urgent meetings.</div>';
-                    } else {
-                        wu.innerHTML = d.urgent_meetings.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-                    }
-
-                    // Clinics
-                    const wc = document.getElementById('widget-clinics');
-                    if (d.upcoming_clinics.length === 0) {
-                        wc.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No upcoming clinics scheduled.</div>';
-                    } else {
-                        wc.innerHTML = d.upcoming_clinics.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-                    }
-
-                    // Time Table
-                    const wt = document.getElementById('widget-timetable');
-                    if (d.timetable.length === 0) {
-                        wt.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No schedule for today.</div>';
-                    } else {
-                        wt.innerHTML = d.timetable.map(m => `
-                    <div style="padding: 0.75rem; border-left: 4px solid var(--secondary-green); margin-bottom: 0.5rem; background: #f8f9fa;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.start_time} - ${m.estimated_end_time}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dark); margin-top: 0.15rem;">${m.description}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary);">${m.patient_name ? m.patient_name + ' | ' : ''}${m.location}</div>
-                    </div>
-                `).join('');
-                    }
-
-                    // Notifications
-                    const wn = document.getElementById('widget-notifications');
-                    if (d.notifications.length === 0) {
-                        wn.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No new notifications.</div>';
-                    } else {
-                        wn.innerHTML = d.notifications.map(n => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef; position: relative;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${n.title}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${n.message}</div>
-                        <span class="badge" style="position: absolute; top: 0.75rem; right: 0.75rem; background: var(--accent-orange);">New</span>
-                    </div>
-                `).join('');
-                    }
-                }
-
+                
                 function setupNavigation() {
                     const menuLinks = document.querySelectorAll('.sidebar-menu a');
                     const contentSections = document.querySelectorAll('.content-section');
@@ -6230,904 +5598,7 @@ body.modal-open {
                     loadTimetableData();
                 }
 
-                function loadTimetableData() {
-                    const selectedYear = document.getElementById('timetableYear').value;
-                    const selectedMonth = document.getElementById('timetableMonth').value;
-                    const selectedDay = document.getElementById('timetableDay').value;
-                    const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-
-                    // Sample timetable data for each month of 2026 - in real implementation, this would come from database
-                    const sampleData = {
-                        '2026-01': [ // January
-                            {
-                                date: '2026-01-05',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Silva (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-01-07',
-                                time: '10:30',
-                                activity: 'Antenatal Clinic',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-01-12',
-                                time: '14:00',
-                                activity: 'Vaccination Session - BCG',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-01-15',
-                                time: '09:30',
-                                activity: 'Home Visit - Mrs. Perera (28 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-01-20',
-                                time: '11:00',
-                                activity: 'Family Planning Counseling',
-                                type: 'counseling',
-                                duration: '30 min',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-01-25',
-                                time: '15:00',
-                                activity: 'Emergency Home Visit',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-01-28',
-                                time: '10:00',
-                                activity: 'Nutrition Education Workshop',
-                                type: 'training',
-                                duration: '2 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-02': [ // February
-                            {
-                                date: '2026-02-03',
-                                time: '09:15',
-                                activity: 'Home Visit - Mrs. Fernando (Postnatal)',
-                                type: 'home-visit',
-                                duration: '50 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-02-06',
-                                time: '11:00',
-                                activity: 'Prenatal Checkup Clinic',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-02-10',
-                                time: '13:30',
-                                activity: 'DPT Vaccination Campaign',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-02-14',
-                                time: '10:00',
-                                activity: 'Home Visit - Mrs. Wickramasinghe (32 weeks)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-02-18',
-                                time: '14:30',
-                                activity: 'Maternal Health Seminar',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-02-22',
-                                time: '09:45',
-                                activity: 'Follow-up Visit - High Risk Case',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-02-26',
-                                time: '15:30',
-                                activity: 'Monthly Staff Meeting',
-                                type: 'meeting',
-                                duration: '45 min',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-03': [ // March
-                            {
-                                date: '2026-03-02',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Rajapaksa (Newborn)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-03-05',
-                                time: '10:30',
-                                activity: 'Well Baby Clinic',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-03-10',
-                                time: '14:00',
-                                activity: 'Measles Vaccination Drive',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-03-15',
-                                time: '11:15',
-                                activity: 'Home Visit - Mrs. Kumari (36 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-03-20',
-                                time: '13:45',
-                                activity: 'Breastfeeding Support Group',
-                                type: 'counseling',
-                                duration: '1 hour',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-03-25',
-                                time: '09:30',
-                                activity: 'Emergency Prenatal Care',
-                                type: 'home-visit',
-                                duration: '1.5 hours',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-03-28',
-                                time: '15:00',
-                                activity: 'Health Education Session',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-04': [ // April
-                            {
-                                date: '2026-04-01',
-                                time: '09:30',
-                                activity: 'Home Visit - Mrs. Sanduni (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-04-05',
-                                time: '11:00',
-                                activity: 'Growth Monitoring Clinic',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-04-10',
-                                time: '14:30',
-                                activity: 'Polio Vaccination Round',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-04-15',
-                                time: '10:15',
-                                activity: 'Home Visit - Mrs. Chamika (24 weeks)',
-                                type: 'home-visit',
-                                duration: '35 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-04-20',
-                                time: '13:00',
-                                activity: 'Contraceptive Counseling',
-                                type: 'counseling',
-                                duration: '45 min',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-04-25',
-                                time: '09:45',
-                                activity: 'High Risk Pregnancy Monitoring',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-04-28',
-                                time: '15:30',
-                                activity: 'Nutrition Workshop',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-05': [ // May
-                            {
-                                date: '2026-05-03',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Nirmala (Newborn)',
-                                type: 'home-visit',
-                                duration: '50 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-05-07',
-                                time: '10:45',
-                                activity: 'Immunization Clinic',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-05-12',
-                                time: '14:15',
-                                activity: 'Vitamin A Supplementation',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-05-17',
-                                time: '11:30',
-                                activity: 'Home Visit - Mrs. Kamani (28 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-05-22',
-                                time: '13:45',
-                                activity: 'Postpartum Depression Screening',
-                                type: 'counseling',
-                                duration: '1 hour',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-05-27',
-                                time: '09:15',
-                                activity: 'Emergency Delivery Assistance',
-                                type: 'home-visit',
-                                duration: '2 hours',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-05-30',
-                                time: '15:00',
-                                activity: 'Child Development Workshop',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-06': [ // June
-                            {
-                                date: '2026-06-02',
-                                time: '09:30',
-                                activity: 'Home Visit - Mrs. Sandya (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-06-06',
-                                time: '11:15',
-                                activity: 'School Health Program',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-06-11',
-                                time: '14:45',
-                                activity: 'MMR Vaccination Campaign',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-06-16',
-                                time: '10:00',
-                                activity: 'Home Visit - Mrs. Priyanka (32 weeks)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Kahabilihena',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-06-21',
-                                time: '13:30',
-                                activity: 'Adolescent Health Education',
-                                type: 'counseling',
-                                duration: '1.5 hours',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-06-26',
-                                time: '09:45',
-                                activity: 'Multiple Pregnancy Monitoring',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-06-29',
-                                time: '15:30',
-                                time: '16:00',
-                                activity: 'Staff Training Session',
-                                type: 'training',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-07': [ // July
-                            {
-                                date: '2026-07-01',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Madhavi (Newborn)',
-                                type: 'home-visit',
-                                duration: '50 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-07-05',
-                                time: '10:30',
-                                activity: 'Maternal & Child Health Clinic',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-07-10',
-                                time: '14:00',
-                                activity: 'Hepatitis B Vaccination',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-07-15',
-                                time: '11:45',
-                                activity: 'Home Visit - Mrs. Kumari (36 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-07-20',
-                                time: '13:15',
-                                activity: 'Family Planning Workshop',
-                                type: 'counseling',
-                                duration: '1 hour',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-07-25',
-                                time: '09:30',
-                                activity: 'Preterm Labor Assessment',
-                                type: 'home-visit',
-                                duration: '1.5 hours',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-07-28',
-                                time: '15:00',
-                                activity: 'Emergency Preparedness Training',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-08': [ // August
-                            {
-                                date: '2026-08-03',
-                                time: '09:15',
-                                activity: 'Home Visit - Mrs. Sanduni (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-08-07',
-                                time: '11:00',
-                                activity: 'Nutrition Assessment Clinic',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-08-12',
-                                time: '14:30',
-                                activity: 'Japanese Encephalitis Vaccination',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-08-17',
-                                time: '10:45',
-                                activity: 'Home Visit - Mrs. Chamika (28 weeks)',
-                                type: 'home-visit',
-                                duration: '35 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-08-22',
-                                time: '13:00',
-                                activity: 'Mental Health Awareness',
-                                type: 'counseling',
-                                duration: '45 min',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-08-27',
-                                time: '09:15',
-                                activity: 'Gestational Diabetes Monitoring',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-08-30',
-                                time: '15:30',
-                                activity: 'Infant Care Workshop',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-09': [ // September
-                            {
-                                date: '2026-09-02',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Nirmala (Newborn)',
-                                type: 'home-visit',
-                                duration: '50 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-09-06',
-                                time: '10:30',
-                                activity: 'Developmental Assessment Clinic',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-09-11',
-                                time: '14:15',
-                                activity: 'DPT Booster Campaign',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-09-16',
-                                time: '11:30',
-                                activity: 'Home Visit - Mrs. Kamani (32 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-09-21',
-                                time: '13:45',
-                                activity: 'Domestic Violence Support',
-                                type: 'counseling',
-                                duration: '1 hour',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-09-26',
-                                time: '09:45',
-                                activity: 'Preeclampsia Screening',
-                                type: 'home-visit',
-                                duration: '1.5 hours',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-09-29',
-                                time: '15:00',
-                                activity: 'First Aid Training',
-                                type: 'training',
-                                duration: '2 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-10': [ // October
-                            {
-                                date: '2026-10-01',
-                                time: '09:30',
-                                activity: 'Home Visit - Mrs. Sandya (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-10-05',
-                                time: '11:15',
-                                activity: 'Oral Health Clinic',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-10-10',
-                                time: '14:45',
-                                activity: 'Influenza Vaccination',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-10-15',
-                                time: '10:00',
-                                activity: 'Home Visit - Mrs. Priyanka (36 weeks)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Kahabilihena',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-10-20',
-                                time: '13:30',
-                                activity: 'HIV/AIDS Awareness',
-                                type: 'counseling',
-                                duration: '1.5 hours',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-10-25',
-                                time: '09:15',
-                                activity: 'Anemia Treatment Follow-up',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-10-28',
-                                time: '15:30',
-                                activity: 'Community Health Meeting',
-                                type: 'meeting',
-                                duration: '1 hour',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-11': [ // November
-                            {
-                                date: '2026-11-03',
-                                time: '09:00',
-                                activity: 'Home Visit - Mrs. Madhavi (Newborn)',
-                                type: 'home-visit',
-                                duration: '50 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-11-07',
-                                time: '10:45',
-                                activity: 'Eye Health Screening',
-                                type: 'clinic',
-                                duration: '2 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-11-12',
-                                time: '14:00',
-                                activity: 'Typhoid Vaccination',
-                                type: 'vaccination',
-                                duration: '1.5 hours',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-11-17',
-                                time: '11:30',
-                                activity: 'Home Visit - Mrs. Kumari (28 weeks)',
-                                type: 'home-visit',
-                                duration: '40 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-11-22',
-                                time: '13:15',
-                                activity: 'Reproductive Health Education',
-                                type: 'counseling',
-                                duration: '1 hour',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-11-27',
-                                time: '09:30',
-                                activity: 'Thyroid Disorder Monitoring',
-                                type: 'home-visit',
-                                duration: '1.5 hours',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-11-30',
-                                time: '15:00',
-                                activity: 'Disaster Preparedness Workshop',
-                                type: 'training',
-                                duration: '1.5 hours',
-                                location: 'Ambalangoda',
-                                priority: 'normal'
-                            }
-                        ],
-                        '2026-12': [ // December
-                            {
-                                date: '2026-12-02',
-                                time: '09:15',
-                                activity: 'Home Visit - Mrs. Sanduni (Postnatal)',
-                                type: 'home-visit',
-                                duration: '45 min',
-                                location: 'Uduthuththiripitiya',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-12-06',
-                                time: '11:00',
-                                activity: 'Year-End Health Review',
-                                type: 'clinic',
-                                duration: '2.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-12-11',
-                                time: '14:30',
-                                activity: 'COVID-19 Booster Campaign',
-                                type: 'vaccination',
-                                duration: '1 hour',
-                                location: 'Clinic Center',
-                                priority: 'high'
-                            },
-                            {
-                                date: '2026-12-16',
-                                time: '10:45',
-                                activity: 'Home Visit - Mrs. Chamika (32 weeks)',
-                                type: 'home-visit',
-                                duration: '35 min',
-                                location: 'Kahabilihena',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-12-21',
-                                time: '13:00',
-                                activity: 'Holiday Health Safety',
-                                type: 'counseling',
-                                duration: '45 min',
-                                location: 'Community Center',
-                                priority: 'normal'
-                            },
-                            {
-                                date: '2026-12-26',
-                                time: '09:45',
-                                activity: 'Post-Holiday Health Check',
-                                type: 'home-visit',
-                                duration: '1 hour',
-                                location: 'Opathella',
-                                priority: 'urgent'
-                            },
-                            {
-                                date: '2026-12-29',
-                                time: '15:30',
-                                activity: 'Annual Performance Review',
-                                type: 'meeting',
-                                duration: '1.5 hours',
-                                location: 'PHM Office',
-                                priority: 'normal'
-                            }
-                        ]
-                    };
-
-                    let data = [];
-                    let viewType = '';
-
-                    if (currentTimetableTab === 'year') {
-                        Object.values(sampleData).forEach(monthItems => data.push(...monthItems));
-                        viewType = 'year';
-                    } else if (currentTimetableTab === 'month') {
-                        const monthKey = selectedMonth || '2026-03';
-                        data = sampleData[monthKey] || [];
-                        viewType = monthKey;
-                    } else {
-                        if (selectedDate) {
-                            data = Object.values(sampleData).flat().filter(item => item.date === selectedDate);
-                        } else {
-                            data = [];
-                        }
-                        viewType = 'day';
-                    }
-
-                    renderTimetable(data, viewType);
-                    updateTimetableSummary(data);
-                }
-
-                function renderTimetable(data, viewType) {
-                    const content = document.getElementById('timetableContent');
-                    const header = document.getElementById('timetableHeader');
-                    const monthTitle = document.getElementById('monthTitle');
-
-                    // Show month header for monthly views
-                    if (viewType && viewType.startsWith('2026-')) {
-                        const monthNames = {
-                            '2026-01': 'January 2026',
-                            '2026-02': 'February 2026',
-                            '2026-03': 'March 2026',
-                            '2026-04': 'April 2026',
-                            '2026-05': 'May 2026',
-                            '2026-06': 'June 2026',
-                            '2026-07': 'July 2026',
-                            '2026-08': 'August 2026',
-                            '2026-09': 'September 2026',
-                            '2026-10': 'October 2026',
-                            '2026-11': 'November 2026',
-                            '2026-12': 'December 2026'
-                        };
-                        monthTitle.textContent = monthNames[viewType] || 'Timetable';
-                        header.style.display = 'block';
-                    } else {
-                        header.style.display = 'none';
-                    }
-
-                    if (data.length === 0) {
-                        content.innerHTML = '<div class="text-center text-muted"><i class="fas fa-calendar-times fa-3x mb-3"></i><p>No scheduled activities found for this month.</p></div>';
-                        return;
-                    }
-
-                    let html = '<div class="timetable-list">';
-
-                    data.forEach((item, index) => {
-                        const activityIcon = getActivityIcon(item.type);
-                        const priorityClass = item.priority === 'urgent' ? 'priority-high' :
-                            item.priority === 'high' ? 'priority-normal' : 'priority-low';
-
-                        html += `
-                    <div class="timetable-item ${priorityClass}">
-                        <div class="timetable-time">
-                            <div class="time">${item.time}</div>
-                            <div class="date">${formatDate(item.date)}</div>
-                        </div>
-                        <div class="timetable-details">
-                            <h6><i class="${activityIcon}"></i> ${item.activity}</h6>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${item.location}</p>
-                            <p class="duration"><i class="fas fa-clock"></i> ${item.duration}</p>
-                        </div>
-                        <div class="timetable-actions">
-                            <button class="btn btn-sm btn-info" onclick="viewTimetableItem(${index})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-warning" onclick="editTimetableItem(${index})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteTimetableItem(${index})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                    });
-
-                    html += '</div>';
-                    content.innerHTML = html;
-                }
-
-                function updateTimetableSummary(data) {
-                    const totalActivities = data.length;
-                    const homeVisits = data.filter(item => item.type === 'home-visit').length;
-                    const clinicSessions = data.filter(item => item.type === 'clinic').length;
-                    const totalHours = data.reduce((sum, item) => {
-                        const duration = parseInt(item.duration.split(' ')[0]);
-                        return sum + (item.duration.includes('hour') ? duration : duration / 60);
-                    }, 0);
-
-                    document.getElementById('totalActivities').textContent = totalActivities;
-                    document.getElementById('homeVisits').textContent = homeVisits;
-                    document.getElementById('clinicSessions').textContent = clinicSessions;
-                    document.getElementById('totalHours').textContent = totalHours.toFixed(1);
-                }
-
+              
                 function getActivityIcon(type) {
                     const icons = {
                         'home-visit': 'fas fa-home',
@@ -7699,88 +6170,6 @@ body.modal-open {
                 }
 
 
-
-
-                function quickVaccinationLog() {
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Quick Vaccination Log</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="quickVaccineLogForm">
-                            <div class="form-group">
-                                <label class="form-label">Patient *</label>
-                                <select class="form-control" required>
-                                    <option value="">Select from today's schedule</option>
-                                    <option value="1">Baby Kamal Silva - DPT-1, OPV-1, Hep B-1</option>
-                                    <option value="2">Mrs. Priyanka Fernando - Tetanus Toxoid</option>
-                                    <option value="3">Mrs. Kumari Wickramasinghe - Influenza, Pneumococcal</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Administration Status *</label>
-                                        <select class="form-control" required>
-                                            <option value="completed">All vaccines administered</option>
-                                            <option value="partial">Partially administered</option>
-                                            <option value="refused">Patient refused</option>
-                                            <option value="contraindicated">Medically contraindicated</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Adverse Reaction</label>
-                                        <select class="form-control">
-                                            <option value="none">No reaction</option>
-                                            <option value="mild">Mild (local redness/swelling)</option>
-                                            <option value="moderate">Moderate (fever, irritability)</option>
-                                            <option value="severe">Severe (requires follow-up)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Batch Numbers</label>
-                                        <input type="text" class="form-control" placeholder="Enter batch numbers">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Next Appointment</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Any observations or notes about the vaccination..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="quickVaccineLogForm" class="btn btn-success">Log Vaccination</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
-
-                    document.getElementById('quickVaccineLogForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        alert('Vaccination logged successfully!');
-                        closeModal();
-                    });
-                }
-
-
                 function printSchedule() {
                     alert('Printing vaccination schedule...');
                 }
@@ -7970,25 +6359,6 @@ body.modal-open {
                         alert('Password changed successfully!');
                         closeModal();
                     });
-                }
-
-                function changeProfilePicture() {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'image/*';
-                    input.addEventListener('change', function(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                const profileImage = document.getElementById('profileImage');
-                                profileImage.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
-                                alert('Profile picture updated successfully!');
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
-                    input.click();
                 }
 
                 function openProfileImagePreview() {

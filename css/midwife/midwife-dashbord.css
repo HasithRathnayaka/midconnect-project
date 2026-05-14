@@ -1,0 +1,35 @@
+#editProfileModal,
+#changePasswordModal {
+    z-index: 1060 !important;
+}
+
+#editProfileModal .modal-dialog,
+#changePasswordModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#editProfileModal .modal-content,
+#changePasswordModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.profile-info-item {
+    margin-bottom: 1rem;
+}
+
+.profile-info-item label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.profile-info-item p {
+    margin: 0;
+    color: var(--text-primary);
+}
