@@ -66,7 +66,6 @@ function renderMidwifeProfile(profile) {
         profileImage.src = profile.profile_image;
     }
 }
-
 function editProfile() {
     if (!currentMidwifeProfile) {
         alert('Profile data is still loading.');
@@ -78,7 +77,7 @@ function editProfile() {
     modal.id = 'editProfileOverlay';
 
     modal.innerHTML = `
-        <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
                 <h3>Edit Profile Information</h3>
                 <button type="button" onclick="closeProfileModal('editProfileOverlay')" class="close-btn">&times;</button>
@@ -86,63 +85,26 @@ function editProfile() {
 
             <div class="modal-body">
                 <form id="editProfileForm">
-                    <h5>Personal Information</h5>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Full Name *</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    name="full_name" 
-                                    value="${escapeProfileAttribute(currentMidwifeProfile.full_name)}" 
-                                    required
-                                >
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Date of Birth</label>
-                                <input 
-                                    type="date" 
-                                    class="form-control" 
-                                    name="birth_date" 
-                                    value="${escapeProfileAttribute(currentMidwifeProfile.birth_date)}"
-                                >
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="full_name" 
+                            value="${escapeProfileAttribute(currentMidwifeProfile.full_name)}" 
+                            required
+                        >
                     </div>
 
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Email Address *</label>
-                                <input 
-                                    type="email" 
-                                    class="form-control" 
-                                    name="email" 
-                                    value="${escapeProfileAttribute(currentMidwifeProfile.email)}" 
-                                    required
-                                >
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Phone Number</label>
-                                <input 
-                                    type="tel" 
-                                    class="form-control" 
-                                    name="phone" 
-                                    value="${escapeProfileAttribute(currentMidwifeProfile.phone)}"
-                                >
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="phone" 
+                            value="${escapeProfileAttribute(currentMidwifeProfile.phone)}"
+                        >
                     </div>
-
-                    <h5 class="mt-4">Address Information</h5>
 
                     <div class="form-group">
                         <label class="form-label">Address</label>
@@ -151,34 +113,6 @@ function editProfile() {
                             name="address" 
                             rows="3"
                         >${escapeProfileHtml(currentMidwifeProfile.address)}</textarea>
-                    </div>
-
-                    <h5 class="mt-4">Work Information</h5>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Assigned Area</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    value="${escapeProfileAttribute(formatProfileArea(currentMidwifeProfile.assigned_area))}" 
-                                    readonly
-                                >
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">MOH Office</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    value="${escapeProfileAttribute(currentMidwifeProfile.moh_office)}" 
-                                    readonly
-                                >
-                            </div>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -202,10 +136,19 @@ function editProfile() {
     });
 }
 
+
 function submitProfileUpdate(form) {
     const formData = new FormData(form);
 
-    fetch('../php/midwife/profile/update_profile.php', {
+    const submitBtn = document.querySelector('button[form="editProfileForm"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    }
+
+    fetch('../php/midwife/update_profile.php', {
         method: 'POST',
         body: formData,
         credentials: 'same-origin'
@@ -223,19 +166,35 @@ function submitProfileUpdate(form) {
             } catch (error) {
                 console.error('Invalid update profile JSON:', text);
                 alert('Profile update failed. PHP returned non-JSON response.');
+
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+
                 return;
             }
 
             alert(data.message);
 
-            if (data.success) {
-                closeProfileModal('editProfileOverlay');
-                loadMidwifeProfile();
+            if (data.success === true) {
+                window.location.href = '/midwife/dashboard.php?section=profile&_=' + Date.now();
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
             }
         })
         .catch(function (error) {
             console.error('Profile Update Error:', error);
             alert('Server error while updating profile.');
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
 }
 
@@ -310,7 +269,15 @@ function changePassword() {
 function submitPasswordChange(form) {
     const formData = new FormData(form);
 
-    fetch('../php/midwife/profile/change_password.php', {
+    const submitBtn = document.querySelector('button[form="changePasswordForm"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Changing...';
+    }
+
+    fetch('../php/midwife/change_password.php', {
         method: 'POST',
         body: formData,
         credentials: 'same-origin'
@@ -328,18 +295,35 @@ function submitPasswordChange(form) {
             } catch (error) {
                 console.error('Invalid change password JSON:', text);
                 alert('Password change failed. PHP returned non-JSON response.');
+
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+
                 return;
             }
 
             alert(data.message);
 
-            if (data.success) {
-                closeProfileModal('changePasswordOverlay');
+            if (data.success === true) {
+                window.location.href = '/midwife/dashboard.php?section=profile&_=' + Date.now();
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
             }
         })
         .catch(function (error) {
             console.error('Change Password Error:', error);
             alert('Server error while changing password.');
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
 }
 

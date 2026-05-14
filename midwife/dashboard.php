@@ -2346,17 +2346,7 @@ body.modal-open {
                         </div>
                     </div>
 
-                    <!-- 4. Notifications -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-orange); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-orange);"><i class="fas fa-bell"></i> Notifications & Alerts</h4>
-                            </div>
-                            <div class="card-body" id="widget-notifications" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -3488,13 +3478,37 @@ body.modal-open {
         <h2>My Profile</h2>
 
         <div>
-            <button class="btn btn-primary" type="button" onclick="editProfile()">
-                <i class="fas fa-edit"></i> Edit Profile
-            </button>
+             <button
 
-            <button class="btn btn-info" type="button" onclick="changePassword()">
-                <i class="fas fa-key"></i> Change Password
-            </button>
+            class="btn btn-primary"
+
+            type="button"
+
+            data-toggle="modal"
+
+            data-target="#editProfileModal"
+
+        >
+
+            <i class="fas fa-edit"></i> Edit Profile
+
+        </button>
+
+        <button
+
+            class="btn btn-info"
+
+            type="button"
+
+            data-toggle="modal"
+
+            data-target="#changePasswordModal"
+
+        >
+
+            <i class="fas fa-key"></i> Change Password
+
+        </button>
         </div>
     </div>
 
@@ -5192,6 +5206,150 @@ body.modal-open {
 
 
 
+
+<!-- Edit Profile Bootstrap Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <form id="editProfileForm" action="../php/midwife/update_profile.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="full_name"
+                                    id="editFullName"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="phone"
+                                    id="editPhone"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea
+                            class="form-control"
+                            name="address"
+                            id="editAddress"
+                            rows="3"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Change Password Bootstrap Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <form id="changePasswordForm" action="../php/midwife/change_password.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">
+                        <i class="fas fa-key"></i> Change Password
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Current Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="current_password"
+                            id="currentPassword"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">New Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="new_password"
+                            id="newPassword"
+                            minlength="8"
+                            required
+                        >
+                        <small class="form-text text-muted">
+                            Password must be at least 8 characters long.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="confirm_password"
+                            id="confirmPassword"
+                            minlength="8"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-key"></i> Change Password
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
             <script src="../js/midwife/create_activity.js"></script>
@@ -5231,6 +5389,27 @@ body.modal-open {
 
                     }
 
+                });
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const params = new URLSearchParams(window.location.search);
+                    const section = params.get('section');
+
+                    if (section === 'profile') {
+                        if (typeof showSection === 'function') {
+                            showSection('profile');
+                        } else {
+                            document.querySelectorAll('.content-section').forEach(function (sectionElement) {
+                                sectionElement.style.display = 'none';
+                            });
+
+                            const profileSection = document.getElementById('profile');
+                            if (profileSection) {
+                                profileSection.style.display = 'block';
+                            }
+                        }
+                    }
                 });
             </script>
 
@@ -6198,169 +6377,7 @@ body.modal-open {
                 }
 
 
-                // Profile Management Functions
-                function editProfile() {
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content" style="max-width: 800px;">
-                    <div class="modal-header">
-                        <h3>Edit Profile Information</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3" style="text-align: right;">
-                            <button type="button" class="btn btn-info" onclick="changeProfilePicture()">
-                                <i class="fas fa-camera"></i> Change Photo
-                            </button>
-                        </div>
-                        <form id="editProfileForm">
-                            <h5>Personal Information</h5>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Full Name *</label>
-                                        <input type="text" class="form-control" value="Madhavi Kumari Perera" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" value="1990-03-15">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Mobile Phone *</label>
-                                        <input type="tel" class="form-control" value="+94 77 123 4567" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Home Phone</label>
-                                        <input type="tel" class="form-control" value="+94 11 234 5678">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Personal Email</label>
-                                        <input type="email" class="form-control" value="madhavi.perera@gmail.com">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Marital Status</label>
-                                        <select class="form-control">
-                                            <option value="single">Single</option>
-                                            <option value="married" selected>Married</option>
-                                            <option value="divorced">Divorced</option>
-                                            <option value="widowed">Widowed</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h5 class="mt-4">Address Information</h5>
-                            <div class="form-group">
-                                <label class="form-label">Home Address</label>
-                                <textarea class="form-control" rows="2">No. 123, Galle Road, Mount Lavinia, Colombo</textarea>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Postal Code</label>
-                                        <input type="text" class="form-control" value="10370">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">District</label>
-                                        <select class="form-control">
-                                            <option value="colombo" selected>Colombo</option>
-                                            <option value="gampaha">Gampaha</option>
-                                            <option value="kalutara">Kalutara</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h5 class="mt-4">Emergency Contact</h5>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Name</label>
-                                        <input type="text" class="form-control" value="Sunil Perera (Husband)">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" value="+94 71 987 6543">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="editProfileForm" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
-
-                    document.getElementById('editProfileForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        alert('Profile updated successfully!');
-                        closeModal();
-                    });
-                }
-
-                function changePassword() {
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Change Password</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="changePasswordForm">
-                            <div class="form-group">
-                                <label class="form-label">Current Password *</label>
-                                <input type="password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">New Password *</label>
-                                <input type="password" class="form-control" required minlength="8">
-                                <small class="form-text">Password must be at least 8 characters long</small>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Confirm New Password *</label>
-                                <input type="password" class="form-control" required minlength="8">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="changePasswordForm" class="btn btn-primary">Change Password</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
-
-                    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        alert('Password changed successfully!');
-                        closeModal();
-                    });
-                }
-
+            
                 function openProfileImagePreview() {
                     const profileImage = document.querySelector('#profileImage img');
                     if (!profileImage) {
