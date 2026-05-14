@@ -5639,7 +5639,7 @@ body.modal-open {
             <script src="../js/midwife/load-health-education-sessions.js"></script>
             <script src="../js/midwife/load-counseling-sessions.js"></script>
             <script src="../js/midwife/maternal-child-care-tabs.js"></script>
-            <script src="../js/maternal-child-care.js"></script>
+            <script src="../js/midwife/maternal-child-care.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

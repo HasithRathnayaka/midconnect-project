@@ -1,7 +1,4 @@
-let selectedCareArea = 'uduthuththiripitiya';
-let selectedCareMainTab = 'mothers';
-let selectedMotherTab = 'pregnant';
-let selectedChildTab = 'newborns';
+
 
 window.allMaternalCareRecords = [];
 window.allChildCareRecords = [];
@@ -891,9 +888,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function bindCareForm(formId, modalId) {
+
+
+    console.log('Binding form:', formId, 'to modal:', modalId);
     const form = document.getElementById(formId);
 
     if (!form) return;
+
+    // Prevent duplicate event binding
+    if (form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -913,21 +917,33 @@ function bindCareForm(formId, modalId) {
             credentials: 'same-origin'
         })
             .then(function (response) {
-                return response.json();
+                return response.text();
             })
-            .then(function (data) {
+            .then(function (text) {
+                console.log('PHP raw response:', text);
+
+                let data;
+
+                try {
+                    data = JSON.parse(text);
+                } catch (error) {
+                    console.error('Invalid JSON response:', text);
+                    alert('Invalid server response. Check PHP errors.');
+                    return;
+                }
+
                 alert(data.message);
 
-                if (data.success) {
+                if (data.success === true) {
                     form.reset();
 
                     if (typeof $ !== 'undefined') {
                         $(modalId).modal('hide');
                     }
 
-                    if (typeof loadMaternalChildCareData === 'function') {
-                        loadMaternalChildCareData();
-                    }
+                    // Force reload dashboard and keep patients section
+                    window.location.href = window.location.pathname + '?section=patients&_=' + Date.now();
+                    return;
                 }
 
                 if (submitBtn) {
@@ -1127,5 +1143,117 @@ function prepareChildModal() {
     const dutyArea = document.getElementById('childDutyArea');
     if (dutyArea) {
         dutyArea.value = selectedCareArea;
+    }
+}
+
+
+function getSelectedCareArea() {
+    if (typeof selectedCareArea !== 'undefined' && selectedCareArea) {
+        return selectedCareArea;
+    }
+
+    if (typeof window.selectedCareArea !== 'undefined' && window.selectedCareArea) {
+        return window.selectedCareArea;
+    }
+
+    return 'uduthuththiripitiya';
+}
+
+function preparePregnantMotherModal() {
+    const dutyArea = document.getElementById('pregnantMotherDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+function prepareLactatingMotherModal() {
+    const dutyArea = document.getElementById('lactatingMotherDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+function preparePostnatalMotherModal() {
+    const dutyArea = document.getElementById('postnatalMotherDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+function prepareNewbornModal() {
+    const dutyArea = document.getElementById('newbornDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+function prepareYoungChildModal() {
+    const dutyArea = document.getElementById('youngChildDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+function prepareChildModal() {
+    const dutyArea = document.getElementById('childDutyArea');
+    if (dutyArea) {
+        dutyArea.value = getSelectedCareArea();
+    }
+}
+
+
+function updateMotherAddButton() {
+    const button = document.getElementById('motherAddButton');
+    const text = document.getElementById('motherAddButtonText');
+
+    if (!button || !text) return;
+
+    if (selectedMotherTab === 'pregnant') {
+        button.setAttribute('data-target', '#pregnantMotherModal');
+        button.setAttribute('onclick', 'preparePregnantMotherModal()');
+        text.textContent = 'Add Pregnant Mother';
+        return;
+    }
+
+    if (selectedMotherTab === 'lactating') {
+        button.setAttribute('data-target', '#lactatingMotherModal');
+        button.setAttribute('onclick', 'prepareLactatingMotherModal()');
+        text.textContent = 'Add Lactating Mother';
+        return;
+    }
+
+    if (selectedMotherTab === 'postnatal') {
+        button.setAttribute('data-target', '#postnatalMotherModal');
+        button.setAttribute('onclick', 'preparePostnatalMotherModal()');
+        text.textContent = 'Add Postnatal Mother';
+        return;
+    }
+}
+
+function updateChildAddButton() {
+    const button = document.getElementById('childAddButton');
+    const text = document.getElementById('childAddButtonText');
+
+    if (!button || !text) return;
+
+    if (selectedChildTab === 'newborns') {
+        button.setAttribute('data-target', '#newbornModal');
+        button.setAttribute('onclick', 'prepareNewbornModal()');
+        text.textContent = 'Add Newborn';
+        return;
+    }
+
+    if (selectedChildTab === 'young') {
+        button.setAttribute('data-target', '#youngChildModal');
+        button.setAttribute('onclick', 'prepareYoungChildModal()');
+        text.textContent = 'Add Young Child';
+        return;
+    }
+
+    if (selectedChildTab === 'childs') {
+        button.setAttribute('data-target', '#childModal');
+        button.setAttribute('onclick', 'prepareChildModal()');
+        text.textContent = 'Add Child';
+        return;
     }
 }
