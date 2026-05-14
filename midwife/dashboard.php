@@ -2011,27 +2011,36 @@ echo '</script>';
             border-left: 5px solid var(--primary-blue);
         }
 
+
         #addScheduleModal,
         #scheduleVisitModal,
         #timetableModal,
+        #scheduleVaccinationModal,
         #updateVaccineInventoryModal,
         #triposhaInventoryModal,
         #triposhaDistributionModal,
-        #scheduleVaccinationModal,
-        #maternalRecordModal,
-        #childRecordModal {
+        #pregnantMotherModal,
+        #lactatingMotherModal,
+        #postnatalMotherModal,
+        #newbornModal,
+        #youngChildModal,
+        #childModal {
             z-index: 1060 !important;
         }
 
         #addScheduleModal .modal-dialog,
         #scheduleVisitModal .modal-dialog,
         #timetableModal .modal-dialog,
+        #scheduleVaccinationModal .modal-dialog,
         #updateVaccineInventoryModal .modal-dialog,
         #triposhaInventoryModal .modal-dialog,
         #triposhaDistributionModal .modal-dialog,
-        #scheduleVaccinationModal .modal-dialog,
-        #maternalRecordModal .modal-dialog,
-        #childRecordModal .modal-dialog {
+        #pregnantMotherModal .modal-dialog,
+        #lactatingMotherModal .modal-dialog,
+        #postnatalMotherModal .modal-dialog,
+        #newbornModal .modal-dialog,
+        #youngChildModal .modal-dialog,
+        #childModal .modal-dialog {
             z-index: 1070 !important;
             pointer-events: auto !important;
         }
@@ -2039,18 +2048,199 @@ echo '</script>';
         #addScheduleModal .modal-content,
         #scheduleVisitModal .modal-content,
         #timetableModal .modal-content,
+        #scheduleVaccinationModal .modal-content,
         #updateVaccineInventoryModal .modal-content,
         #triposhaInventoryModal .modal-content,
         #triposhaDistributionModal .modal-content,
-        #scheduleVaccinationModal .modal-content,
-        #maternalRecordModal .modal-content,
-        #childRecordModal .modal-content {
+        #pregnantMotherModal .modal-content,
+        #lactatingMotherModal .modal-content,
+        #postnatalMotherModal .modal-content,
+        #newbornModal .modal-content,
+        #youngChildModal .modal-content,
+        #childModal .modal-content {
             pointer-events: auto !important;
         }
 
         .modal-backdrop {
             z-index: 1050 !important;
         }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal {
+            pointer-events: auto !important;
+        }
+
+        /* ================================
+   FIX: Modal label/input visibility
+   Maternal & Child Care modals
+================================ */
+
+#pregnantMotherModal .modal-content,
+#lactatingMotherModal .modal-content,
+#postnatalMotherModal .modal-content,
+#newbornModal .modal-content,
+#youngChildModal .modal-content,
+#childModal .modal-content {
+    background: #111827 !important;
+    color: #ffffff !important;
+}
+
+/* Modal headers */
+#pregnantMotherModal .modal-header,
+#lactatingMotherModal .modal-header,
+#postnatalMotherModal .modal-header,
+#newbornModal .modal-header,
+#youngChildModal .modal-header,
+#childModal .modal-header {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+    color: #ffffff !important;
+}
+
+#pregnantMotherModal .modal-title,
+#lactatingMotherModal .modal-title,
+#postnatalMotherModal .modal-title,
+#newbornModal .modal-title,
+#youngChildModal .modal-title,
+#childModal .modal-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Labels */
+#pregnantMotherModal label,
+#lactatingMotherModal label,
+#postnatalMotherModal label,
+#newbornModal label,
+#youngChildModal label,
+#childModal label,
+#pregnantMotherModal .form-label,
+#lactatingMotherModal .form-label,
+#postnatalMotherModal .form-label,
+#newbornModal .form-label,
+#youngChildModal .form-label,
+#childModal .form-label {
+    color: #e5e7eb !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+/* Inputs, selects, textareas */
+#pregnantMotherModal .form-control,
+#lactatingMotherModal .form-control,
+#postnatalMotherModal .form-control,
+#newbornModal .form-control,
+#youngChildModal .form-control,
+#childModal .form-control,
+#pregnantMotherModal .form-select,
+#lactatingMotherModal .form-select,
+#postnatalMotherModal .form-select,
+#newbornModal .form-select,
+#youngChildModal .form-select,
+#childModal .form-select {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    opacity: 1 !important;
+}
+
+/* Placeholder text */
+#pregnantMotherModal .form-control::placeholder,
+#lactatingMotherModal .form-control::placeholder,
+#postnatalMotherModal .form-control::placeholder,
+#newbornModal .form-control::placeholder,
+#youngChildModal .form-control::placeholder,
+#childModal .form-control::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+/* Select dropdown option text */
+#pregnantMotherModal select option,
+#lactatingMotherModal select option,
+#postnatalMotherModal select option,
+#newbornModal select option,
+#youngChildModal select option,
+#childModal select option {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+/* Textarea */
+#pregnantMotherModal textarea,
+#lactatingMotherModal textarea,
+#postnatalMotherModal textarea,
+#newbornModal textarea,
+#youngChildModal textarea,
+#childModal textarea {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+/* Close button */
+#pregnantMotherModal .close,
+#lactatingMotherModal .close,
+#postnatalMotherModal .close,
+#newbornModal .close,
+#youngChildModal .close,
+#childModal .close {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+/* Footer */
+#pregnantMotherModal .modal-footer,
+#lactatingMotherModal .modal-footer,
+#postnatalMotherModal .modal-footer,
+#newbornModal .modal-footer,
+#youngChildModal .modal-footer,
+#childModal .modal-footer {
+    border-top: 1px solid #334155 !important;
+    background: #111827 !important;
+}
+
+/* Modal z-index / disabled issue protection */
+#pregnantMotherModal,
+#lactatingMotherModal,
+#postnatalMotherModal,
+#newbornModal,
+#youngChildModal,
+#childModal {
+    z-index: 1060 !important;
+}
+
+#pregnantMotherModal .modal-dialog,
+#lactatingMotherModal .modal-dialog,
+#postnatalMotherModal .modal-dialog,
+#newbornModal .modal-dialog,
+#youngChildModal .modal-dialog,
+#childModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#pregnantMotherModal .modal-content,
+#lactatingMotherModal .modal-content,
+#postnatalMotherModal .modal-content,
+#newbornModal .modal-content,
+#youngChildModal .modal-content,
+#childModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
     </style>
 </head>
 
@@ -2702,26 +2892,56 @@ echo '</script>';
     </div>
 
     <!-- Selected Area Content -->
-    <div class="area-content-wrapper active">
-        <div class="area-header">
-            <h4 id="careAreaTitle">
-                <i class="fas fa-map-marker-alt"></i> Maternal &amp; Child Care
-            </h4>
-            <p id="careAreaSubtitle">Loading records...</p>
-        </div>
+ <div class="area-content-wrapper active">
+    <div class="area-header">
+        <h4 id="careAreaTitle">
+            <i class="fas fa-map-marker-alt"></i> Maternal &amp; Child Care
+        </h4>
+        <p id="careAreaSubtitle">Loading records...</p>
+    </div>
 
-        <!-- Main Tabs -->
-        <div class="tab-container">
+    <!-- Main Tabs -->
+    <div class="tab-container">
+        <ul class="nav nav-tabs" style="width: 100%;">
+            <li class="nav-item" style="flex: 1; margin-right: 0;">
+                <a
+                    class="nav-link active"
+                    href="#"
+                    data-care-main-tab="mothers"
+                    onclick="switchCareTab('mothers', event)"
+                    style="text-align: center;"
+                >
+                    <i class="fas fa-female"></i> Mothers
+                </a>
+            </li>
+
+            <li class="nav-item" style="flex: 1; margin-right: 0;">
+                <a
+                    class="nav-link"
+                    href="#"
+                    data-care-main-tab="children"
+                    onclick="switchCareTab('children', event)"
+                    style="text-align: center;"
+                >
+                    <i class="fas fa-child"></i> Children
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Mothers Tab -->
+    <div id="mothers-tab" class="tab-content" style="display: block;">
+        <div class="tab-container" style="margin-top: 1rem;">
             <ul class="nav nav-tabs" style="width: 100%;">
                 <li class="nav-item" style="flex: 1; margin-right: 0;">
                     <a
                         class="nav-link active"
                         href="#"
-                        data-care-main-tab="mothers"
-                        onclick="switchCareTab('mothers', event)"
+                        data-mother-tab="pregnant"
+                        onclick="switchMotherTab('pregnant', event); updateMotherAddButton();"
                         style="text-align: center;"
                     >
-                        <i class="fas fa-female"></i> Mothers
+                        <i class="fas fa-baby"></i> Pregnant Mothers
                     </a>
                 </li>
 
@@ -2729,475 +2949,162 @@ echo '</script>';
                     <a
                         class="nav-link"
                         href="#"
-                        data-care-main-tab="children"
-                        onclick="switchCareTab('children', event)"
+                        data-mother-tab="lactating"
+                        onclick="switchMotherTab('lactating', event); updateMotherAddButton();"
                         style="text-align: center;"
                     >
-                        <i class="fas fa-child"></i> Children
+                        <i class="fas fa-child"></i> Lactating Mothers
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-mother-tab="postnatal"
+                        onclick="switchMotherTab('postnatal', event); updateMotherAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-procedures"></i> Postnatal Mothers
                     </a>
                 </li>
             </ul>
         </div>
 
-        <!-- Mothers Tab -->
-        <div id="mothers-tab" class="tab-content" style="display: block;">
-            <div class="tab-container" style="margin-top: 1rem;">
-                <ul class="nav nav-tabs" style="width: 100%;">
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link active"
-                            href="#"
-                            data-mother-tab="pregnant"
-                            onclick="switchMotherTab('pregnant', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-baby"></i> Pregnant Mothers
-                        </a>
-                    </li>
+        <div class="card" style="margin-top: 1rem;">
+            <div class="card-header d-flex justify-between align-center">
+                <h5 class="card-title" id="motherTableTitle" style="margin: 0;">
+                    Pregnant Mothers
+                </h5>
 
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-mother-tab="lactating"
-                            onclick="switchMotherTab('lactating', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-child"></i> Lactating Mothers
-                        </a>
-                    </li>
-
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-mother-tab="postnatal"
-                            onclick="switchMotherTab('postnatal', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-procedures"></i> Postnatal Mothers
-                        </a>
-                    </li>
-                </ul>
+                <button
+                    id="motherAddButton"
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#pregnantMotherModal"
+                    onclick="preparePregnantMotherModal()"
+                >
+                    <i class="fas fa-plus"></i>
+                    <span id="motherAddButtonText">Add Pregnant Mother</span>
+                </button>
             </div>
 
-            <div class="card" style="margin-top: 1rem;">
-                <div class="card-header d-flex justify-between align-center">
-                    <h5 class="card-title" id="motherTableTitle" style="margin: 0;">
-                        Pregnant Mothers
-                    </h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead id="motherTableHead">
+                            <tr>
+                                <th>Mother's Name</th>
+                                <th>Age</th>
+                                <th>Weeks Pregnant</th>
+                                <th>Last Visit</th>
+                                <th>Next Appointment</th>
+                                <th>Risk Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
 
-                    <button
-                        class="btn btn-primary btn-sm"
-                        type="button"
-                        onclick="openMaternalRecordModal()"
+                        <tbody id="motherTableBody">
+                            <tr>
+                                <td colspan="7" class="text-muted">Loading records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Children Tab -->
+    <div id="children-tab" class="tab-content hidden" style="display: none;">
+        <div class="tab-container" style="margin-top: 1rem;">
+            <ul class="nav nav-tabs" style="width: 100%;">
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link active"
+                        href="#"
+                        data-child-tab="newborns"
+                        onclick="switchChildrenTab('newborns', event); updateChildAddButton();"
+                        style="text-align: center;"
                     >
-                        <i class="fas fa-plus"></i>
-                        <span id="motherAddButtonText">Add Pregnant Mother</span>
-                    </button>
-                </div>
+                        <i class="fas fa-baby"></i> Newborns
+                    </a>
+                </li>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead id="motherTableHead">
-                                <tr>
-                                    <th>Mother's Name</th>
-                                    <th>Age</th>
-                                    <th>Weeks Pregnant</th>
-                                    <th>Last Visit</th>
-                                    <th>Next Appointment</th>
-                                    <th>Risk Level</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody id="motherTableBody">
-                                <tr>
-                                    <td colspan="7" class="text-muted">Loading records...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Children Tab -->
-        <div id="children-tab" class="tab-content hidden" style="display: none;">
-            <div class="tab-container" style="margin-top: 1rem;">
-                <ul class="nav nav-tabs" style="width: 100%;">
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link active"
-                            href="#"
-                            data-child-tab="newborns"
-                            onclick="switchChildrenTab('newborns', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-baby"></i> Newborns
-                        </a>
-                    </li>
-
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-child-tab="young"
-                            onclick="switchChildrenTab('young', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-baby-carriage"></i> Young Children
-                        </a>
-                    </li>
-
-                    <li class="nav-item" style="flex: 1; margin-right: 0;">
-                        <a
-                            class="nav-link"
-                            href="#"
-                            data-child-tab="childs"
-                            onclick="switchChildrenTab('childs', event)"
-                            style="text-align: center;"
-                        >
-                            <i class="fas fa-child"></i> Childs
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="card" style="margin-top: 1rem;">
-                <div class="card-header d-flex justify-between align-center">
-                    <h5 class="card-title" id="childTableTitle" style="margin: 0;">
-                        Newborns
-                    </h5>
-
-                    <button
-                        class="btn btn-primary btn-sm"
-                        type="button"
-                        onclick="openChildRecordModal()"
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-child-tab="young"
+                        onclick="switchChildrenTab('young', event); updateChildAddButton();"
+                        style="text-align: center;"
                     >
-                        <i class="fas fa-plus"></i>
-                        <span id="childAddButtonText">Add Newborn</span>
-                    </button>
-                </div>
+                        <i class="fas fa-baby-carriage"></i> Young Children
+                    </a>
+                </li>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead id="childTableHead">
-                                <tr>
-                                    <th>Baby's Name</th>
-                                    <th>Mother's Name</th>
-                                    <th>Date of Birth</th>
-                                    <th>Birth Weight</th>
-                                    <th>Last Check-up</th>
-                                    <th>Health Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-child-tab="childs"
+                        onclick="switchChildrenTab('childs', event); updateChildAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-child"></i> Childs
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-                            <tbody id="childTableBody">
-                                <tr>
-                                    <td colspan="7" class="text-muted">Loading records...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="card" style="margin-top: 1rem;">
+            <div class="card-header d-flex justify-between align-center">
+                <h5 class="card-title" id="childTableTitle" style="margin: 0;">
+                    Newborns
+                </h5>
+
+                <button
+                    id="childAddButton"
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#newbornModal"
+                    onclick="prepareNewbornModal()"
+                >
+                    <i class="fas fa-plus"></i>
+                    <span id="childAddButtonText">Add Newborn</span>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead id="childTableHead">
+                            <tr>
+                                <th>Baby's Name</th>
+                                <th>Mother's Name</th>
+                                <th>Date of Birth</th>
+                                <th>Birth Weight</th>
+                                <th>Last Check-up</th>
+                                <th>Health Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="childTableBody">
+                            <tr>
+                                <td colspan="7" class="text-muted">Loading records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Maternal Record Modal -->
-<div class="modal fade" id="maternalRecordModal" tabindex="-1" role="dialog" aria-labelledby="maternalRecordModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <form id="maternalRecordForm" action="../php/midwife/save_maternal_record.php" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="maternalRecordModalLabel">Maternal Care Record</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <input type="hidden" name="mother_id" id="maternalMotherId">
-                    <input type="hidden" name="duty_area" id="maternalDutyArea">
-                    <input type="hidden" name="category" id="maternalCategory">
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Mother's Name *</label>
-                                <input type="text" class="form-control" name="mother_name" id="maternalMotherName" required>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Age</label>
-                                <input type="number" class="form-control" name="age" id="maternalAge" min="10" max="80">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Pregnant fields -->
-                    <div class="row maternal-field maternal-pregnant-field">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Weeks Pregnant</label>
-                                <input type="number" class="form-control" name="weeks_pregnant" id="maternalWeeksPregnant" min="1" max="45">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Risk Level</label>
-                                <select class="form-control" name="risk_level" id="maternalRiskLevel">
-                                    <option value="Low Risk">Low Risk</option>
-                                    <option value="Medium Risk">Medium Risk</option>
-                                    <option value="High Risk">High Risk</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lactating fields -->
-                    <div class="row maternal-field maternal-lactating-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Baby's Age</label>
-                                <input type="text" class="form-control" name="baby_age" id="maternalBabyAge" placeholder="Example: 2 weeks">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Breastfeeding Status</label>
-                                <input type="text" class="form-control" name="breastfeeding_status" id="maternalBreastfeedingStatus" placeholder="Example: Exclusive breastfeeding">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row maternal-field maternal-lactating-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Support Level</label>
-                                <select class="form-control" name="support_level" id="maternalSupportLevel">
-                                    <option value="">Select support level</option>
-                                    <option value="Good Support">Good Support</option>
-                                    <option value="Needs Support">Needs Support</option>
-                                    <option value="Critical Support">Critical Support</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Postnatal fields -->
-                    <div class="row maternal-field maternal-postnatal-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Delivery Date</label>
-                                <input type="date" class="form-control" name="delivery_date" id="maternalDeliveryDate">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Delivery Type</label>
-                                <select class="form-control" name="delivery_type" id="maternalDeliveryType">
-                                    <option value="">Select delivery type</option>
-                                    <option value="Normal Delivery">Normal Delivery</option>
-                                    <option value="C-Section">C-Section</option>
-                                    <option value="Assisted Delivery">Assisted Delivery</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row maternal-field maternal-postnatal-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Recovery Status</label>
-                                <input type="text" class="form-control" name="recovery_status" id="maternalRecoveryStatus" placeholder="Example: Good Recovery">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Common fields -->
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Last Visit</label>
-                                <input type="date" class="form-control" name="last_visit" id="maternalLastVisit">
-                            </div>
-                        </div>
-
-                        <div class="col-6 maternal-field maternal-pregnant-field">
-                            <div class="form-group">
-                                <label class="form-label">Next Appointment</label>
-                                <input type="date" class="form-control" name="next_appointment" id="maternalNextAppointment">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Contact Number</label>
-                        <input type="text" class="form-control" name="contact_number" id="maternalContactNumber">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Address</label>
-                        <textarea class="form-control" name="address" id="maternalAddress" rows="2"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Notes</label>
-                        <textarea class="form-control" name="notes" id="maternalNotes" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save Mother
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
-<!-- Child Record Modal -->
-<div class="modal fade" id="childRecordModal" tabindex="-1" role="dialog" aria-labelledby="childRecordModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <form id="childRecordForm" action="../php/midwife/save_child_record.php" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="childRecordModalLabel">Child Care Record</h5>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <input type="hidden" name="child_id" id="childId">
-                    <input type="hidden" name="duty_area" id="childDutyArea">
-                    <input type="hidden" name="child_category" id="childCategory">
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Child's Name *</label>
-                                <input type="text" class="form-control" name="child_name" id="childName" required>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Mother / Guardian</label>
-                                <input type="text" class="form-control" name="mother_name" id="childMotherName">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Newborn fields -->
-                    <div class="row child-field child-newborns-field">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" name="date_of_birth" id="childDateOfBirth">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Birth Weight (kg)</label>
-                                <input type="number" step="0.01" class="form-control" name="birth_weight" id="childBirthWeight">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Young / Child fields -->
-                    <div class="row child-field child-young-field child-childs-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Age</label>
-                                <input type="text" class="form-control" name="age_label" id="childAgeLabel" placeholder="Example: 2 years">
-                            </div>
-                        </div>
-
-                        <div class="col-6 child-field child-young-field" style="display: none;">
-                            <div class="form-group">
-                                <label class="form-label">Current Weight (kg)</label>
-                                <input type="number" step="0.01" class="form-control" name="current_weight" id="childCurrentWeight">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row child-field child-young-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Height (cm)</label>
-                                <input type="number" step="0.01" class="form-control" name="height_cm" id="childHeightCm">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Development Status</label>
-                                <input type="text" class="form-control" name="development_status" id="childDevelopmentStatus" placeholder="Example: Normal">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row child-field child-childs-field" style="display: none;">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">School</label>
-                                <input type="text" class="form-control" name="school" id="childSchool">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Common fields -->
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Last Check-up</label>
-                                <input type="date" class="form-control" name="last_checkup" id="childLastCheckup">
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label class="form-label">Health Status</label>
-                                <input type="text" class="form-control" name="health_status" id="childHealthStatus" placeholder="Example: Healthy">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Notes</label>
-                        <textarea class="form-control" name="notes" id="childNotes" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save Child
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
             <!-- Home Visits Section -->
             <div id="home-visits" class="content-section section-slide-in" style="display: none;">
@@ -5106,6 +5013,619 @@ echo '</script>';
             </div>
 
 
+<<!-- =========================================================
+     1. Pregnant Mother Modal
+     Table: maternal_care_records
+     Category: pregnant
+========================================================= -->
+<div class="modal fade" id="pregnantMotherModal" tabindex="-1" role="dialog" aria-labelledby="pregnantMotherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="pregnantMotherForm" action="../php/midwife/create_pregnant_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pregnantMotherModalLabel">Add Pregnant Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="pregnantMotherDutyArea">
+                    <input type="hidden" name="category" value="pregnant">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Weeks Pregnant</label>
+                                <input type="number" class="form-control" name="weeks_pregnant" min="1" max="42">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Risk Level</label>
+                                <select class="form-control" name="risk_level">
+                                    <option value="Low Risk">Low Risk</option>
+                                    <option value="Medium Risk">Medium Risk</option>
+                                    <option value="High Risk">High Risk</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Next Appointment</label>
+                                <input type="date" class="form-control" name="next_appointment">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control" name="status">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Pregnant Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     2. Lactating Mother Modal
+     Table: maternal_care_records
+     Category: lactating
+========================================================= -->
+<div class="modal fade" id="lactatingMotherModal" tabindex="-1" role="dialog" aria-labelledby="lactatingMotherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="lactatingMotherForm" action="../php/midwife/create_lactating_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lactatingMotherModalLabel">Add Lactating Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="lactatingMotherDutyArea">
+                    <input type="hidden" name="category" value="lactating">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Baby's Age</label>
+                                <input type="text" class="form-control" name="baby_age" placeholder="Example: 2 months">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Breastfeeding Status</label>
+                                <input type="text" class="form-control" name="breastfeeding_status" placeholder="Example: Exclusive breastfeeding">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Support Level</label>
+                                <select class="form-control" name="support_level">
+                                    <option value="Good Support">Good Support</option>
+                                    <option value="Needs Support">Needs Support</option>
+                                    <option value="High Support Required">High Support Required</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Lactating Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     3. Postnatal Mother Modal
+     Table: maternal_care_records
+     Category: postnatal
+========================================================= -->
+<div class="modal fade" id="postnatalMotherModal" tabindex="-1" role="dialog" aria-labelledby="postnatalMotherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="postnatalMotherForm" action="../php/midwife/create_postnatal_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postnatalMotherModalLabel">Add Postnatal Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="postnatalMotherDutyArea">
+                    <input type="hidden" name="category" value="postnatal">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Date</label>
+                                <input type="date" class="form-control" name="delivery_date">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Type</label>
+                                <select class="form-control" name="delivery_type">
+                                    <option value="">Select Delivery Type</option>
+                                    <option value="Normal Delivery">Normal Delivery</option>
+                                    <option value="C-Section">C-Section</option>
+                                    <option value="Assisted Delivery">Assisted Delivery</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Recovery Status</label>
+                                <input type="text" class="form-control" name="recovery_status" value="Good Recovery">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Next Appointment</label>
+                                <input type="date" class="form-control" name="next_appointment">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Postnatal Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     4. Newborn Modal
+     Table: child_care_records
+     child_category: newborns
+========================================================= -->
+<div class="modal fade" id="newbornModal" tabindex="-1" role="dialog" aria-labelledby="newbornModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="newbornForm" action="../php/midwife/create_newborn.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newbornModalLabel">Add Newborn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="newbornDutyArea">
+                    <input type="hidden" name="child_category" value="newborns">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Baby's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Birth Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="birth_weight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Newborn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     5. Young Child Modal
+     Table: child_care_records
+     child_category: young
+========================================================= -->
+<div class="modal fade" id="youngChildModal" tabindex="-1" role="dialog" aria-labelledby="youngChildModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="youngChildForm" action="../php/midwife/create_young_child.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="youngChildModalLabel">Add Young Child</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="youngChildDutyArea">
+                    <input type="hidden" name="child_category" value="young">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Child's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother / Guardian</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age_label" placeholder="Example: 2 years">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Current Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="current_weight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" step="0.01" class="form-control" name="height_cm">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Development Status</label>
+                                <input type="text" class="form-control" name="development_status" value="Normal">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Young Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     6. Child Modal
+     Table: child_care_records
+     child_category: childs
+========================================================= -->
+<div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="childModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="childForm" action="../php/midwife/create_child.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="childModalLabel">Add Child</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="childDutyArea">
+                    <input type="hidden" name="child_category" value="childs">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Child's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother / Guardian</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age_label" placeholder="Example: 5 years">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">School</label>
+                                <input type="text" class="form-control" name="school">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit / Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
             <script src="../js/page-transitions.js"></script>
             <script src="../js/theme-toggle.js"></script>
             <script src="../js/midwife/create_activity.js"></script>
@@ -5119,6 +5639,7 @@ echo '</script>';
             <script src="../js/midwife/load-health-education-sessions.js"></script>
             <script src="../js/midwife/load-counseling-sessions.js"></script>
             <script src="../js/midwife/maternal-child-care-tabs.js"></script>
+            <script src="../js/maternal-child-care.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
