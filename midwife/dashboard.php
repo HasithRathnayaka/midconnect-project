@@ -14,6 +14,7 @@ echo '</script>';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +23,7 @@ echo '</script>';
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/midwife/midwife-dashbord.css">
     <style>
         .welcome-banner {
             background: linear-gradient(135deg, var(--accent-teal), var(--secondary-light-green));
@@ -48,14 +50,14 @@ echo '</script>';
         :root[data-theme='dark'] .welcome-banner {
             background: linear-gradient(135deg, #0f2d47, #146482);
         }
-        
+
         .activity-form {
             background: var(--white);
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             box-shadow: var(--shadow-light);
         }
-        
+
         .quick-action-btn {
             display: flex;
             flex-direction: column;
@@ -69,19 +71,19 @@ echo '</script>';
             height: 120px;
             justify-content: center;
         }
-        
+
         .quick-action-btn:hover {
             border-color: var(--primary-blue);
             background-color: var(--bg-secondary);
             transform: translateY(-2px);
         }
-        
+
         .quick-action-btn i {
             font-size: 2rem;
             margin-bottom: 0.5rem;
             color: var(--primary-blue);
         }
-        
+
         .schedule-item {
             display: flex;
             align-items: center;
@@ -91,14 +93,14 @@ echo '</script>';
             border-radius: 0 var(--radius-md) var(--radius-md) 0;
             margin-bottom: 0.5rem;
         }
-        
+
         .schedule-time {
             font-weight: 600;
             color: var(--primary-blue);
             margin-right: 1rem;
             min-width: 80px;
         }
-        
+
         .activity-log-item {
             padding: 1rem;
             border-bottom: 1px solid #e9ecef;
@@ -106,32 +108,32 @@ echo '</script>';
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .activity-log-item:last-child {
             border-bottom: none;
         }
-        
+
         .progress-ring {
             width: 120px;
             height: 120px;
             position: relative;
         }
-        
+
         .progress-ring circle {
             fill: none;
             stroke-width: 8;
         }
-        
+
         .progress-ring .background {
             stroke: #e9ecef;
         }
-        
+
         .progress-ring .progress {
             stroke: var(--secondary-green);
             stroke-linecap: round;
             transition: stroke-dashoffset 0.5s ease;
         }
-        
+
         .progress-text {
             position: absolute;
             top: 50%;
@@ -148,7 +150,7 @@ echo '</script>';
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .visit-item {
             display: flex;
             background: var(--white);
@@ -158,19 +160,19 @@ echo '</script>';
             transition: var(--transition-medium);
             position: relative;
         }
-        
+
         .visit-item:hover {
             box-shadow: var(--shadow-medium);
         }
-        
+
         .visit-item.priority-high {
             border-left: 5px solid #dc3545;
         }
-        
+
         .visit-item.priority-normal {
             border-left: 5px solid var(--primary-blue);
         }
-        
+
         .visit-time {
             display: flex;
             flex-direction: column;
@@ -179,55 +181,55 @@ echo '</script>';
             margin-right: 1.5rem;
             text-align: center;
         }
-        
+
         .visit-time .time {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         .visit-time .duration {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        
+
         .visit-details {
             flex: 1;
             margin-right: 1rem;
         }
-        
+
         .visit-details h5 {
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
-        
+
         .visit-details .address {
             color: var(--text-muted);
             margin-bottom: 0.5rem;
         }
-        
+
         .visit-details .address i {
             color: var(--accent-teal);
             margin-right: 0.5rem;
         }
-        
+
         .visit-type {
             margin-bottom: 0.5rem;
         }
-        
+
         .visit-details .notes {
             font-size: 0.9rem;
             color: var(--text-muted);
             font-style: italic;
         }
-        
+
         .visit-actions {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             min-width: 120px;
         }
-        
+
         .badge {
             display: inline-block;
             padding: 0.25rem 0.5rem;
@@ -236,36 +238,36 @@ echo '</script>';
             border-radius: var(--radius-sm);
             margin-right: 0.5rem;
         }
-        
+
         .badge-urgent {
             background-color: #dc3545;
             color: white;
         }
-        
+
         .badge-success {
             background-color: var(--secondary-green);
             color: white;
         }
-        
+
         .badge-primary {
             background-color: var(--primary-blue);
             color: white;
         }
-        
+
         .badge-warning {
             background-color: #ffc107;
             color: #212529;
         }
-        
+
         .badge-info {
             background-color: var(--accent-teal);
             color: white;
         }
-        
+
         .tab-container {
             margin-bottom: 2rem;
         }
-        
+
         .nav-tabs {
             display: flex;
             list-style: none;
@@ -273,11 +275,11 @@ echo '</script>';
             margin: 0;
             border-bottom: 2px solid #e9ecef;
         }
-        
+
         .nav-item {
             margin-right: 1rem;
         }
-        
+
         .nav-link {
             display: block;
             padding: 0.75rem 1rem;
@@ -286,21 +288,21 @@ echo '</script>';
             border-bottom: 3px solid transparent;
             transition: var(--transition-medium);
         }
-        
+
         .nav-link.active {
             color: var(--primary-blue);
             border-bottom-color: var(--primary-blue);
             font-weight: 600;
         }
-        
+
         .nav-link:hover {
             color: var(--primary-blue);
         }
-        
+
         .tab-content {
             margin-top: 1rem;
         }
-        
+
         .summary-item {
             display: flex;
             justify-content: space-between;
@@ -308,12 +310,12 @@ echo '</script>';
             padding: 0.5rem 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        
+
         .summary-item:last-child {
             border-bottom: none;
             padding-bottom: 0;
         }
-        
+
         .modal {
             position: fixed;
             z-index: 1000;
@@ -323,7 +325,7 @@ echo '</script>';
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
         }
-        
+
         .modal-content {
             background-color: var(--white);
             margin: 5% auto;
@@ -333,7 +335,7 @@ echo '</script>';
             max-width: 600px;
             box-shadow: var(--shadow-heavy);
         }
-        
+
         .modal-header {
             padding: 1.5rem;
             border-bottom: 1px solid #e9ecef;
@@ -341,16 +343,16 @@ echo '</script>';
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .modal-header h3 {
             margin: 0;
             color: var(--primary-blue);
         }
-        
+
         .modal-body {
             padding: 1.5rem;
         }
-        
+
         .close {
             color: var(--text-muted);
             font-size: 28px;
@@ -358,11 +360,11 @@ echo '</script>';
             cursor: pointer;
             line-height: 1;
         }
-        
+
         .close:hover {
             color: var(--text-primary);
         }
-        
+
         .duty-area-card {
             background: var(--white);
             border: 2px solid #e9ecef;
@@ -376,91 +378,92 @@ echo '</script>';
             flex-direction: column;
             justify-content: space-between;
         }
-        
+
         .duty-area-card:hover {
             border-color: var(--primary-blue);
             box-shadow: var(--shadow-light);
             transform: translateY(-2px);
         }
-        
+
         .duty-area-card.active {
             border-color: var(--secondary-green);
             background: linear-gradient(135deg, #f8fff8, #e8f5e8);
         }
-        
+
         .duty-area-icon {
             font-size: 2rem;
             color: var(--primary-blue);
             margin-bottom: 0.5rem;
         }
-        
+
         .duty-area-card.active .duty-area-icon {
             color: var(--secondary-green);
         }
-        
+
         .duty-area-name {
             font-weight: 600;
             color: var(--text-primary);
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .duty-area-status .status-badge {
             font-size: 0.75rem;
             padding: 0.25rem 0.5rem;
         }
-        
+
         .status-badge.status-secondary {
             background: #6c757d;
             color: white;
         }
-        
+
         .summary-stat {
             text-align: center;
             padding: 1rem;
             background: var(--bg-secondary);
             border-radius: var(--radius-md);
         }
-        
+
         .summary-number {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-blue);
         }
-        
+
         .summary-label {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 0.25rem;
         }
-        
+
         .editable-stat {
             cursor: pointer;
             position: relative;
             transition: var(--transition-medium);
         }
-        
+
         .editable-stat:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
         }
-        
-        .edit-hint, .auto-calc-hint {
+
+        .edit-hint,
+        .auto-calc-hint {
             font-size: 0.7rem;
             color: var(--text-muted);
             margin-top: 0.25rem;
             opacity: 0;
             transition: var(--transition-fast);
         }
-        
+
         .editable-stat:hover .edit-hint {
             opacity: 1;
         }
-        
+
         .auto-calc-hint {
             opacity: 0.6;
         }
-        
+
         .editable-summary {
             cursor: pointer;
             padding: 0.75rem 0.5rem;
@@ -471,11 +474,11 @@ echo '</script>';
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .editable-summary:hover {
             background-color: var(--bg-secondary);
         }
-        
+
         .edit-icon {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -483,17 +486,17 @@ echo '</script>';
             opacity: 0;
             transition: var(--transition-fast);
         }
-        
+
         .editable-summary:hover .edit-icon {
             opacity: 1;
         }
-        
+
         .completed-visit-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .completed-visit-item {
             display: flex;
             align-items: center;
@@ -502,42 +505,42 @@ echo '</script>';
             border-radius: var(--radius-md);
             border-left: 4px solid var(--secondary-green);
         }
-        
+
         .visit-timestamp {
             display: flex;
             flex-direction: column;
             min-width: 120px;
             margin-right: 1rem;
         }
-        
+
         .visit-timestamp .date {
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         .visit-timestamp .time {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        
+
         .visit-summary {
             flex: 1;
         }
-        
+
         .visit-summary h5 {
             margin-bottom: 0.25rem;
         }
-        
+
         .visit-summary .visit-type {
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 0.5rem;
         }
-        
+
         .visit-summary .outcome {
             font-size: 0.9rem;
         }
-        
+
         .route-map {
             height: 400px;
             border: 2px solid #e9ecef;
@@ -546,52 +549,52 @@ echo '</script>';
             align-items: center;
             justify-content: center;
         }
-        
+
         .map-placeholder {
             text-align: center;
             color: var(--text-muted);
         }
-        
+
         .map-placeholder i {
             font-size: 3rem;
             margin-bottom: 1rem;
             color: var(--accent-teal);
         }
-        
+
         .route-summary {
             padding: 1rem;
         }
-        
+
         .route-stats {
             margin-bottom: 2rem;
         }
-        
+
         .stat-item {
             display: flex;
             justify-content: space-between;
             padding: 0.5rem 0;
             border-bottom: 1px solid #e9ecef;
         }
-        
+
         .stat-item:last-child {
             border-bottom: none;
         }
-        
+
         .stat-item .label {
             color: var(--text-muted);
         }
-        
+
         .stat-item .value {
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         .route-order {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-        
+
         .route-stop {
             display: flex;
             align-items: center;
@@ -599,7 +602,7 @@ echo '</script>';
             background: var(--bg-secondary);
             border-radius: var(--radius-md);
         }
-        
+
         .stop-number {
             width: 30px;
             height: 30px;
@@ -612,7 +615,7 @@ echo '</script>';
             font-weight: 600;
             margin-right: 1rem;
         }
-        
+
         .stop-name {
             font-weight: 500;
         }
@@ -623,7 +626,7 @@ echo '</script>';
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .vaccination-item {
             display: flex;
             background: var(--white);
@@ -632,19 +635,19 @@ echo '</script>';
             padding: 1.5rem;
             transition: var(--transition-medium);
         }
-        
+
         .vaccination-item:hover {
             box-shadow: var(--shadow-medium);
         }
-        
+
         .vaccination-item.high-priority {
             border-left: 5px solid #dc3545;
         }
-        
+
         .vaccination-item.normal-priority {
             border-left: 5px solid var(--primary-blue);
         }
-        
+
         .vaccine-time {
             display: flex;
             flex-direction: column;
@@ -653,28 +656,28 @@ echo '</script>';
             margin-right: 1.5rem;
             text-align: center;
         }
-        
+
         .vaccine-time .time {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         .vaccine-time .duration {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        
+
         .vaccine-details {
             flex: 1;
             margin-right: 1rem;
         }
-        
+
         .vaccine-details h5 {
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
-        
+
         .patient-info {
             display: flex;
             gap: 1rem;
@@ -682,16 +685,16 @@ echo '</script>';
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+
         .patient-info i {
             color: var(--accent-teal);
             margin-right: 0.25rem;
         }
-        
+
         .vaccine-info {
             margin-bottom: 0.5rem;
         }
-        
+
         .vaccine-badge {
             display: inline-block;
             padding: 0.25rem 0.5rem;
@@ -700,38 +703,38 @@ echo '</script>';
             border-radius: var(--radius-sm);
             margin-right: 0.5rem;
         }
-        
+
         .vaccine-badge.pediatric {
             background-color: #e3f2fd;
             color: #1976d2;
             border: 1px solid #bbdefb;
         }
-        
+
         .vaccine-badge.maternal {
             background-color: #fce4ec;
             color: #c2185b;
             border: 1px solid #f8bbd9;
         }
-        
+
         .vaccine-badge.adult {
             background-color: #e8f5e8;
             color: #388e3c;
             border: 1px solid #c8e6c9;
         }
-        
+
         .vaccine-actions {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             min-width: 120px;
         }
-        
+
         .inventory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-        
+
         .inventory-item {
             background: var(--white);
             border: 1px solid #e9ecef;
@@ -740,55 +743,55 @@ echo '</script>';
             text-align: center;
             transition: var(--transition-medium);
         }
-        
+
         .inventory-item:hover {
             box-shadow: var(--shadow-medium);
         }
-        
+
         .inventory-item.good-stock {
             border-left: 5px solid var(--secondary-green);
         }
-        
+
         .inventory-item.low-stock {
             border-left: 5px solid #ffc107;
         }
-        
+
         .inventory-item.critical-stock {
             border-left: 5px solid #dc3545;
         }
-        
+
         .vaccine-icon {
             margin-bottom: 1rem;
         }
-        
+
         .vaccine-icon i {
             font-size: 2rem;
             color: var(--primary-blue);
         }
-        
+
         .vaccine-name {
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
-        
+
         .stock-info {
             display: flex;
             justify-content: space-between;
             margin-bottom: 1rem;
         }
-        
+
         .stock-level {
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         .expiry-date {
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-        
+
         .stock-status {
             padding: 0.25rem 0.75rem;
             border-radius: var(--radius-full);
@@ -796,29 +799,29 @@ echo '</script>';
             font-weight: 600;
             text-transform: uppercase;
         }
-        
+
         .stock-status.good {
             background-color: var(--secondary-green);
             color: white;
         }
-        
+
         .stock-status.low {
             background-color: #ffc107;
             color: #212529;
         }
-        
+
         .stock-status.critical {
             background-color: #dc3545;
             color: white;
         }
-        
+
         .completion-bar {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        
-        .completion-bar > div {
+
+        .completion-bar>div {
             flex: 1;
             height: 20px;
             background: #e9ecef;
@@ -826,36 +829,36 @@ echo '</script>';
             position: relative;
             overflow: hidden;
         }
-        
+
         .completion-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--secondary-green), var(--accent-teal));
             border-radius: var(--radius-full);
             transition: width 0.3s ease;
         }
-        
+
         .completion-bar span {
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--primary-blue);
             min-width: 35px;
         }
-        
+
         .due-soon {
             color: #ffc107;
             font-weight: 600;
         }
-        
+
         .due-later {
             color: var(--secondary-green);
         }
-        
+
         .overdue-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .overdue-item {
             display: flex;
             align-items: center;
@@ -865,53 +868,53 @@ echo '</script>';
             border-left: 5px solid #dc3545;
             border-radius: var(--radius-lg);
         }
-        
+
         .overdue-info {
             flex: 1;
             margin-right: 1rem;
         }
-        
+
         .overdue-info h5 {
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
-        
+
         .vaccine-details {
             color: var(--text-muted);
             margin-bottom: 0.5rem;
         }
-        
+
         .overdue-duration {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        
+
         .overdue-duration i {
             color: #dc3545;
         }
-        
+
         .overdue-text {
             color: #dc3545;
             font-weight: 600;
         }
-        
+
         .contact-info {
             margin-right: 1rem;
             min-width: 200px;
         }
-        
+
         .contact-info p {
             margin-bottom: 0.25rem;
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+
         .contact-info i {
             color: var(--accent-teal);
             margin-right: 0.5rem;
         }
-        
+
         .overdue-actions {
             display: flex;
             flex-direction: column;
@@ -925,7 +928,7 @@ echo '</script>';
             display: inline-block;
             margin: 0 auto;
         }
-        
+
         .profile-picture {
             width: 180px;
             height: 180px;
@@ -940,7 +943,7 @@ echo '</script>';
             overflow: hidden;
             cursor: zoom-in;
         }
-        
+
         .profile-picture img {
             width: 100%;
             height: 100%;
@@ -948,7 +951,7 @@ echo '</script>';
             object-position: center 20%;
             border-radius: 50%;
         }
-        
+
         .profile-picture-overlay {
             position: absolute;
             top: 0;
@@ -1017,28 +1020,28 @@ echo '</script>';
         .profile-image-preview .preview-close-btn:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .profile-picture-container:hover .profile-picture-overlay {
             opacity: 1;
         }
-        
+
         .profile-picture-overlay i {
             font-size: 1.5rem;
             margin-bottom: 0.25rem;
         }
-        
+
         .profile-picture-overlay span {
             font-size: 0.75rem;
         }
-        
+
         .profile-badges {
             margin-top: 1rem;
         }
-        
+
         .profile-badges .badge {
             margin: 0 0.25rem;
         }
-        
+
         .stat-row {
             display: flex;
             justify-content: space-between;
@@ -1046,48 +1049,54 @@ echo '</script>';
             padding: 0.75rem 0;
             border-bottom: 1px solid #e9ecef;
         }
-        
+
         .stat-row:last-child {
             border-bottom: none;
         }
-        
+
         .stat-label {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         .stat-value {
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
-        .qualification-item, .training-item, .membership-item {
+
+        .qualification-item,
+        .training-item,
+        .membership-item {
             margin-bottom: 0.5rem;
         }
-        
-        .qualification-item h6, .training-item h6, .membership-item h6 {
+
+        .qualification-item h6,
+        .training-item h6,
+        .membership-item h6 {
             color: var(--primary-blue);
             margin-bottom: 0.25rem;
         }
-        
-        .institution, .training-provider {
+
+        .institution,
+        .training-provider {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-bottom: 0.25rem;
         }
-        
-        .year, .training-date {
+
+        .year,
+        .training-date {
             color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 0.25rem;
         }
-        
+
         .grade {
             font-weight: 600;
             color: var(--secondary-green);
             font-size: 0.9rem;
         }
-        
+
         .performance-metric {
             background: var(--white);
             border: 1px solid #e9ecef;
@@ -1096,50 +1105,50 @@ echo '</script>';
             text-align: center;
             transition: var(--transition-medium);
         }
-        
+
         .performance-metric:hover {
             box-shadow: var(--shadow-medium);
         }
-        
+
         .metric-icon {
             margin-bottom: 1rem;
         }
-        
+
         .metric-icon i {
             font-size: 2.5rem;
             color: var(--primary-blue);
         }
-        
+
         .metric-info h3 {
             font-size: 2rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
-        
+
         .metric-info span {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         .metric-change {
             margin-top: 0.5rem;
             font-size: 0.8rem;
             font-weight: 600;
         }
-        
+
         .metric-change.positive {
             color: var(--secondary-green);
         }
-        
+
         .metric-change i {
             margin-right: 0.25rem;
         }
-        
+
         .performance-score {
             margin: 2rem 0;
         }
-        
+
         .score-circle {
             width: 120px;
             height: 120px;
@@ -1152,44 +1161,44 @@ echo '</script>';
             margin: 0 auto;
             position: relative;
         }
-        
+
         .score-number {
             font-size: 2rem;
             font-weight: 700;
             color: var(--primary-blue);
         }
-        
+
         .score-max {
             font-size: 1rem;
             color: var(--text-muted);
         }
-        
+
         .rating-breakdown {
             margin-top: 1.5rem;
         }
-        
+
         .rating-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .rating-item span {
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+
         .rating-stars {
             display: flex;
             gap: 0.25rem;
         }
-        
+
         .rating-stars i {
             color: #ffc107;
             font-size: 0.9rem;
         }
-        
+
         .setting-item {
             display: flex;
             justify-content: space-between;
@@ -1197,40 +1206,40 @@ echo '</script>';
             padding: 1rem 0;
             border-bottom: 1px solid #e9ecef;
         }
-        
+
         .setting-item:last-child {
             border-bottom: none;
         }
-        
+
         .setting-info {
             flex: 1;
             margin-right: 1rem;
         }
-        
+
         .setting-info h6 {
             margin-bottom: 0.25rem;
             color: var(--text-primary);
         }
-        
+
         .setting-info p {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin: 0;
         }
-        
+
         .toggle-switch {
             position: relative;
             display: inline-block;
             width: 50px;
             height: 24px;
         }
-        
+
         .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-        
+
         .slider {
             position: absolute;
             cursor: pointer;
@@ -1242,7 +1251,7 @@ echo '</script>';
             transition: 0.4s;
             border-radius: 24px;
         }
-        
+
         .slider:before {
             position: absolute;
             content: "";
@@ -1254,12 +1263,12 @@ echo '</script>';
             transition: 0.4s;
             border-radius: 50%;
         }
-        
-        input:checked + .slider {
+
+        input:checked+.slider {
             background-color: var(--accent-teal);
         }
-        
-        input:checked + .slider:before {
+
+        input:checked+.slider:before {
             transform: translateX(26px);
         }
 
@@ -1308,7 +1317,7 @@ echo '</script>';
         .duty-area-btn:hover {
             border-color: var(--primary-blue);
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             background: linear-gradient(135deg, #e3f2fd, #bbdefb);
         }
 
@@ -1320,8 +1329,15 @@ echo '</script>';
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
-            50% { box-shadow: 0 4px 16px rgba(76, 175, 80, 0.5); }
+
+            0%,
+            100% {
+                box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 4px 16px rgba(76, 175, 80, 0.5);
+            }
         }
 
         .duty-area-btn i {
@@ -1355,8 +1371,15 @@ echo '</script>';
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .area-header {
@@ -1581,7 +1604,7 @@ echo '</script>';
         .duty-area-btn:hover {
             border-color: #10b9a7;
             transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
         }
 
         .duty-area-btn.active {
@@ -1849,21 +1872,31 @@ echo '</script>';
         :root[data-theme='dark'] .summary-card {
             background: #2a3a52;
         }
-    
-/* counseling-session.html styles */
-.counseling-hero {
+
+        /* counseling-session.html styles */
+        .counseling-hero {
             background: linear-gradient(135deg, var(--accent-teal), var(--secondary-light-green));
             color: white;
             border-radius: var(--radius-lg);
             padding: 1.75rem 2rem;
             margin-bottom: 1.75rem;
         }
-        .counseling-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .counseling-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
+
+        .counseling-hero h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .counseling-hero p {
+            opacity: 0.95;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
         :root[data-theme='dark'] .counseling-hero {
             background: linear-gradient(135deg, #0f2d47, #146482);
         }
-        
+
         .status-badge {
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
@@ -1871,22 +1904,40 @@ echo '</script>';
             font-weight: 500;
             display: inline-block;
         }
-        .status-badge.status-active { background-color: #d4edda; color: #155724; }
 
-/* health-education-session.html styles */
-.health-hero {
+        .status-badge.status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* health-education-session.html styles */
+        .health-hero {
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-dark-green));
             color: #ffffff;
             border-radius: var(--radius-lg);
             padding: 1.75rem 2rem;
             margin-bottom: 1.75rem;
         }
-        .health-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; color: #ffffff !important; text-shadow: 0 2px 8px rgba(0,0,0,0.35); }
-        .health-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; color: rgba(255,255,255,0.95) !important; text-shadow: 0 1px 5px rgba(0,0,0,0.25); }
+
+        .health-hero h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+            color: #ffffff !important;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .health-hero p {
+            opacity: 0.95;
+            margin: 0;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.95) !important;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+        }
+
         :root[data-theme='dark'] .health-hero {
             background: linear-gradient(135deg, #1e3a5f, #0d4a44);
         }
-        
+
         .topic-pill {
             display: inline-block;
             padding: 0.25rem 0.6rem;
@@ -1897,20 +1948,30 @@ echo '</script>';
             margin-right: 0.35rem;
         }
 
-/* emergency-responses.html styles */
-.emergency-hero {
+        /* emergency-responses.html styles */
+        .emergency-hero {
             background: linear-gradient(135deg, #c0392b, #e74c3c);
             color: white;
             border-radius: var(--radius-lg);
             padding: 1.75rem 2rem;
             margin-bottom: 1.75rem;
         }
-        .emergency-hero h1 { font-size: 1.5rem; margin-bottom: 0.35rem; }
-        .emergency-hero p { opacity: 0.95; margin: 0; font-size: 0.95rem; }
+
+        .emergency-hero h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .emergency-hero p {
+            opacity: 0.95;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
         :root[data-theme='dark'] .emergency-hero {
             background: linear-gradient(135deg, #7f1d1d, #991b1b);
         }
-        
+
         .emergency-tile {
             background: var(--white);
             border-radius: var(--radius-md);
@@ -1921,47 +1982,275 @@ echo '</script>';
             gap: 1rem;
             margin-bottom: 0.75rem;
         }
+
         .emergency-tile i {
             font-size: 1.5rem;
             color: var(--accent-red);
             min-width: 2rem;
             text-align: center;
         }
-        .emergency-tile strong { display: block; color: var(--text-primary); }
-        .emergency-tile span { font-size: 0.9rem; color: var(--text-secondary); }
-        .priority-critical { border-left: 5px solid #c0392b; }
-        .priority-high { border-left: 5px solid #fd7e14; }
-        .priority-moderate { border-left: 5px solid var(--primary-blue); }
+
+        .emergency-tile strong {
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .emergency-tile span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .priority-critical {
+            border-left: 5px solid #c0392b;
+        }
+
+        .priority-high {
+            border-left: 5px solid #fd7e14;
+        }
+
+        .priority-moderate {
+            border-left: 5px solid var(--primary-blue);
+        }
 
 
         #addScheduleModal,
-        #timetableModal {
+        #scheduleVisitModal,
+        #timetableModal,
+        #scheduleVaccinationModal,
+        #updateVaccineInventoryModal,
+        #triposhaInventoryModal,
+        #triposhaDistributionModal,
+        #pregnantMotherModal,
+        #lactatingMotherModal,
+        #postnatalMotherModal,
+        #newbornModal,
+        #youngChildModal,
+        #childModal {
             z-index: 1060 !important;
         }
 
         #addScheduleModal .modal-dialog,
-        #timetableModal .modal-dialog {
+        #scheduleVisitModal .modal-dialog,
+        #timetableModal .modal-dialog,
+        #scheduleVaccinationModal .modal-dialog,
+        #updateVaccineInventoryModal .modal-dialog,
+        #triposhaInventoryModal .modal-dialog,
+        #triposhaDistributionModal .modal-dialog,
+        #pregnantMotherModal .modal-dialog,
+        #lactatingMotherModal .modal-dialog,
+        #postnatalMotherModal .modal-dialog,
+        #newbornModal .modal-dialog,
+        #youngChildModal .modal-dialog,
+        #childModal .modal-dialog {
             z-index: 1070 !important;
-            pointer-events: auto;
+            pointer-events: auto !important;
         }
 
         #addScheduleModal .modal-content,
-        #timetableModal .modal-content {
-            pointer-events: auto;
+        #scheduleVisitModal .modal-content,
+        #timetableModal .modal-content,
+        #scheduleVaccinationModal .modal-content,
+        #updateVaccineInventoryModal .modal-content,
+        #triposhaInventoryModal .modal-content,
+        #triposhaDistributionModal .modal-content,
+        #pregnantMotherModal .modal-content,
+        #lactatingMotherModal .modal-content,
+        #postnatalMotherModal .modal-content,
+        #newbornModal .modal-content,
+        #youngChildModal .modal-content,
+        #childModal .modal-content {
+            pointer-events: auto !important;
         }
 
         .modal-backdrop {
             z-index: 1050 !important;
         }
 
-</style>
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .modal {
+            pointer-events: auto !important;
+        }
+
+        /* ================================
+   FIX: Modal label/input visibility
+   Maternal & Child Care modals
+================================ */
+
+#pregnantMotherModal .modal-content,
+#lactatingMotherModal .modal-content,
+#postnatalMotherModal .modal-content,
+#newbornModal .modal-content,
+#youngChildModal .modal-content,
+#childModal .modal-content {
+    background: #111827 !important;
+    color: #ffffff !important;
+}
+
+/* Modal headers */
+#pregnantMotherModal .modal-header,
+#lactatingMotherModal .modal-header,
+#postnatalMotherModal .modal-header,
+#newbornModal .modal-header,
+#youngChildModal .modal-header,
+#childModal .modal-header {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+    color: #ffffff !important;
+}
+
+#pregnantMotherModal .modal-title,
+#lactatingMotherModal .modal-title,
+#postnatalMotherModal .modal-title,
+#newbornModal .modal-title,
+#youngChildModal .modal-title,
+#childModal .modal-title {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Labels */
+#pregnantMotherModal label,
+#lactatingMotherModal label,
+#postnatalMotherModal label,
+#newbornModal label,
+#youngChildModal label,
+#childModal label,
+#pregnantMotherModal .form-label,
+#lactatingMotherModal .form-label,
+#postnatalMotherModal .form-label,
+#newbornModal .form-label,
+#youngChildModal .form-label,
+#childModal .form-label {
+    color: #e5e7eb !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+/* Inputs, selects, textareas */
+#pregnantMotherModal .form-control,
+#lactatingMotherModal .form-control,
+#postnatalMotherModal .form-control,
+#newbornModal .form-control,
+#youngChildModal .form-control,
+#childModal .form-control,
+#pregnantMotherModal .form-select,
+#lactatingMotherModal .form-select,
+#postnatalMotherModal .form-select,
+#newbornModal .form-select,
+#youngChildModal .form-select,
+#childModal .form-select {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    opacity: 1 !important;
+}
+
+/* Placeholder text */
+#pregnantMotherModal .form-control::placeholder,
+#lactatingMotherModal .form-control::placeholder,
+#postnatalMotherModal .form-control::placeholder,
+#newbornModal .form-control::placeholder,
+#youngChildModal .form-control::placeholder,
+#childModal .form-control::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+}
+
+/* Select dropdown option text */
+#pregnantMotherModal select option,
+#lactatingMotherModal select option,
+#postnatalMotherModal select option,
+#newbornModal select option,
+#youngChildModal select option,
+#childModal select option {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+/* Textarea */
+#pregnantMotherModal textarea,
+#lactatingMotherModal textarea,
+#postnatalMotherModal textarea,
+#newbornModal textarea,
+#youngChildModal textarea,
+#childModal textarea {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+/* Close button */
+#pregnantMotherModal .close,
+#lactatingMotherModal .close,
+#postnatalMotherModal .close,
+#newbornModal .close,
+#youngChildModal .close,
+#childModal .close {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+/* Footer */
+#pregnantMotherModal .modal-footer,
+#lactatingMotherModal .modal-footer,
+#postnatalMotherModal .modal-footer,
+#newbornModal .modal-footer,
+#youngChildModal .modal-footer,
+#childModal .modal-footer {
+    border-top: 1px solid #334155 !important;
+    background: #111827 !important;
+}
+
+/* Modal z-index / disabled issue protection */
+#pregnantMotherModal,
+#lactatingMotherModal,
+#postnatalMotherModal,
+#newbornModal,
+#youngChildModal,
+#childModal {
+    z-index: 1060 !important;
+}
+
+#pregnantMotherModal .modal-dialog,
+#lactatingMotherModal .modal-dialog,
+#postnatalMotherModal .modal-dialog,
+#newbornModal .modal-dialog,
+#youngChildModal .modal-dialog,
+#childModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#pregnantMotherModal .modal-content,
+#lactatingMotherModal .modal-content,
+#postnatalMotherModal .modal-content,
+#newbornModal .modal-content,
+#youngChildModal .modal-content,
+#childModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+    </style>
 </head>
+
 <body class="dashboard-with-sidebar">
     <!-- START: navbar.php -->
     <header class="header">
         <div class="container">
             <div class="header-left">
-                
+
                 <div class="logo">
                     <img src="../images/logoimage.png" alt="MidConnect Logo">
                     <span>MidConnect</span>
@@ -2007,79 +2296,74 @@ echo '</script>';
 
         <div class="content-with-sidebar">
             <!-- Dashboard Overview -->
-            <div id="dashboard" class="content-section">
-                <div class="welcome-banner">
-                    <div class="row">
-                        <div class="col-8">
-                            <h2 id="greeting-text">Good Morning, Madhavi!</h2>
-                            <p>Ready to make a difference in your community today. You have 5 scheduled activities.</p>
-                        </div>
-                        <div class="col-4 text-center">
-                            <div class="progress-ring">
-                                <svg width="120" height="120">
-                                    <circle class="background" cx="60" cy="60" r="50"></circle>
-                                    <circle class="progress" cx="60" cy="60" r="50" 
-                                            stroke-dasharray="314.16" 
-                                            stroke-dashoffset="78.54"></circle>
-                                </svg>
-                                <div class="progress-text">75%</div>
-                            </div>
-                            <p>Daily Goals</p>
-                        </div>
-                    </div>
+<div id="dashboard" class="content-section">
+    <div class="welcome-banner">
+        <div class="row">
+            <div class="col-10">
+                <h2 id="greeting-text">Good Morning, Madhavi!</h2>
+                <p>
+                    Ready to make a difference in your community today.
+                    You have <span id="dashboardScheduledCount">0</span> scheduled activities.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Dashboard Widgets -->
+    <div class="row" style="margin-bottom: 2rem;" id="dynamic-widgets-container">
+
+        <!-- 1. Urgent Meetings -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--accent-red); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--accent-red);">
+                        <i class="fas fa-exclamation-triangle"></i> Urgent Meetings
+                    </h4>
                 </div>
 
-                
-                <!-- Dynamic Dashboard Widgets -->
-                <div class="row" style="margin-bottom: 2rem;" id="dynamic-widgets-container">
-                    <!-- 1. Urgent Meetings -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-red); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-red);"><i class="fas fa-exclamation-triangle"></i> Urgent Meetings</h4>
-                            </div>
-                            <div class="card-body" id="widget-urgent" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 2. Upcoming Clinics -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--primary-blue); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--primary-blue);"><i class="fas fa-hospital"></i> Upcoming Clinics</h4>
-                            </div>
-                            <div class="card-body" id="widget-clinics" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 3. Time Table -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--secondary-green); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--secondary-green);"><i class="fas fa-clock"></i> Today's Time Table</h4>
-                            </div>
-                            <div class="card-body" id="widget-timetable" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 4. Notifications -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-orange); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-orange);"><i class="fas fa-bell"></i> Notifications & Alerts</h4>
-                            </div>
-                            <div class="card-body" id="widget-notifications" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
+                <div class="card-body" id="urgentMeetingsList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- 2. Upcoming Clinics -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--primary-blue); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--primary-blue);">
+                        <i class="fas fa-hospital"></i> Upcoming Clinics
+                    </h4>
+                </div>
+
+                <div class="card-body" id="upcomingClinicsList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Today's Time Table -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--secondary-green); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--secondary-green);">
+                        <i class="fas fa-clock"></i> Today's Time Table
+                    </h4>
+                </div>
+
+                <div class="card-body" id="todaysTimetableList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
             <!-- Log Activity Section -->
@@ -2127,8 +2411,8 @@ echo '</script>';
 
                         <div class="form-group">
                             <label class="form-label">Activity Description</label>
-                            <textarea class="form-control" name="description" rows="4" 
-                                      placeholder="Describe the activity, procedures performed, observations, etc."></textarea>
+                            <textarea class="form-control" name="description" rows="4"
+                                placeholder="Describe the activity, procedures performed, observations, etc."></textarea>
                         </div>
 
                         <div class="row">
@@ -2179,13 +2463,15 @@ echo '</script>';
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addScheduleModal">
                             <i class="fas fa-plus"></i> Add Schedule Item
                         </button>
-<!-- if needed, you can uncomment the following button to enable the timetable modal for viewing detailed schedules. Make sure to implement the modal functionality in your JavaScript code to display the timetable when this button is clicked. -->
-<!--                     
+                        <!-- if needed, you can uncomment the following button to enable the timetable modal for viewing detailed schedules. Make sure to implement the modal functionality in your JavaScript code to display the timetable when this button is clicked. -->
+                        <!--                     
                         <button class="btn btn-info" type="button" data-toggle="modal" data-target="#timetableModal">
                             <i class="fas fa-calendar-alt"></i> My Timetable
                         </button> -->
                     </div>
                 </div>
+
+
 
                 <div class="duty-areas-container">
                     <div class="duty-areas-title">
@@ -2259,7 +2545,7 @@ echo '</script>';
             </div>
 
             <!-- Maternal and Child Care Section -->
-                        
+
             <!-- counseling-session Section -->
             <div id="counseling-session" class="content-section" style="display: none;">
                 <div class="counseling-hero">
@@ -2270,14 +2556,19 @@ echo '</script>';
                 <div class="row" style="margin-bottom: 1.5rem;">
                     <div class="col-6">
                         <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">14</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Sessions this month</div>
+                            <div id="counselingSessionsThisMonth" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                                Sessions this month
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-6">
                         <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.25rem;">
-                            <div style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">5</div>
-                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">Follow-ups scheduled</div>
+                            <div id="counselingFollowupsScheduled" style="font-size: 1.75rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.35rem;">
+                                Follow-ups scheduled
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2286,32 +2577,36 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Log counseling session</h4>
                     </div>
+
                     <div class="card-body">
-                        <form id="counselingForm">
+                        <form id="counselingForm" action="../php/midwife/create_counseling_session.php" method="POST">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Date &amp; time</label>
+                                        <label class="form-label">Date &amp; time *</label>
                                         <input type="datetime-local" class="form-control" name="session_datetime" required>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
+                                        <label class="form-label">Duration (minutes) *</label>
                                         <input type="number" class="form-control" name="duration_mins" min="5" max="240" value="30" required>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Client identifier</label>
+                                        <label class="form-label">Client identifier *</label>
                                         <input type="text" class="form-control" name="client_ref" placeholder="e.g. initials or clinic number" required>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Session focus</label>
+                                        <label class="form-label">Session focus *</label>
                                         <select class="form-control form-select" name="focus" required>
                                             <option value="">Select</option>
                                             <option value="antenatal">Antenatal care &amp; birth planning</option>
@@ -2325,28 +2620,45 @@ echo '</script>';
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-label">Location</label>
                                 <select class="form-control form-select" name="location_type">
                                     <option value="clinic">MOH clinic</option>
                                     <option value="home">Home visit</option>
                                     <option value="phone">Telephone</option>
+                                    <option value="community">Community Center</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-label">Summary &amp; advice given</label>
+                                <label class="form-label">Summary &amp; advice given *</label>
                                 <textarea class="form-control" name="notes" rows="4" placeholder="Brief notes (no unnecessary personal detail)" required></textarea>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-label">Follow-up required</label>
-                                <select class="form-control form-select" name="followup">
+                                <select class="form-control form-select" name="followup" id="counselingFollowupSelect">
                                     <option value="no">No</option>
                                     <option value="yes">Yes — schedule</option>
                                     <option value="referral">Referral to specialist</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Follow-up Date</label>
+                                <input type="date" class="form-control" name="followup_date">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Referral Details</label>
+                                <textarea class="form-control" name="referral_details" rows="2" placeholder="Add referral details if applicable"></textarea>
+                            </div>
+
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save session
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -2356,6 +2668,7 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Recent counseling sessions</h4>
                     </div>
+
                     <div class="card-body" style="padding: 0;">
                         <div style="overflow-x: auto;">
                             <table class="table" style="width: 100%; margin: 0; border-collapse: collapse;">
@@ -2368,37 +2681,22 @@ echo '</script>';
                                         <th style="padding: 0.75rem 1rem;">Follow-up</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">26 Mar 2026, 10:15</td>
-                                        <td style="padding: 0.75rem 1rem;">Breastfeeding &amp; nutrition</td>
-                                        <td style="padding: 0.75rem 1rem;">MOH Clinic</td>
-                                        <td style="padding: 0.75rem 1rem;">45 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge status-active">Scheduled</span></td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #e9ecef;">
-                                        <td style="padding: 0.75rem 1rem;">24 Mar 2026, 14:00</td>
-                                        <td style="padding: 0.75rem 1rem;">Antenatal care</td>
-                                        <td style="padding: 0.75rem 1rem;">Home Visit</td>
-                                        <td style="padding: 0.75rem 1rem;">30 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #e9ecef; color: var(--text-primary);">None</span></td>
-                                    </tr>
+
+                                <tbody id="counselingSessionTableBody">
                                     <tr>
-                                        <td style="padding: 0.75rem 1rem;">22 Mar 2026, 09:30</td>
-                                        <td style="padding: 0.75rem 1rem;">Mental health support</td>
-                                        <td style="padding: 0.75rem 1rem;">Community Center</td>
-                                        <td style="padding: 0.75rem 1rem;">60 min</td>
-                                        <td style="padding: 0.75rem 1rem;"><span class="status-badge" style="background: #fff3cd; color: #856404;">Referral</span></td>
+                                        <td colspan="5" class="text-muted" style="padding: 0.75rem 1rem;">
+                                            Loading counseling sessions...
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-</div>
+            </div>
 
-<!-- health-education-session Section -->
-<div id="health-education-session" class="content-section" style="display: none;">
+            <!-- health-education-session Section -->
+            <div id="health-education-session" class="content-section section-slide-in" style="display: none;">
                 <div class="health-hero">
                     <h1><i class="fas fa-chalkboard-teacher"></i> Health education sessions</h1>
                     <p>Group talks, demonstrations, and community awareness on maternal and child health topics.</p>
@@ -2407,20 +2705,28 @@ echo '</script>';
                 <div class="row" style="margin-bottom: 1.5rem;">
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--accent-orange); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">8</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Sessions (90 days)</div>
+                            <div id="healthEdSessions90Days" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Sessions (90 days)
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--secondary-green); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">186</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Participants reached</div>
+                            <div id="healthEdParticipantsReached" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Participants reached
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="card" style="border-left: 4px solid var(--primary-blue); text-align: center; padding: 1.1rem;">
-                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">4</div>
-                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Upcoming</div>
+                            <div id="healthEdUpcomingCount" style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue);">0</div>
+                            <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">
+                                Upcoming
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2429,26 +2735,29 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Record health education session</h4>
                     </div>
+
                     <div class="card-body">
-                        <form id="healthEdForm">
+                        <form id="healthEdForm" action="../php/midwife/create_health_education_session.php" method="POST">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Session date</label>
+                                        <label class="form-label">Session date *</label>
                                         <input type="date" class="form-control" name="session_date" required>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Venue</label>
+                                        <label class="form-label">Venue *</label>
                                         <input type="text" class="form-control" name="venue" placeholder="e.g. MOH clinic hall, village temple" required>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="form-label">Main topic</label>
+                                        <label class="form-label">Main topic *</label>
                                         <select class="form-control form-select" name="topic" required>
                                             <option value="">Select topic</option>
                                             <option value="nutrition">Maternal nutrition &amp; iron</option>
@@ -2462,6 +2771,7 @@ echo '</script>';
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="form-label">Audience</label>
@@ -2474,32 +2784,49 @@ echo '</script>';
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-label">Approx. attendees</label>
+                                        <label class="form-label">Approx. attendees *</label>
                                         <input type="number" class="form-control" name="attendees" min="1" max="500" value="25" required>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label class="form-label">Duration (minutes)</label>
+                                        <label class="form-label">Duration (minutes) *</label>
                                         <input type="number" class="form-control" name="duration_mins" min="15" max="180" value="45" required>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label class="form-label">Materials used</label>
-                                        <input type="text" class="form-control" name="materials" placeholder="Flip chart, leaflets…">
+                                        <input type="text" class="form-control" name="materials" placeholder="Flip chart, leaflets...">
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="form-label">Outcomes &amp; questions raised</label>
                                 <textarea class="form-control" name="outcomes" rows="3" placeholder="Key messages delivered and follow-up needs"></textarea>
                             </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control form-select" name="status">
+                                    <option value="completed">Completed</option>
+                                    <option value="upcoming">Upcoming</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save session</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save session
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -2509,1640 +2836,292 @@ echo '</script>';
                     <div class="card-header">
                         <h4 class="card-title">Recent &amp; planned sessions</h4>
                     </div>
+
                     <div class="card-body">
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--secondary-green);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">28 Mar</div>
-                                <div>
-                                    <strong>Immunization schedule</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">MOH waiting area · 32 participants · Flip chart</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Upcoming</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">18 Mar</div>
-                                <div>
-                                    <strong>Pregnancy danger signs</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Community centre · 28 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; padding: 1rem; border: 1px solid #e9ecef; border-radius: var(--radius-md); border-left: 4px solid var(--primary-blue);">
-                                <div style="min-width: 88px; font-weight: 600; color: var(--primary-blue);">05 Mar</div>
-                                <div>
-                                    <strong>Newborn care &amp; breastfeeding</strong>
-                                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Clinic hall · 41 participants</div>
-                                    <div style="margin-top: 0.5rem;"><span class="topic-pill">Completed</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-</div>
-
-            <div id="patients" class="content-section" style="display: none;">
-                <div class="d-flex justify-between align-center mb-3">
-                    <h2>Maternal and Child Care</h2>
-                    <input type="text" class="form-control" placeholder="Search records..." style="max-width: 300px;">
-                </div>
-
-                <!-- Duty Areas Selection -->
-                <div class="duty-areas-container">
-                    <div class="duty-areas-title">
-                        <i class="fas fa-map-marker-alt"></i> Select Duty Area
-                    </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('patients', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">45 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">38 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">28 active patients</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('patients', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">52 active patients</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Maternal & Child Care</h4>
-                        <p>Coverage: 15 villages | Pregnant: 12, Lactating: 18, Children: 45 | Clinic: Uduthuththiripitiya CHC</p>
-                    </div>
-
-                <!-- Tabs for Mothers and Children -->
-                <div class="tab-container">
-                    <ul class="nav nav-tabs" style="width: 100%;">
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                <i class="fas fa-female"></i> Mothers
-                            </a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                <i class="fas fa-child"></i> Children
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Mothers Tab -->
-                <div id="mothers-tab" class="tab-content">
-                    <!-- Sub-tabs for different mother categories -->
-                    <div class="tab-container" style="margin-top: 1rem;">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                    <i class="fas fa-baby"></i> Pregnant Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Lactating Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                    <i class="fas fa-procedures"></i> Postnatal Mothers
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Pregnant Mothers Sub-tab -->
-                    <div id="pregnant-mothers" class="tab-content">
-                        <div class="card">
-                            <div class="card-header d-flex justify-between align-center">
-                                <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                    <i class="fas fa-plus"></i> Add Pregnant Mother
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Mother's Name</th>
-                                            <th>Age</th>
-                                            <th>Weeks Pregnant</th>
-                                            <th>Last Visit</th>
-                                            <th>Next Appointment</th>
-                                            <th>Risk Level</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Mrs. Kumari Silva</td>
-                                            <td>28</td>
-                                            <td>32 weeks</td>
-                                            <td>2026-02-03</td>
-                                            <td>2026-02-10</td>
-                                            <td><span class="status-badge status-success">Low Risk</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 1, 'Mrs. Kumari Silva', 28, '32', '2026-02-03', '2026-02-10', 'Low Risk')">Update</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Priyanka Perera</td>
-                                            <td>26</td>
-                                            <td>24 weeks</td>
-                                            <td>2026-01-30</td>
-                                            <td>2026-02-13</td>
-                                            <td><span class="status-badge status-success">Low Risk</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 2, 'Mrs. Priyanka Perera', 26, '24', '2026-01-30', '2026-02-13', 'Low Risk')">Update</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Sanduni Wickramasinghe</td>
-                                            <td>35</td>
-                                            <td>38 weeks</td>
-                                            <td>2026-02-01</td>
-                                            <td>2026-02-08</td>
-                                            <td><span class="status-badge status-danger">High Risk</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 3, 'Mrs. Sanduni Wickramasinghe', 35, '38', '2026-02-01', '2026-02-08', 'High Risk')">Update</button>
-                                                <button class="btn btn-danger btn-sm">Urgent</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Chamika Rajapaksa</td>
-                                            <td>29</td>
-                                            <td>16 weeks</td>
-                                            <td>2026-01-28</td>
-                                            <td>2026-02-25</td>
-                                            <td><span class="status-badge status-success">Low Risk</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('pregnant', 4, 'Mrs. Chamika Rajapaksa', 29, '16', '2026-01-28', '2026-02-25', 'Low Risk')">Update</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lactating Mothers Sub-tab -->
-                    <div id="lactating-mothers" class="tab-content hidden">
-                        <div class="card">
-                            <div class="card-header d-flex justify-between align-center">
-                                <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                    <i class="fas fa-plus"></i> Add Lactating Mother
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Mother's Name</th>
-                                            <th>Age</th>
-                                            <th>Baby's Age</th>
-                                            <th>Breastfeeding Status</th>
-                                            <th>Last Visit</th>
-                                            <th>Support Level</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Mrs. Anura Fernando</td>
-                                            <td>32</td>
-                                            <td>2 weeks</td>
-                                            <td>Exclusive breastfeeding</td>
-                                            <td>2026-01-28</td>
-                                            <td><span class="status-badge status-success">Good Support</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 5, 'Mrs. Anura Fernando', 32, '2 weeks', '2026-01-28', 'Exclusive breastfeeding', 'Good Support')">Update</button>
-                                                <button class="btn btn-success btn-sm">Support</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Nishani Gamage</td>
-                                            <td>27</td>
-                                            <td>6 weeks</td>
-                                            <td>Mixed feeding</td>
-                                            <td>2026-02-02</td>
-                                            <td><span class="status-badge status-warning">Needs Support</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 6, 'Mrs. Nishani Gamage', 27, '6 weeks', '2026-02-02', 'Mixed feeding', 'Needs Support')">Update</button>
-                                                <button class="btn btn-primary btn-sm">Counsel</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Shalika Mendis</td>
-                                            <td>30</td>
-                                            <td>4 weeks</td>
-                                            <td>Exclusive breastfeeding</td>
-                                            <td>2026-01-31</td>
-                                            <td><span class="status-badge status-success">Good Support</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('lactating', 7, 'Mrs. Shalika Mendis', 30, '4 weeks', '2026-01-31', 'Exclusive breastfeeding', 'Good Support')">Update</button>
-                                                <button class="btn btn-success btn-sm">Support</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Postnatal Mothers Sub-tab -->
-                    <div id="postnatal-mothers" class="tab-content hidden">
-                        <div class="card">
-                            <div class="card-header d-flex justify-between align-center">
-                                <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                    <i class="fas fa-plus"></i> Add Postnatal Mother
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Mother's Name</th>
-                                            <th>Age</th>
-                                            <th>Delivery Date</th>
-                                            <th>Delivery Type</th>
-                                            <th>Recovery Status</th>
-                                            <th>Last Visit</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Mrs. Dilani Perera</td>
-                                            <td>31</td>
-                                            <td>2026-01-15</td>
-                                            <td>Normal Delivery</td>
-                                            <td>Good Recovery</td>
-                                            <td>2026-02-01</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 8, 'Mrs. Dilani Perera', 31, '2026-01-15', '2026-02-01', 'Normal Delivery', 'Good Recovery')">Update</button>
-                                                <button class="btn btn-success btn-sm">Follow-up</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Malika Jayasinghe</td>
-                                            <td>33</td>
-                                            <td>2026-01-08</td>
-                                            <td>C-Section</td>
-                                            <td>Slow Recovery</td>
-                                            <td>2026-02-03</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 9, 'Mrs. Malika Jayasinghe', 33, '2026-01-08', '2026-02-03', 'C-Section', 'Slow Recovery')">Update</button>
-                                                <button class="btn btn-primary btn-sm">Monitor</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Chathurika Silva</td>
-                                            <td>28</td>
-                                            <td>2025-12-20</td>
-                                            <td>Normal Delivery</td>
-                                            <td>Excellent Recovery</td>
-                                            <td>2026-01-25</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 10, 'Mrs. Chathurika Silva', 28, '2025-12-20', '2026-01-25', 'Normal Delivery', 'Excellent Recovery')">Update</button>
-                                                <button class="btn btn-success btn-sm">Complete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mrs. Roshani Fernando</td>
-                                            <td>25</td>
-                                            <td>2026-01-28</td>
-                                            <td>Normal Delivery</td>
-                                            <td>Good Recovery</td>
-                                            <td>2026-02-04</td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm" onclick="updateMother('postnatal', 11, 'Mrs. Roshani Fernando', 25, '2026-01-28', '2026-02-04', 'Normal Delivery', 'Good Recovery')">Update</button>
-                                                <button class="btn btn-success btn-sm">Follow-up</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Children Tab -->
-                <div id="children-tab" class="tab-content hidden">
-                    <!-- Sub-tabs for different children categories -->
-                    <div class="tab-container" style="margin-top: 1rem;">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                    <i class="fas fa-baby"></i> Newborns
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                    <i class="fas fa-baby-carriage"></i> Young Children
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                    <i class="fas fa-child"></i> Childs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Newborns Sub-tab -->
-                    <div id="newborns-children" class="tab-content">
-                        <div class="card">
-                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                    <i class="fas fa-plus"></i> Add Newborn
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Baby's Name</th>
-                                            <th>Mother's Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Birth Weight</th>
-                                            <th>Last Check-up</th>
-                                            <th>Health Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Baby Fernando</td>
-                                            <td>Mrs. Anura Fernando</td>
-                                            <td>2026-01-22</td>
-                                            <td>3.2 kg</td>
-                                            <td>2026-02-01</td>
-                                            <td><span class="status-badge status-success">Healthy</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-success btn-sm">Vaccinate</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Baby Rajapaksa</td>
-                                            <td>Mrs. Nishani Rajapaksa</td>
-                                            <td>2026-01-15</td>
-                                            <td>2.8 kg</td>
-                                            <td>2026-01-29</td>
-                                            <td><span class="status-badge status-warning">Monitoring</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-primary btn-sm">Follow-up</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Baby Gamage</td>
-                                            <td>Mrs. Shalika Gamage</td>
-                                            <td>2025-12-28</td>
-                                            <td>3.5 kg</td>
-                                            <td>2026-01-25</td>
-                                            <td><span class="status-badge status-success">Healthy</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-success btn-sm">Vaccinate</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Young Children Sub-tab -->
-                    <div id="young-children" class="tab-content hidden">
-                        <div class="card">
-                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                    <i class="fas fa-plus"></i> Add Young Child
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Child's Name</th>
-                                            <th>Age</th>
-                                            <th>Parent/Guardian</th>
-                                            <th>Weight</th>
-                                            <th>Height</th>
-                                            <th>Last Check-up</th>
-                                            <th>Development Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Sahan Perera</td>
-                                            <td>2 years</td>
-                                            <td>Mrs. Priyanka Perera</td>
-                                            <td>12.5 kg</td>
-                                            <td>85 cm</td>
-                                            <td>2026-02-03</td>
-                                            <td><span class="status-badge status-success">Normal</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-success btn-sm">Vaccinate</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nimali Silva</td>
-                                            <td>3 years</td>
-                                            <td>Mrs. Kumari Silva</td>
-                                            <td>14.2 kg</td>
-                                            <td>95 cm</td>
-                                            <td>2026-01-28</td>
-                                            <td><span class="status-badge status-success">Normal</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-info btn-sm">Assessment</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kasun Mendis</td>
-                                            <td>18 months</td>
-                                            <td>Mrs. Chamani Mendis</td>
-                                            <td>10.8 kg</td>
-                                            <td>78 cm</td>
-                                            <td>2026-02-01</td>
-                                            <td><span class="status-badge status-warning">Delayed</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-primary btn-sm">Therapy</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Childs Sub-tab -->
-                    <div id="childs-children" class="tab-content hidden">
-                        <div class="card">
-                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                    <i class="fas fa-plus"></i> Add Child
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Child's Name</th>
-                                            <th>Age</th>
-                                            <th>Parent/Guardian</th>
-                                            <th>School</th>
-                                            <th>Last Health Check</th>
-                                            <th>Health Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Amal Wickramasinghe</td>
-                                            <td>5 years</td>
-                                            <td>Mrs. Sanduni Wickramasinghe</td>
-                                            <td>Sunshine Pre-School</td>
-                                            <td>2026-01-25</td>
-                                            <td><span class="status-badge status-success">Healthy</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-success btn-sm">Check-up</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tharindu Fernando</td>
-                                            <td>6 years</td>
-                                            <td>Mrs. Anura Fernando</td>
-                                            <td>Little Stars School</td>
-                                            <td>2026-02-02</td>
-                                            <td><span class="status-badge status-success">Healthy</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-info btn-sm">Dental</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sachini Gamage</td>
-                                            <td>4 years</td>
-                                            <td>Mrs. Shalika Gamage</td>
-                                            <td>Rainbow Kindergarten</td>
-                                            <td>2026-01-30</td>
-                                            <td><span class="status-badge status-warning">Vision Issue</span></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">View</button>
-                                                <button class="btn btn-warning btn-sm">Update</button>
-                                                <button class="btn btn-danger btn-sm">Referral</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Maternal & Child Care</h4>
-                        <p>Coverage: 12 villages | Pregnant: 10, Lactating: 15, Children: 38 | Clinic: Kahabilihena RH</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Nishani Rajapaksha</td>
-                                                <td>27</td>
-                                                <td>28 weeks</td>
-                                                <td>2026-02-08</td>
-                                                <td>2026-02-15</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Ayesha Dissanayake</td>
-                                                <td>25</td>
-                                                <td>20 weeks</td>
-                                                <td>2026-02-06</td>
-                                                <td>2026-02-20</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Darshika Perera</td>
-                                                <td>29</td>
-                                                <td>3 months</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Dilini Wickramasinghe</td>
-                                                <td>26</td>
-                                                <td>2026-02-01</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-08</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Perera</td>
-                                                <td>Mrs. Darshika Perera</td>
-                                                <td>2025-11-15</td>
-                                                <td>3.1 kg</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Sanduni Rajapaksha</td>
-                                                <td>2 years</td>
-                                                <td>Mrs. Nishani Rajapaksha</td>
-                                                <td>2026-02-05</td>
-                                                <td>12.5 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Kavindu Dissanayake</td>
-                                                <td>5 years</td>
-                                                <td>Mrs. Ayesha Dissanayake</td>
-                                                <td>Sunshine School</td>
-                                                <td>2026-02-03</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Maternal & Child Care</h4>
-                        <p>Coverage: 8 urban wards | Pregnant: 8, Lactating: 12, Children: 28 | Clinic: Opathella PHC</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Chamari Silva</td>
-                                                <td>24</td>
-                                                <td>20 weeks</td>
-                                                <td>2026-02-09</td>
-                                                <td>2026-02-16</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Tharanga Jayawardena</td>
-                                                <td>30</td>
-                                                <td>32 weeks</td>
-                                                <td>2026-02-10</td>
-                                                <td>2026-02-17</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Kumari Jayasinghe</td>
-                                                <td>28</td>
-                                                <td>2 months</td>
-                                                <td>2026-02-08</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Malini Wickramasinghe</td>
-                                                <td>31</td>
-                                                <td>2026-02-03</td>
-                                                <td>C-Section</td>
-                                                <td>Good Recovery</td>
-                                                <td>2026-02-14</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Jayasinghe</td>
-                                                <td>Mrs. Kumari Jayasinghe</td>
-                                                <td>2025-12-10</td>
-                                                <td>3.3 kg</td>
-                                                <td>2026-02-08</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Thisara Silva</td>
-                                                <td>18 months</td>
-                                                <td>Mrs. Chamari Silva</td>
-                                                <td>2026-02-07</td>
-                                                <td>11.2 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Dineth Jayawardena</td>
-                                                <td>6 years</td>
-                                                <td>Mrs. Tharanga Jayawardena</td>
-                                                <td>Central School</td>
-                                                <td>2026-02-05</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Maternal & Child Care</h4>
-                        <p>Coverage: 18 villages | Pregnant: 15, Lactating: 20, Children: 52 | Clinic: Ambalangoda DH</p>
-                    </div>
-
-                    <!-- Tabs for Mothers and Children -->
-                    <div class="tab-container">
-                        <ul class="nav nav-tabs" style="width: 100%;">
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link active" href="#" onclick="switchCareTab('mothers')" style="text-align: center;">
-                                    <i class="fas fa-female"></i> Mothers
-                                </a>
-                            </li>
-                            <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                <a class="nav-link" href="#" onclick="switchCareTab('children')" style="text-align: center;">
-                                    <i class="fas fa-child"></i> Children
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Mothers Tab -->
-                    <div id="mothers-tab" class="tab-content">
-                        <!-- Sub-tabs for different mother categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs" style="width: 100%;">
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link active" href="#" onclick="switchMotherTab('pregnant')" style="text-align: center;">
-                                        <i class="fas fa-baby"></i> Pregnant Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('lactating')" style="text-align: center;">
-                                        <i class="fas fa-child"></i> Lactating Mothers
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="flex: 1; margin-right: 0;">
-                                    <a class="nav-link" href="#" onclick="switchMotherTab('postnatal')" style="text-align: center;">
-                                        <i class="fas fa-procedures"></i> Postnatal Mothers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Pregnant Mothers Sub-tab -->
-                        <div id="pregnant-mothers" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Pregnant Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPregnantMother()">
-                                        <i class="fas fa-plus"></i> Add Pregnant Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Weeks Pregnant</th>
-                                                <th>Last Visit</th>
-                                                <th>Next Appointment</th>
-                                                <th>Risk Level</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Sandya Fernando</td>
-                                                <td>26</td>
-                                                <td>36 weeks</td>
-                                                <td>2026-02-11</td>
-                                                <td>2026-02-14</td>
-                                                <td><span class="status-badge status-warning">High Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Nimalika Silva</td>
-                                                <td>26</td>
-                                                <td>32 weeks</td>
-                                                <td>2026-02-09</td>
-                                                <td>2026-02-16</td>
-                                                <td><span class="status-badge status-success">Low Risk</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Ruvini Bandara</td>
-                                                <td>28</td>
-                                                <td>6 months</td>
-                                                <td>2026-02-10</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>29</td>
-                                                <td>4 months</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lactating Mothers Sub-tab -->
-                        <div id="lactating-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Lactating Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addLactatingMother()">
-                                        <i class="fas fa-plus"></i> Add Lactating Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Baby's Age</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>29</td>
-                                                <td>4 months</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postnatal Mothers Sub-tab -->
-                        <div id="postnatal-mothers" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Postnatal Mothers</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addPostnatalMother()">
-                                        <i class="fas fa-plus"></i> Add Postnatal Mother
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Mother's Name</th>
-                                                <th>Age</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Type</th>
-                                                <th>Recovery Status</th>
-                                                <th>Next Check-up</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Mrs. Menaka Liyanage</td>
-                                                <td>27</td>
-                                                <td>2026-01-30</td>
-                                                <td>Normal Delivery</td>
-                                                <td>Excellent Recovery</td>
-                                                <td>2026-02-13</td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Follow-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Children Tab -->
-                    <div id="children-tab" class="tab-content hidden">
-                        <!-- Sub-tabs for different children categories -->
-                        <div class="tab-container" style="margin-top: 1rem;">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#" onclick="switchChildrenTab('newborns')">
-                                        <i class="fas fa-baby"></i> Newborns
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('young')">
-                                        <i class="fas fa-baby-carriage"></i> Young Children
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" onclick="switchChildrenTab('childs')">
-                                        <i class="fas fa-child"></i> Childs
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Newborns Sub-tab -->
-                        <div id="newborns-children" class="tab-content">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Newborns</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addNewborn()">
-                                        <i class="fas fa-plus"></i> Add Newborn
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Baby's Name</th>
-                                                <th>Mother's Name</th>
-                                                <th>Date of Birth</th>
-                                                <th>Birth Weight</th>
-                                                <th>Last Check-up</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Baby Tharusha Bandara</td>
-                                                <td>Mrs. Ruvini Bandara</td>
-                                                <td>2025-08-15</td>
-                                                <td>3.4 kg</td>
-                                                <td>2026-02-09</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Baby Rajapaksha</td>
-                                                <td>Mrs. Chamari Rajapaksha</td>
-                                                <td>2025-10-20</td>
-                                                <td>3.0 kg</td>
-                                                <td>2026-02-11</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Vaccinate</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Young Children Sub-tab -->
-                        <div id="young-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Young Children</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addYoungChild()">
-                                        <i class="fas fa-plus"></i> Add Young Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>Last Check-up</th>
-                                                <th>Weight</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Hasini Fernando</td>
-                                                <td>2.5 years</td>
-                                                <td>Mrs. Sandya Fernando</td>
-                                                <td>2026-02-08</td>
-                                                <td>13.1 kg</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-success btn-sm">Check-up</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Childs Sub-tab -->
-                        <div id="childs-children" class="tab-content hidden">
-                            <div class="card">
-                                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                                    <h5 class="card-title" style="margin: 0;">Childs</h5>
-                                    <button class="btn btn-primary btn-sm" onclick="addChild()">
-                                        <i class="fas fa-plus"></i> Add Child
-                                    </button>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Child's Name</th>
-                                                <th>Age</th>
-                                                <th>Mother's Name</th>
-                                                <th>School</th>
-                                                <th>Last Visit</th>
-                                                <th>Health Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Lakshitha Silva</td>
-                                                <td>7 years</td>
-                                                <td>Mrs. Nimalika Silva</td>
-                                                <td>Seaside School</td>
-                                                <td>2026-02-04</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Piyumi Liyanage</td>
-                                                <td>5 years</td>
-                                                <td>Mrs. Menaka Liyanage</td>
-                                                <td>Ocean View Kindergarten</td>
-                                                <td>2026-02-06</td>
-                                                <td><span class="status-badge status-success">Healthy</span></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">View</button>
-                                                    <button class="btn btn-warning btn-sm">Update</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div id="healthEducationSessionList" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <p class="text-muted">Loading health education sessions...</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+
+
+
+
+
+
+            <div id="patients" class="content-section section-slide-in" style="display: none;">
+                <div class="d-flex justify-between align-center mb-3">
+                <h2>Maternal and Child Care</h2>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="careSearchInput"
+                    placeholder="Search records..."
+                    style="max-width: 300px;"
+                >
+            </div>
+
+    <!-- Duty Areas Selection -->
+    <div class="duty-areas-container">
+        <div class="duty-areas-title">
+            <i class="fas fa-map-marker-alt"></i> Select Duty Area
+        </div>
+
+        <!-- JS will load real area counts here -->
+        <div class="duty-areas-grid" id="careAreaGrid">
+            <div class="duty-area-btn active" onclick="switchMaternalChildArea('uduthuththiripitiya')">
+                <i class="fas fa-home"></i>
+                <h5>Uduthuththiripitiya</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('kahabilihena')">
+                <i class="fas fa-hospital"></i>
+                <h5>Kahabilihena</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('opathella')">
+                <i class="fas fa-city"></i>
+                <h5>Opathella</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+
+            <div class="duty-area-btn" onclick="switchMaternalChildArea('ambalangoda')">
+                <i class="fas fa-tree"></i>
+                <h5>Ambalangoda</h5>
+                <div class="area-count">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Selected Area Content -->
+ <div class="area-content-wrapper active">
+    <div class="area-header">
+        <h4 id="careAreaTitle">
+            <i class="fas fa-map-marker-alt"></i> Maternal &amp; Child Care
+        </h4>
+        <p id="careAreaSubtitle">Loading records...</p>
+    </div>
+
+    <!-- Main Tabs -->
+    <div class="tab-container">
+        <ul class="nav nav-tabs" style="width: 100%;">
+            <li class="nav-item" style="flex: 1; margin-right: 0;">
+                <a
+                    class="nav-link active"
+                    href="#"
+                    data-care-main-tab="mothers"
+                    onclick="switchCareTab('mothers', event)"
+                    style="text-align: center;"
+                >
+                    <i class="fas fa-female"></i> Mothers
+                </a>
+            </li>
+
+            <li class="nav-item" style="flex: 1; margin-right: 0;">
+                <a
+                    class="nav-link"
+                    href="#"
+                    data-care-main-tab="children"
+                    onclick="switchCareTab('children', event)"
+                    style="text-align: center;"
+                >
+                    <i class="fas fa-child"></i> Children
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Mothers Tab -->
+    <div id="mothers-tab" class="tab-content" style="display: block;">
+        <div class="tab-container" style="margin-top: 1rem;">
+            <ul class="nav nav-tabs" style="width: 100%;">
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link active"
+                        href="#"
+                        data-mother-tab="pregnant"
+                        onclick="switchMotherTab('pregnant', event); updateMotherAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-baby"></i> Pregnant Mothers
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-mother-tab="lactating"
+                        onclick="switchMotherTab('lactating', event); updateMotherAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-child"></i> Lactating Mothers
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-mother-tab="postnatal"
+                        onclick="switchMotherTab('postnatal', event); updateMotherAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-procedures"></i> Postnatal Mothers
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card" style="margin-top: 1rem;">
+            <div class="card-header d-flex justify-between align-center">
+                <h5 class="card-title" id="motherTableTitle" style="margin: 0;">
+                    Pregnant Mothers
+                </h5>
+
+                <button
+                    id="motherAddButton"
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#pregnantMotherModal"
+                    onclick="preparePregnantMotherModal()"
+                >
+                    <i class="fas fa-plus"></i>
+                    <span id="motherAddButtonText">Add Pregnant Mother</span>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead id="motherTableHead">
+                            <tr>
+                                <th>Mother's Name</th>
+                                <th>Age</th>
+                                <th>Weeks Pregnant</th>
+                                <th>Last Visit</th>
+                                <th>Next Appointment</th>
+                                <th>Risk Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="motherTableBody">
+                            <tr>
+                                <td colspan="7" class="text-muted">Loading records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Children Tab -->
+    <div id="children-tab" class="tab-content hidden" style="display: none;">
+        <div class="tab-container" style="margin-top: 1rem;">
+            <ul class="nav nav-tabs" style="width: 100%;">
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link active"
+                        href="#"
+                        data-child-tab="newborns"
+                        onclick="switchChildrenTab('newborns', event); updateChildAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-baby"></i> Newborns
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-child-tab="young"
+                        onclick="switchChildrenTab('young', event); updateChildAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-baby-carriage"></i> Young Children
+                    </a>
+                </li>
+
+                <li class="nav-item" style="flex: 1; margin-right: 0;">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        data-child-tab="childs"
+                        onclick="switchChildrenTab('childs', event); updateChildAddButton();"
+                        style="text-align: center;"
+                    >
+                        <i class="fas fa-child"></i> Childs
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card" style="margin-top: 1rem;">
+            <div class="card-header d-flex justify-between align-center">
+                <h5 class="card-title" id="childTableTitle" style="margin: 0;">
+                    Newborns
+                </h5>
+
+                <button
+                    id="childAddButton"
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#newbornModal"
+                    onclick="prepareNewbornModal()"
+                >
+                    <i class="fas fa-plus"></i>
+                    <span id="childAddButtonText">Add Newborn</span>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead id="childTableHead">
+                            <tr>
+                                <th>Baby's Name</th>
+                                <th>Mother's Name</th>
+                                <th>Date of Birth</th>
+                                <th>Birth Weight</th>
+                                <th>Last Check-up</th>
+                                <th>Health Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="childTableBody">
+                            <tr>
+                                <td colspan="7" class="text-muted">Loading records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
             <!-- Home Visits Section -->
-            <div id="home-visits" class="content-section" style="display: none;">
+            <div id="home-visits" class="content-section section-slide-in" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Home Visits Management</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="scheduleNewVisit()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVisitModal">
                             <i class="fas fa-plus"></i> Schedule New Visit
                         </button>
+
                         <button class="btn btn-success" onclick="quickVisitLog()">
                             <i class="fas fa-clipboard-check"></i> Quick Visit Log
                         </button>
@@ -4154,439 +3133,136 @@ echo '</script>';
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('home-visits', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">8 visits today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('home-visits', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">5 visits today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('home-visits', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">3 visits today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('home-visits', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">6 visits today</div>
+
+                    <div class="duty-areas-grid" id="homeVisitAreaGrid">
+                        <div class="duty-area-btn active">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h5>Loading...</h5>
+                            <div class="area-count">Please wait</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <!-- Selected Area Content -->
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Home Visits</h4>
-                        <p>Coverage: 15 villages, 450+ families | PHM Office: +94 37 226 5432</p>
+                        <h4 id="homeVisitAreaTitle">
+                            <i class="fas fa-map-marker-alt"></i> Home Visits
+                        </h4>
+                        <p id="homeVisitAreaSubtitle">Loading home visits...</p>
                     </div>
 
-                <!-- Visit Statistics Cards -->
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>8</h3>
-                                <span>Today's Visits</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>3</h3>
-                                <span>Pending Visits</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>5</h3>
-                                <span>Completed</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>2</h3>
-                                <span>Urgent Follow-ups</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tabs for different views -->
-                <div class="tab-container">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" onclick="switchVisitTab('scheduled', event)">Scheduled Visits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVisitTab('completed', event)">Completed Visits</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Scheduled Visits Tab -->
-                <div id="scheduled-visits" class="tab-content">
-                    <div class="card">
-                        <div class="card-header d-flex justify-between align-center">
-                            <h4 class="card-title">Today's Scheduled Visits</h4>
-                            <div class="d-flex gap-2">
-                                <select class="form-control" style="width: 150px;" onchange="filterVisitsByDate(this.value)">
-                                    <option value="today">Today</option>
-                                    <option value="tomorrow">Tomorrow</option>
-                                    <option value="week">This Week</option>
-                                    <option value="month">This Month</option>
-                                </select>
-                                <button class="btn btn-outline-primary" onclick="optimizeRoute()">
-                                    <i class="fas fa-route"></i> Optimize Route
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="visit-list">
-                                <div class="visit-item priority-high">
-                                    <div class="visit-time">
-                                        <span class="time">09:00</span>
-                                        <span class="duration">45 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Nirmala Fernando</h5>
-                                        <p class="address">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            No. 45, Galle Road, Mount Lavinia
-                                        </p>
-                                        <p class="visit-type">
-                                            <span class="badge badge-urgent">Postnatal Visit - Day 3</span>
-                                            <span class="badge badge-info">First Baby</span>
-                                        </p>
-                                        <p class="notes">Follow-up on breastfeeding issues and jaundice monitoring</p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm" onclick="startVisit(1)">
-                                            <i class="fas fa-play"></i> Start Visit
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewPatientDetails(1)">
-                                            <i class="fas fa-eye"></i> View Details
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVisit(1)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                        <button class="btn btn-secondary btn-sm" onclick="getDirections(1)">
-                                            <i class="fas fa-directions"></i> Directions
-                                        </button>
-                                    </div>
+                    <!-- Visit Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
                                 </div>
-
-                                <div class="visit-item priority-normal">
-                                    <div class="visit-time">
-                                        <span class="time">10:30</span>
-                                        <span class="duration">30 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Kamani Wickramasinghe</h5>
-                                        <p class="address">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            No. 78, Temple Road, Dehiwala
-                                        </p>
-                                        <p class="visit-type">
-                                            <span class="badge badge-success">Antenatal Visit - 32 weeks</span>
-                                            <span class="badge badge-warning">High Risk</span>
-                                        </p>
-                                        <p class="notes">Routine checkup, monitor blood pressure and fetal growth</p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm" onclick="startVisit(2)">
-                                            <i class="fas fa-play"></i> Start Visit
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewPatientDetails(2)">
-                                            <i class="fas fa-eye"></i> View Details
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVisit(2)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                        <button class="btn btn-secondary btn-sm" onclick="getDirections(2)">
-                                            <i class="fas fa-directions"></i> Directions
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="visit-item priority-normal">
-                                    <div class="visit-time">
-                                        <span class="time">14:00</span>
-                                        <span class="duration">40 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Sandya Peris</h5>
-                                        <p class="address">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            No. 23, Flower Road, Colombo 7
-                                        </p>
-                                        <p class="visit-type">
-                                            <span class="badge badge-primary">Postnatal Visit - Day 14</span>
-                                        </p>
-                                        <p class="notes">Check healing progress, discuss family planning</p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm" onclick="startVisit(3)">
-                                            <i class="fas fa-play"></i> Start Visit
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewPatientDetails(3)">
-                                            <i class="fas fa-eye"></i> View Details
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVisit(3)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                        <button class="btn btn-secondary btn-sm" onclick="getDirections(3)">
-                                            <i class="fas fa-directions"></i> Directions
-                                        </button>
-                                    </div>
+                                <div class="stat-info">
+                                    <h3 id="homeVisitTodayCount">0</h3>
+                                    <span>Today's Visits</span>
                                 </div>
                             </div>
                         </div>
-                        <!-- Home visit detailed record section -->
-                        <div id="home-visit-details-record" class="card mt-4" style="display: none;">
+
+                        <div class="col-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="homeVisitPendingCount">0</h3>
+                                    <span>Pending Visits</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="homeVisitCompletedCount">0</h3>
+                                    <span>Completed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="homeVisitUrgentCount">0</h3>
+                                    <span>Urgent Follow-ups</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs for different views -->
+                    <div class="tab-container">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="switchVisitTab('scheduled', event)">Scheduled Visits</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="switchVisitTab('completed', event)">Completed Visits</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Scheduled Visits Tab -->
+                    <div id="scheduled-visits" class="tab-content" style="display: block;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h4 class="card-title" id="scheduledVisitsTitle">Scheduled Visits</h4>
+                                <div class="d-flex gap-2">
+                                    <select class="form-control" id="homeVisitDateFilter" style="width: 150px;" onchange="filterHomeVisitsByDate(this.value)">
+                                        <option value="all">All</option>
+                                        <option value="today">Today</option>
+                                        <option value="tomorrow">Tomorrow</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                    </select>
+
+                                    <button class="btn btn-outline-primary" onclick="optimizeRoute()">
+                                        <i class="fas fa-route"></i> Optimize Route
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="visit-list" id="scheduledHomeVisitList">
+                                    <p class="text-muted">Loading scheduled visits...</p>
+                                </div>
+                            </div>
+
+                            <!-- Home visit detailed record section -->
+                            <div id="home-visit-details-record" class="card mt-4" style="display: none;">
+                                <div class="card-header">
+                                    <h4 class="card-title">Visit Details Record</h4>
+                                </div>
+                                <div class="card-body" id="home-visit-details-body">
+                                    <p>Select a visit and click "View Details" to see full patient record here.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Visits Tab -->
+                    <div id="completed-visits" class="tab-content" style="display: none;">
+                        <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Visit Details Record</h4>
+                                <h4 class="card-title">Recently Completed Visits</h4>
                             </div>
-                            <div class="card-body" id="home-visit-details-body">
-                                <p>Select a visit and click "View Details" to see full patient record here.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Completed Visits Tab -->
-                <div id="completed-visits" class="tab-content" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Recently Completed Visits</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="completed-visit-list">
-                                <div class="completed-visit-item">
-                                    <div class="visit-timestamp">
-                                        <span class="date">Dec 15, 2024</span>
-                                        <span class="time">08:30 - 09:15</span>
-                                    </div>
-                                    <div class="visit-summary">
-                                        <h5>Mrs. Priyani Silva</h5>
-                                        <p class="visit-type">Antenatal Visit - 28 weeks</p>
-                                        <p class="outcome">
-                                            <span class="status-badge status-success">Completed</span>
-                                            Normal progression, all vitals stable
-                                        </p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-outline-primary btn-sm" onclick="viewVisitReport(1)">
-                                            <i class="fas fa-file-alt"></i> View Report
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Home Visits</h4>
-                        <p>Coverage: 12 villages, 380+ families | PHM Office: +94 37 205 6789</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>5</h3><span>Today's Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                                <div class="stat-info"><h3>2</h3><span>Pending Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                                <div class="stat-info"><h3>3</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                                <div class="stat-info"><h3>1</h3><span>Urgent Follow-ups</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Scheduled Visits - Kahabilihena</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="visit-list">
-                                <div class="visit-item">
-                                    <div class="visit-time">
-                                        <span class="time">10:00</span>
-                                        <span class="duration">30 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Ayesha Dissanayake</h5>
-                                        <p class="address"><i class="fas fa-map-marker-alt"></i> Kahabilihena South</p>
-                                        <p class="visit-type"><span class="badge badge-info">Antenatal Check - 28 weeks</span></p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-play"></i> Start Visit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Home Visits</h4>
-                        <p>Coverage: 8 urban wards, 280+ families | PHM Office: +94 37 222 3456</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>3</h3><span>Today's Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                                <div class="stat-info"><h3>1</h3><span>Pending Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                                <div class="stat-info"><h3>2</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                                <div class="stat-info"><h3>0</h3><span>Urgent Follow-ups</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Scheduled Visits - Opathella</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="visit-list">
-                                <div class="visit-item">
-                                    <div class="visit-time">
-                                        <span class="time">14:00</span>
-                                        <span class="duration">40 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Kamali Jayasinghe</h5>
-                                        <p class="address"><i class="fas fa-map-marker-alt"></i> Opathella Village</p>
-                                        <p class="visit-type"><span class="badge badge-info">Postnatal Visit - Day 7</span></p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-play"></i> Start Visit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Home Visits</h4>
-                        <p>Coverage: 18 villages, 520+ families | PHM Office: +94 37 267 8901</p>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>6</h3><span>Today's Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                                <div class="stat-info"><h3>3</h3><span>Pending Visits</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                                <div class="stat-info"><h3>3</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                                <div class="stat-info"><h3>2</h3><span>Urgent Follow-ups</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Scheduled Visits - Ambalangoda</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="visit-list">
-                                <div class="visit-item priority-high">
-                                    <div class="visit-time">
-                                        <span class="time">09:00</span>
-                                        <span class="duration">45 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Sanduni Rajapaksha</h5>
-                                        <p class="address"><i class="fas fa-map-marker-alt"></i> Ambalangoda Village</p>
-                                        <p class="visit-type"><span class="badge badge-urgent">Urgent - Postnatal Complication</span></p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-play"></i> Start Visit</button>
-                                    </div>
-                                </div>
-                                <div class="visit-item">
-                                    <div class="visit-time">
-                                        <span class="time">11:00</span>
-                                        <span class="duration">30 min</span>
-                                    </div>
-                                    <div class="visit-details">
-                                        <h5>Mrs. Menaka Bandara</h5>
-                                        <p class="address"><i class="fas fa-map-marker-alt"></i> Ambalangoda South</p>
-                                        <p class="visit-type"><span class="badge badge-info">Antenatal - 32 weeks</span></p>
-                                    </div>
-                                    <div class="visit-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-play"></i> Start Visit</button>
-                                    </div>
+                            <div class="card-body">
+                                <div class="completed-visit-list" id="completedHomeVisitList">
+                                    <p class="text-muted">Loading completed visits...</p>
                                 </div>
                             </div>
                         </div>
@@ -4595,16 +3271,16 @@ echo '</script>';
             </div>
 
             <!-- Vaccinations Section -->
-            <div id="vaccinations" class="content-section" style="display: none;">
+            <div id="vaccinations" class="content-section section-slide-in" style="display: none;">
                 <div class="d-flex justify-between align-center mb-3">
                     <h2>Vaccination Management</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="scheduleVaccination()">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVaccinationModal">
                             <i class="fas fa-plus"></i> Schedule Vaccination
                         </button>
-                        <button class="btn btn-success" onclick="quickVaccinationLog()">
-                            <i class="fas fa-syringe"></i> Quick Vaccination Log
-                        </button>
+
+                    
+
                         <button class="btn btn-info" onclick="updateInventory()">
                             <i class="fas fa-boxes"></i> Update Inventory
                         </button>
@@ -4616,600 +3292,195 @@ echo '</script>';
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('vaccinations', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">12 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">8 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">6 scheduled today</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('vaccinations', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">10 scheduled today</div>
+
+                    <div class="duty-areas-grid" id="vaccinationAreaGrid">
+                        <div class="duty-area-btn active">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h5>Loading...</h5>
+                            <div class="area-count">Please wait</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <!-- Selected Area Content -->
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Vaccinations</h4>
-                        <p>Coverage: 15 villages | Pediatric: 8, Maternal: 4 | Clinic: Uduthuththiripitiya CHC</p>
+                        <h4 id="vaccinationAreaTitle">
+                            <i class="fas fa-map-marker-alt"></i> Vaccinations
+                        </h4>
+                        <p id="vaccinationAreaSubtitle">Loading vaccination data...</p>
                     </div>
 
-                <!-- Vaccination Statistics Cards -->
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>12</h3>
-                                <span>Today's Schedule</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-syringe"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>8</h3>
-                                <span>Completed</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-exclamation-circle"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>3</h3>
-                                <span>Overdue</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-boxes"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3>15</h3>
-                                <span>Vaccines in Stock</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tabs for different vaccination views -->
-                <div class="tab-container">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#" onclick="switchVaccinationTab('scheduled')">Today's Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVaccinationTab('inventory')">Vaccine Inventory</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVaccinationTab('records')">Patient Records</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="switchVaccinationTab('overdue')">Overdue Vaccines</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Today's Schedule Tab -->
-                <div id="scheduled-vaccinations" class="tab-content">
-                    <div class="card">
-                        <div class="card-header d-flex justify-between align-center">
-                            <h4 class="card-title">Today's Vaccination Schedule</h4>
-                            <div class="d-flex gap-2">
-                                <select class="form-control" style="width: 180px;" onchange="filterVaccinations(this.value)">
-                                    <option value="all">All Vaccines</option>
-                                    <option value="pediatric">Pediatric</option>
-                                    <option value="maternal">Maternal</option>
-                                    <option value="routine">Routine Adult</option>
-                                </select>
-                                <button class="btn btn-outline-primary" onclick="printSchedule()">
-                                    <i class="fas fa-print"></i> Print Schedule
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item high-priority">
-                                    <div class="vaccine-time">
-                                        <span class="time">09:00</span>
-                                        <span class="duration">15 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Baby Kamal Silva (2 months)</h5>
-                                        <div class="patient-info">
-                                            <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Nayani Silva</span>
-                                            <span class="contact"><i class="fas fa-phone"></i> +94 77 555 0123</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge pediatric">DPT-1</span>
-                                            <span class="vaccine-badge pediatric">OPV-1</span>
-                                            <span class="vaccine-badge pediatric">Hep B-1</span>
-                                        </div>
-                                        <p class="notes">First dose of routine pediatric series. Check weight and temperature.</p>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm" onclick="administerVaccine(1)">
-                                            <i class="fas fa-syringe"></i> Administer
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(1)">
-                                            <i class="fas fa-history"></i> History
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(1)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="vaccination-item normal-priority">
-                                    <div class="vaccine-time">
-                                        <span class="time">10:30</span>
-                                        <span class="duration">10 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Priyanka Fernando (28 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="pregnancy-status"><i class="fas fa-baby"></i> 28 weeks pregnant</span>
-                                            <span class="contact"><i class="fas fa-phone"></i> +94 71 444 5678</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge maternal">Tetanus Toxoid - 2nd dose</span>
-                                        </div>
-                                        <p class="notes">Second TT dose for pregnancy. Check previous reaction history.</p>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm" onclick="administerVaccine(2)">
-                                            <i class="fas fa-syringe"></i> Administer
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(2)">
-                                            <i class="fas fa-history"></i> History
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(2)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="vaccination-item normal-priority">
-                                    <div class="vaccine-time">
-                                        <span class="time">14:00</span>
-                                        <span class="duration">20 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Kumari Wickramasinghe (35 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="condition"><i class="fas fa-heart"></i> Diabetic patient</span>
-                                            <span class="contact"><i class="fas fa-phone"></i> +94 76 333 9876</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge adult">Influenza Vaccine</span>
-                                            <span class="vaccine-badge adult">Pneumococcal</span>
-                                        </div>
-                                        <p class="notes">Annual flu vaccine + pneumococcal for high-risk patient.</p>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm" onclick="administerVaccine(3)">
-                                            <i class="fas fa-syringe"></i> Administer
-                                        </button>
-                                        <button class="btn btn-info btn-sm" onclick="viewVaccineHistory(3)">
-                                            <i class="fas fa-history"></i> History
-                                        </button>
-                                        <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(3)">
-                                            <i class="fas fa-calendar-alt"></i> Reschedule
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vaccine Inventory Tab -->
-                <div id="inventory-vaccinations" class="tab-content" style="display: none;">
-                    <div class="card">
-                        <div class="card-header d-flex justify-between align-center">
-                            <h4 class="card-title">Vaccine Inventory Status</h4>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-warning" onclick="checkExpiring()">
-                                    <i class="fas fa-exclamation-triangle"></i> Check Expiring
-                                </button>
-                                <button class="btn btn-primary" onclick="orderSupplies()">
-                                    <i class="fas fa-shopping-cart"></i> Order Supplies
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="inventory-grid">
-                                <div class="inventory-item good-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">DPT Vaccine</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">25 doses</span>
-                                        <span class="expiry-date">Exp: Jun 2025</span>
-                                    </div>
-                                    <div class="stock-status good">Good Stock</div>
-                                </div>
-
-                                <div class="inventory-item low-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">OPV (Oral Polio)</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">8 doses</span>
-                                        <span class="expiry-date">Exp: Mar 2025</span>
-                                    </div>
-                                    <div class="stock-status low">Low Stock</div>
-                                </div>
-
-                                <div class="inventory-item good-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">Hepatitis B</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">18 doses</span>
-                                        <span class="expiry-date">Exp: Aug 2025</span>
-                                    </div>
-                                    <div class="stock-status good">Good Stock</div>
-                                </div>
-
-                                <div class="inventory-item critical-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">Tetanus Toxoid</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">3 doses</span>
-                                        <span class="expiry-date">Exp: Apr 2025</span>
-                                    </div>
-                                    <div class="stock-status critical">Critical</div>
-                                </div>
-
-                                <div class="inventory-item good-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">MMR Vaccine</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">12 doses</span>
-                                        <span class="expiry-date">Exp: Jul 2025</span>
-                                    </div>
-                                    <div class="stock-status good">Good Stock</div>
-                                </div>
-
-                                <div class="inventory-item low-stock">
-                                    <div class="vaccine-icon">
-                                        <i class="fas fa-vial"></i>
-                                    </div>
-                                    <div class="vaccine-name">Influenza</div>
-                                    <div class="stock-info">
-                                        <span class="stock-level">6 doses</span>
-                                        <span class="expiry-date">Exp: Feb 2025</span>
-                                    </div>
-                                    <div class="stock-status low">Low Stock</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Patient Records Tab -->
-                <div id="records-vaccinations" class="tab-content" style="display: none;">
-                    <div class="card">
-                        <div class="card-header d-flex justify-between align-center">
-                            <h4 class="card-title">Patient Vaccination Records</h4>
-                            <input type="text" class="form-control" placeholder="Search patient..." style="max-width: 300px;">
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Patient Name</th>
-                                        <th>Age/DOB</th>
-                                        <th>Last Vaccine</th>
-                                        <th>Next Due</th>
-                                        <th>Completion %</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Baby Amara Silva</td>
-                                        <td>4 months</td>
-                                        <td>DPT-2, OPV-2 (Nov 15)</td>
-                                        <td><span class="due-soon">DPT-3 (Dec 20)</span></td>
-                                        <td>
-                                            <div class="completion-bar">
-                                                <div class="completion-fill" style="width: 60%"></div>
-                                                <span>60%</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-info btn-sm">View Card</button>
-                                            <button class="btn btn-success btn-sm">Schedule</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baby Sahan Peris</td>
-                                        <td>6 months</td>
-                                        <td>DPT-3, OPV-3 (Dec 10)</td>
-                                        <td><span class="due-later">MMR (Mar 15, 2025)</span></td>
-                                        <td>
-                                            <div class="completion-bar">
-                                                <div class="completion-fill" style="width: 75%"></div>
-                                                <span>75%</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-info btn-sm">View Card</button>
-                                            <button class="btn btn-success btn-sm">Schedule</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Overdue Vaccines Tab -->
-                <div id="overdue-vaccinations" class="tab-content" style="display: none;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Overdue Vaccinations</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="overdue-list">
-                                <div class="overdue-item urgent">
-                                    <div class="overdue-info">
-                                        <h5>Baby Nimal Fernando</h5>
-                                        <p class="vaccine-details">DPT-2, OPV-2, Hep B-2</p>
-                                        <p class="overdue-duration">
-                                            <i class="fas fa-clock"></i> 
-                                            <span class="overdue-text">15 days overdue</span>
-                                        </p>
-                                    </div>
-                                    <div class="contact-info">
-                                        <p><i class="fas fa-user"></i> Mother: Mrs. Sandya Fernando</p>
-                                        <p><i class="fas fa-phone"></i> +94 77 123 4567</p>
-                                    </div>
-                                    <div class="overdue-actions">
-                                        <button class="btn btn-danger btn-sm" onclick="contactPatient(1)">
-                                            <i class="fas fa-phone"></i> Call Now
-                                        </button>
-                                        <button class="btn btn-primary btn-sm" onclick="scheduleOverdue(1)">
-                                            <i class="fas fa-calendar-plus"></i> Schedule
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-
-                <!-- Kahabilihena Area Content -->
-                <div class="area-content-wrapper" data-area="kahabilihena">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Kahabilihena Area - Vaccinations</h4>
-                        <p>Coverage: 12 villages | Pediatric: 6, Maternal: 2 | Clinic: Kahabilihena RH</p>
-                    </div>
+                    <!-- Vaccination Statistics Cards -->
                     <div class="row mb-4">
                         <div class="col-3">
                             <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>8</h3><span>Today's Schedule</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info"><h3>6</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info"><h3>2</h3><span>Overdue</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info"><h3>12</h3><span>Vaccines in Stock</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Kahabilihena</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">10:00</span>
-                                        <span class="duration">15 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Baby Sithum Perera (4 months)</h5>
-                                        <div class="patient-info">
-                                            <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Dilini Perera</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge pediatric">DPT-2</span>
-                                            <span class="vaccine-badge pediatric">OPV-2</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="vaccinationTodayCount">0</h3>
+                                    <span>Today's Schedule</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Opathella Area Content -->
-                <div class="area-content-wrapper" data-area="opathella">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Opathella Area - Vaccinations</h4>
-                        <p>Coverage: 8 urban wards | Pediatric: 4, Maternal: 2 | Clinic: Opathella PHC</p>
-                    </div>
-                    <div class="row mb-4">
                         <div class="col-3">
                             <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>6</h3><span>Today's Schedule</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info"><h3>5</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info"><h3>1</h3><span>Overdue</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info"><h3>18</h3><span>Vaccines in Stock</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Opathella</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">11:00</span>
-                                        <span class="duration">10 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Kumari Jayawardena (30 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="pregnancy-status"><i class="fas fa-baby"></i> 24 weeks pregnant</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge maternal">TT-1</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-syringe"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="vaccinationCompletedCount">0</h3>
+                                    <span>Completed</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Ambalangoda Area Content -->
-                <div class="area-content-wrapper" data-area="ambalangoda">
-                    <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Ambalangoda Area - Vaccinations</h4>
-                        <p>Coverage: 18 villages | Pediatric: 7, Maternal: 3 | Clinic: Ambalangoda DH</p>
-                    </div>
-                    <div class="row mb-4">
                         <div class="col-3">
                             <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                                <div class="stat-info"><h3>10</h3><span>Today's Schedule</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-syringe"></i></div>
-                                <div class="stat-info"><h3>7</h3><span>Completed</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
-                                <div class="stat-info"><h3>4</h3><span>Overdue</span></div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="stat-card">
-                                <div class="stat-icon"><i class="fas fa-boxes"></i></div>
-                                <div class="stat-info"><h3>14</h3><span>Vaccines in Stock</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Today's Vaccination Schedule - Ambalangoda</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="vaccination-schedule">
-                                <div class="vaccination-item high-priority">
-                                    <div class="vaccine-time">
-                                        <span class="time">09:30</span>
-                                        <span class="duration">15 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Baby Tharusha Bandara (6 months)</h5>
-                                        <div class="patient-info">
-                                            <span class="mother-name"><i class="fas fa-user"></i> Mother: Mrs. Chamari Bandara</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge pediatric">DPT-3</span>
-                                            <span class="vaccine-badge pediatric">OPV-3</span>
-                                            <span class="vaccine-badge pediatric">Hep B-3</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-exclamation-circle"></i>
                                 </div>
-                                <div class="vaccination-item">
-                                    <div class="vaccine-time">
-                                        <span class="time">14:00</span>
-                                        <span class="duration">10 min</span>
-                                    </div>
-                                    <div class="vaccine-details">
-                                        <h5>Mrs. Nimalika Silva (26 years)</h5>
-                                        <div class="patient-info">
-                                            <span class="pregnancy-status"><i class="fas fa-baby"></i> 32 weeks pregnant</span>
-                                        </div>
-                                        <div class="vaccine-info">
-                                            <span class="vaccine-badge maternal">TT-2</span>
-                                        </div>
-                                    </div>
-                                    <div class="vaccine-actions">
-                                        <button class="btn btn-success btn-sm"><i class="fas fa-syringe"></i> Administer</button>
-                                    </div>
+                                <div class="stat-info">
+                                    <h3 id="vaccinationOverdueCount">0</h3>
+                                    <span>Overdue</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-boxes"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="vaccinationStockCount">0</h3>
+                                    <span>Vaccines in Stock</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="tab-container">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" onclick="switchVaccinationTab('scheduled', event)">Today's Schedule</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('inventory', event)">Vaccine Inventory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('records', event)">Patient Records</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="switchVaccinationTab('overdue', event)">Overdue Vaccines</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Today's Schedule Tab -->
+                    <div id="scheduled-vaccinations" class="tab-content" style="display: block;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h4 class="card-title">Today's Vaccination Schedule</h4>
+
+                                <div class="d-flex gap-2">
+                                    <select class="form-control" id="vaccinationCategoryFilter" style="width: 180px;" onchange="filterVaccinations(this.value)">
+                                        <option value="all">All Vaccines</option>
+                                        <option value="pediatric">Pediatric</option>
+                                        <option value="maternal">Maternal</option>
+                                        <option value="adult">Adult</option>
+                                    </select>
+
+                                    <button class="btn btn-outline-primary" onclick="printSchedule()">
+                                        <i class="fas fa-print"></i> Print Schedule
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="vaccination-schedule" id="scheduledVaccinationList">
+                                    <p class="text-muted">Loading scheduled vaccinations...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vaccine Inventory Tab -->
+                    <div id="inventory-vaccinations" class="tab-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h4 class="card-title">Vaccine Inventory Status</h4>
+
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-warning" onclick="checkExpiring()">
+                                        <i class="fas fa-exclamation-triangle"></i> Check Expiring
+                                    </button>
+
+                                    <button class="btn btn-primary" onclick="orderSupplies()">
+                                        <i class="fas fa-shopping-cart"></i> Order Supplies
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="inventory-grid" id="vaccineInventoryGrid">
+                                    <p class="text-muted">Loading vaccine inventory...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Records Tab -->
+                    <div id="records-vaccinations" class="tab-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-header d-flex justify-between align-center">
+                                <h4 class="card-title">Patient Vaccination Records</h4>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="vaccinationPatientSearch"
+                                    placeholder="Search patient..."
+                                    style="max-width: 300px;"
+                                    onkeyup="renderVaccinationPatientRecords()">
+                            </div>
+
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient Name</th>
+                                            <th>Age</th>
+                                            <th>Last Vaccine</th>
+                                            <th>Next Due</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="vaccinationPatientRecordBody">
+                                        <tr>
+                                            <td colspan="6">Loading records...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overdue Vaccines Tab -->
+                    <div id="overdue-vaccinations" class="tab-content" style="display: none;">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Overdue Vaccinations</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="overdue-list" id="overdueVaccinationList">
+                                    <p class="text-muted">Loading overdue vaccinations...</p>
                                 </div>
                             </div>
                         </div>
@@ -5218,810 +3489,472 @@ echo '</script>';
             </div>
 
             <!-- Profile Section -->
-            <div id="profile" class="content-section" style="display: none;">
-                <!-- My Duty Areas Section -->
-                <h2 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 2rem; font-weight: 600;">My Duty Areas</h2>
-                <div class="duty-area-container">
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">4 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">3 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">2 appointments</div>
-                        </div>
-                        <div class="duty-area-btn">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">5 appointments</div>
-                        </div>
+<div id="profile" class="content-section section-slide-in" style="display: none;">
+    <div class="d-flex justify-between align-center mb-3">
+        <h2>My Profile</h2>
+
+        <div>
+             <!-- <button
+
+            class="btn btn-primary"
+
+            type="button"
+
+            data-toggle="modal"
+
+            data-target="#editProfileModal"
+
+        >
+
+            <i class="fas fa-edit"></i> Edit Profile
+
+        </button>
+
+        <button
+
+            class="btn btn-info"
+
+            type="button"
+
+            data-toggle="modal"
+
+            data-target="#changePasswordModal"
+
+        >
+
+            <i class="fas fa-key"></i> Change Password
+
+        </button> -->
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Left Profile Summary -->
+        <div class="col-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img
+                        id="profileImage"
+                        src="../images/profile picture.png"
+                        alt="Profile Image"
+                        style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;"
+                    >
+
+                    <h3 id="profileFullName">Loading...</h3>
+                    <p class="text-muted">Registered Midwife</p>
+
+                    <p>
+                        <strong>Employee ID:</strong>
+                        <span id="profileEmployeeId">Loading...</span>
+                    </p>
+
+                    <span class="status-badge status-active" id="profileStatus">Loading...</span>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title">Quick Details</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="summary-item">
+                        <span>Assigned Area:</span>
+                        <strong id="quickAssignedArea">Loading...</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>MOH Office:</span>
+                        <strong id="quickMohOffice">Loading...</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Experience:</span>
+                        <strong id="quickExperienceYears">Loading...</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Last Login:</span>
+                        <strong id="quickLastLogin">Loading...</strong>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="d-flex justify-between align-center mb-3">
-                    <h2>My Profile</h2>
-                    <div>
-                        <button class="btn btn-primary" onclick="editProfile()">
-                            <i class="fas fa-edit"></i> Edit Profile
-                        </button>
-                        <button class="btn btn-info" onclick="changePassword()">
-                            <i class="fas fa-key"></i> Change Password
-                        </button>
-                    </div>
+        <!-- Right Profile Details -->
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Personal Information</h4>
                 </div>
 
-                <!-- Profile Tabs -->
-                <div class="tab-container">
-                    <ul class="nav nav-tabs" style="width: 100%;">
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link active" href="#" onclick="switchProfileTab('personal')" style="text-align: center;">Personal Info</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('professional')" style="text-align: center;">Professional Details</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('performance')" style="text-align: center;">Performance</a>
-                        </li>
-                        <li class="nav-item" style="flex: 1; margin-right: 0;">
-                            <a class="nav-link" href="#" onclick="switchProfileTab('settings')" style="text-align: center;">Settings</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Personal Info Tab -->
-                <div id="personal-profile" class="tab-content">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <div class="profile-picture-container">
-                                        <div class="profile-picture" id="profileImage" role="button" tabindex="0" aria-label="View profile photo" onclick="openProfileImagePreview()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfileImagePreview();}">
-                                            <img src="../images/profile%20picture.png" alt="Midwife Profile Picture">
-                                        </div>
-                                    </div>
-                                    <h4 class="mt-3">Mrs. Madhavi Jayawardene</h4>
-                                    <p class="text-muted">Registered Midwife</p>
-                                    <p class="employee-id">Employee ID: MW001</p>
-                                    <div class="profile-badges">
-                                        <span class="badge badge-success">Active</span>
-                                        <span class="badge badge-info">Certified</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Quick Stats Card -->
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h5 class="card-title">Quick Stats</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="stat-row">
-                                        <span class="stat-label">Years of Service</span>
-                                        <span class="stat-value">5.2 years</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Patients Served</span>
-                                        <span class="stat-value">1,248</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Deliveries Assisted</span>
-                                        <span class="stat-value">324</span>
-                                    </div>
-                                    <div class="stat-row">
-                                        <span class="stat-label">Success Rate</span>
-                                        <span class="stat-value">98.5%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Personal Information</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Full Name:</strong>
-                                            <p>Madhavi Jayawardene</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Date of Birth:</strong>
-                                            <p>June 03, 1980</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>NIC Number:</strong>
-                                            <p>199007500123</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Gender:</strong>
-                                            <p>Female</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Marital Status:</strong>
-                                            <p>Married</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Languages:</strong>
-                                            <p>Sinhala, English</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Contact Information</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Email Address:</strong>
-                                            <p>Madhavi.Jayawardene@health.gov.lk</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Personal Email:</strong>
-                                            <p>madhavi.jayawardene@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Mobile Phone:</strong>
-                                            <p>+94 77 123 4567</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Home Phone:</strong>
-                                            <p>+94 11 234 5678</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Address Information</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-12">
-                                            <strong>Home Address:</strong>
-                                            <p>57/1/A Pitipana, Homagama </p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Postal Code:</strong>
-                                            <p>11104</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>District:</strong>
-                                            <p>Colombo</p>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Emergency Contact</h5>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Contact Name:</strong>
-                                            <p>Sunil Perera (Husband)</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Contact Number:</strong>
-                                            <p>+94 71 987 6543</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Professional Details Tab -->
-                <div id="professional-profile" class="tab-content" style="display: none;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Professional Qualifications</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="qualification-item">
-                                        <h6>Diploma in Midwifery</h6>
-                                        <p class="institution">University of Colombo - Faculty of Medicine</p>
-                                        <p class="year">Graduated: 2019</p>
-                                        <p class="grade">Grade: First Class</p>
-                                    </div>
-                                    <hr>
-                                    <div class="qualification-item">
-                                        <h6>Certificate in Maternal & Child Health</h6>
-                                        <p class="institution">Ministry of Health, Sri Lanka</p>
-                                        <p class="year">Completed: 2020</p>
-                                        <p class="grade">Grade: Distinction</p>
-                                    </div>
-                                    <hr>
-                                    <div class="qualification-item">
-                                        <h6>Basic Life Support (BLS) Certification</h6>
-                                        <p class="institution">Sri Lankan Heart Association</p>
-                                        <p class="year">Valid until: December 2025</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Professional Memberships</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="membership-item">
-                                        <h6>Sri Lanka Nursing Council</h6>
-                                        <p>License No: MW-2020-001234</p>
-                                        <p>Valid until: January 2026</p>
-                                        <span class="badge badge-success">Active</span>
-                                    </div>
-                                    <hr>
-                                    <div class="membership-item">
-                                        <h6>Midwives Association of Sri Lanka</h6>
-                                        <p>Member since: 2020</p>
-                                        <span class="badge badge-info">Member</span>
-                                    </div>
-                                </div>
+                            <div class="profile-info-item">
+                                <label>Full Name</label>
+                                <p id="profileInfoFullName">Loading...</p>
                             </div>
                         </div>
 
                         <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Work Assignment</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Department:</strong>
-                                            <p>Community Health Services</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Position:</strong>
-                                            <p>Registered Midwife</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Assigned Area:</strong>
-                                            <p>Udathuthththiripitiya</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Coverage Population:</strong>
-                                            <p>~3,600 residents</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Start Date:</strong>
-                                            <p>January 15, 2020</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Employment Type:</strong>
-                                            <p>Permanent Full-time</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>MOH Office:</strong>
-                                            <p>MOH Attanagalla</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Work Schedule:</strong>
-                                            <p>Mon-Fri, 8:00 AM - 4:30 PM</p>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-6">
-                                            <strong>Supervisor:</strong>
-                                            <p>Dr. Nayani Fernando</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong>Working Area:</strong>
-                                            <p>Udathuthththiripitiya</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Recent Training & Development</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="training-item">
-                                        <h6>Advanced Neonatal Resuscitation</h6>
-                                        <p class="training-date">Completed: November 2024</p>
-                                        <p class="training-provider">Perinatal Society of Sri Lanka</p>
-                                        <span class="badge badge-primary">16 Hours</span>
-                                    </div>
-                                    <hr>
-                                    <div class="training-item">
-                                        <h6>Digital Health Records Management</h6>
-                                        <p class="training-date">Completed: September 2024</p>
-                                        <p class="training-provider">Ministry of Health</p>
-                                        <span class="badge badge-info">8 Hours</span>
-                                    </div>
-                                    <hr>
-                                    <div class="training-item">
-                                        <h6>Mental Health First Aid</h6>
-                                        <p class="training-date">Completed: July 2024</p>
-                                        <p class="training-provider">National Institute of Mental Health</p>
-                                        <span class="badge badge-success">12 Hours</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Performance Tab -->
-                <div id="performance-profile" class="tab-content" style="display: none;">
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>1,248</h3>
-                                    <span>Patients Served</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +15% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-baby"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>324</h3>
-                                    <span>Deliveries Assisted</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +8% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>892</h3>
-                                    <span>Home Visits</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +12% this year
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="performance-metric">
-                                <div class="metric-icon">
-                                    <i class="fas fa-syringe"></i>
-                                </div>
-                                <div class="metric-info">
-                                    <h3>567</h3>
-                                    <span>Vaccinations Given</span>
-                                    <div class="metric-change positive">
-                                        <i class="fas fa-arrow-up"></i> +20% this year
-                                    </div>
-                                </div>
+                            <div class="profile-info-item">
+                                <label>Date of Birth</label>
+                                <p id="profileInfoBirthDate">Loading...</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Performance Trends</h4>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="performanceChart" height="100"></canvas>
-                                </div>
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Email Address</label>
+                                <p id="profileInfoEmail">Loading...</p>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Performance Rating</h4>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="performance-score">
-                                        <div class="score-circle">
-                                            <span class="score-number">9.2</span>
-                                            <span class="score-max">/10</span>
-                                        </div>
-                                    </div>
-                                    <h5 class="mt-3">Excellent Performance</h5>
-                                    <p class="text-muted">Based on patient feedback, supervisor evaluation, and key metrics</p>
-                                    
-                                    <div class="rating-breakdown">
-                                        <div class="rating-item">
-                                            <span>Patient Care Quality</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="rating-item">
-                                            <span>Professional Knowledge</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="rating-item">
-                                            <span>Communication Skills</span>
-                                            <div class="rating-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Phone Number</label>
+                                <p id="profileInfoPhone">Loading...</p>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Settings Tab -->
-                <div id="settings-profile" class="tab-content" style="display: none;">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Notification Preferences</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Email Notifications</h6>
-                                            <p>Receive updates and reminders via email</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>SMS Alerts</h6>
-                                            <p>Get urgent notifications via SMS</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Push Notifications</h6>
-                                            <p>Browser push notifications for updates</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox">
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Weekly Report</h6>
-                                            <p>Receive weekly performance summary</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">System Preferences</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label class="form-label">Language</label>
-                                        <select class="form-control">
-                                            <option value="en" selected>English</option>
-                                            <option value="si">Sinhala</option>
-                                            <option value="ta">Tamil</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Date Format</label>
-                                        <select class="form-control">
-                                            <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
-                                            <option value="mm/dd/yyyy">MM/DD/YYYY</option>
-                                            <option value="yyyy-mm-dd">YYYY-MM-DD</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Time Format</label>
-                                        <select class="form-control">
-                                            <option value="24h" selected>24 Hour (14:30)</option>
-                                            <option value="12h">12 Hour (2:30 PM)</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Dashboard Theme</label>
-                                        <select class="form-control">
-                                            <option value="light" selected>Light Theme</option>
-                                            <option value="dark">Dark Theme</option>
-                                            <option value="auto">Auto (System)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h4 class="card-title">Privacy & Security</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Two-Factor Authentication</h6>
-                                            <p>Add extra security to your account</p>
-                                        </div>
-                                        <button class="btn btn-outline-primary btn-sm">Enable</button>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Session Timeout</h6>
-                                            <p>Auto-logout after inactivity</p>
-                                        </div>
-                                        <select class="form-control" style="width: 120px;">
-                                            <option value="30">30 minutes</option>
-                                            <option value="60" selected>1 hour</option>
-                                            <option value="120">2 hours</option>
-                                        </select>
-                                    </div>
-                                    <div class="setting-item">
-                                        <div class="setting-info">
-                                            <h6>Data Export</h6>
-                                            <p>Download your activity data</p>
-                                        </div>
-                                        <button class="btn btn-outline-info btn-sm" onclick="exportData()">Export</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="profile-info-item">
+                        <label>Address</label>
+                        <p id="profileInfoAddress">Loading...</p>
                     </div>
                 </div>
             </div>
 
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title">Professional Details</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Hire Date</label>
+                                <p id="profileInfoHireDate">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Experience</label>
+                                <p id="profileInfoExperienceYears">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>Assigned Area</label>
+                                <p id="profileInfoAssignedArea">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="profile-info-item">
+                                <label>MOH Office</label>
+                                <p id="profileInfoMohOffice">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <label>Last Login</label>
+                        <p id="profileInfoLastLogin">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
             <!-- Triposha Distribution Section -->
-            <div id="triposha" class="content-section" style="display: none;">
+            <div id="triposha" class="content-section section-slide-in" style="display: none;">
                 <div class="page-header">
                     <h2><i class="fas fa-box"></i> Triposha Distribution Management</h2>
                     <p>Manage Triposha packet distribution and inventory tracking</p>
                 </div>
 
-                <!-- Duty Areas Selection -->
                 <div class="duty-areas-container">
                     <div class="duty-areas-title">
                         <i class="fas fa-map-marker-alt"></i> Select Duty Area
                     </div>
-                    <div class="duty-areas-grid">
-                        <div class="duty-area-btn active" onclick="switchArea('triposha', 'uduthuththiripitiya')">
-                            <i class="fas fa-home"></i>
-                            <h5>Uduthuththiripitiya</h5>
-                            <div class="area-count">98 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'kahabilihena')">
-                            <i class="fas fa-hospital"></i>
-                            <h5>Kahabilihena</h5>
-                            <div class="area-count">75 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'opathella')">
-                            <i class="fas fa-city"></i>
-                            <h5>Opathella</h5>
-                            <div class="area-count">56 packets distributed</div>
-                        </div>
-                        <div class="duty-area-btn" onclick="switchArea('triposha', 'ambalangoda')">
-                            <i class="fas fa-tree"></i>
-                            <h5>Ambalangoda</h5>
-                            <div class="area-count">105 packets distributed</div>
+
+                    <div class="duty-areas-grid" id="triposhaAreaGrid">
+                        <div class="duty-area-btn active">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h5>Loading...</h5>
+                            <div class="area-count">Please wait</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Uduthuththiripitiya Area Content -->
-                <div class="area-content-wrapper active" data-area="uduthuththiripitiya">
+                <div class="area-content-wrapper active">
                     <div class="area-header">
-                        <h4><i class="fas fa-map-marker-alt"></i> Uduthuththiripitiya Area - Triposha Distribution</h4>
-                        <p>Coverage: 15 villages | Beneficiaries: 85 families | Distribution Center: Uduthuththiripitiya CHC</p>
+                        <h4 id="triposhaAreaTitle">
+                            <i class="fas fa-map-marker-alt"></i> Triposha Distribution
+                        </h4>
+                        <p id="triposhaAreaSubtitle">Loading Triposha data...</p>
                     </div>
 
-                <!-- Statistics Cards -->
-                <div class="dashboard-stats">
-                    <div class="stat-card info editable-stat" onclick="editPacketsReceived()">
-                        <div class="stat-number" id="packets-received-month">150</div>
-                        <div class="stat-label">Packets Received This Month</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                    </div>
-                    <div class="stat-card warning editable-stat" onclick="editPacketsLeftPrevious()">
-                        <div class="stat-number" id="packets-left-previous">25</div>
-                        <div class="stat-label">Packets Left from Previous Month</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-number" id="total-packets">175</div>
-                        <div class="stat-label">Total Packets Available</div>
-                        <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
-                    </div>
-                    <div class="stat-card editable-stat" onclick="editPacketsDistributed()">
-                        <div class="stat-number" id="packets-distributed">98</div>
-                        <div class="stat-label">Packets Distributed</div>
-                        <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
-                    </div>
-                </div>
+                    <div class="dashboard-stats">
+                        <div class="stat-card info editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-received-month">0</div>
+                            <div class="stat-label">Packets Received This Month</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+                        </div>
 
-                <!-- Distribution Management -->
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Distribution Records</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Beneficiary</th>
-                                                <th>Address</th>
-                                                <th>Packets</th>
-                                                <th>Category</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="distribution-records">
-                                            <tr data-id="1">
-                                                <td>2026-02-05</td>
-                                                <td>Mrs. K. Silva</td>
-                                                <td>45, Main Street, Uduthuththiripitiya</td>
-                                                <td>2</td>
-                                                <td>Pregnant Mother</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'pregnant')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="2">
-                                                <td>2026-02-05</td>
-                                                <td>Mrs. A. Fernando</td>
-                                                <td>12, Temple Road, Uduthuththiripitiya</td>
-                                                <td>3</td>
-                                                <td>Lactating Mother</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 3, 'lactating')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="3">
-                                                <td>2026-02-04</td>
-                                                <td>Mrs. D. Jayawardene</td>
-                                                <td>8, School Lane, Uduthuththiripitiya</td>
-                                                <td>2</td>
-                                                <td>Child (6-23 months)</td>
-                                                <td><span class="status-badge status-active">Completed</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 2, 'children')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr data-id="4">
-                                                <td>2026-02-04</td>
-                                                <td>Mrs. P. Perera</td>
-                                                <td>23, Station Road, Uduthuththiripitiya</td>
-                                                <td>1</td>
-                                                <td>Pregnant Mother</td>
-                                                <td><span class="status-badge status-pending">Pending</span></td>
-                                                <td>
-                                                    <button class="btn btn-danger btn-sm" onclick="removeDistributionRecord(this, 1, 'pregnant')" title="Remove this distribution">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="stat-card warning editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-left-previous">0</div>
+                            <div class="stat-label">Packets Left from Previous Month</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
+                        </div>
+
+                        <div class="stat-card success">
+                            <div class="stat-number" id="total-packets">0</div>
+                            <div class="stat-label">Total Packets Available</div>
+                            <div class="auto-calc-hint"><i class="fas fa-calculator"></i> Auto-calculated</div>
+                        </div>
+
+                        <div class="stat-card editable-stat" onclick="openTriposhaInventoryModal()">
+                            <div class="stat-number" id="packets-distributed">0</div>
+                            <div class="stat-label">Packets Distributed</div>
+                            <div class="edit-hint"><i class="fas fa-edit"></i> Click to edit</div>
                         </div>
                     </div>
 
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Quick Actions</h4>
-                            </div>
-                            <div class="card-body">
-                                <button class="btn btn-primary btn-block mb-3" onclick="showDistributionForm()">
-                                    <i class="fas fa-plus"></i> Record Distribution
-                                </button>
-                                <button class="btn btn-secondary btn-block mb-3" onclick="updateInventory()">
-                                    <i class="fas fa-box-open"></i> Update Inventory
-                                </button>
-                                <button class="btn btn-danger btn-block mb-3" onclick="showRemoveDistributionForm()">
-                                    <i class="fas fa-minus-circle"></i> Remove Distribution
-                                </button>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Distribution Records</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Beneficiary</th>
+                                                    <th>Address</th>
+                                                    <th>Packets</th>
+                                                    <th>Category</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="distribution-records">
+                                                <tr>
+                                                    <td colspan="7">Loading records...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h4 class="card-title">Monthly Summary</h4>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Quick Actions</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <button class="btn btn-primary btn-block mb-3" type="button" data-toggle="modal" data-target="#triposhaDistributionModal">
+                                        <i class="fas fa-plus"></i> Record Distribution
+                                    </button>
+
+                                    <button class="btn btn-secondary btn-block mb-3" onclick="openTriposhaInventoryModal()">
+                                        <i class="fas fa-box-open"></i> Update Inventory
+                                    </button>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('pregnant')">
-                                    <span>Pregnant Mothers:</span>
-                                    <div>
-                                        <strong id="pregnant-packets">35 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h4 class="card-title">Monthly Summary</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="summary-item">
+                                        <span>Pregnant Mothers:</span>
+                                        <div>
+                                            <strong id="pregnant-packets">0 packets</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('lactating')">
-                                    <span>Lactating Mothers:</span>
-                                    <div>
-                                        <strong id="lactating-packets">42 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
+
+                                    <div class="summary-item">
+                                        <span>Lactating Mothers:</span>
+                                        <div>
+                                            <strong id="lactating-packets">0 packets</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="summary-item editable-summary" onclick="editCategorySummary('children')">
-                                    <span>Children (6-23m):</span>
-                                    <div>
-                                        <strong id="children-packets">21 packets</strong>
-                                        <i class="fas fa-edit edit-icon"></i>
+
+                                    <div class="summary-item">
+                                        <span>Children (6-23m):</span>
+                                        <div>
+                                            <strong id="children-packets">0 packets</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="summary-item">
-                                    <span><strong>Total Distributed:</strong></span>
-                                    <strong class="text-success" id="total-distributed-summary">98 packets</strong>
-                                </div>
-                                <div class="summary-item">
-                                    <span><strong>Remaining:</strong></span>
-                                    <strong class="text-warning" id="remaining-packets">77 packets</strong>
+
+                                    <hr>
+
+                                    <div class="summary-item">
+                                        <span><strong>Total Distributed:</strong></span>
+                                        <strong class="text-success" id="total-distributed-summary">0 packets</strong>
+                                    </div>
+
+                                    <div class="summary-item">
+                                        <span><strong>Remaining:</strong></span>
+                                        <strong class="text-warning" id="remaining-packets">0 packets</strong>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
 
+                <!-- Triposha Inventory Modal -->
+                <div class="modal fade" id="triposhaInventoryModal" tabindex="-1" role="dialog" aria-labelledby="triposhaInventoryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="triposhaInventoryModalLabel">Update Triposha Inventory</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form id="triposhaInventoryForm" action="../php/midwife/save_triposha_inventory.php" method="POST">
+                                <div class="modal-body">
+                                    <input type="hidden" name="duty_area" id="triposhaInventoryDutyArea">
+
+                                    <div class="form-group">
+                                        <label class="form-label">Inventory Month *</label>
+                                        <input type="month" class="form-control" name="inventory_month" id="triposhaInventoryMonth" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets Received This Month *</label>
+                                        <input type="number" class="form-control" name="packets_received" id="triposhaPacketsReceived" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets Left from Previous Month *</label>
+                                        <input type="number" class="form-control" name="packets_left_previous" id="triposhaPacketsLeftPrevious" min="0" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" name="notes" id="triposhaInventoryNotes" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Inventory
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Triposha Distribution Modal -->
+                <div class="modal fade" id="triposhaDistributionModal" tabindex="-1" role="dialog" aria-labelledby="triposhaDistributionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="triposhaDistributionModalLabel">Record Triposha Distribution</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form id="triposhaDistributionForm" action="../php/midwife/create_triposha_distribution.php" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Duty Area *</label>
+                                        <input type="text" class="form-control" name="duty_area" id="triposhaDistributionDutyArea" required>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Date *</label>
+                                                <input type="date" class="form-control" name="distribution_date" id="triposhaDistributionDate" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Category *</label>
+                                                <select class="form-control" name="category" required>
+                                                    <option value="">Select category</option>
+                                                    <option value="pregnant">Pregnant Mother</option>
+                                                    <option value="lactating">Lactating Mother</option>
+                                                    <option value="children">Child (6-23 months)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Beneficiary Name *</label>
+                                        <input type="text" class="form-control" name="beneficiary_name" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="address">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Packets *</label>
+                                        <input type="number" class="form-control" name="packets" min="1" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select class="form-control" name="status">
+                                            <option value="completed">Completed</option>
+                                            <option value="pending">Pending</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Notes</label>
+                                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Distribution
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Remove Distribution Modal -->
             <div id="removeDistributionModal" class="modal" style="display: none;">
                 <div class="modal-content">
@@ -6065,79 +3998,649 @@ echo '</script>';
             </div>
 
 
-    <div id="distributionModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Record Triposha Distribution</h3>
-                <span class="close" onclick="closeDistributionModal()">&times;</span>
+            <div id="distributionModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Record Triposha Distribution</h3>
+                        <span class="close" onclick="closeDistributionModal()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <form id="distributionForm">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" name="distribution_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Beneficiary Name</label>
+                                <input type="text" name="beneficiary_name" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select name="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="pregnant">Pregnant Mother</option>
+                                    <option value="lactating">Lactating Mother</option>
+                                    <option value="child_6_23">Child (6-23 months)</option>
+                                    <option value="child_24_59">Child (24-59 months)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Packets</label>
+                                <input type="number" name="packet_count" min="1" max="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Notes (Optional)</label>
+                                <textarea name="notes" rows="3" placeholder="Additional notes"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="closeDistributionModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Record Distribution</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <form id="distributionForm">
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" name="distribution_date" required>
+
+            <!--  addScheduleModal -->
+
+            <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addScheduleModalLabel">Add New Schedule Item</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="scheduleItemForm" action="../php/midwife/create_schedule.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Date *</label>
+                                            <input type="date" class="form-control" name="scheduled_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Time *</label>
+                                            <input type="time" class="form-control" name="start_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Activity Type *</label>
+                                            <select class="form-control" name="activity_type" required>
+                                                <option value="">Select Type</option>
+                                                <option value="HOME_VISIT">Home Visit</option>
+                                                <option value="CLINIC_VISIT">Clinic Session</option>
+                                                <option value="VACCINATION">Vaccination</option>
+                                                <option value="COUNSELING">Counseling</option>
+                                                <option value="MEETING">Meeting</option>
+                                                <option value="HEALTH_EDUCATION">Health Education</option>
+                                                <option value="EMERGENCY_RESPONSE">Emergency Response</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Duration</label>
+                                            <select class="form-control" name="duration">
+                                                <option value="30">30 minutes</option>
+                                                <option value="45">45 minutes</option>
+                                                <option value="60">1 hour</option>
+                                                <option value="90">1.5 hours</option>
+                                                <option value="120">2 hours</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Title / Description *</label>
+                                    <input type="text" class="form-control" name="description" placeholder="Brief description of the activity" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Patient Name</label>
+                                    <input type="text" class="form-control" name="patient_name" placeholder="Patient name if applicable">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Location *</label>
+                                    <input type="text" class="form-control" name="location" placeholder="Where will this take place?" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Priority</label>
+                                            <select class="form-control" name="priority_level">
+                                                <option value="normal">Normal</option>
+                                                <option value="high">High</option>
+                                                <option value="urgent">Urgent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Duty Area / Working Area</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                name="duty_area"
+                                                placeholder="Enter working area"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Notes</label>
+                                    <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add to Schedule</button>
+                            </div>
+                        </form>
+
                     </div>
-                    <div class="form-group">
-                        <label>Beneficiary Name</label>
-                        <input type="text" name="beneficiary_name" placeholder="Enter full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select name="category" required>
-                            <option value="">Select category</option>
-                            <option value="pregnant">Pregnant Mother</option>
-                            <option value="lactating">Lactating Mother</option>
-                            <option value="child_6_23">Child (6-23 months)</option>
-                            <option value="child_24_59">Child (24-59 months)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Number of Packets</label>
-                        <input type="number" name="packet_count" min="1" max="10" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Notes (Optional)</label>
-                        <textarea name="notes" rows="3" placeholder="Additional notes"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeDistributionModal()">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Record Distribution</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <!-- timetableModal -->
+
+            <div class="modal fade" id="timetableModal" tabindex="-1" role="dialog" aria-labelledby="timetableModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="timetableModalLabel">My Timetable</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="timetable-controls mb-3">
+                                <div class="d-flex justify-content-start mb-3" role="tablist" style="gap: 0.5rem;">
+                                    <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
+                                    <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
+                                    <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
+                                </div>
+
+                                <div class="row" id="timetable-selectors">
+                                    <div class="col-4">
+                                        <label class="form-label">Year</label>
+                                        <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData();">
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026" selected>2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-4" id="timetable-month-wrapper">
+                                        <label class="form-label">Month</label>
+                                        <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData();">
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03" selected>March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-4" id="timetable-day-wrapper">
+                                        <label class="form-label">Day</label>
+                                        <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData();">
+                                            <option value="01">1</option>
+                                            <option value="02">2</option>
+                                            <option value="03">3</option>
+                                            <option value="04">4</option>
+                                            <option value="05">5</option>
+                                            <option value="06">6</option>
+                                            <option value="07">7</option>
+                                            <option value="08">8</option>
+                                            <option value="09">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27" selected>27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="timetableContent">
+                                <div id="timetableHeader" class="timetable-header" style="display: none;">
+                                    <h4 id="monthTitle"></h4>
+                                </div>
+
+                                <div id="timetableBody">
+                                    <p class="text-muted mb-0">Select year, month, or day to view timetable.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
 
+            <!-- scheduleVisitModal -->
 
-    <!--  addScheduleModal -->
+            <div class="modal fade" id="scheduleVisitModal" tabindex="-1" role="dialog" aria-labelledby="scheduleVisitModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
 
-    <div class="modal fade" id="addScheduleModal" tabindex="-1" role="dialog" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="scheduleVisitModalLabel">Schedule New Home Visit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="newVisitForm" action="../php/midwife/create_home_visit.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Name *</label>
+                                            <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Contact Number</label>
+                                            <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Address *</label>
+                                    <input type="text" class="form-control" name="address" placeholder="Enter patient address" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Visit Type *</label>
+                                            <select class="form-control" name="visit_type" required>
+                                                <option value="antenatal">Antenatal Visit</option>
+                                                <option value="postnatal">Postnatal Visit</option>
+                                                <option value="family-planning">Family Planning</option>
+                                                <option value="emergency">Emergency Follow-up</option>
+                                                <option value="routine">Routine Visit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Priority</label>
+                                            <select class="form-control" name="priority">
+                                                <option value="normal">Normal</option>
+                                                <option value="high">High</option>
+                                                <option value="urgent">Urgent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Date *</label>
+                                            <input type="date" class="form-control" name="visit_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Time *</label>
+                                            <input type="time" class="form-control" name="start_time" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Duration (min)</label>
+                                            <input type="number" class="form-control" name="duration_minutes" value="45" min="15" max="180">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Duty Area / Working Area *</label>
+                                    <input type="text" class="form-control" name="duty_area" placeholder="Enter working area" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Reason for Visit</label>
+                                    <textarea class="form-control" name="reason" rows="2" placeholder="Reason for the home visit..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Notes</label>
+                                    <textarea class="form-control" name="notes" rows="2" placeholder="Additional notes..."></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Schedule Visit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule New Vaccination -->
+
+
+            <div class="modal fade" id="scheduleVaccinationModal" tabindex="-1" role="dialog" aria-labelledby="scheduleVaccinationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="scheduleVaccinationModalLabel">Schedule New Vaccination</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="newVaccinationForm" action="../php/midwife/create_vaccination.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Name *</label>
+                                            <input type="text" class="form-control" name="patient_name" placeholder="Enter patient name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Patient Age</label>
+                                            <input type="number" class="form-control" name="patient_age" min="0" max="120" placeholder="Age">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Contact Number</label>
+                                            <input type="tel" class="form-control" name="contact_number" placeholder="+94 XX XXX XXXX">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Duty Area *</label>
+                                            <input type="text" class="form-control" name="duty_area" placeholder="Enter duty area" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" name="address" placeholder="Enter patient address">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Vaccine Category *</label>
+                                            <select class="form-control" name="vaccine_category" id="vaccineCategory" required>
+                                                <option value="">Select Category</option>
+                                                <option value="pediatric">Pediatric Vaccines</option>
+                                                <option value="maternal">Maternal Vaccines</option>
+                                                <option value="adult">Adult Vaccines</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Vaccine *</label>
+                                            <select class="form-control" name="vaccine_code" id="vaccineOptions" required>
+                                                <option value="">Select category first</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Date *</label>
+                                            <input type="date" class="form-control" name="vaccination_date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Time *</label>
+                                            <input type="time" class="form-control" name="vaccination_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Location *</label>
+                                    <input type="text" class="form-control" name="location" placeholder="Clinic / home / community location" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Dose Number</label>
+                                            <input type="text" class="form-control" name="dose_number" placeholder="Example: 1st dose, 2nd dose, Booster">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Next Due Date</label>
+                                            <input type="date" class="form-control" name="next_due_date">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Special Instructions / Notes</label>
+                                    <textarea class="form-control" name="notes" rows="3" placeholder="Any special instructions or notes..."></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Schedule Vaccination
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- updatevaccinationinventorymodel -->
+
+            <div class="modal fade" id="updateVaccineInventoryModal" tabindex="-1" role="dialog" aria-labelledby="updateVaccineInventoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateVaccineInventoryModalLabel">
+                                Update Vaccine Inventory
+                            </h5>
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form id="updateVaccineInventoryForm" action="../php/midwife/update_vaccine_inventory.php" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    <label class="form-label">Select Vaccine *</label>
+                                    <select class="form-control" name="vaccine_id" id="inventoryVaccineSelect" required>
+                                        <option value="">Loading vaccines...</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Stock Quantity *</label>
+                                            <input type="number" class="form-control" name="stock_quantity" id="inventoryStockQuantity" min="0" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Minimum Stock Level *</label>
+                                            <input type="number" class="form-control" name="minimum_stock_level" id="inventoryMinimumStock" min="0" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Batch Number</label>
+                                            <input type="text" class="form-control" name="batch_number" id="inventoryBatchNumber" placeholder="Example: DPT-2026-001">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Expiry Date</label>
+                                            <input type="date" class="form-control" name="expiry_date" id="inventoryExpiryDate">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Status *</label>
+                                    <select class="form-control" name="status" id="inventoryStatus" required>
+                                        <option value="available">Available</option>
+                                        <option value="low_stock">Low Stock</option>
+                                        <option value="expired">Expired</option>
+                                        <option value="unavailable">Unavailable</option>
+                                    </select>
+                                </div>
+
+                                <div class="alert alert-info">
+                                    Select a vaccine first. Existing inventory values will automatically fill into the form.
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Inventory
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+<!-- =========================================================
+     1. Pregnant Mother Modal
+     Table: maternal_care_records
+     Category: pregnant
+========================================================= -->
+<div class="modal fade" id="pregnantMotherModal" tabindex="-1" role="dialog" aria-labelledby="pregnantMotherModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <form id="pregnantMotherForm" action="../php/midwife/create_pregnant_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pregnantMotherModalLabel">Add Pregnant Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="addScheduleModalLabel">Add New Schedule Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <form id="scheduleItemForm" action="../php/midwife/create_schedule.php" method="POST">
                 <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="pregnantMotherDutyArea">
+                    <input type="hidden" name="category" value="pregnant">
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Date *</label>
-                                <input type="date" class="form-control" name="scheduled_date" required>
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Time *</label>
-                                <input type="time" class="form-control" name="start_time" required>
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
                             </div>
                         </div>
                     </div>
@@ -6145,85 +4648,644 @@ echo '</script>';
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Activity Type *</label>
-                                <select class="form-control" name="activity_type" required>
-                                    <option value="">Select Type</option>
-                                    <option value="HOME_VISIT">Home Visit</option>
-                                    <option value="CLINIC_VISIT">Clinic Session</option>
-                                    <option value="VACCINATION">Vaccination</option>
-                                    <option value="COUNSELING">Counseling</option>
-                                    <option value="MEETING">Meeting</option>
-                                    <option value="HEALTH_EDUCATION">Health Education</option>
-                                    <option value="EMERGENCY_RESPONSE">Emergency Response</option>
-                                </select>
+                                <label class="form-label">Weeks Pregnant</label>
+                                <input type="number" class="form-control" name="weeks_pregnant" min="1" max="42">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Duration</label>
-                                <select class="form-control" name="duration">
-                                    <option value="30">30 minutes</option>
-                                    <option value="45">45 minutes</option>
-                                    <option value="60">1 hour</option>
-                                    <option value="90">1.5 hours</option>
-                                    <option value="120">2 hours</option>
+                                <label class="form-label">Risk Level</label>
+                                <select class="form-control" name="risk_level">
+                                    <option value="Low Risk">Low Risk</option>
+                                    <option value="Medium Risk">Medium Risk</option>
+                                    <option value="High Risk">High Risk</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Next Appointment</label>
+                                <input type="date" class="form-control" name="next_appointment">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control" name="status">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Title / Description *</label>
-                        <input type="text" class="form-control" name="description" placeholder="Brief description of the activity" required>
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Patient Name</label>
-                        <input type="text" class="form-control" name="patient_name" placeholder="Patient name if applicable">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Location *</label>
-                        <input type="text" class="form-control" name="location" placeholder="Where will this take place?" required>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Pregnant Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     2. Lactating Mother Modal
+     Table: maternal_care_records
+     Category: lactating
+========================================================= -->
+<div class="modal fade" id="lactatingMotherModal" tabindex="-1" role="dialog" aria-labelledby="lactatingMotherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="lactatingMotherForm" action="../php/midwife/create_lactating_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lactatingMotherModalLabel">Add Lactating Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="lactatingMotherDutyArea">
+                    <input type="hidden" name="category" value="lactating">
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Priority</label>
-                                <select class="form-control" name="priority_level">
-                                    <option value="normal">Normal</option>
-                                    <option value="high">High</option>
-                                    <option value="urgent">Urgent</option>
-                                </select>
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="form-label">Duty Area / Working Area</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    name="duty_area" 
-                                    placeholder="Enter working area" 
-                                    required
-                                >
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Baby's Age</label>
+                                <input type="text" class="form-control" name="baby_age" placeholder="Example: 2 months">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Breastfeeding Status</label>
+                                <input type="text" class="form-control" name="breastfeeding_status" placeholder="Example: Exclusive breastfeeding">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Support Level</label>
+                                <select class="form-control" name="support_level">
+                                    <option value="Good Support">Good Support</option>
+                                    <option value="Needs Support">Needs Support</option>
+                                    <option value="High Support Required">High Support Required</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Lactating Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     3. Postnatal Mother Modal
+     Table: maternal_care_records
+     Category: postnatal
+========================================================= -->
+<div class="modal fade" id="postnatalMotherModal" tabindex="-1" role="dialog" aria-labelledby="postnatalMotherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="postnatalMotherForm" action="../php/midwife/create_postnatal_mother.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postnatalMotherModalLabel">Add Postnatal Mother</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="postnatalMotherDutyArea">
+                    <input type="hidden" name="category" value="postnatal">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name *</label>
+                                <input type="text" class="form-control" name="mother_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="number" class="form-control" name="age" min="12" max="60">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Date</label>
+                                <input type="date" class="form-control" name="delivery_date">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Delivery Type</label>
+                                <select class="form-control" name="delivery_type">
+                                    <option value="">Select Delivery Type</option>
+                                    <option value="Normal Delivery">Normal Delivery</option>
+                                    <option value="C-Section">C-Section</option>
+                                    <option value="Assisted Delivery">Assisted Delivery</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Recovery Status</label>
+                                <input type="text" class="form-control" name="recovery_status" value="Good Recovery">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit</label>
+                                <input type="date" class="form-control" name="last_visit">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Next Appointment</label>
+                                <input type="date" class="form-control" name="next_appointment">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" name="contact_number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Postnatal Mother
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     4. Newborn Modal
+     Table: child_care_records
+     child_category: newborns
+========================================================= -->
+<div class="modal fade" id="newbornModal" tabindex="-1" role="dialog" aria-labelledby="newbornModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="newbornForm" action="../php/midwife/create_newborn.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newbornModalLabel">Add Newborn</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="newbornDutyArea">
+                    <input type="hidden" name="child_category" value="newborns">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Baby's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother's Name</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="date_of_birth">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Birth Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="birth_weight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Notes</label>
-                        <textarea class="form-control" name="notes" rows="3" placeholder="Additional notes or instructions"></textarea>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
                     </div>
-
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add to Schedule</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Newborn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     5. Young Child Modal
+     Table: child_care_records
+     child_category: young
+========================================================= -->
+<div class="modal fade" id="youngChildModal" tabindex="-1" role="dialog" aria-labelledby="youngChildModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="youngChildForm" action="../php/midwife/create_young_child.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="youngChildModalLabel">Add Young Child</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="youngChildDutyArea">
+                    <input type="hidden" name="child_category" value="young">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Child's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother / Guardian</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age_label" placeholder="Example: 2 years">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Current Weight (kg)</label>
+                                <input type="number" step="0.01" class="form-control" name="current_weight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Height (cm)</label>
+                                <input type="number" step="0.01" class="form-control" name="height_cm">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Development Status</label>
+                                <input type="text" class="form-control" name="development_status" value="Normal">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Young Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     6. Child Modal
+     Table: child_care_records
+     child_category: childs
+========================================================= -->
+<div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="childModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form id="childForm" action="../php/midwife/create_child.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="childModalLabel">Add Child</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="duty_area" id="childDutyArea">
+                    <input type="hidden" name="child_category" value="childs">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Child's Name *</label>
+                                <input type="text" class="form-control" name="child_name" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Mother / Guardian</label>
+                                <input type="text" class="form-control" name="mother_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Age</label>
+                                <input type="text" class="form-control" name="age_label" placeholder="Example: 5 years">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">School</label>
+                                <input type="text" class="form-control" name="school">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Last Visit / Last Check-up</label>
+                                <input type="date" class="form-control" name="last_checkup">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Health Status</label>
+                                <input type="text" class="form-control" name="health_status" value="Healthy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Edit Profile Bootstrap Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <form id="editProfileForm" action="../php/midwife/update_profile.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="full_name"
+                                    id="editFullName"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="phone"
+                                    id="editPhone"
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea
+                            class="form-control"
+                            name="address"
+                            id="editAddress"
+                            rows="3"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
                 </div>
             </form>
 
@@ -6232,1025 +5294,575 @@ echo '</script>';
 </div>
 
 
-
-<!-- timetableModal -->
-
-
-<div class="modal fade" id="timetableModal" tabindex="-1" role="dialog" aria-labelledby="timetableModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<!-- Change Password Bootstrap Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="timetableModalLabel">My Timetable</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            <form id="changePasswordForm" action="../php/midwife/change_password.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">
+                        <i class="fas fa-key"></i> Change Password
+                    </h5>
 
-            <div class="modal-body">
-                <div class="timetable-controls mb-3">
-                    <div class="d-flex justify-content-start mb-3" role="tablist" style="gap: 0.5rem;">
-                        <button class="btn btn-outline-primary active" id="tab-year" onclick="setTimetableTab('year')" type="button">Year</button>
-                        <button class="btn btn-outline-primary" id="tab-month" onclick="setTimetableTab('month')" type="button">Month</button>
-                        <button class="btn btn-outline-primary" id="tab-day" onclick="setTimetableTab('day')" type="button">Day</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Current Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="current_password"
+                            id="currentPassword"
+                            required
+                        >
                     </div>
 
-                    <div class="row" id="timetable-selectors">
-                        <div class="col-4">
-                            <label class="form-label">Year</label>
-                            <select class="form-control" id="timetableYear" onchange="syncTimetableInputs(); loadTimetableData();">
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                                <option value="2026" selected>2026</option>
-                                <option value="2027">2027</option>
-                                <option value="2028">2028</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">New Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="new_password"
+                            id="newPassword"
+                            minlength="8"
+                            required
+                        >
+                        <small class="form-text text-muted">
+                            Password must be at least 8 characters long.
+                        </small>
+                    </div>
 
-                        <div class="col-4" id="timetable-month-wrapper">
-                            <label class="form-label">Month</label>
-                            <select class="form-control" id="timetableMonth" onchange="syncTimetableInputs(); loadTimetableData();">
-                                <option value="01">January</option>
-                                <option value="02">February</option>
-                                <option value="03" selected>March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">June</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                        </div>
-
-                        <div class="col-4" id="timetable-day-wrapper">
-                            <label class="form-label">Day</label>
-                            <select class="form-control" id="timetableDay" onchange="syncTimetableInputs(); loadTimetableData();">
-                                <option value="01">1</option>
-                                <option value="02">2</option>
-                                <option value="03">3</option>
-                                <option value="04">4</option>
-                                <option value="05">5</option>
-                                <option value="06">6</option>
-                                <option value="07">7</option>
-                                <option value="08">8</option>
-                                <option value="09">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27" selected>27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                                <option value="31">31</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password *</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="confirm_password"
+                            id="confirmPassword"
+                            minlength="8"
+                            required
+                        >
                     </div>
                 </div>
 
-                <div id="timetableContent">
-                    <div id="timetableHeader" class="timetable-header" style="display: none;">
-                        <h4 id="monthTitle"></h4>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Cancel
+                    </button>
 
-                    <div id="timetableBody">
-                        <p class="text-muted mb-0">Select year, month, or day to view timetable.</p>
-                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-key"></i> Change Password
+                    </button>
                 </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="editTimetable()">Edit Timetable</button>
-            </div>
+            </form>
 
         </div>
     </div>
 </div>
-      
 
 
-    <script src="../js/page-transitions.js"></script>
-    <script src="../js/theme-toggle.js"></script>
-    <script src="../js/midwife/create_activity.js"></script>
-    <script src="../js/midwife/create-schedule.js"></script>
-    <script src="../js/midwife/load-schedules.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script>
-        $('#timetableModal').on('shown.bs.modal', function () {
+            <script src="../js/page-transitions.js"></script>
+            <script src="../js/theme-toggle.js"></script>
+            <script src="../js/midwife/create_activity.js"></script>
+            <script src="../js/midwife/create-schedule.js"></script>
+            <script src="../js/midwife/load-schedules.js"></script>
+            <script src="../js/midwife/create-home-visit.js"></script>
+            <script src="../js/midwife/load-home-visits.js"></script>
+            <script src="../js/midwife/load-vaccinations.js"></script>
+            <script src="../js/midwife/schedule-vaccination.js"></script>
+            <script src="../js/midwife/load-triposha.js"></script>
+            <script src="../js/midwife/load-health-education-sessions.js"></script>
+            <script src="../js/midwife/load-counseling-sessions.js"></script>
+            <script src="../js/midwife/maternal-child-care-tabs.js"></script>
+            <script src="../js/midwife/maternal-child-care.js"></script>
+            <script src="../js/midwife/midwife-profile.js"></script>
+            <script src="../js/midwife/load-dashboard-widgets.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+            <script>
+                $('#timetableModal').on('shown.bs.modal', function() {
 
-            if (typeof setTimetableTab === 'function') {
+                    if (typeof setTimetableTab === 'function') {
 
-                setTimetableTab('year');
+                        setTimetableTab('year');
 
-            }
+                    }
 
-            if (typeof syncTimetableInputs === 'function') {
+                    if (typeof syncTimetableInputs === 'function') {
 
-                syncTimetableInputs();
+                        syncTimetableInputs();
 
-            }
+                    }
 
-            if (typeof loadTimetableData === 'function') {
+                    if (typeof loadTimetableData === 'function') {
 
-                loadTimetableData();
+                        loadTimetableData();
 
-            }
+                    }
 
-        });
-    </script>
-    
-    <script>
-        // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            setupNavigation();
-            setupSidebarToggle();
-            setupProfileButtonNavigation();
-            
-            applyHashSection();
-            loadDashboardWidgets();
-            loadHomeVisits();
-
-            const initialVisitTab = getVisitTabFromUrl();
-            if (initialVisitTab === 'completed') {
-                switchVisitTab('completed');
-            }
-
-            checkAuthentication();
-            initializeCharts();
-            setCurrentDateTime();
-            updateTotalPackets();
-            updateRemainingPackets();
-        });
-
-        // Sidebar Toggle Functionality
-        function setupSidebarToggle() {
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-            function openSidebar() {
-                sidebar.classList.add('open');
-                sidebarOverlay.classList.add('active');
-                hamburgerBtn.classList.add('active');
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                sidebarOverlay.classList.remove('active');
-                hamburgerBtn.classList.remove('active');
-            }
-
-            hamburgerBtn.addEventListener('click', function() {
-                if (sidebar.classList.contains('open')) {
-                    closeSidebar();
-                } else {
-                    openSidebar();
-                }
-            });
-
-            sidebarCloseBtn.addEventListener('click', closeSidebar);
-            sidebarOverlay.addEventListener('click', closeSidebar);
-
-            // Close sidebar when a menu link is clicked
-            var menuLinks = document.querySelectorAll('.sidebar-menu a');
-            menuLinks.forEach(function(link) {
-                link.addEventListener('click', closeSidebar);
-            });
-        }
-
-        // Profile Button Navigation - Opens Profile Section
-        function setupProfileButtonNavigation() {
-            const profileBtn = document.getElementById('navbarProfileBtn');
-            const profileImg = document.getElementById('navbar-profile-pic');
-            const contentSections = document.querySelectorAll('.content-section');
-            const sidebarMenuLinks = document.querySelectorAll('.sidebar-menu a');
-            const SECTION_TRANSITION_MS = 200;
-
-            function navigateToProfile() {
-                const profileSection = document.getElementById('profile');
-                if (!profileSection) return;
-
-                // Find currently visible section
-                let currentSection = Array.from(contentSections).find(section =>
-                    window.getComputedStyle(section).display !== 'none' && section.id !== 'profile'
-                );
-
-                // Hide all content sections
-                contentSections.forEach(section => {
-                    section.style.display = 'none';
-                    section.classList.remove('section-slide-in', 'section-slide-out');
                 });
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const params = new URLSearchParams(window.location.search);
+                    const section = params.get('section');
 
-                // Update sidebar active state
-                sidebarMenuLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#profile') {
-                        link.classList.add('active');
+                    if (section === 'profile') {
+                        if (typeof showSection === 'function') {
+                            showSection('profile');
+                        } else {
+                            document.querySelectorAll('.content-section').forEach(function (sectionElement) {
+                                sectionElement.style.display = 'none';
+                            });
+
+                            const profileSection = document.getElementById('profile');
+                            if (profileSection) {
+                                profileSection.style.display = 'block';
+                            }
+                        }
                     }
                 });
+            </script>
 
-                // Close sidebar if open (mobile)
-                const sidebar = document.getElementById('sidebar');
-                const sidebarOverlay = document.getElementById('sidebarOverlay');
-                const hamburgerBtn = document.getElementById('hamburgerBtn');
-                if (sidebar && sidebar.classList.contains('open')) {
-                    sidebar.classList.remove('open');
-                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                    if (hamburgerBtn) hamburgerBtn.classList.remove('active');
-                }
+            <script>
+                // Initialize dashboard
+                document.addEventListener('DOMContentLoaded', function() {
+                    setupNavigation();
+                    setupSidebarToggle();
+                    setupProfileButtonNavigation();
 
-                // Show profile section with animation
-                if (currentSection) {
-                    currentSection.classList.add('section-slide-out');
-                    setTimeout(() => {
-                        profileSection.style.display = 'block';
-                        profileSection.classList.add('section-slide-in');
-                    }, SECTION_TRANSITION_MS);
-                } else {
-                    profileSection.style.display = 'block';
-                    profileSection.classList.add('section-slide-in');
-                }
+                    applyHashSection();
+                    loadDashboardWidgets();
+                    loadHomeVisits();
 
-                // Update URL hash
-                window.location.hash = 'profile';
-            }
+                    const initialVisitTab = getVisitTabFromUrl();
+                    if (initialVisitTab === 'completed') {
+                        switchVisitTab('completed');
+                    }
 
-            if (profileBtn) {
-                profileBtn.addEventListener('click', navigateToProfile);
-            }
-            if (profileImg) {
-                profileImg.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    navigateToProfile();
+                    checkAuthentication();
+                    initializeCharts();
+                    setCurrentDateTime();
+                    updateTotalPackets();
+                    updateRemainingPackets();
                 });
-            }
-        }
 
-        function checkAuthentication() {
-            const midwifeUser = localStorage.getItem('midwife_user');
-            if (!midwifeUser) {
-                window.location.href = '../midwife-login.html';
-                return;
-            }
-            
-            const user = JSON.parse(midwifeUser);
-            document.querySelector('.midwife-name').textContent = user.name || 'Midwife User';
-        }
+                // Sidebar Toggle Functionality
+                function setupSidebarToggle() {
+                    const hamburgerBtn = document.getElementById('hamburgerBtn');
+                    const sidebar = document.getElementById('sidebar');
+                    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+                    const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        
-        function loadDashboardWidgets() {
-            // Static data for dashboard widgets
-            const widgetData = {
-                urgent_meetings: [
-                    {
-                        description: "High-risk pregnancy follow-up",
-                        scheduled_date: "31 Mar 2026",
-                        start_time: "09:00",
-                        location: "MOH Clinic - Room 3"
-                    },
-                    {
-                        description: "Postnatal emergency review",
-                        scheduled_date: "31 Mar 2026",
-                        start_time: "11:30",
-                        location: "Uduthuththiripitiya CHC"
+                    function openSidebar() {
+                        sidebar.classList.add('open');
+                        sidebarOverlay.classList.add('active');
+                        hamburgerBtn.classList.add('active');
                     }
-                ],
-                upcoming_clinics: [
-                    {
-                        description: "Antenatal Clinic - Routine Check",
-                        scheduled_date: "01 Apr 2026",
-                        start_time: "08:30",
-                        location: "Kahabilihena RH"
-                    },
-                    {
-                        description: "Child Growth Monitoring",
-                        scheduled_date: "02 Apr 2026",
-                        start_time: "09:00",
-                        location: "Opathella PHC"
-                    },
-                    {
-                        description: "Family Planning Session",
-                        scheduled_date: "03 Apr 2026",
-                        start_time: "10:00",
-                        location: "Ambalangoda DH"
+
+                    function closeSidebar() {
+                        sidebar.classList.remove('open');
+                        sidebarOverlay.classList.remove('active');
+                        hamburgerBtn.classList.remove('active');
                     }
-                ],
-                timetable: [
-                    {
-                        start_time: "08:00",
-                        estimated_end_time: "09:00",
-                        description: "Home Visit - Mrs. K. Silva",
-                        location: "Uduthuththiripitiya Village",
-                        patient_name: "Pregnant - 32 weeks"
-                    },
-                    {
-                        start_time: "10:00",
-                        estimated_end_time: "10:30",
-                        description: "Vaccination Session",
-                        location: "MOH Clinic",
-                        patient_name: "Pediatric vaccines"
-                    },
-                    {
-                        start_time: "14:00",
-                        estimated_end_time: "15:00",
-                        description: "Counseling - Breastfeeding support",
-                        location: "Community Center",
-                        patient_name: "Mrs. A. Fernando"
-                    }
-                ],
-                notifications: [
-                    {
-                        title: "Vaccine Stock Alert",
-                        message: "DPT-3 vaccine stock is running low. Please reorder before Friday."
-                    },
-                    {
-                        title: "Monthly Report Due",
-                        message: "Submit your monthly activity report by April 5th."
-                    },
-                    {
-                        title: "Training Session",
-                        message: "Newborn care training scheduled for April 2nd at 2 PM."
-                    }
-                ]
-            };
 
-            const d = widgetData;
+                    hamburgerBtn.addEventListener('click', function() {
+                        if (sidebar.classList.contains('open')) {
+                            closeSidebar();
+                        } else {
+                            openSidebar();
+                        }
+                    });
 
-            // Urgent Meetings
-            const wu = document.getElementById('widget-urgent');
-            if (d.urgent_meetings.length === 0) {
-                wu.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No urgent meetings.</div>';
-            } else {
-                wu.innerHTML = d.urgent_meetings.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-            }
+                    sidebarCloseBtn.addEventListener('click', closeSidebar);
+                    sidebarOverlay.addEventListener('click', closeSidebar);
 
-            // Clinics
-            const wc = document.getElementById('widget-clinics');
-            if (d.upcoming_clinics.length === 0) {
-                wc.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No upcoming clinics scheduled.</div>';
-            } else {
-                wc.innerHTML = d.upcoming_clinics.map(m => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.description}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">
-                            <i class="fas fa-calendar-alt"></i> ${m.scheduled_date} ${m.start_time} | <i class="fas fa-map-marker-alt"></i> ${m.location}
-                        </div>
-                    </div>
-                `).join('');
-            }
+                    // Close sidebar when a menu link is clicked
+                    var menuLinks = document.querySelectorAll('.sidebar-menu a');
+                    menuLinks.forEach(function(link) {
+                        link.addEventListener('click', closeSidebar);
+                    });
+                }
 
-            // Time Table
-            const wt = document.getElementById('widget-timetable');
-            if (d.timetable.length === 0) {
-                wt.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No schedule for today.</div>';
-            } else {
-                wt.innerHTML = d.timetable.map(m => `
-                    <div style="padding: 0.75rem; border-left: 4px solid var(--secondary-green); margin-bottom: 0.5rem; background: #f8f9fa;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${m.start_time} - ${m.estimated_end_time}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dark); margin-top: 0.15rem;">${m.description}</div>
-                        <div style="font-size: 0.8rem; color: var(--text-secondary);">${m.patient_name ? m.patient_name + ' | ' : ''}${m.location}</div>
-                    </div>
-                `).join('');
-            }
-
-            // Notifications
-            const wn = document.getElementById('widget-notifications');
-            if (d.notifications.length === 0) {
-                wn.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">No new notifications.</div>';
-            } else {
-                wn.innerHTML = d.notifications.map(n => `
-                    <div style="padding: 0.75rem; border-bottom: 1px solid #e9ecef; position: relative;">
-                        <div style="font-weight: 600; color: var(--text-primary);">${n.title}</div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">${n.message}</div>
-                        <span class="badge" style="position: absolute; top: 0.75rem; right: 0.75rem; background: var(--accent-orange);">New</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function setupNavigation() {
-            const menuLinks = document.querySelectorAll('.sidebar-menu a');
-            const contentSections = document.querySelectorAll('.content-section');
-            const SECTION_TRANSITION_MS = 200;
-            let currentSection = Array.from(contentSections).find(section =>
-                window.getComputedStyle(section).display !== 'none'
-            ) || contentSections[0];
-
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href') || '';
-                    if (!href.startsWith('#')) {
+           
+                function checkAuthentication() {
+                    const midwifeUser = localStorage.getItem('midwife_user');
+                    if (!midwifeUser) {
+                        window.location.href = '../midwife-login.html';
                         return;
                     }
-                    e.preventDefault();
-                    const targetSectionId = href.substring(1);
-                    const nextSection = document.getElementById(targetSectionId);
 
-                    if (!nextSection || nextSection === currentSection) {
-                        return;
-                    }
-                    
-                    // Remove active class from all links
-                    menuLinks.forEach(l => l.classList.remove('active'));
-                    // Add active class to clicked link
-                    this.classList.add('active');
+                    const user = JSON.parse(midwifeUser);
+                    document.querySelector('.midwife-name').textContent = user.name || 'Midwife User';
+                }
 
-                    if (currentSection) {
-                        currentSection.classList.remove('section-slide-in');
-                        currentSection.classList.add('section-slide-out');
 
-                        setTimeout(() => {
-                            currentSection.style.display = 'none';
-                            currentSection.classList.remove('section-slide-out');
+                
+                function setupNavigation() {
+                    const menuLinks = document.querySelectorAll('.sidebar-menu a');
+                    const contentSections = document.querySelectorAll('.content-section');
+                    const SECTION_TRANSITION_MS = 200;
+                    let currentSection = Array.from(contentSections).find(section =>
+                        window.getComputedStyle(section).display !== 'none'
+                    ) || contentSections[0];
+
+                    menuLinks.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            const href = this.getAttribute('href') || '';
+                            if (!href.startsWith('#')) {
+                                return;
+                            }
+                            e.preventDefault();
+                            const targetSectionId = href.substring(1);
+                            const nextSection = document.getElementById(targetSectionId);
+
+                            if (!nextSection || nextSection === currentSection) {
+                                return;
+                            }
+
+                            // Remove active class from all links
+                            menuLinks.forEach(l => l.classList.remove('active'));
+                            // Add active class to clicked link
+                            this.classList.add('active');
+
+                            if (currentSection) {
+                                currentSection.classList.remove('section-slide-in');
+                                currentSection.classList.add('section-slide-out');
+
+                                setTimeout(() => {
+                                    currentSection.style.display = 'none';
+                                    currentSection.classList.remove('section-slide-out');
+
+                                    nextSection.style.display = 'block';
+                                    nextSection.classList.add('section-slide-in');
+                                    currentSection = nextSection;
+                                }, SECTION_TRANSITION_MS);
+
+                                return;
+                            }
 
                             nextSection.style.display = 'block';
                             nextSection.classList.add('section-slide-in');
                             currentSection = nextSection;
-                        }, SECTION_TRANSITION_MS);
+                        });
+                    });
 
+                    // Logout functionality
+
+                    // ================= Added form logic ================= //
+                    // Counseling session
+                    const counselingForm = document.getElementById('counselingForm');
+                    if (counselingForm) {
+                        const cInput = counselingForm.querySelector('input[name="session_datetime"]');
+                        if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
+                        counselingForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            alert('Counseling session saved successfully.');
+                            e.target.reset();
+                            if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
+                        });
+                    }
+
+                    // Health Education session
+                    const healthEdForm = document.getElementById('healthEdForm');
+                    if (healthEdForm) {
+                        const hInput = healthEdForm.querySelector('input[name="session_date"]');
+                        if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
+                        healthEdForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            alert('Health education session recorded successfully.');
+                            e.target.reset();
+                            if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
+                        });
+                    }
+
+                    // Emergency session
+                    const emergencyForm = document.getElementById('emergencyForm');
+                    if (emergencyForm) {
+                        const eInput = emergencyForm.querySelector('input[name="incident_datetime"]');
+                        if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
+                        emergencyForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            alert('Emergency response entry saved.');
+                            e.target.reset();
+                            if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
+                        });
+                    }
+
+                    document.getElementById('logout').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (confirm('Are you sure you want to logout?')) {
+                            localStorage.removeItem('midwife_user');
+                            window.location.href = '../midwife-login.html';
+                        }
+                    });
+                }
+
+                function applyHashSection() {
+                    const hash = window.location.hash;
+                    if (!hash || hash.length < 2) return;
+                    const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
+                    if (link) link.click();
+                }
+
+                // Handle browser back/forward buttons
+                window.addEventListener('hashchange', function() {
+                    const hash = window.location.hash;
+                    if (!hash || hash.length < 2) {
+                        // If no hash, go to dashboard
+                        const dashboardLink = document.querySelector('.sidebar-menu a[href="#dashboard"]');
+                        if (dashboardLink) dashboardLink.click();
+                        return;
+                    }
+                    const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
+                    if (link) {
+                        link.click();
+                    }
+                });
+
+                function showLogActivity() {
+                    document.querySelector('[href="#log-activity"]').click();
+                }
+
+                function showSchedule() {
+                    document.querySelector('[href="#schedule"]').click();
+                }
+
+                function showPatients() {
+                    document.querySelector('[href="#patients"]').click();
+                }
+
+                function showTriposha() {
+                    document.querySelector('[href="#triposha"]').click();
+                }
+
+                function setCurrentDateTime() {
+                    const now = new Date();
+                    const datetime = now.toISOString().slice(0, 16);
+                    const datetimeInput = document.querySelector('input[name="activity_datetime"]');
+                    if (datetimeInput) {
+                        datetimeInput.value = datetime;
+                    }
+                }
+
+                function initializeCharts() {
+                    const rootStyles = getComputedStyle(document.documentElement);
+                    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
+                    const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
+
+                    // Weekly Performance Chart
+                    const weeklyCtx = document.getElementById('weeklyChart');
+                    if (weeklyCtx) {
+                        new Chart(weeklyCtx.getContext('2d'), {
+                            type: 'bar',
+                            data: {
+                                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                                datasets: [{
+                                    label: 'Activities Completed',
+                                    data: [3, 5, 4, 6, 4, 2, 1],
+                                    backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.75)' : 'rgba(0, 166, 153, 0.85)',
+                                    borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
+                                    borderWidth: 1.5,
+                                    borderRadius: 6
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: axisTextColor
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        ticks: {
+                                            color: axisTextColor
+                                        },
+                                        grid: {
+                                            color: gridColor
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            color: axisTextColor
+                                        },
+                                        grid: {
+                                            color: gridColor
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                    // Activity Breakdown Chart
+                    const activityCtx = document.getElementById('activityBreakdownChart');
+                    if (activityCtx) {
+                        new Chart(activityCtx.getContext('2d'), {
+                            type: 'pie',
+                            data: {
+                                labels: ['Home Visits', 'Vaccinations', 'Counseling', 'Health Education'],
+                                datasets: [{
+                                    data: [40, 25, 20, 15],
+                                    backgroundColor: ['#002E4F', '#00A699', '#00A699', '#ffc107']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: axisTextColor
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+
+                // Handle activity form submission
+                document.getElementById('activityForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Get form data
+                    const formData = new FormData(e.target);
+                    const activityData = Object.fromEntries(formData);
+
+                    // Show success message
+                    alert('Activity logged successfully!');
+
+                    // Reset form
+                    e.target.reset();
+                    setCurrentDateTime();
+
+                    // Redirect to dashboard
+                    document.querySelector('[href="#dashboard"]').click();
+                });
+
+
+
+
+                let currentTimetableTab = 'month';
+
+                function syncTimetableInputs() {
+                    const yearInput = document.getElementById('timetableYear');
+                    const monthInput = document.getElementById('timetableMonth');
+                    const dayInput = document.getElementById('timetableDay');
+                    const selectedYear = yearInput.value || '2026';
+                    const selectedMonth = monthInput.value || '03';
+                    const selectedDay = dayInput.value || '01';
+
+                    if (currentTimetableTab === 'year') {
+                        monthInput.value = '01';
+                        dayInput.value = '01';
+                    } else if (currentTimetableTab === 'month') {
+                        dayInput.value = '01';
+                    } else if (currentTimetableTab === 'day') {
+                        // keep all values as chosen
+                    }
+
+                    // Keep selected year aligned to actual data field
+                    yearInput.value = selectedYear;
+                    monthInput.value = selectedMonth;
+                    dayInput.value = selectedDay;
+                }
+
+                function setTimetableTab(tabName) {
+                    currentTimetableTab = tabName;
+
+                    document.getElementById('tab-year').classList.toggle('active', tabName === 'year');
+                    document.getElementById('tab-month').classList.toggle('active', tabName === 'month');
+                    document.getElementById('tab-day').classList.toggle('active', tabName === 'day');
+
+                    document.getElementById('timetable-month-wrapper').style.display = tabName === 'year' || tabName === 'month' ? 'block' : 'none';
+                    document.getElementById('timetable-day-wrapper').style.display = tabName === 'day' || tabName === 'month' ? 'block' : 'none';
+
+                    syncTimetableInputs();
+                    loadTimetableData();
+                }
+
+              
+                function getActivityIcon(type) {
+                    const icons = {
+                        'home-visit': 'fas fa-home',
+                        'clinic': 'fas fa-hospital',
+                        'vaccination': 'fas fa-syringe',
+                        'counseling': 'fas fa-comments',
+                        'meeting': 'fas fa-users',
+                        'training': 'fas fa-graduation-cap',
+                        'other': 'fas fa-calendar-check'
+                    };
+                    return icons[type] || 'fas fa-calendar-check';
+                }
+
+                function formatDate(dateString) {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                }
+
+                function viewTimetableItem(index) {
+                    alert('Viewing detailed information for timetable item ' + (index + 1));
+                }
+
+                function editTimetableItem(index) {
+                    alert('Editing timetable item ' + (index + 1));
+                }
+
+                function deleteTimetableItem(index) {
+                    if (confirm('Are you sure you want to delete this timetable item?')) {
+                        alert('Timetable item ' + (index + 1) + ' deleted');
+                        loadTimetableData(); // Refresh the timetable
+                    }
+                }
+
+                function editTimetable() {
+                    alert('Opening timetable editor...');
+                    // Could open a more comprehensive editing interface
+                }
+
+                function generateReport() {
+                    alert('Generate report functionality would be implemented here');
+                }
+
+                // Home Visits Functions
+                let currentHomeVisits = [];
+                let currentArea = 'uduthuththiripitiya';
+
+
+
+                function renderHomeVisits() {
+                    const visitList = document.querySelector('#scheduled-visits .visit-list');
+                    if (!visitList) return;
+
+                    const scheduledVisits = currentHomeVisits.filter(v => v.status !== 'completed');
+
+                    if (scheduledVisits.length === 0) {
+                        visitList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No scheduled visits. Click "Schedule New Visit" to add one.</p></div>';
                         return;
                     }
 
-                    nextSection.style.display = 'block';
-                    nextSection.classList.add('section-slide-in');
-                    currentSection = nextSection;
-                });
-            });
+                    visitList.innerHTML = scheduledVisits.map((visit, index) => {
+                        const priorityClass = visit.priority === 'high' || visit.priority === 'urgent' ? 'priority-high' : 'priority-normal';
+                        const statusBadge = getStatusBadge(visit.status);
 
-            // Logout functionality
-            
-            // ================= Added form logic ================= //
-            // Counseling session
-            const counselingForm = document.getElementById('counselingForm');
-            if (counselingForm) {
-                const cInput = counselingForm.querySelector('input[name="session_datetime"]');
-                if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
-                counselingForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Counseling session saved successfully.');
-                    e.target.reset();
-                    if (cInput) cInput.value = new Date().toISOString().slice(0, 16);
-                });
-            }
-
-            // Health Education session
-            const healthEdForm = document.getElementById('healthEdForm');
-            if (healthEdForm) {
-                const hInput = healthEdForm.querySelector('input[name="session_date"]');
-                if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
-                healthEdForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Health education session recorded successfully.');
-                    e.target.reset();
-                    if (hInput) hInput.value = new Date().toISOString().slice(0, 10);
-                });
-            }
-
-            // Emergency session
-            const emergencyForm = document.getElementById('emergencyForm');
-            if (emergencyForm) {
-                const eInput = emergencyForm.querySelector('input[name="incident_datetime"]');
-                if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
-                emergencyForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('Emergency response entry saved.');
-                    e.target.reset();
-                    if (eInput) eInput.value = new Date().toISOString().slice(0, 16);
-                });
-            }
-
-            document.getElementById('logout').addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('Are you sure you want to logout?')) {
-                    localStorage.removeItem('midwife_user');
-                    window.location.href = '../midwife-login.html';
-                }
-            });
-        }
-
-        function applyHashSection() {
-            const hash = window.location.hash;
-            if (!hash || hash.length < 2) return;
-            const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
-            if (link) link.click();
-        }
-
-        // Handle browser back/forward buttons
-        window.addEventListener('hashchange', function() {
-            const hash = window.location.hash;
-            if (!hash || hash.length < 2) {
-                // If no hash, go to dashboard
-                const dashboardLink = document.querySelector('.sidebar-menu a[href="#dashboard"]');
-                if (dashboardLink) dashboardLink.click();
-                return;
-            }
-            const link = document.querySelector('.sidebar-menu a[href="' + hash + '"]');
-            if (link) {
-                link.click();
-            }
-        });
-
-        function showLogActivity() {
-            document.querySelector('[href="#log-activity"]').click();
-        }
-
-        function showSchedule() {
-            document.querySelector('[href="#schedule"]').click();
-        }
-
-        function showPatients() {
-            document.querySelector('[href="#patients"]').click();
-        }
-
-        function showTriposha() {
-            document.querySelector('[href="#triposha"]').click();
-        }
-
-        function setCurrentDateTime() {
-            const now = new Date();
-            const datetime = now.toISOString().slice(0, 16);
-            const datetimeInput = document.querySelector('input[name="activity_datetime"]');
-            if (datetimeInput) {
-                datetimeInput.value = datetime;
-            }
-        }
-
-        function initializeCharts() {
-            const rootStyles = getComputedStyle(document.documentElement);
-            const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-            const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
-            const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
-
-            // Weekly Performance Chart
-            const weeklyCtx = document.getElementById('weeklyChart');
-            if (weeklyCtx) {
-                new Chart(weeklyCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{
-                            label: 'Activities Completed',
-                            data: [3, 5, 4, 6, 4, 2, 1],
-                            backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.75)' : 'rgba(0, 166, 153, 0.85)',
-                            borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
-                            borderWidth: 1.5,
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: axisTextColor
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: axisTextColor
-                                },
-                                grid: {
-                                    color: gridColor
-                                }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    color: axisTextColor
-                                },
-                                grid: {
-                                    color: gridColor
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            // Activity Breakdown Chart
-            const activityCtx = document.getElementById('activityBreakdownChart');
-            if (activityCtx) {
-                new Chart(activityCtx.getContext('2d'), {
-                    type: 'pie',
-                    data: {
-                        labels: ['Home Visits', 'Vaccinations', 'Counseling', 'Health Education'],
-                        datasets: [{
-                            data: [40, 25, 20, 15],
-                            backgroundColor: ['#002E4F', '#00A699', '#00A699', '#ffc107']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: axisTextColor
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        // Handle activity form submission
-        document.getElementById('activityForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(e.target);
-            const activityData = Object.fromEntries(formData);
-            
-            // Show success message
-            alert('Activity logged successfully!');
-            
-            // Reset form
-            e.target.reset();
-            setCurrentDateTime();
-            
-            // Redirect to dashboard
-            document.querySelector('[href="#dashboard"]').click();
-        });
-
-    
- 
-
-        let currentTimetableTab = 'month';
-
-        function syncTimetableInputs() {
-            const yearInput = document.getElementById('timetableYear');
-            const monthInput = document.getElementById('timetableMonth');
-            const dayInput = document.getElementById('timetableDay');
-            const selectedYear = yearInput.value || '2026';
-            const selectedMonth = monthInput.value || '03';
-            const selectedDay = dayInput.value || '01';
-
-            if (currentTimetableTab === 'year') {
-                monthInput.value = '01';
-                dayInput.value = '01';
-            } else if (currentTimetableTab === 'month') {
-                dayInput.value = '01';
-            } else if (currentTimetableTab === 'day') {
-                // keep all values as chosen
-            }
-
-            // Keep selected year aligned to actual data field
-            yearInput.value = selectedYear;
-            monthInput.value = selectedMonth;
-            dayInput.value = selectedDay;
-        }
-
-        function setTimetableTab(tabName) {
-            currentTimetableTab = tabName;
-
-            document.getElementById('tab-year').classList.toggle('active', tabName === 'year');
-            document.getElementById('tab-month').classList.toggle('active', tabName === 'month');
-            document.getElementById('tab-day').classList.toggle('active', tabName === 'day');
-
-            document.getElementById('timetable-month-wrapper').style.display = tabName === 'year' || tabName === 'month' ? 'block' : 'none';
-            document.getElementById('timetable-day-wrapper').style.display = tabName === 'day' || tabName === 'month' ? 'block' : 'none';
-
-            syncTimetableInputs();
-            loadTimetableData();
-        }
-
-        function loadTimetableData() {
-            const selectedYear = document.getElementById('timetableYear').value;
-            const selectedMonth = document.getElementById('timetableMonth').value;
-            const selectedDay = document.getElementById('timetableDay').value;
-            const selectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-
-            // Sample timetable data for each month of 2026 - in real implementation, this would come from database
-            const sampleData = {
-                '2026-01': [ // January
-                    { date: '2026-01-05', time: '09:00', activity: 'Home Visit - Mrs. Silva (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-01-07', time: '10:30', activity: 'Antenatal Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-01-12', time: '14:00', activity: 'Vaccination Session - BCG', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'normal' },
-                    { date: '2026-01-15', time: '09:30', activity: 'Home Visit - Mrs. Perera (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-01-20', time: '11:00', activity: 'Family Planning Counseling', type: 'counseling', duration: '30 min', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-01-25', time: '15:00', activity: 'Emergency Home Visit', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-01-28', time: '10:00', activity: 'Nutrition Education Workshop', type: 'training', duration: '2 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-02': [ // February
-                    { date: '2026-02-03', time: '09:15', activity: 'Home Visit - Mrs. Fernando (Postnatal)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-02-06', time: '11:00', activity: 'Prenatal Checkup Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-02-10', time: '13:30', activity: 'DPT Vaccination Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-02-14', time: '10:00', activity: 'Home Visit - Mrs. Wickramasinghe (32 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-02-18', time: '14:30', activity: 'Maternal Health Seminar', type: 'training', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-02-22', time: '09:45', activity: 'Follow-up Visit - High Risk Case', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-02-26', time: '15:30', activity: 'Monthly Staff Meeting', type: 'meeting', duration: '45 min', location: 'PHM Office', priority: 'normal' }
-                ],
-                '2026-03': [ // March
-                    { date: '2026-03-02', time: '09:00', activity: 'Home Visit - Mrs. Rajapaksa (Newborn)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'urgent' },
-                    { date: '2026-03-05', time: '10:30', activity: 'Well Baby Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-03-10', time: '14:00', activity: 'Measles Vaccination Drive', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-03-15', time: '11:15', activity: 'Home Visit - Mrs. Kumari (36 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'high' },
-                    { date: '2026-03-20', time: '13:45', activity: 'Breastfeeding Support Group', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-03-25', time: '09:30', activity: 'Emergency Prenatal Care', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-03-28', time: '15:00', activity: 'Health Education Session', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-04': [ // April
-                    { date: '2026-04-01', time: '09:30', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
-                    { date: '2026-04-05', time: '11:00', activity: 'Growth Monitoring Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-04-10', time: '14:30', activity: 'Polio Vaccination Round', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-04-15', time: '10:15', activity: 'Home Visit - Mrs. Chamika (24 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-04-20', time: '13:00', activity: 'Contraceptive Counseling', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-04-25', time: '09:45', activity: 'High Risk Pregnancy Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-04-28', time: '15:30', activity: 'Nutrition Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-05': [ // May
-                    { date: '2026-05-03', time: '09:00', activity: 'Home Visit - Mrs. Nirmala (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-05-07', time: '10:45', activity: 'Immunization Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-05-12', time: '14:15', activity: 'Vitamin A Supplementation', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-05-17', time: '11:30', activity: 'Home Visit - Mrs. Kamani (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-05-22', time: '13:45', activity: 'Postpartum Depression Screening', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-05-27', time: '09:15', activity: 'Emergency Delivery Assistance', type: 'home-visit', duration: '2 hours', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-05-30', time: '15:00', activity: 'Child Development Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-06': [ // June
-                    { date: '2026-06-02', time: '09:30', activity: 'Home Visit - Mrs. Sandya (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
-                    { date: '2026-06-06', time: '11:15', activity: 'School Health Program', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-06-11', time: '14:45', activity: 'MMR Vaccination Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-06-16', time: '10:00', activity: 'Home Visit - Mrs. Priyanka (32 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'high' },
-                    { date: '2026-06-21', time: '13:30', activity: 'Adolescent Health Education', type: 'counseling', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-06-26', time: '09:45', activity: 'Multiple Pregnancy Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-06-29', time: '15:30', time: '16:00', activity: 'Staff Training Session', type: 'training', duration: '2 hours', location: 'PHM Office', priority: 'normal' }
-                ],
-                '2026-07': [ // July
-                    { date: '2026-07-01', time: '09:00', activity: 'Home Visit - Mrs. Madhavi (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-07-05', time: '10:30', activity: 'Maternal & Child Health Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-07-10', time: '14:00', activity: 'Hepatitis B Vaccination', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-07-15', time: '11:45', activity: 'Home Visit - Mrs. Kumari (36 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'urgent' },
-                    { date: '2026-07-20', time: '13:15', activity: 'Family Planning Workshop', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-07-25', time: '09:30', activity: 'Preterm Labor Assessment', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-07-28', time: '15:00', activity: 'Emergency Preparedness Training', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-08': [ // August
-                    { date: '2026-08-03', time: '09:15', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
-                    { date: '2026-08-07', time: '11:00', activity: 'Nutrition Assessment Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-08-12', time: '14:30', activity: 'Japanese Encephalitis Vaccination', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-08-17', time: '10:45', activity: 'Home Visit - Mrs. Chamika (28 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-08-22', time: '13:00', activity: 'Mental Health Awareness', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-08-27', time: '09:15', activity: 'Gestational Diabetes Monitoring', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-08-30', time: '15:30', activity: 'Infant Care Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-09': [ // September
-                    { date: '2026-09-02', time: '09:00', activity: 'Home Visit - Mrs. Nirmala (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-09-06', time: '10:30', activity: 'Developmental Assessment Clinic', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-09-11', time: '14:15', activity: 'DPT Booster Campaign', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-09-16', time: '11:30', activity: 'Home Visit - Mrs. Kamani (32 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-09-21', time: '13:45', activity: 'Domestic Violence Support', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-09-26', time: '09:45', activity: 'Preeclampsia Screening', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-09-29', time: '15:00', activity: 'First Aid Training', type: 'training', duration: '2 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-10': [ // October
-                    { date: '2026-10-01', time: '09:30', activity: 'Home Visit - Mrs. Sandya (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
-                    { date: '2026-10-05', time: '11:15', activity: 'Oral Health Clinic', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-10-10', time: '14:45', activity: 'Influenza Vaccination', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-10-15', time: '10:00', activity: 'Home Visit - Mrs. Priyanka (36 weeks)', type: 'home-visit', duration: '45 min', location: 'Kahabilihena', priority: 'urgent' },
-                    { date: '2026-10-20', time: '13:30', activity: 'HIV/AIDS Awareness', type: 'counseling', duration: '1.5 hours', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-10-25', time: '09:15', activity: 'Anemia Treatment Follow-up', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-10-28', time: '15:30', activity: 'Community Health Meeting', type: 'meeting', duration: '1 hour', location: 'PHM Office', priority: 'normal' }
-                ],
-                '2026-11': [ // November
-                    { date: '2026-11-03', time: '09:00', activity: 'Home Visit - Mrs. Madhavi (Newborn)', type: 'home-visit', duration: '50 min', location: 'Uduthuththiripitiya', priority: 'high' },
-                    { date: '2026-11-07', time: '10:45', activity: 'Eye Health Screening', type: 'clinic', duration: '2 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-11-12', time: '14:00', activity: 'Typhoid Vaccination', type: 'vaccination', duration: '1.5 hours', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-11-17', time: '11:30', activity: 'Home Visit - Mrs. Kumari (28 weeks)', type: 'home-visit', duration: '40 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-11-22', time: '13:15', activity: 'Reproductive Health Education', type: 'counseling', duration: '1 hour', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-11-27', time: '09:30', activity: 'Thyroid Disorder Monitoring', type: 'home-visit', duration: '1.5 hours', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-11-30', time: '15:00', activity: 'Disaster Preparedness Workshop', type: 'training', duration: '1.5 hours', location: 'Ambalangoda', priority: 'normal' }
-                ],
-                '2026-12': [ // December
-                    { date: '2026-12-02', time: '09:15', activity: 'Home Visit - Mrs. Sanduni (Postnatal)', type: 'home-visit', duration: '45 min', location: 'Uduthuththiripitiya', priority: 'normal' },
-                    { date: '2026-12-06', time: '11:00', activity: 'Year-End Health Review', type: 'clinic', duration: '2.5 hours', location: 'PHM Office', priority: 'normal' },
-                    { date: '2026-12-11', time: '14:30', activity: 'COVID-19 Booster Campaign', type: 'vaccination', duration: '1 hour', location: 'Clinic Center', priority: 'high' },
-                    { date: '2026-12-16', time: '10:45', activity: 'Home Visit - Mrs. Chamika (32 weeks)', type: 'home-visit', duration: '35 min', location: 'Kahabilihena', priority: 'normal' },
-                    { date: '2026-12-21', time: '13:00', activity: 'Holiday Health Safety', type: 'counseling', duration: '45 min', location: 'Community Center', priority: 'normal' },
-                    { date: '2026-12-26', time: '09:45', activity: 'Post-Holiday Health Check', type: 'home-visit', duration: '1 hour', location: 'Opathella', priority: 'urgent' },
-                    { date: '2026-12-29', time: '15:30', activity: 'Annual Performance Review', type: 'meeting', duration: '1.5 hours', location: 'PHM Office', priority: 'normal' }
-                ]
-            };
-
-            let data = [];
-            let viewType = '';
-
-            if (currentTimetableTab === 'year') {
-                Object.values(sampleData).forEach(monthItems => data.push(...monthItems));
-                viewType = 'year';
-            } else if (currentTimetableTab === 'month') {
-                const monthKey = selectedMonth || '2026-03';
-                data = sampleData[monthKey] || [];
-                viewType = monthKey;
-            } else {
-                if (selectedDate) {
-                    data = Object.values(sampleData).flat().filter(item => item.date === selectedDate);
-                } else {
-                    data = [];
-                }
-                viewType = 'day';
-            }
-
-            renderTimetable(data, viewType);
-            updateTimetableSummary(data);
-        }
-
-        function renderTimetable(data, viewType) {
-            const content = document.getElementById('timetableContent');
-            const header = document.getElementById('timetableHeader');
-            const monthTitle = document.getElementById('monthTitle');
-
-            // Show month header for monthly views
-            if (viewType && viewType.startsWith('2026-')) {
-                const monthNames = {
-                    '2026-01': 'January 2026',
-                    '2026-02': 'February 2026',
-                    '2026-03': 'March 2026',
-                    '2026-04': 'April 2026',
-                    '2026-05': 'May 2026',
-                    '2026-06': 'June 2026',
-                    '2026-07': 'July 2026',
-                    '2026-08': 'August 2026',
-                    '2026-09': 'September 2026',
-                    '2026-10': 'October 2026',
-                    '2026-11': 'November 2026',
-                    '2026-12': 'December 2026'
-                };
-                monthTitle.textContent = monthNames[viewType] || 'Timetable';
-                header.style.display = 'block';
-            } else {
-                header.style.display = 'none';
-            }
-
-            if (data.length === 0) {
-                content.innerHTML = '<div class="text-center text-muted"><i class="fas fa-calendar-times fa-3x mb-3"></i><p>No scheduled activities found for this month.</p></div>';
-                return;
-            }
-
-            let html = '<div class="timetable-list">';
-
-            data.forEach((item, index) => {
-                const activityIcon = getActivityIcon(item.type);
-                const priorityClass = item.priority === 'urgent' ? 'priority-high' :
-                                    item.priority === 'high' ? 'priority-normal' : 'priority-low';
-
-                html += `
-                    <div class="timetable-item ${priorityClass}">
-                        <div class="timetable-time">
-                            <div class="time">${item.time}</div>
-                            <div class="date">${formatDate(item.date)}</div>
-                        </div>
-                        <div class="timetable-details">
-                            <h6><i class="${activityIcon}"></i> ${item.activity}</h6>
-                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${item.location}</p>
-                            <p class="duration"><i class="fas fa-clock"></i> ${item.duration}</p>
-                        </div>
-                        <div class="timetable-actions">
-                            <button class="btn btn-sm btn-info" onclick="viewTimetableItem(${index})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-warning" onclick="editTimetableItem(${index})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteTimetableItem(${index})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += '</div>';
-            content.innerHTML = html;
-        }
-
-        function updateTimetableSummary(data) {
-            const totalActivities = data.length;
-            const homeVisits = data.filter(item => item.type === 'home-visit').length;
-            const clinicSessions = data.filter(item => item.type === 'clinic').length;
-            const totalHours = data.reduce((sum, item) => {
-                const duration = parseInt(item.duration.split(' ')[0]);
-                return sum + (item.duration.includes('hour') ? duration : duration / 60);
-            }, 0);
-
-            document.getElementById('totalActivities').textContent = totalActivities;
-            document.getElementById('homeVisits').textContent = homeVisits;
-            document.getElementById('clinicSessions').textContent = clinicSessions;
-            document.getElementById('totalHours').textContent = totalHours.toFixed(1);
-        }
-
-        function getActivityIcon(type) {
-            const icons = {
-                'home-visit': 'fas fa-home',
-                'clinic': 'fas fa-hospital',
-                'vaccination': 'fas fa-syringe',
-                'counseling': 'fas fa-comments',
-                'meeting': 'fas fa-users',
-                'training': 'fas fa-graduation-cap',
-                'other': 'fas fa-calendar-check'
-            };
-            return icons[type] || 'fas fa-calendar-check';
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-        }
-
-        function viewTimetableItem(index) {
-            alert('Viewing detailed information for timetable item ' + (index + 1));
-        }
-
-        function editTimetableItem(index) {
-            alert('Editing timetable item ' + (index + 1));
-        }
-
-        function deleteTimetableItem(index) {
-            if (confirm('Are you sure you want to delete this timetable item?')) {
-                alert('Timetable item ' + (index + 1) + ' deleted');
-                loadTimetableData(); // Refresh the timetable
-            }
-        }
-
-        function editTimetable() {
-            alert('Opening timetable editor...');
-            // Could open a more comprehensive editing interface
-        }
-
-        function generateReport() {
-            alert('Generate report functionality would be implemented here');
-        }
-
-        // Home Visits Functions
-        let currentHomeVisits = [];
-        let currentArea = 'uduthuththiripitiya';
-        
-        async function loadHomeVisits() {
-            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-            const midwifeId = user.id || 1;
-            
-            try {
-                const response = await fetch(`../php/home_visits.php?action=get&midwife_id=${midwifeId}&area=${currentArea}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    currentHomeVisits = result.data;
-                    renderHomeVisits();
-                    renderCompletedVisits();
-                    updateHomeVisitStats();
-                }
-            } catch (error) {
-                console.error('Error loading home visits:', error);
-            }
-        }
-        
-        function renderHomeVisits() {
-            const visitList = document.querySelector('#scheduled-visits .visit-list');
-            if (!visitList) return;
-            
-            const scheduledVisits = currentHomeVisits.filter(v => v.status !== 'completed');
-            
-            if (scheduledVisits.length === 0) {
-                visitList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No scheduled visits. Click "Schedule New Visit" to add one.</p></div>';
-                return;
-            }
-            
-            visitList.innerHTML = scheduledVisits.map((visit, index) => {
-                const priorityClass = visit.priority === 'high' || visit.priority === 'urgent' ? 'priority-high' : 'priority-normal';
-                const statusBadge = getStatusBadge(visit.status);
-                
-                return `
+                        return `
                     <div class="visit-item ${priorityClass}">
                         <div class="visit-time">
                             <span class="time">${visit.start_time}</span>
@@ -7281,64 +5893,64 @@ echo '</script>';
                         </div>
                     </div>
                 `;
-            }).join('');
-        }
-        
-        function updateHomeVisitStats() {
-            const today = currentHomeVisits.filter(v => v.visit_date === new Date().toISOString().split('T')[0]);
-            const completed = today.filter(v => v.status === 'completed').length;
-            const pending = today.filter(v => v.status === 'scheduled' || v.status === 'in_progress').length;
-            const urgent = today.filter(v => v.priority === 'urgent' || v.priority === 'high').length;
-            
-            const statCards = document.querySelectorAll('#home-visits .stat-card');
-            if (statCards.length >= 4) {
-                statCards[0].querySelector('h3').textContent = today.length;
-                statCards[1].querySelector('h3').textContent = pending;
-                statCards[2].querySelector('h3').textContent = completed;
-                statCards[3].querySelector('h3').textContent = urgent;
-            }
-        }
-        
-        function getStatusBadge(status) {
-            const badges = {
-                'scheduled': '<span class="badge badge-primary">Scheduled</span>',
-                'in_progress': '<span class="badge badge-warning">In Progress</span>',
-                'completed': '<span class="badge badge-success">Completed</span>',
-                'cancelled': '<span class="badge badge-secondary">Cancelled</span>'
-            };
-            return badges[status] || badges['scheduled'];
-        }
-        
-        function getVisitBadgeClass(type) {
-            const classes = {
-                'antenatal': 'success',
-                'postnatal': 'primary',
-                'family-planning': 'info',
-                'emergency': 'danger',
-                'routine': 'primary'
-            };
-            return classes[type] || 'primary';
-        }
-        
-        function formatVisitType(type) {
-            const types = {
-                'antenatal': 'Antenatal Visit',
-                'postnatal': 'Postnatal Visit',
-                'family-planning': 'Family Planning',
-                'emergency': 'Emergency Follow-up',
-                'routine': 'Routine Visit'
-            };
-            return types[type] || type;
-        }
-        
-        function viewVisitDetails(visitId) {
-            const visit = currentHomeVisits.find(v => v.id === visitId);
-            if (!visit) return;
-            
-            const detailsCard = document.getElementById('home-visit-details-record');
-            const detailsBody = document.getElementById('home-visit-details-body');
-            
-            detailsBody.innerHTML = `
+                    }).join('');
+                }
+
+                function updateHomeVisitStats() {
+                    const today = currentHomeVisits.filter(v => v.visit_date === new Date().toISOString().split('T')[0]);
+                    const completed = today.filter(v => v.status === 'completed').length;
+                    const pending = today.filter(v => v.status === 'scheduled' || v.status === 'in_progress').length;
+                    const urgent = today.filter(v => v.priority === 'urgent' || v.priority === 'high').length;
+
+                    const statCards = document.querySelectorAll('#home-visits .stat-card');
+                    if (statCards.length >= 4) {
+                        statCards[0].querySelector('h3').textContent = today.length;
+                        statCards[1].querySelector('h3').textContent = pending;
+                        statCards[2].querySelector('h3').textContent = completed;
+                        statCards[3].querySelector('h3').textContent = urgent;
+                    }
+                }
+
+                function getStatusBadge(status) {
+                    const badges = {
+                        'scheduled': '<span class="badge badge-primary">Scheduled</span>',
+                        'in_progress': '<span class="badge badge-warning">In Progress</span>',
+                        'completed': '<span class="badge badge-success">Completed</span>',
+                        'cancelled': '<span class="badge badge-secondary">Cancelled</span>'
+                    };
+                    return badges[status] || badges['scheduled'];
+                }
+
+                function getVisitBadgeClass(type) {
+                    const classes = {
+                        'antenatal': 'success',
+                        'postnatal': 'primary',
+                        'family-planning': 'info',
+                        'emergency': 'danger',
+                        'routine': 'primary'
+                    };
+                    return classes[type] || 'primary';
+                }
+
+                function formatVisitType(type) {
+                    const types = {
+                        'antenatal': 'Antenatal Visit',
+                        'postnatal': 'Postnatal Visit',
+                        'family-planning': 'Family Planning',
+                        'emergency': 'Emergency Follow-up',
+                        'routine': 'Routine Visit'
+                    };
+                    return types[type] || type;
+                }
+
+                function viewVisitDetails(visitId) {
+                    const visit = currentHomeVisits.find(v => v.id === visitId);
+                    if (!visit) return;
+
+                    const detailsCard = document.getElementById('home-visit-details-record');
+                    const detailsBody = document.getElementById('home-visit-details-body');
+
+                    detailsBody.innerHTML = `
                 <table class="table table-bordered">
                     <tr><th>Patient Name</th><td>${visit.patient_name}</td></tr>
                     <tr><th>Contact</th><td>${visit.contact_number || 'Not provided'}</td></tr>
@@ -7355,60 +5967,38 @@ echo '</script>';
                 </table>
                 <button class="btn btn-outline-secondary" onclick="document.getElementById('home-visit-details-record').style.display='none'">Close</button>
             `;
-            detailsCard.style.display = 'block';
-        }
-        
-        async function completeVisit(visitId) {
-            const notes = prompt('Enter visit notes/summary:');
-            if (notes === null) return;
-            
-            try {
-                const response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ notes: notes, end_time: new Date().toTimeString().slice(0, 5) })
-                });
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Visit marked as completed!');
-                    await loadHomeVisits();
-                    switchVisitTab('completed');
+                    detailsCard.style.display = 'block';
                 }
-            } catch (error) {
-                console.error('Error completing visit:', error);
-                alert('Error completing visit');
-            }
-        }
-        
-        async function deleteVisit(visitId) {
-            if (!confirm('Are you sure you want to delete this visit?')) return;
-            
-            try {
-                const response = await fetch(`../php/home_visits.php?action=delete&id=${visitId}`);
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Visit deleted!');
-                    loadHomeVisits();
+
+
+                async function deleteVisit(visitId) {
+                    if (!confirm('Are you sure you want to delete this visit?')) return;
+
+                    try {
+                        const response = await fetch(`../php/home_visits.php?action=delete&id=${visitId}`);
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Visit deleted!');
+                            loadHomeVisits();
+                        }
+                    } catch (error) {
+                        console.error('Error deleting visit:', error);
+                    }
                 }
-            } catch (error) {
-                console.error('Error deleting visit:', error);
-            }
-        }
-        
-        function renderCompletedVisits() {
-            const completedList = document.querySelector('#completed-visits .completed-visit-list');
-            if (!completedList) return;
-            
-            const completedVisits = currentHomeVisits.filter(v => v.status === 'completed');
-            
-            if (completedVisits.length === 0) {
-                completedList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No completed visits yet.</p></div>';
-                return;
-            }
-            
-            completedList.innerHTML = completedVisits.map(visit => `
+
+                function renderCompletedVisits() {
+                    const completedList = document.querySelector('#completed-visits .completed-visit-list');
+                    if (!completedList) return;
+
+                    const completedVisits = currentHomeVisits.filter(v => v.status === 'completed');
+
+                    if (completedVisits.length === 0) {
+                        completedList.innerHTML = '<div class="text-center p-4"><p class="text-muted">No completed visits yet.</p></div>';
+                        return;
+                    }
+
+                    completedList.innerHTML = completedVisits.map(visit => `
                 <div class="completed-visit-item">
                     <div class="visit-timestamp">
                         <span class="date">${visit.visit_date}</span>
@@ -7429,157 +6019,63 @@ echo '</script>';
                     </div>
                 </div>
             `).join('');
-        }
-        
-        function scheduleNewVisit() {
-            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Schedule New Home Visit</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="newVisitForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Patient Name *</label>
-                                        <input type="text" class="form-control" id="visit_patient_name" placeholder="Enter patient name" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" id="visit_contact" placeholder="+94 XX XXX XXXX">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Address *</label>
-                                <input type="text" class="form-control" id="visit_address" placeholder="Enter patient address" required>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Visit Type *</label>
-                                        <select class="form-control" id="visit_type" required>
-                                            <option value="antenatal">Antenatal Visit</option>
-                                            <option value="postnatal">Postnatal Visit</option>
-                                            <option value="family-planning">Family Planning</option>
-                                            <option value="emergency">Emergency Follow-up</option>
-                                            <option value="routine">Routine Visit</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Priority</label>
-                                        <select class="form-control" id="visit_priority">
-                                            <option value="normal">Normal</option>
-                                            <option value="high">High</option>
-                                            <option value="urgent">Urgent</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" id="visit_date" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" id="visit_time" required>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Duration (min)</label>
-                                        <input type="number" class="form-control" id="visit_duration" value="45" min="15" max="180">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Reason for Visit</label>
-                                <textarea class="form-control" id="visit_reason" rows="2" placeholder="Reason for the home visit..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" id="visit_notes" rows="2" placeholder="Additional notes..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="saveNewVisit()">Schedule Visit</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            
-            document.getElementById('visit_date').valueAsDate = new Date();
-        }
-        
-        async function saveNewVisit() {
-            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-            const midwifeId = user.id || 1;
-            
-            const visitData = {
-                midwife_id: midwifeId,
-                patient_name: document.getElementById('visit_patient_name').value,
-                contact_number: document.getElementById('visit_contact').value,
-                address: document.getElementById('visit_address').value,
-                visit_type: document.getElementById('visit_type').value,
-                priority: document.getElementById('visit_priority').value,
-                visit_date: document.getElementById('visit_date').value,
-                start_time: document.getElementById('visit_time').value,
-                duration_minutes: parseInt(document.getElementById('visit_duration').value),
-                duty_area: currentArea,
-                reason: document.getElementById('visit_reason').value,
-                notes: document.getElementById('visit_notes').value,
-                status: 'scheduled'
-            };
-            
-            if (!visitData.patient_name || !visitData.visit_date || !visitData.start_time) {
-                alert('Please fill in all required fields (Patient Name, Date, Time)');
-                return;
-            }
-            
-            try {
-                const response = await fetch('../php/home_visits.php?action=create', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(visitData)
-                });
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Home visit scheduled successfully!');
-                    closeModal();
-                    loadHomeVisits();
-                } else {
-                    alert('Error: ' + result.message);
                 }
-            } catch (error) {
-                console.error('Error saving visit:', error);
-                alert('Error saving visit. Please try again.');
-            }
-        }
 
-        function quickVisitLog() {
-            const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-            const pendingVisits = currentHomeVisits.filter(v => v.status === 'scheduled');
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
+                async function saveNewVisit() {
+                    const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+                    const midwifeId = user.id || 1;
+
+                    const visitData = {
+                        midwife_id: midwifeId,
+                        patient_name: document.getElementById('visit_patient_name').value,
+                        contact_number: document.getElementById('visit_contact').value,
+                        address: document.getElementById('visit_address').value,
+                        visit_type: document.getElementById('visit_type').value,
+                        priority: document.getElementById('visit_priority').value,
+                        visit_date: document.getElementById('visit_date').value,
+                        start_time: document.getElementById('visit_time').value,
+                        duration_minutes: parseInt(document.getElementById('visit_duration').value),
+                        duty_area: currentArea,
+                        reason: document.getElementById('visit_reason').value,
+                        notes: document.getElementById('visit_notes').value,
+                        status: 'scheduled'
+                    };
+
+                    if (!visitData.patient_name || !visitData.visit_date || !visitData.start_time) {
+                        alert('Please fill in all required fields (Patient Name, Date, Time)');
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('../php/home_visits.php?action=create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(visitData)
+                        });
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Home visit scheduled successfully!');
+                            closeModal();
+                            loadHomeVisits();
+                        } else {
+                            alert('Error: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Error saving visit:', error);
+                        alert('Error saving visit. Please try again.');
+                    }
+                }
+
+                function quickVisitLog() {
+                    const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
+                    const pendingVisits = currentHomeVisits.filter(v => v.status === 'scheduled');
+
+                    const modal = document.createElement('div');
+                    modal.className = 'modal-overlay';
+                    modal.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3>Quick Visit Log</h3>
@@ -7627,153 +6123,138 @@ echo '</script>';
                     </div>
                 </div>
             `;
-            document.body.appendChild(modal);
-        }
-        
-        async function saveQuickVisit() {
-            const visitId = document.getElementById('quick_visit_id').value;
-            const status = document.getElementById('quick_status').value;
-            const endTime = document.getElementById('quick_end_time').value;
-            const notes = document.getElementById('quick_notes').value;
-            
-            if (!visitId || !notes) {
-                alert('Please select a visit and enter notes');
-                return;
-            }
-            
-            try {
-                let response;
-                if (status === 'completed') {
-                    response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ notes: notes, end_time: endTime })
-                    });
-                } else {
-                    response = await fetch(`../php/home_visits.php?action=update&id=${visitId}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ status: status, notes: notes })
-                    });
+                    document.body.appendChild(modal);
                 }
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert('Visit logged successfully!');
-                    closeModal();
-                    await loadHomeVisits();
-                    if (status === 'completed') {
-                        switchVisitTab('completed');
+
+                async function saveQuickVisit() {
+                    const visitId = document.getElementById('quick_visit_id').value;
+                    const status = document.getElementById('quick_status').value;
+                    const endTime = document.getElementById('quick_end_time').value;
+                    const notes = document.getElementById('quick_notes').value;
+
+                    if (!visitId || !notes) {
+                        alert('Please select a visit and enter notes');
+                        return;
                     }
-                } else {
-                    alert('Error: ' + result.message);
+
+                    try {
+                        let response;
+                        if (status === 'completed') {
+                            response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    notes: notes,
+                                    end_time: endTime
+                                })
+                            });
+                        } else {
+                            response = await fetch(`../php/home_visits.php?action=update&id=${visitId}`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    status: status,
+                                    notes: notes
+                                })
+                            });
+                        }
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Visit logged successfully!');
+                            closeModal();
+                            await loadHomeVisits();
+                            if (status === 'completed') {
+                                switchVisitTab('completed');
+                            }
+                        } else {
+                            alert('Error: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Error logging visit:', error);
+                        alert('Error logging visit');
+                    }
                 }
-            } catch (error) {
-                console.error('Error logging visit:', error);
-                alert('Error logging visit');
-            }
-        }
 
-        function switchVisitTab(tabName, event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
 
-            const navLinks = document.querySelectorAll('#home-visits .tab-container .nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-
-            const tabContents = document.querySelectorAll('#home-visits .tab-content');
-            tabContents.forEach(content => content.style.display = 'none');
-
-            const selectedTab = document.getElementById(tabName + '-visits');
-            if (selectedTab) {
-                selectedTab.style.display = 'block';
-            }
-
-            let activeLink = event?.target;
-            if (!activeLink) {
-                activeLink = document.querySelector(`#home-visits .tab-container .nav-link[onclick*="switchVisitTab('${tabName}'"]`);
-            }
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-        }
-
-        function getVisitTabFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            const tab = params.get('visitTab') || params.get('tab') || 'scheduled';
-            return tab === 'completed' ? 'completed' : 'scheduled';
-        }
-
-        function filterVisitsByDate(period) {
-            alert(`Filtering visits by: ${period}`);
-            // Implementation would filter visit list based on selected period
-        }
-
-        function optimizeRoute() {
-            alert('Route optimization feature would analyze current visits and suggest the most efficient route');
-        }
-
-        function startVisit(visitId) {
-            if (confirm('Are you sure you want to start this visit?')) {
-                alert(`Starting visit for patient ID: ${visitId}`);
-                // Implementation would mark visit as in-progress
-            }
-        }
-
-        function viewPatientDetails(patientId) {
-            const patientRecords = {
-                1: {
-                    name: 'Mrs. Nirmala Fernando',
-                    age: 29,
-                    visitType: 'Postnatal Visit - Day 3',
-                    location: 'No. 45, Galle Road, Mount Lavinia',
-                    time: '09:00',
-                    duration: '45 min',
-                    notes: 'Follow-up on breastfeeding issues and jaundice monitoring',
-                    risk: 'Medium',
-                    lastVisit: '2026-03-20',
-                    doctorComments: 'Continue vitamin D and iron supplements'            
-                },
-                2: {
-                    name: 'Mrs. Kamani Wickramasinghe',
-                    age: 32,
-                    visitType: 'Antenatal Visit - 32 weeks',
-                    location: 'No. 78, Temple Road, Dehiwala',
-                    time: '10:30',
-                    duration: '30 min',
-                    notes: 'Routine checkup, monitor blood pressure and fetal growth',
-                    risk: 'High',
-                    lastVisit: '2026-03-19',
-                    doctorComments: 'Schedule ultrasound and monitor blood sugar'
-                },
-                3: {
-                    name: 'Mrs. Sandya Peris',
-                    age: 26,
-                    visitType: 'Postnatal Visit - Day 14',
-                    location: 'No. 23, Flower Road, Colombo 7',
-                    time: '14:00',
-                    duration: '40 min',
-                    notes: 'Check healing progress, discuss family planning',
-                    risk: 'Low',
-                    lastVisit: '2026-03-16',
-                    doctorComments: 'All fine, continue current postpartum diet'
+                function getVisitTabFromUrl() {
+                    const params = new URLSearchParams(window.location.search);
+                    const tab = params.get('visitTab') || params.get('tab') || 'scheduled';
+                    return tab === 'completed' ? 'completed' : 'scheduled';
                 }
-            };
 
-            const record = patientRecords[patientId];
-            const detailsCard = document.getElementById('home-visit-details-record');
-            const detailsBody = document.getElementById('home-visit-details-body');
+                function filterVisitsByDate(period) {
+                    alert(`Filtering visits by: ${period}`);
+                    // Implementation would filter visit list based on selected period
+                }
 
-            if (!record) {
-                detailsBody.innerHTML = '<p class="text-danger">No records found for this visit.</p>';
-                detailsCard.style.display = 'block';
-                return;
-            }
+                function optimizeRoute() {
+                    alert('Route optimization feature would analyze current visits and suggest the most efficient route');
+                }
 
-            detailsBody.innerHTML = `
+                function startVisit(visitId) {
+                    if (confirm('Are you sure you want to start this visit?')) {
+                        alert(`Starting visit for patient ID: ${visitId}`);
+                        // Implementation would mark visit as in-progress
+                    }
+                }
+
+                function viewPatientDetails(patientId) {
+                    const patientRecords = {
+                        1: {
+                            name: 'Mrs. Nirmala Fernando',
+                            age: 29,
+                            visitType: 'Postnatal Visit - Day 3',
+                            location: 'No. 45, Galle Road, Mount Lavinia',
+                            time: '09:00',
+                            duration: '45 min',
+                            notes: 'Follow-up on breastfeeding issues and jaundice monitoring',
+                            risk: 'Medium',
+                            lastVisit: '2026-03-20',
+                            doctorComments: 'Continue vitamin D and iron supplements'
+                        },
+                        2: {
+                            name: 'Mrs. Kamani Wickramasinghe',
+                            age: 32,
+                            visitType: 'Antenatal Visit - 32 weeks',
+                            location: 'No. 78, Temple Road, Dehiwala',
+                            time: '10:30',
+                            duration: '30 min',
+                            notes: 'Routine checkup, monitor blood pressure and fetal growth',
+                            risk: 'High',
+                            lastVisit: '2026-03-19',
+                            doctorComments: 'Schedule ultrasound and monitor blood sugar'
+                        },
+                        3: {
+                            name: 'Mrs. Sandya Peris',
+                            age: 26,
+                            visitType: 'Postnatal Visit - Day 14',
+                            location: 'No. 23, Flower Road, Colombo 7',
+                            time: '14:00',
+                            duration: '40 min',
+                            notes: 'Check healing progress, discuss family planning',
+                            risk: 'Low',
+                            lastVisit: '2026-03-16',
+                            doctorComments: 'All fine, continue current postpartum diet'
+                        }
+                    };
+
+                    const record = patientRecords[patientId];
+                    const detailsCard = document.getElementById('home-visit-details-record');
+                    const detailsBody = document.getElementById('home-visit-details-body');
+
+                    if (!record) {
+                        detailsBody.innerHTML = '<p class="text-danger">No records found for this visit.</p>';
+                        detailsCard.style.display = 'block';
+                        return;
+                    }
+
+                    detailsBody.innerHTML = `
                 <table class="table table-bordered">
                     <tr><th>Patient Name</th><td>${record.name}</td></tr>
                     <tr><th>Age</th><td>${record.age}</td></tr>
@@ -7788,38 +6269,38 @@ echo '</script>';
                 </table>
                 <button class="btn btn-outline-secondary" onclick="document.getElementById('home-visit-details-record').style.display='none'">Close Details</button>
             `;
-            detailsCard.style.display = 'block';
-        }
+                    detailsCard.style.display = 'block';
+                }
 
-        function rescheduleVisit(visitId) {
-            alert(`Rescheduling visit ID: ${visitId}`);
-            // Implementation would open reschedule modal
-        }
+                function rescheduleVisit(visitId) {
+                    alert(`Rescheduling visit ID: ${visitId}`);
+                    // Implementation would open reschedule modal
+                }
 
-        function getDirections(visitId) {
-            alert(`Getting directions to visit location for visit ID: ${visitId}`);
-            // Implementation would open maps application or show directions
-        }
+                function getDirections(visitId) {
+                    alert(`Getting directions to visit location for visit ID: ${visitId}`);
+                    // Implementation would open maps application or show directions
+                }
 
-        function viewVisitReport(reportId) {
-            alert(`Viewing visit report ID: ${reportId}`);
-            // Implementation would show detailed visit report
-        }
+                function viewVisitReport(reportId) {
+                    alert(`Viewing visit report ID: ${reportId}`);
+                    // Implementation would show detailed visit report
+                }
 
-        function loadMap() {
-            alert('Loading interactive route map...');
-            // Implementation would integrate with Google Maps or similar service
-        }
+                function loadMap() {
+                    alert('Loading interactive route map...');
+                    // Implementation would integrate with Google Maps or similar service
+                }
 
-        function closeModal() {
-            const modal = document.querySelector('.modal-overlay');
-            if (modal) {
-                document.body.removeChild(modal);
-            }
-        }
+                function closeModal() {
+                    const modal = document.querySelector('.modal-overlay');
+                    if (modal) {
+                        document.body.removeChild(modal);
+                    }
+                }
 
-        // Add modal styles
-        const modalStyles = `
+                // Add modal styles
+                const modalStyles = `
             <style>
                 .modal-overlay {
                     position: fixed;
@@ -7876,820 +6357,248 @@ echo '</script>';
                 }
             </style>
         `;
-        
-        if (!document.querySelector('#modal-styles')) {
-            const styleElement = document.createElement('div');
-            styleElement.id = 'modal-styles';
-            styleElement.innerHTML = modalStyles;
-            document.head.appendChild(styleElement);
-        }
 
-        // Vaccination Management Functions
-        function scheduleVaccination() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Schedule New Vaccination</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="newVaccinationForm">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Patient *</label>
-                                        <select class="form-control" required>
-                                            <option value="">Select Patient</option>
-                                            <option value="1">Baby Amara Silva (4 months)</option>
-                                            <option value="2">Mrs. Nayani Perera (Pregnant)</option>
-                                            <option value="3">Baby Sahan Fernando (6 months)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Vaccine Category *</label>
-                                        <select class="form-control" required onchange="updateVaccineOptions(this.value)">
-                                            <option value="">Select Category</option>
-                                            <option value="pediatric">Pediatric Vaccines</option>
-                                            <option value="maternal">Maternal Vaccines</option>
-                                            <option value="adult">Adult Vaccines</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Vaccines to Administer *</label>
-                                <div class="vaccine-checkboxes" id="vaccineOptions">
-                                    <p>Select a category first</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Time *</label>
-                                        <input type="time" class="form-control" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Special Instructions</label>
-                                <textarea class="form-control" rows="3" placeholder="Any special instructions or notes..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="newVaccinationForm" class="btn btn-primary">Schedule Vaccination</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
+                if (!document.querySelector('#modal-styles')) {
+                    const styleElement = document.createElement('div');
+                    styleElement.id = 'modal-styles';
+                    styleElement.innerHTML = modalStyles;
+                    document.head.appendChild(styleElement);
+                }
 
-            document.getElementById('newVaccinationForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Vaccination scheduled successfully!');
-                closeModal();
-            });
-        }
 
-        function updateVaccineOptions(category) {
-            const vaccineOptions = document.getElementById('vaccineOptions');
-            let options = '';
+                function printSchedule() {
+                    alert('Printing vaccination schedule...');
+                }
 
-            if (category === 'pediatric') {
-                options = `
-                    <label><input type="checkbox" value="dpt"> DPT (Diphtheria, Pertussis, Tetanus)</label>
-                    <label><input type="checkbox" value="opv"> OPV (Oral Polio Vaccine)</label>
-                    <label><input type="checkbox" value="hepatitis-b"> Hepatitis B</label>
-                    <label><input type="checkbox" value="mmr"> MMR (Measles, Mumps, Rubella)</label>
-                    <label><input type="checkbox" value="hib"> Hib (Haemophilus influenzae type b)</label>
-                `;
-            } else if (category === 'maternal') {
-                options = `
-                    <label><input type="checkbox" value="tetanus-toxoid"> Tetanus Toxoid</label>
-                    <label><input type="checkbox" value="influenza"> Influenza</label>
-                    <label><input type="checkbox" value="pertussis"> Tdap (Tetanus, Diphtheria, Pertussis)</label>
-                `;
-            } else if (category === 'adult') {
-                options = `
-                    <label><input type="checkbox" value="influenza"> Influenza</label>
-                    <label><input type="checkbox" value="pneumococcal"> Pneumococcal</label>
-                    <label><input type="checkbox" value="hepatitis-b"> Hepatitis B</label>
-                    <label><input type="checkbox" value="tetanus"> Tetanus/Diphtheria</label>
-                `;
-            }
+                function administerVaccine(patientId) {
+                    if (confirm('Are you ready to administer this vaccine?')) {
+                        alert(`Administering vaccine for patient ID: ${patientId}`);
+                    }
+                }
 
-            vaccineOptions.innerHTML = options;
-        }
 
-        function quickVaccinationLog() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Quick Vaccination Log</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="quickVaccineLogForm">
-                            <div class="form-group">
-                                <label class="form-label">Patient *</label>
-                                <select class="form-control" required>
-                                    <option value="">Select from today's schedule</option>
-                                    <option value="1">Baby Kamal Silva - DPT-1, OPV-1, Hep B-1</option>
-                                    <option value="2">Mrs. Priyanka Fernando - Tetanus Toxoid</option>
-                                    <option value="3">Mrs. Kumari Wickramasinghe - Influenza, Pneumococcal</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Administration Status *</label>
-                                        <select class="form-control" required>
-                                            <option value="completed">All vaccines administered</option>
-                                            <option value="partial">Partially administered</option>
-                                            <option value="refused">Patient refused</option>
-                                            <option value="contraindicated">Medically contraindicated</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Adverse Reaction</label>
-                                        <select class="form-control">
-                                            <option value="none">No reaction</option>
-                                            <option value="mild">Mild (local redness/swelling)</option>
-                                            <option value="moderate">Moderate (fever, irritability)</option>
-                                            <option value="severe">Severe (requires follow-up)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Batch Numbers</label>
-                                        <input type="text" class="form-control" placeholder="Enter batch numbers">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Next Appointment</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Any observations or notes about the vaccination..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="quickVaccineLogForm" class="btn btn-success">Log Vaccination</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
+                function checkExpiring() {
+                    alert('Checking for vaccines expiring in the next 30 days...');
+                }
 
-            document.getElementById('quickVaccineLogForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Vaccination logged successfully!');
-                closeModal();
-            });
-        }
+                function orderSupplies() {
+                    alert('Opening vaccine supply order form...');
+                }
 
-        function updateInventory() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Update Vaccine Inventory</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="inventoryUpdateForm">
-                            <div class="form-group">
-                                <label class="form-label">Vaccine Type *</label>
-                                <select class="form-control" required>
-                                    <option value="">Select Vaccine</option>
-                                    <option value="dpt">DPT Vaccine</option>
-                                    <option value="opv">OPV (Oral Polio)</option>
-                                    <option value="hepatitis-b">Hepatitis B</option>
-                                    <option value="tetanus">Tetanus Toxoid</option>
-                                    <option value="mmr">MMR Vaccine</option>
-                                    <option value="influenza">Influenza</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Action Type *</label>
-                                        <select class="form-control" required>
-                                            <option value="received">Stock Received</option>
-                                            <option value="used">Stock Used</option>
-                                            <option value="expired">Mark as Expired</option>
-                                            <option value="adjustment">Stock Adjustment</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Quantity *</label>
-                                        <input type="number" class="form-control" min="1" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Batch Number</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Expiry Date</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notes</label>
-                                <textarea class="form-control" rows="3" placeholder="Additional notes about this inventory update..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="inventoryUpdateForm" class="btn btn-info">Update Inventory</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
+                function contactPatient(patientId) {
+                    alert(`Contacting patient ID: ${patientId} about overdue vaccination`);
+                }
 
-            document.getElementById('inventoryUpdateForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Inventory updated successfully!');
-                closeModal();
-            });
-        }
+                function scheduleOverdue(patientId) {
+                    alert(`Scheduling overdue vaccination for patient ID: ${patientId}`);
+                }
 
-        function switchVaccinationTab(tabName) {
-            // Remove active class from all nav links
-            document.querySelectorAll('#vaccinations .nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
+
             
-            // Hide all tab contents in vaccination section
-            document.querySelectorAll('#vaccinations .tab-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            
-            // Show selected tab content
-            const selectedTab = document.getElementById(tabName + '-vaccinations');
-            if (selectedTab) {
-                selectedTab.style.display = 'block';
-            }
-            
-            // Add active class to clicked nav link
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-        }
+                function openProfileImagePreview() {
+                    const profileImage = document.querySelector('#profileImage img');
+                    if (!profileImage) {
+                        return;
+                    }
 
-        function filterVaccinations(category) {
-            alert(`Filtering vaccinations by category: ${category}`);
-        }
-
-        function printSchedule() {
-            alert('Printing vaccination schedule...');
-        }
-
-        function administerVaccine(patientId) {
-            if (confirm('Are you ready to administer this vaccine?')) {
-                alert(`Administering vaccine for patient ID: ${patientId}`);
-            }
-        }
-
-        function viewVaccineHistory(patientId) {
-            alert(`Viewing vaccination history for patient ID: ${patientId}`);
-        }
-
-        function rescheduleVaccine(patientId) {
-            alert(`Rescheduling vaccination for patient ID: ${patientId}`);
-        }
-
-        function checkExpiring() {
-            alert('Checking for vaccines expiring in the next 30 days...');
-        }
-
-        function orderSupplies() {
-            alert('Opening vaccine supply order form...');
-        }
-
-        function contactPatient(patientId) {
-            alert(`Contacting patient ID: ${patientId} about overdue vaccination`);
-        }
-
-        function scheduleOverdue(patientId) {
-            alert(`Scheduling overdue vaccination for patient ID: ${patientId}`);
-        }
-
-        // Add CSS styles for vaccination checkboxes
-        const vaccinationStyles = `
-            <style>
-                .vaccine-checkboxes {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    padding: 1rem;
-                    background: var(--bg-secondary);
-                    border-radius: var(--radius-md);
-                }
-                
-                .vaccine-checkboxes label {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    cursor: pointer;
-                    padding: 0.5rem;
-                    border-radius: var(--radius-sm);
-                    transition: var(--transition-medium);
-                }
-                
-                .vaccine-checkboxes label:hover {
-                    background: var(--white);
-                }
-                
-                .vaccine-checkboxes input[type="checkbox"] {
-                    margin: 0;
-                }
-            </style>
-        `;
-        
-        if (!document.querySelector('#vaccination-styles')) {
-            const styleElement = document.createElement('div');
-            styleElement.id = 'vaccination-styles';
-            styleElement.innerHTML = vaccinationStyles;
-            document.head.appendChild(styleElement);
-        }
-
-        // Profile Management Functions
-        function editProfile() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content" style="max-width: 800px;">
-                    <div class="modal-header">
-                        <h3>Edit Profile Information</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3" style="text-align: right;">
-                            <button type="button" class="btn btn-info" onclick="changeProfilePicture()">
-                                <i class="fas fa-camera"></i> Change Photo
-                            </button>
-                        </div>
-                        <form id="editProfileForm">
-                            <h5>Personal Information</h5>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Full Name *</label>
-                                        <input type="text" class="form-control" value="Madhavi Kumari Perera" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Date of Birth</label>
-                                        <input type="date" class="form-control" value="1990-03-15">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Mobile Phone *</label>
-                                        <input type="tel" class="form-control" value="+94 77 123 4567" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Home Phone</label>
-                                        <input type="tel" class="form-control" value="+94 11 234 5678">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Personal Email</label>
-                                        <input type="email" class="form-control" value="madhavi.perera@gmail.com">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Marital Status</label>
-                                        <select class="form-control">
-                                            <option value="single">Single</option>
-                                            <option value="married" selected>Married</option>
-                                            <option value="divorced">Divorced</option>
-                                            <option value="widowed">Widowed</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <h5 class="mt-4">Address Information</h5>
-                            <div class="form-group">
-                                <label class="form-label">Home Address</label>
-                                <textarea class="form-control" rows="2">No. 123, Galle Road, Mount Lavinia, Colombo</textarea>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Postal Code</label>
-                                        <input type="text" class="form-control" value="10370">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">District</label>
-                                        <select class="form-control">
-                                            <option value="colombo" selected>Colombo</option>
-                                            <option value="gampaha">Gampaha</option>
-                                            <option value="kalutara">Kalutara</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h5 class="mt-4">Emergency Contact</h5>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Name</label>
-                                        <input type="text" class="form-control" value="Sunil Perera (Husband)">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contact Number</label>
-                                        <input type="tel" class="form-control" value="+94 71 987 6543">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="editProfileForm" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            document.getElementById('editProfileForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Profile updated successfully!');
-                closeModal();
-            });
-        }
-
-        function changePassword() {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Change Password</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="changePasswordForm">
-                            <div class="form-group">
-                                <label class="form-label">Current Password *</label>
-                                <input type="password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">New Password *</label>
-                                <input type="password" class="form-control" required minlength="8">
-                                <small class="form-text">Password must be at least 8 characters long</small>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Confirm New Password *</label>
-                                <input type="password" class="form-control" required minlength="8">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="submit" form="changePasswordForm" class="btn btn-primary">Change Password</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Password changed successfully!');
-                closeModal();
-            });
-        }
-
-        function changeProfilePicture() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const profileImage = document.getElementById('profileImage');
-                        profileImage.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
-                        alert('Profile picture updated successfully!');
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            input.click();
-        }
-
-        function openProfileImagePreview() {
-            const profileImage = document.querySelector('#profileImage img');
-            if (!profileImage) {
-                return;
-            }
-
-            let previewModal = document.getElementById('profileImagePreview');
-            if (!previewModal) {
-                previewModal = document.createElement('div');
-                previewModal.id = 'profileImagePreview';
-                previewModal.className = 'profile-image-preview';
-                previewModal.setAttribute('aria-hidden', 'true');
-                previewModal.innerHTML = `
+                    let previewModal = document.getElementById('profileImagePreview');
+                    if (!previewModal) {
+                        previewModal = document.createElement('div');
+                        previewModal.id = 'profileImagePreview';
+                        previewModal.className = 'profile-image-preview';
+                        previewModal.setAttribute('aria-hidden', 'true');
+                        previewModal.innerHTML = `
                     <button type="button" class="preview-close-btn" aria-label="Close image preview">&times;</button>
                     <img id="profileImagePreviewContent" src="" alt="Profile image full screen">
                 `;
-                document.body.appendChild(previewModal);
+                        document.body.appendChild(previewModal);
 
-                previewModal.addEventListener('click', function() {
-                    closeProfileImagePreview();
-                });
+                        previewModal.addEventListener('click', function() {
+                            closeProfileImagePreview();
+                        });
 
-                const previewImg = previewModal.querySelector('#profileImagePreviewContent');
-                if (previewImg) {
-                    previewImg.addEventListener('click', function(event) {
-                        event.stopPropagation();
-                    });
-                }
+                        const previewImg = previewModal.querySelector('#profileImagePreviewContent');
+                        if (previewImg) {
+                            previewImg.addEventListener('click', function(event) {
+                                event.stopPropagation();
+                            });
+                        }
 
-                const closeBtn = previewModal.querySelector('.preview-close-btn');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', function(event) {
-                        event.stopPropagation();
-                        closeProfileImagePreview();
-                    });
-                }
-            }
-
-            const previewContent = document.getElementById('profileImagePreviewContent');
-            if (!previewContent) {
-                return;
-            }
-
-            previewContent.src = profileImage.src;
-            previewContent.alt = profileImage.alt || 'Profile image full screen';
-            previewModal.classList.add('show');
-            previewModal.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeProfileImagePreview() {
-            const previewModal = document.getElementById('profileImagePreview');
-            if (!previewModal) {
-                return;
-            }
-
-            previewModal.classList.remove('show');
-            previewModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeProfileImagePreview();
-            }
-        });
-
-        function switchProfileTab(tabName) {
-            // Remove active class from all nav links in profile section
-            document.querySelectorAll('#profile .nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Hide all tab contents in profile section
-            document.querySelectorAll('#profile .tab-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            
-            // Show selected tab content
-            const selectedTab = document.getElementById(tabName + '-profile');
-            if (selectedTab) {
-                selectedTab.style.display = 'block';
-            }
-            
-            // Add active class to clicked nav link
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-
-            // Initialize performance chart if performance tab is selected
-            if (tabName === 'performance') {
-                setTimeout(initializePerformanceChart, 100);
-            }
-        }
-
-        function initializePerformanceChart() {
-            const ctx = document.getElementById('performanceChart');
-            if (ctx && !ctx.chart) {
-                const rootStyles = getComputedStyle(document.documentElement);
-                const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
-                const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
-                const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
-
-                ctx.chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        datasets: [{
-                            label: 'Patients Served',
-                            data: [95, 102, 118, 89, 125, 134, 127, 142, 156, 163, 148, 152],
-                            borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
-                            backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.18)' : 'rgba(0, 137, 123, 0.12)',
-                            pointBackgroundColor: isDarkTheme ? '#5eead4' : '#00897b',
-                            pointBorderColor: '#ffffff',
-                            borderWidth: 3,
-                            pointRadius: 3,
-                            tension: 0.4,
-                            fill: true
-                        }, {
-                            label: 'Home Visits',
-                            data: [68, 75, 82, 71, 88, 92, 85, 95, 104, 98, 89, 96],
-                            borderColor: isDarkTheme ? '#60a5fa' : '#00509e',
-                            backgroundColor: isDarkTheme ? 'rgba(96, 165, 250, 0.18)' : 'rgba(0, 80, 158, 0.12)',
-                            pointBackgroundColor: isDarkTheme ? '#93c5fd' : '#00509e',
-                            pointBorderColor: '#ffffff',
-                            borderWidth: 3,
-                            pointRadius: 3,
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: axisTextColor
-                                },
-                                grid: {
-                                    color: gridColor
-                                }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    color: axisTextColor
-                                },
-                                grid: {
-                                    color: gridColor
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: {
-                                    color: axisTextColor
-                                }
-                            }
+                        const closeBtn = previewModal.querySelector('.preview-close-btn');
+                        if (closeBtn) {
+                            closeBtn.addEventListener('click', function(event) {
+                                event.stopPropagation();
+                                closeProfileImagePreview();
+                            });
                         }
                     }
+
+                    const previewContent = document.getElementById('profileImagePreviewContent');
+                    if (!previewContent) {
+                        return;
+                    }
+
+                    previewContent.src = profileImage.src;
+                    previewContent.alt = profileImage.alt || 'Profile image full screen';
+                    previewModal.classList.add('show');
+                    previewModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeProfileImagePreview() {
+                    const previewModal = document.getElementById('profileImagePreview');
+                    if (!previewModal) {
+                        return;
+                    }
+
+                    previewModal.classList.remove('show');
+                    previewModal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                }
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape') {
+                        closeProfileImagePreview();
+                    }
                 });
-            }
-        }
 
-        function exportData() {
-            alert('Generating data export... You will receive a download link via email within 24 hours.');
-        }
+                function switchProfileTab(tabName) {
+                    // Remove active class from all nav links in profile section
+                    document.querySelectorAll('#profile .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
 
-        // Tab switching function for Maternal and Child Care
-        function switchCareTab(tabName) {
-            event.preventDefault();
-            event.stopPropagation();
-            // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('#patients .nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-            
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('#patients .tab-content');
-            tabContents.forEach(content => content.classList.add('hidden'));
-            
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-            
-            // Show selected tab content
-            if (tabName === 'mothers') {
-                document.getElementById('mothers-tab').classList.remove('hidden');
-                // Show pregnant mothers by default
-                document.getElementById('pregnant-mothers').classList.remove('hidden');
-            } else if (tabName === 'children') {
-                document.getElementById('children-tab').classList.remove('hidden');
-            }
-            return false;
-        }
+                    // Hide all tab contents in profile section
+                    document.querySelectorAll('#profile .tab-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
 
-        // Tab switching function for Mother categories
-        function switchMotherTab(tabName) {
-            event.preventDefault();
-            event.stopPropagation();
-            // Remove active class from all mother sub-nav links
-            const motherNavLinks = document.querySelectorAll('#mothers-tab .nav-link');
-            motherNavLinks.forEach(link => link.classList.remove('active'));
-            
-            // Hide all mother tab contents
-            document.getElementById('pregnant-mothers').classList.add('hidden');
-            document.getElementById('lactating-mothers').classList.add('hidden');
-            document.getElementById('postnatal-mothers').classList.add('hidden');
-            
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-            
-            // Show selected mother tab content
-            if (tabName === 'pregnant') {
-                document.getElementById('pregnant-mothers').classList.remove('hidden');
-            } else if (tabName === 'lactating') {
-                document.getElementById('lactating-mothers').classList.remove('hidden');
-            } else if (tabName === 'postnatal') {
-                document.getElementById('postnatal-mothers').classList.remove('hidden');
-            }
-            return false;
-        }
+                    // Show selected tab content
+                    const selectedTab = document.getElementById(tabName + '-profile');
+                    if (selectedTab) {
+                        selectedTab.style.display = 'block';
+                    }
 
-        // Tab switching function for Children categories
-        function switchChildrenTab(tabName) {
-            event.preventDefault();
-            event.stopPropagation();
-            // Remove active class from all children sub-nav links
-            const childrenNavLinks = document.querySelectorAll('#children-tab .nav-link');
-            childrenNavLinks.forEach(link => link.classList.remove('active'));
-            
-            // Hide all children tab contents
-            document.getElementById('newborns-children').classList.add('hidden');
-            document.getElementById('young-children').classList.add('hidden');
-            document.getElementById('childs-children').classList.add('hidden');
-            
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-            
-            // Show selected children tab content
-            if (tabName === 'newborns') {
-                document.getElementById('newborns-children').classList.remove('hidden');
-            } else if (tabName === 'young') {
-                document.getElementById('young-children').classList.remove('hidden');
-            } else if (tabName === 'childs') {
-                document.getElementById('childs-children').classList.remove('hidden');
-            }
-            return false;
-        }
+                    // Add active class to clicked nav link
+                    if (event && event.target) {
+                        event.target.classList.add('active');
+                    }
 
-        // Update Mother Details Functions
-        function updateMother(type, id, name, age, ...additionalData) {
-            // Show comprehensive profile modal instead of basic update
-            showComprehensiveMotherProfile(type, id, name, age, ...additionalData);
-        }
+                    // Initialize performance chart if performance tab is selected
+                    if (tabName === 'performance') {
+                        setTimeout(initializePerformanceChart, 100);
+                    }
+                }
 
-        function showComprehensiveMotherProfile(type, id, name, age, ...additionalData) {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.id = 'comprehensiveMotherModal';
-            modal.innerHTML = `
+                function initializePerformanceChart() {
+                    const ctx = document.getElementById('performanceChart');
+                    if (ctx && !ctx.chart) {
+                        const rootStyles = getComputedStyle(document.documentElement);
+                        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                        const axisTextColor = (rootStyles.getPropertyValue('--text-secondary') || '#6c757d').trim();
+                        const gridColor = isDarkTheme ? 'rgba(203, 213, 225, 0.14)' : 'rgba(52, 58, 64, 0.12)';
+
+                        ctx.chart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                datasets: [{
+                                    label: 'Patients Served',
+                                    data: [95, 102, 118, 89, 125, 134, 127, 142, 156, 163, 148, 152],
+                                    borderColor: isDarkTheme ? '#2dd4bf' : '#00897b',
+                                    backgroundColor: isDarkTheme ? 'rgba(45, 212, 191, 0.18)' : 'rgba(0, 137, 123, 0.12)',
+                                    pointBackgroundColor: isDarkTheme ? '#5eead4' : '#00897b',
+                                    pointBorderColor: '#ffffff',
+                                    borderWidth: 3,
+                                    pointRadius: 3,
+                                    tension: 0.4,
+                                    fill: true
+                                }, {
+                                    label: 'Home Visits',
+                                    data: [68, 75, 82, 71, 88, 92, 85, 95, 104, 98, 89, 96],
+                                    borderColor: isDarkTheme ? '#60a5fa' : '#00509e',
+                                    backgroundColor: isDarkTheme ? 'rgba(96, 165, 250, 0.18)' : 'rgba(0, 80, 158, 0.12)',
+                                    pointBackgroundColor: isDarkTheme ? '#93c5fd' : '#00509e',
+                                    pointBorderColor: '#ffffff',
+                                    borderWidth: 3,
+                                    pointRadius: 3,
+                                    tension: 0.4,
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    x: {
+                                        ticks: {
+                                            color: axisTextColor
+                                        },
+                                        grid: {
+                                            color: gridColor
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            color: axisTextColor
+                                        },
+                                        grid: {
+                                            color: gridColor
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            color: axisTextColor
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+
+                function exportData() {
+                    alert('Generating data export... You will receive a download link via email within 24 hours.');
+                }
+
+     su
+                // // Tab switching function for Mother categories
+                // function switchMotherTab(tabName) {
+                //     event.preventDefault();
+                //     event.stopPropagation();
+                //     // Remove active class from all mother sub-nav links
+                //     const motherNavLinks = document.querySelectorAll('#mothers-tab .nav-link');
+                //     motherNavLinks.forEach(link => link.classList.remove('active'));
+
+                //     // Hide all mother tab contents
+                //     document.getElementById('pregnant-mothers').classList.add('hidden');
+                //     document.getElementById('lactating-mothers').classList.add('hidden');
+                //     document.getElementById('postnatal-mothers').classList.add('hidden');
+
+                //     // Add active class to clicked nav link
+                //     event.target.classList.add('active');
+
+                //     // Show selected mother tab content
+                //     if (tabName === 'pregnant') {
+                //         document.getElementById('pregnant-mothers').classList.remove('hidden');
+                //     } else if (tabName === 'lactating') {
+                //         document.getElementById('lactating-mothers').classList.remove('hidden');
+                //     } else if (tabName === 'postnatal') {
+                //         document.getElementById('postnatal-mothers').classList.remove('hidden');
+                //     }
+                //     return false;
+                // }
+
+       
+                function showComprehensiveMotherProfile(type, id, name, age, ...additionalData) {
+                    const modal = document.createElement('div');
+                    modal.className = 'modal-overlay';
+                    modal.id = 'comprehensiveMotherModal';
+                    modal.innerHTML = `
                 <div class="modal-content" style="max-width: 900px; max-height: 95vh; overflow-y: auto;">
                     <div class="modal-header">
                         <h3>Complete Profile - ${name}</h3>
@@ -8873,15 +6782,15 @@ echo '</script>';
                     </div>
                 </div>
             `;
-            document.body.appendChild(modal);
-            
-            // Set default values
-            setDefaultProfileValues(type, age, additionalData);
-        }
+                    document.body.appendChild(modal);
 
-        function getCategorySpecificFields(type, additionalData) {
-            if (type === 'pregnant') {
-                return `
+                    // Set default values
+                    setDefaultProfileValues(type, age, additionalData);
+                }
+
+                function getCategorySpecificFields(type, additionalData) {
+                    if (type === 'pregnant') {
+                        return `
                     <!-- Pregnancy Information Section -->
                     <h4 style="color: #002E4F; border-bottom: 2px solid #00A699; padding-bottom: 0.5rem; margin-bottom: 1rem; margin-top: 2rem;">Pregnancy Information</h4>
                     <div class="row">
@@ -8931,8 +6840,8 @@ echo '</script>';
                         </div>
                     </div>
                 `;
-            } else if (type === 'lactating') {
-                return `
+                    } else if (type === 'lactating') {
+                        return `
                     <!-- Lactation Information Section -->
                     <h4 style="color: #002E4F; border-bottom: 2px solid #00A699; padding-bottom: 0.5rem; margin-bottom: 1rem; margin-top: 2rem;">Lactation Information</h4>
                     <div class="row">
@@ -8977,8 +6886,8 @@ echo '</script>';
                         <input type="date" id="lastVisit" class="form-control" value="${additionalData[1] || ''}">
                     </div>
                 `;
-            } else if (type === 'postnatal') {
-                return `
+                    } else if (type === 'postnatal') {
+                        return `
                     <!-- Delivery Information Section -->
                     <h4 style="color: #002E4F; border-bottom: 2px solid #00A699; padding-bottom: 0.5rem; margin-bottom: 1rem; margin-top: 2rem;">Delivery Information</h4>
                     <div class="row">
@@ -9024,359 +6933,366 @@ echo '</script>';
                         <input type="date" id="lastVisit" class="form-control" value="${additionalData[1] || ''}">
                     </div>
                 `;
-            }
-            return '';
-        }
-
-        function setDefaultProfileValues(type, age, additionalData) {
-            // Set some default values to simulate existing data
-            document.getElementById('mobilePhone').value = '+94 77 123 4567';
-            document.getElementById('homePhone').value = '+94 11 234 5678';
-            document.getElementById('personalEmail').value = 'example@gmail.com';
-            document.getElementById('homeAddress').value = 'No. 123, Galle Road, Mount Lavinia, Colombo';
-            document.getElementById('postalCode').value = '10370';
-            document.getElementById('emergencyContactName').value = 'Sunil Perera (Husband)';
-            document.getElementById('emergencyContactNumber').value = '+94 71 987 6543';
-            document.getElementById('bloodGroup').value = 'O+';
-            document.getElementById('height').value = '160';
-            document.getElementById('weight').value = '55';
-            
-            // Set birth date based on age
-            const currentYear = new Date().getFullYear();
-            const birthYear = currentYear - parseInt(age);
-            document.getElementById('dateOfBirth').value = `${birthYear}-03-15`;
-        }
-
-        function closeComprehensiveModal() {
-            const modal = document.getElementById('comprehensiveMotherModal');
-            if (modal) {
-                document.body.removeChild(modal);
-            }
-        }
-
-        function saveComprehensiveMotherUpdate() {
-            const formData = {
-                type: document.getElementById('motherType').value,
-                id: document.getElementById('motherId').value,
-                
-                // Personal Information
-                fullName: document.getElementById('fullName').value,
-                dateOfBirth: document.getElementById('dateOfBirth').value,
-                mobilePhone: document.getElementById('mobilePhone').value,
-                homePhone: document.getElementById('homePhone').value,
-                personalEmail: document.getElementById('personalEmail').value,
-                maritalStatus: document.getElementById('maritalStatus').value,
-                
-                // Address Information
-                homeAddress: document.getElementById('homeAddress').value,
-                postalCode: document.getElementById('postalCode').value,
-                district: document.getElementById('district').value,
-                
-                // Emergency Contact
-                emergencyContactName: document.getElementById('emergencyContactName').value,
-                emergencyContactNumber: document.getElementById('emergencyContactNumber').value,
-                
-                // Medical Information
-                bloodGroup: document.getElementById('bloodGroup').value,
-                height: document.getElementById('height').value,
-                weight: document.getElementById('weight').value,
-                allergies: document.getElementById('allergies').value,
-                medicalHistory: document.getElementById('medicalHistory').value,
-                additionalNotes: document.getElementById('additionalNotes').value
-            };
-
-            // Add category-specific data
-            const type = formData.type;
-            if (type === 'pregnant') {
-                formData.weeksPregnant = document.getElementById('weeksPregnant').value;
-                formData.expectedDueDate = document.getElementById('expectedDueDate').value;
-                formData.riskLevel = document.getElementById('riskLevel').value;
-                formData.previousPregnancies = document.getElementById('previousPregnancies').value;
-                formData.lastVisit = document.getElementById('lastVisit').value;
-                formData.nextAppointment = document.getElementById('nextAppointment').value;
-            } else if (type === 'lactating') {
-                formData.babyAge = document.getElementById('babyAge').value;
-                formData.babyName = document.getElementById('babyName').value;
-                formData.breastfeedingStatus = document.getElementById('breastfeedingStatus').value;
-                formData.supportLevel = document.getElementById('supportLevel').value;
-                formData.lastVisit = document.getElementById('lastVisit').value;
-            } else if (type === 'postnatal') {
-                formData.deliveryDate = document.getElementById('deliveryDate').value;
-                formData.deliveryType = document.getElementById('deliveryType').value;
-                formData.recoveryStatus = document.getElementById('recoveryStatus').value;
-                formData.babyBirthWeight = document.getElementById('babyBirthWeight').value;
-                formData.lastVisit = document.getElementById('lastVisit').value;
-            }
-
-            // Here you would typically send the comprehensive data to the server
-            console.log('Saving comprehensive mother profile:', formData);
-            
-            // Show success message and close modal
-            alert(`Successfully updated complete profile for ${formData.fullName}!\\n\\nUpdated Information:\\n• Personal details\\n• Address information\\n• Emergency contact\\n• Medical information\\n• Category-specific details`);
-            closeComprehensiveModal();
-            
-            // In a real application, you would update the database and refresh the table
-        }
-
-        // Close modal when clicking outside of it
-        document.addEventListener('click', function(event) {
-            const modal = document.getElementById('comprehensiveMotherModal');
-            if (event.target === modal) {
-                closeComprehensiveModal();
-            }
-        });
-
-        // Triposha Distribution Functions
-        function showDistributionForm() {
-            document.getElementById('distributionModal').style.display = 'block';
-            // Set current date as default
-            const today = new Date().toISOString().split('T')[0];
-            document.querySelector('input[name="distribution_date"]').value = today;
-        }
-
-        function closeDistributionModal() {
-            document.getElementById('distributionModal').style.display = 'none';
-            document.getElementById('distributionForm').reset();
-        }
-
-        // Remove Distribution Functions
-        function showRemoveDistributionForm() {
-            populateDistributionSelect();
-            document.getElementById('removeDistributionModal').style.display = 'block';
-        }
-
-        function closeRemoveDistributionModal() {
-            document.getElementById('removeDistributionModal').style.display = 'none';
-            document.getElementById('removeDistributionForm').reset();
-        }
-
-        function populateDistributionSelect() {
-            const select = document.getElementById('distributionSelect');
-            const tbody = document.getElementById('distribution-records');
-            const rows = tbody.querySelectorAll('tr');
-            
-            // Clear existing options except the first one
-            select.innerHTML = '<option value="">Select a distribution record to remove</option>';
-            
-            rows.forEach((row, index) => {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 4) {
-                    const date = cells[0].textContent;
-                    const beneficiary = cells[1].textContent;
-                    const packets = cells[2].textContent;
-                    const category = cells[3].textContent;
-                    
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.textContent = `${date} - ${beneficiary} (${packets} packets - ${category})`;
-                    option.setAttribute('data-packets', packets);
-                    option.setAttribute('data-category', category);
-                    option.setAttribute('data-beneficiary', beneficiary);
-                    select.appendChild(option);
+                    }
+                    return '';
                 }
-            });
-        }
 
-        function removeDistributionRecord(button, packets, categoryType) {
-            const row = button.closest('tr');
-            const beneficiary = row.cells[1].textContent;
-            const date = row.cells[0].textContent;
-            
-            const confirmation = confirm(
-                `Remove Distribution Record?\n\n` +
-                `Date: ${date}\n` +
-                `Beneficiary: ${beneficiary}\n` +
-                `Packets: ${packets}\n` +
-                `Category: ${categoryType}\n\n` +
-                `This will:\n` +
-                `• Remove this record permanently\n` +
-                `• Reduce distributed packet count by ${packets}\n` +
-                `• Update category totals\n\n` +
-                `Continue with removal?`
-            );
-            
-            if (confirmation) {
-                performDistributionRemoval(row, packets, categoryType, beneficiary);
-            }
-        }
+                function setDefaultProfileValues(type, age, additionalData) {
+                    // Set some default values to simulate existing data
+                    document.getElementById('mobilePhone').value = '+94 77 123 4567';
+                    document.getElementById('homePhone').value = '+94 11 234 5678';
+                    document.getElementById('personalEmail').value = 'example@gmail.com';
+                    document.getElementById('homeAddress').value = 'No. 123, Galle Road, Mount Lavinia, Colombo';
+                    document.getElementById('postalCode').value = '10370';
+                    document.getElementById('emergencyContactName').value = 'Sunil Perera (Husband)';
+                    document.getElementById('emergencyContactNumber').value = '+94 71 987 6543';
+                    document.getElementById('bloodGroup').value = 'O+';
+                    document.getElementById('height').value = '160';
+                    document.getElementById('weight').value = '55';
 
-        function performDistributionRemoval(row, packets, categoryType, beneficiary) {
-            // Remove the row from table
-            row.remove();
-            
-            // Update total distributed count
-            const currentDistributed = parseInt(document.getElementById('packets-distributed').textContent) || 0;
-            const newDistributed = Math.max(0, currentDistributed - parseInt(packets));
-            document.getElementById('packets-distributed').textContent = newDistributed;
-            document.getElementById('total-distributed-summary').textContent = newDistributed + ' packets';
-            
-            // Update category-specific counts
-            updateCategoryAfterRemoval(categoryType, parseInt(packets));
-            
-            // Update remaining packets
-            updateRemainingPackets();
-            
-            // Show success message
-            alert(`Distribution removed successfully!\n\n` +
-                  `Removed ${packets} packet(s) from ${beneficiary}\n` +
-                  `Category: ${categoryType}\n` +
-                  `Packet counts have been updated.`);
-            
-            // Check if table is empty
-            const tbody = document.getElementById('distribution-records');
-            if (tbody.children.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No distribution records</td></tr>';
-            }
-        }
-
-        function updateCategoryAfterRemoval(categoryType, packets) {
-            let elementId;
-            
-            if (categoryType === 'pregnant' || categoryType.includes('Pregnant')) {
-                elementId = 'pregnant-packets';
-            } else if (categoryType === 'lactating' || categoryType.includes('Lactating')) {
-                elementId = 'lactating-packets';
-            } else {
-                elementId = 'children-packets';
-            }
-            
-            const currentElement = document.getElementById(elementId);
-            if (currentElement) {
-                const current = parseInt(currentElement.textContent) || 0;
-                const newValue = Math.max(0, current - packets);
-                currentElement.textContent = newValue + ' packets';
-            }
-        }
-
-        // Enhanced editable functions
-        function editPacketsReceived() {
-            const current = document.getElementById('packets-received-month').textContent;
-            const newValue = prompt(`Enter number of packets received this month:\nCurrent: ${current}`, current);
-            if (newValue && !isNaN(newValue) && newValue >= 0) {
-                document.getElementById('packets-received-month').textContent = newValue;
-                updateTotalPackets();
-                updateRemainingPackets();
-            }
-        }
-
-        function editPacketsLeftPrevious() {
-            const current = document.getElementById('packets-left-previous').textContent;
-            const newValue = prompt(`Enter packets left from previous month:\nCurrent: ${current}`, current);
-            if (newValue && !isNaN(newValue) && newValue >= 0) {
-                document.getElementById('packets-left-previous').textContent = newValue;
-                updateTotalPackets();
-                updateRemainingPackets();
-            }
-        }
-
-        function editPacketsDistributed() {
-            const current = document.getElementById('packets-distributed').textContent;
-            const total = parseInt(document.getElementById('total-packets').textContent);
-            const newValue = prompt(`Enter total packets distributed this month:\nCurrent: ${current}\nAvailable: ${total}`, current);
-            if (newValue && !isNaN(newValue) && newValue >= 0) {
-                if (parseInt(newValue) <= total) {
-                    document.getElementById('packets-distributed').textContent = newValue;
-                    document.getElementById('total-distributed-summary').textContent = newValue + ' packets';
-                    updateRemainingPackets();
-                } else {
-                    alert('Cannot distribute more packets than available!');
+                    // Set birth date based on age
+                    const currentYear = new Date().getFullYear();
+                    const birthYear = currentYear - parseInt(age);
+                    document.getElementById('dateOfBirth').value = `${birthYear}-03-15`;
                 }
-            }
-        }
 
-        function editCategorySummary(category) {
-            const categoryMap = {
-                'pregnant': { id: 'pregnant-packets', label: 'Pregnant Mothers' },
-                'lactating': { id: 'lactating-packets', label: 'Lactating Mothers' },
-                'children': { id: 'children-packets', label: 'Children (6-23 months)' }
-            };
-            
-            const config = categoryMap[category];
-            const current = document.getElementById(config.id).textContent.replace(' packets', '');
-            const newValue = prompt(`Enter packets distributed to ${config.label}:\nCurrent: ${current}`, current);
-            
-            if (newValue && !isNaN(newValue) && newValue >= 0) {
-                document.getElementById(config.id).textContent = newValue + ' packets';
-                updateCategoryTotals();
-            }
-        }
+                function closeComprehensiveModal() {
+                    const modal = document.getElementById('comprehensiveMotherModal');
+                    if (modal) {
+                        document.body.removeChild(modal);
+                    }
+                }
 
-        function updateCategoryTotals() {
-            const pregnant = parseInt(document.getElementById('pregnant-packets').textContent) || 0;
-            const lactating = parseInt(document.getElementById('lactating-packets').textContent) || 0;
-            const children = parseInt(document.getElementById('children-packets').textContent) || 0;
-            const total = pregnant + lactating + children;
-            
-            document.getElementById('packets-distributed').textContent = total;
-            document.getElementById('total-distributed-summary').textContent = total + ' packets';
-            updateRemainingPackets();
-        }
+                function saveComprehensiveMotherUpdate() {
+                    const formData = {
+                        type: document.getElementById('motherType').value,
+                        id: document.getElementById('motherId').value,
 
-        function updateInventory() {
-            editPacketsReceived();
-        }
+                        // Personal Information
+                        fullName: document.getElementById('fullName').value,
+                        dateOfBirth: document.getElementById('dateOfBirth').value,
+                        mobilePhone: document.getElementById('mobilePhone').value,
+                        homePhone: document.getElementById('homePhone').value,
+                        personalEmail: document.getElementById('personalEmail').value,
+                        maritalStatus: document.getElementById('maritalStatus').value,
 
-        function updateTotalPackets() {
-            const received = parseInt(document.getElementById('packets-received-month').textContent) || 0;
-            const leftPrevious = parseInt(document.getElementById('packets-left-previous').textContent) || 0;
-            const total = received + leftPrevious;
-            document.getElementById('total-packets').textContent = total;
-        }
+                        // Address Information
+                        homeAddress: document.getElementById('homeAddress').value,
+                        postalCode: document.getElementById('postalCode').value,
+                        district: document.getElementById('district').value,
 
-        function updateRemainingPackets() {
-            const total = parseInt(document.getElementById('total-packets').textContent) || 0;
-            const distributed = parseInt(document.getElementById('packets-distributed').textContent) || 0;
-            const remaining = total - distributed;
-            document.getElementById('remaining-packets').textContent = remaining + ' packets';
-        }
+                        // Emergency Contact
+                        emergencyContactName: document.getElementById('emergencyContactName').value,
+                        emergencyContactNumber: document.getElementById('emergencyContactNumber').value,
 
-        function generateTriposhaPeport() {
-            alert('Triposha Distribution Report Generated!\n\nThis Month Summary:\n• Packets Received: ' + 
-                  document.getElementById('packets-received-month').textContent +
-                  '\n• Packets Left from Previous: ' + 
-                  document.getElementById('packets-left-previous').textContent +
-                  '\n• Total Available: ' + 
-                  document.getElementById('total-packets').textContent +
-                  '\n• Packets Distributed: ' + 
-                  document.getElementById('packets-distributed').textContent);
-        }
-
-        // Handle distribution form submission
-        document.addEventListener('DOMContentLoaded', function() {
-            const distributionForm = document.getElementById('distributionForm');
-            if (distributionForm) {
-                distributionForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(this);
-                    const distributionData = {
-                        date: formData.get('distribution_date'),
-                        beneficiary: formData.get('beneficiary_name'),
-                        category: formData.get('category'),
-                        packets: parseInt(formData.get('packet_count')),
-                        notes: formData.get('notes')
+                        // Medical Information
+                        bloodGroup: document.getElementById('bloodGroup').value,
+                        height: document.getElementById('height').value,
+                        weight: document.getElementById('weight').value,
+                        allergies: document.getElementById('allergies').value,
+                        medicalHistory: document.getElementById('medicalHistory').value,
+                        additionalNotes: document.getElementById('additionalNotes').value
                     };
-                    
-                    // Add new row to distribution records
+
+                    // Add category-specific data
+                    const type = formData.type;
+                    if (type === 'pregnant') {
+                        formData.weeksPregnant = document.getElementById('weeksPregnant').value;
+                        formData.expectedDueDate = document.getElementById('expectedDueDate').value;
+                        formData.riskLevel = document.getElementById('riskLevel').value;
+                        formData.previousPregnancies = document.getElementById('previousPregnancies').value;
+                        formData.lastVisit = document.getElementById('lastVisit').value;
+                        formData.nextAppointment = document.getElementById('nextAppointment').value;
+                    } else if (type === 'lactating') {
+                        formData.babyAge = document.getElementById('babyAge').value;
+                        formData.babyName = document.getElementById('babyName').value;
+                        formData.breastfeedingStatus = document.getElementById('breastfeedingStatus').value;
+                        formData.supportLevel = document.getElementById('supportLevel').value;
+                        formData.lastVisit = document.getElementById('lastVisit').value;
+                    } else if (type === 'postnatal') {
+                        formData.deliveryDate = document.getElementById('deliveryDate').value;
+                        formData.deliveryType = document.getElementById('deliveryType').value;
+                        formData.recoveryStatus = document.getElementById('recoveryStatus').value;
+                        formData.babyBirthWeight = document.getElementById('babyBirthWeight').value;
+                        formData.lastVisit = document.getElementById('lastVisit').value;
+                    }
+
+                    // Here you would typically send the comprehensive data to the server
+                    console.log('Saving comprehensive mother profile:', formData);
+
+                    // Show success message and close modal
+                    alert(`Successfully updated complete profile for ${formData.fullName}!\\n\\nUpdated Information:\\n• Personal details\\n• Address information\\n• Emergency contact\\n• Medical information\\n• Category-specific details`);
+                    closeComprehensiveModal();
+
+                    // In a real application, you would update the database and refresh the table
+                }
+
+                // Close modal when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    const modal = document.getElementById('comprehensiveMotherModal');
+                    if (event.target === modal) {
+                        closeComprehensiveModal();
+                    }
+                });
+
+                // Triposha Distribution Functions
+                function showDistributionForm() {
+                    document.getElementById('distributionModal').style.display = 'block';
+                    // Set current date as default
+                    const today = new Date().toISOString().split('T')[0];
+                    document.querySelector('input[name="distribution_date"]').value = today;
+                }
+
+                function closeDistributionModal() {
+                    document.getElementById('distributionModal').style.display = 'none';
+                    document.getElementById('distributionForm').reset();
+                }
+
+                // Remove Distribution Functions
+                function showRemoveDistributionForm() {
+                    populateDistributionSelect();
+                    document.getElementById('removeDistributionModal').style.display = 'block';
+                }
+
+                function closeRemoveDistributionModal() {
+                    document.getElementById('removeDistributionModal').style.display = 'none';
+                    document.getElementById('removeDistributionForm').reset();
+                }
+
+                function populateDistributionSelect() {
+                    const select = document.getElementById('distributionSelect');
                     const tbody = document.getElementById('distribution-records');
-                    
-                    // Remove 'no records' message if it exists
-                    const noRecordsRow = tbody.querySelector('td[colspan]');
-                    if (noRecordsRow) {
-                        noRecordsRow.parentElement.remove();
+                    const rows = tbody.querySelectorAll('tr');
+
+                    // Clear existing options except the first one
+                    select.innerHTML = '<option value="">Select a distribution record to remove</option>';
+
+                    rows.forEach((row, index) => {
+                        const cells = row.querySelectorAll('td');
+                        if (cells.length >= 4) {
+                            const date = cells[0].textContent;
+                            const beneficiary = cells[1].textContent;
+                            const packets = cells[2].textContent;
+                            const category = cells[3].textContent;
+
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = `${date} - ${beneficiary} (${packets} packets - ${category})`;
+                            option.setAttribute('data-packets', packets);
+                            option.setAttribute('data-category', category);
+                            option.setAttribute('data-beneficiary', beneficiary);
+                            select.appendChild(option);
+                        }
+                    });
+                }
+
+                function removeDistributionRecord(button, packets, categoryType) {
+                    const row = button.closest('tr');
+                    const beneficiary = row.cells[1].textContent;
+                    const date = row.cells[0].textContent;
+
+                    const confirmation = confirm(
+                        `Remove Distribution Record?\n\n` +
+                        `Date: ${date}\n` +
+                        `Beneficiary: ${beneficiary}\n` +
+                        `Packets: ${packets}\n` +
+                        `Category: ${categoryType}\n\n` +
+                        `This will:\n` +
+                        `• Remove this record permanently\n` +
+                        `• Reduce distributed packet count by ${packets}\n` +
+                        `• Update category totals\n\n` +
+                        `Continue with removal?`
+                    );
+
+                    if (confirmation) {
+                        performDistributionRemoval(row, packets, categoryType, beneficiary);
                     }
-                    
-                    const newRow = tbody.insertRow(0);
-                    const rowId = Date.now(); // Simple ID generation
-                    newRow.setAttribute('data-id', rowId);
-                    
-                    // Determine category type for removal function
-                    let categoryType = distributionData.category;
-                    if (distributionData.category.includes('child')) {
-                        categoryType = 'children';
+                }
+
+                function performDistributionRemoval(row, packets, categoryType, beneficiary) {
+                    // Remove the row from table
+                    row.remove();
+
+                    // Update total distributed count
+                    const currentDistributed = parseInt(document.getElementById('packets-distributed').textContent) || 0;
+                    const newDistributed = Math.max(0, currentDistributed - parseInt(packets));
+                    document.getElementById('packets-distributed').textContent = newDistributed;
+                    document.getElementById('total-distributed-summary').textContent = newDistributed + ' packets';
+
+                    // Update category-specific counts
+                    updateCategoryAfterRemoval(categoryType, parseInt(packets));
+
+                    // Update remaining packets
+                    updateRemainingPackets();
+
+                    // Show success message
+                    alert(`Distribution removed successfully!\n\n` +
+                        `Removed ${packets} packet(s) from ${beneficiary}\n` +
+                        `Category: ${categoryType}\n` +
+                        `Packet counts have been updated.`);
+
+                    // Check if table is empty
+                    const tbody = document.getElementById('distribution-records');
+                    if (tbody.children.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No distribution records</td></tr>';
                     }
-                    
-                    newRow.innerHTML = `
+                }
+
+                function updateCategoryAfterRemoval(categoryType, packets) {
+                    let elementId;
+
+                    if (categoryType === 'pregnant' || categoryType.includes('Pregnant')) {
+                        elementId = 'pregnant-packets';
+                    } else if (categoryType === 'lactating' || categoryType.includes('Lactating')) {
+                        elementId = 'lactating-packets';
+                    } else {
+                        elementId = 'children-packets';
+                    }
+
+                    const currentElement = document.getElementById(elementId);
+                    if (currentElement) {
+                        const current = parseInt(currentElement.textContent) || 0;
+                        const newValue = Math.max(0, current - packets);
+                        currentElement.textContent = newValue + ' packets';
+                    }
+                }
+
+                // Enhanced editable functions
+                function editPacketsReceived() {
+                    const current = document.getElementById('packets-received-month').textContent;
+                    const newValue = prompt(`Enter number of packets received this month:\nCurrent: ${current}`, current);
+                    if (newValue && !isNaN(newValue) && newValue >= 0) {
+                        document.getElementById('packets-received-month').textContent = newValue;
+                        updateTotalPackets();
+                        updateRemainingPackets();
+                    }
+                }
+
+                function editPacketsLeftPrevious() {
+                    const current = document.getElementById('packets-left-previous').textContent;
+                    const newValue = prompt(`Enter packets left from previous month:\nCurrent: ${current}`, current);
+                    if (newValue && !isNaN(newValue) && newValue >= 0) {
+                        document.getElementById('packets-left-previous').textContent = newValue;
+                        updateTotalPackets();
+                        updateRemainingPackets();
+                    }
+                }
+
+                function editPacketsDistributed() {
+                    const current = document.getElementById('packets-distributed').textContent;
+                    const total = parseInt(document.getElementById('total-packets').textContent);
+                    const newValue = prompt(`Enter total packets distributed this month:\nCurrent: ${current}\nAvailable: ${total}`, current);
+                    if (newValue && !isNaN(newValue) && newValue >= 0) {
+                        if (parseInt(newValue) <= total) {
+                            document.getElementById('packets-distributed').textContent = newValue;
+                            document.getElementById('total-distributed-summary').textContent = newValue + ' packets';
+                            updateRemainingPackets();
+                        } else {
+                            alert('Cannot distribute more packets than available!');
+                        }
+                    }
+                }
+
+                function editCategorySummary(category) {
+                    const categoryMap = {
+                        'pregnant': {
+                            id: 'pregnant-packets',
+                            label: 'Pregnant Mothers'
+                        },
+                        'lactating': {
+                            id: 'lactating-packets',
+                            label: 'Lactating Mothers'
+                        },
+                        'children': {
+                            id: 'children-packets',
+                            label: 'Children (6-23 months)'
+                        }
+                    };
+
+                    const config = categoryMap[category];
+                    const current = document.getElementById(config.id).textContent.replace(' packets', '');
+                    const newValue = prompt(`Enter packets distributed to ${config.label}:\nCurrent: ${current}`, current);
+
+                    if (newValue && !isNaN(newValue) && newValue >= 0) {
+                        document.getElementById(config.id).textContent = newValue + ' packets';
+                        updateCategoryTotals();
+                    }
+                }
+
+                function updateCategoryTotals() {
+                    const pregnant = parseInt(document.getElementById('pregnant-packets').textContent) || 0;
+                    const lactating = parseInt(document.getElementById('lactating-packets').textContent) || 0;
+                    const children = parseInt(document.getElementById('children-packets').textContent) || 0;
+                    const total = pregnant + lactating + children;
+
+                    document.getElementById('packets-distributed').textContent = total;
+                    document.getElementById('total-distributed-summary').textContent = total + ' packets';
+                    updateRemainingPackets();
+                }
+
+
+
+                function updateTotalPackets() {
+                    const received = parseInt(document.getElementById('packets-received-month').textContent) || 0;
+                    const leftPrevious = parseInt(document.getElementById('packets-left-previous').textContent) || 0;
+                    const total = received + leftPrevious;
+                    document.getElementById('total-packets').textContent = total;
+                }
+
+                function updateRemainingPackets() {
+                    const total = parseInt(document.getElementById('total-packets').textContent) || 0;
+                    const distributed = parseInt(document.getElementById('packets-distributed').textContent) || 0;
+                    const remaining = total - distributed;
+                    document.getElementById('remaining-packets').textContent = remaining + ' packets';
+                }
+
+                function generateTriposhaPeport() {
+                    alert('Triposha Distribution Report Generated!\n\nThis Month Summary:\n• Packets Received: ' +
+                        document.getElementById('packets-received-month').textContent +
+                        '\n• Packets Left from Previous: ' +
+                        document.getElementById('packets-left-previous').textContent +
+                        '\n• Total Available: ' +
+                        document.getElementById('total-packets').textContent +
+                        '\n• Packets Distributed: ' +
+                        document.getElementById('packets-distributed').textContent);
+                }
+
+                // Handle distribution form submission
+                document.addEventListener('DOMContentLoaded', function() {
+                    const distributionForm = document.getElementById('distributionForm');
+                    if (distributionForm) {
+                        distributionForm.addEventListener('submit', function(e) {
+                            e.preventDefault();
+
+                            const formData = new FormData(this);
+                            const distributionData = {
+                                date: formData.get('distribution_date'),
+                                beneficiary: formData.get('beneficiary_name'),
+                                category: formData.get('category'),
+                                packets: parseInt(formData.get('packet_count')),
+                                notes: formData.get('notes')
+                            };
+
+                            // Add new row to distribution records
+                            const tbody = document.getElementById('distribution-records');
+
+                            // Remove 'no records' message if it exists
+                            const noRecordsRow = tbody.querySelector('td[colspan]');
+                            if (noRecordsRow) {
+                                noRecordsRow.parentElement.remove();
+                            }
+
+                            const newRow = tbody.insertRow(0);
+                            const rowId = Date.now(); // Simple ID generation
+                            newRow.setAttribute('data-id', rowId);
+
+                            // Determine category type for removal function
+                            let categoryType = distributionData.category;
+                            if (distributionData.category.includes('child')) {
+                                categoryType = 'children';
+                            }
+
+                            newRow.innerHTML = `
                         <td>${distributionData.date}</td>
                         <td>${distributionData.beneficiary}</td>
                         <td>${distributionData.packets}</td>
@@ -9388,252 +7304,360 @@ echo '</script>';
                             </button>
                         </td>
                     `;
-                    
-                    // Update distributed count and category breakdown
-                    const currentDistributed = parseInt(document.getElementById('packets-distributed').textContent);
-                    const newTotal = currentDistributed + distributionData.packets;
-                    document.getElementById('packets-distributed').textContent = newTotal;
-                    document.getElementById('total-distributed-summary').textContent = newTotal + ' packets';
-                    
-                    // Update category-specific counts
-                    if (distributionData.category === 'pregnant') {
-                        const current = parseInt(document.getElementById('pregnant-packets').textContent) || 0;
-                        document.getElementById('pregnant-packets').textContent = (current + distributionData.packets) + ' packets';
-                    } else if (distributionData.category === 'lactating') {
-                        const current = parseInt(document.getElementById('lactating-packets').textContent) || 0;
-                        document.getElementById('lactating-packets').textContent = (current + distributionData.packets) + ' packets';
-                    } else if (distributionData.category.includes('child')) {
-                        const current = parseInt(document.getElementById('children-packets').textContent) || 0;
-                        document.getElementById('children-packets').textContent = (current + distributionData.packets) + ' packets';
+
+                            // Update distributed count and category breakdown
+                            const currentDistributed = parseInt(document.getElementById('packets-distributed').textContent);
+                            const newTotal = currentDistributed + distributionData.packets;
+                            document.getElementById('packets-distributed').textContent = newTotal;
+                            document.getElementById('total-distributed-summary').textContent = newTotal + ' packets';
+
+                            // Update category-specific counts
+                            if (distributionData.category === 'pregnant') {
+                                const current = parseInt(document.getElementById('pregnant-packets').textContent) || 0;
+                                document.getElementById('pregnant-packets').textContent = (current + distributionData.packets) + ' packets';
+                            } else if (distributionData.category === 'lactating') {
+                                const current = parseInt(document.getElementById('lactating-packets').textContent) || 0;
+                                document.getElementById('lactating-packets').textContent = (current + distributionData.packets) + ' packets';
+                            } else if (distributionData.category.includes('child')) {
+                                const current = parseInt(document.getElementById('children-packets').textContent) || 0;
+                                document.getElementById('children-packets').textContent = (current + distributionData.packets) + ' packets';
+                            }
+
+                            updateRemainingPackets();
+
+                            alert(`Successfully recorded distribution of ${distributionData.packets} packet(s) to ${distributionData.beneficiary}!`);
+                            closeDistributionModal();
+                        });
                     }
-                    
-                    updateRemainingPackets();
-                    
-                    alert(`Successfully recorded distribution of ${distributionData.packets} packet(s) to ${distributionData.beneficiary}!`);
-                    closeDistributionModal();
                 });
-            }
-        });
 
-        function getCategoryText(category) {
-            const categories = {
-                'pregnant': 'Pregnant Mother',
-                'lactating': 'Lactating Mother',
-                'child_6_23': 'Child (6-23 months)',
-                'child_24_59': 'Child (24-59 months)'
-            };
-            return categories[category] || category;
-        }
-
-        // Duty Area Functions
-        function selectDutyArea(areaName) {
-            // Remove active class from all duty area cards
-            document.querySelectorAll('.duty-area-card').forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Add active class to selected area
-            const selectedCard = event.currentTarget;
-            selectedCard.classList.add('active');
-            
-            // Update status badges
-            document.querySelectorAll('.duty-area-card .status-badge').forEach(badge => {
-                badge.textContent = 'Secondary';
-                badge.className = 'status-badge status-secondary';
-            });
-            
-            // Set selected area as primary
-            const selectedBadge = selectedCard.querySelector('.status-badge');
-            selectedBadge.textContent = 'Primary';
-            selectedBadge.className = 'status-badge status-active';
-            
-            // Show confirmation
-            const areaNames = {
-                'udathuththiripitiya': 'Udathuththiripitiya',
-                'kahabilihena': 'Kahabilihena',
-                'opathella': 'Opathella',
-                'ambalangoda': 'Ambalangoda'
-            };
-            
-            alert(`Primary duty area changed to: ${areaNames[areaName]}`);
-        }
-
-        // Triposha Distribution Data for All Areas
-        const triposhaData = {
-            uduthuththiripitiya: {
-                header: {
-                    title: "Uduthuththiripitiya Area - Triposha Distribution",
-                    details: "Coverage: 15 villages | Beneficiaries: 85 families | Distribution Center: Uduthuththiripitiya CHC"
-                },
-                stats: {
-                    received: 150,
-                    left: 25,
-                    total: 175,
-                    distributed: 98
-                },
-                records: [
-                    { id: 1, date: "2026-02-05", beneficiary: "Mrs. K. Silva", packets: 2, category: "Pregnant Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-05", beneficiary: "Mrs. A. Fernando", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-04", beneficiary: "Mrs. D. Jayawardene", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-04", beneficiary: "Mrs. P. Perera", packets: 1, category: "Pregnant Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 35,
-                    lactating: 42,
-                    children: 21,
-                    totalDistributed: 98,
-                    remaining: 77
+                function getCategoryText(category) {
+                    const categories = {
+                        'pregnant': 'Pregnant Mother',
+                        'lactating': 'Lactating Mother',
+                        'child_6_23': 'Child (6-23 months)',
+                        'child_24_59': 'Child (24-59 months)'
+                    };
+                    return categories[category] || category;
                 }
-            },
-            kahabilihena: {
-                header: {
-                    title: "Kahabilihena Area - Triposha Distribution",
-                    details: "Coverage: 12 villages | Beneficiaries: 68 families | Distribution Center: Kahabilihena RH"
-                },
-                stats: {
-                    received: 120,
-                    left: 18,
-                    total: 138,
-                    distributed: 75
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. D. Perera", packets: 2, category: "Lactating Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-10", beneficiary: "Mrs. N. Fernando", packets: 3, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-09", beneficiary: "Mrs. K. Silva", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-08", beneficiary: "Mrs. R. Gunawardena", packets: 1, category: "Pregnant Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 28,
-                    lactating: 32,
-                    children: 15,
-                    totalDistributed: 75,
-                    remaining: 63
+
+                // Duty Area Functions
+                function selectDutyArea(areaName) {
+                    // Remove active class from all duty area cards
+                    document.querySelectorAll('.duty-area-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+
+                    // Add active class to selected area
+                    const selectedCard = event.currentTarget;
+                    selectedCard.classList.add('active');
+
+                    // Update status badges
+                    document.querySelectorAll('.duty-area-card .status-badge').forEach(badge => {
+                        badge.textContent = 'Secondary';
+                        badge.className = 'status-badge status-secondary';
+                    });
+
+                    // Set selected area as primary
+                    const selectedBadge = selectedCard.querySelector('.status-badge');
+                    selectedBadge.textContent = 'Primary';
+                    selectedBadge.className = 'status-badge status-active';
+
+                    // Show confirmation
+                    const areaNames = {
+                        'udathuththiripitiya': 'Udathuththiripitiya',
+                        'kahabilihena': 'Kahabilihena',
+                        'opathella': 'Opathella',
+                        'ambalangoda': 'Ambalangoda'
+                    };
+
+                    alert(`Primary duty area changed to: ${areaNames[areaName]}`);
                 }
-            },
-            opathella: {
-                header: {
-                    title: "Opathella Area - Triposha Distribution",
-                    details: "Coverage: 8 urban wards | Beneficiaries: 52 families | Distribution Center: Opathella PHC"
-                },
-                stats: {
-                    received: 90,
-                    left: 12,
-                    total: 102,
-                    distributed: 56
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. S. Jayawardena", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 2, date: "2026-02-10", beneficiary: "Mrs. M. Silva", packets: 1, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-09", beneficiary: "Mrs. A. Perera", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 4, date: "2026-02-08", beneficiary: "Mrs. L. Fernando", packets: 2, category: "Child (6-23 months)", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 18,
-                    lactating: 24,
-                    children: 14,
-                    totalDistributed: 56,
-                    remaining: 46
+
+                // Triposha Distribution Data for All Areas
+                const triposhaData = {
+                    uduthuththiripitiya: {
+                        header: {
+                            title: "Uduthuththiripitiya Area - Triposha Distribution",
+                            details: "Coverage: 15 villages | Beneficiaries: 85 families | Distribution Center: Uduthuththiripitiya CHC"
+                        },
+                        stats: {
+                            received: 150,
+                            left: 25,
+                            total: 175,
+                            distributed: 98
+                        },
+                        records: [{
+                                id: 1,
+                                date: "2026-02-05",
+                                beneficiary: "Mrs. K. Silva",
+                                packets: 2,
+                                category: "Pregnant Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 2,
+                                date: "2026-02-05",
+                                beneficiary: "Mrs. A. Fernando",
+                                packets: 3,
+                                category: "Lactating Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 3,
+                                date: "2026-02-04",
+                                beneficiary: "Mrs. D. Jayawardene",
+                                packets: 2,
+                                category: "Child (6-23 months)",
+                                status: "Completed"
+                            },
+                            {
+                                id: 4,
+                                date: "2026-02-04",
+                                beneficiary: "Mrs. P. Perera",
+                                packets: 1,
+                                category: "Pregnant Mother",
+                                status: "Pending"
+                            }
+                        ],
+                        summary: {
+                            pregnant: 35,
+                            lactating: 42,
+                            children: 21,
+                            totalDistributed: 98,
+                            remaining: 77
+                        }
+                    },
+                    kahabilihena: {
+                        header: {
+                            title: "Kahabilihena Area - Triposha Distribution",
+                            details: "Coverage: 12 villages | Beneficiaries: 68 families | Distribution Center: Kahabilihena RH"
+                        },
+                        stats: {
+                            received: 120,
+                            left: 18,
+                            total: 138,
+                            distributed: 75
+                        },
+                        records: [{
+                                id: 1,
+                                date: "2026-02-11",
+                                beneficiary: "Mrs. D. Perera",
+                                packets: 2,
+                                category: "Lactating Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 2,
+                                date: "2026-02-10",
+                                beneficiary: "Mrs. N. Fernando",
+                                packets: 3,
+                                category: "Pregnant Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 3,
+                                date: "2026-02-09",
+                                beneficiary: "Mrs. K. Silva",
+                                packets: 2,
+                                category: "Child (6-23 months)",
+                                status: "Completed"
+                            },
+                            {
+                                id: 4,
+                                date: "2026-02-08",
+                                beneficiary: "Mrs. R. Gunawardena",
+                                packets: 1,
+                                category: "Pregnant Mother",
+                                status: "Pending"
+                            }
+                        ],
+                        summary: {
+                            pregnant: 28,
+                            lactating: 32,
+                            children: 15,
+                            totalDistributed: 75,
+                            remaining: 63
+                        }
+                    },
+                    opathella: {
+                        header: {
+                            title: "Opathella Area - Triposha Distribution",
+                            details: "Coverage: 8 urban wards | Beneficiaries: 52 families | Distribution Center: Opathella PHC"
+                        },
+                        stats: {
+                            received: 90,
+                            left: 12,
+                            total: 102,
+                            distributed: 56
+                        },
+                        records: [{
+                                id: 1,
+                                date: "2026-02-11",
+                                beneficiary: "Mrs. S. Jayawardena",
+                                packets: 2,
+                                category: "Child (6-23 months)",
+                                status: "Completed"
+                            },
+                            {
+                                id: 2,
+                                date: "2026-02-10",
+                                beneficiary: "Mrs. M. Silva",
+                                packets: 1,
+                                category: "Pregnant Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 3,
+                                date: "2026-02-09",
+                                beneficiary: "Mrs. A. Perera",
+                                packets: 3,
+                                category: "Lactating Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 4,
+                                date: "2026-02-08",
+                                beneficiary: "Mrs. L. Fernando",
+                                packets: 2,
+                                category: "Child (6-23 months)",
+                                status: "Pending"
+                            }
+                        ],
+                        summary: {
+                            pregnant: 18,
+                            lactating: 24,
+                            children: 14,
+                            totalDistributed: 56,
+                            remaining: 46
+                        }
+                    },
+                    ambalangoda: {
+                        header: {
+                            title: "Ambalangoda Area - Triposha Distribution",
+                            details: "Coverage: 18 villages | Beneficiaries: 95 families | Distribution Center: Ambalangoda DH"
+                        },
+                        stats: {
+                            received: 180,
+                            left: 30,
+                            total: 210,
+                            distributed: 105
+                        },
+                        records: [{
+                                id: 1,
+                                date: "2026-02-11",
+                                beneficiary: "Mrs. R. Bandara",
+                                packets: 3,
+                                category: "Lactating Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 2,
+                                date: "2026-02-11",
+                                beneficiary: "Mrs. T. Fernando",
+                                packets: 2,
+                                category: "Pregnant Mother",
+                                status: "Completed"
+                            },
+                            {
+                                id: 3,
+                                date: "2026-02-10",
+                                beneficiary: "Mrs. K. Rajapaksha",
+                                packets: 2,
+                                category: "Child (6-23 months)",
+                                status: "Completed"
+                            },
+                            {
+                                id: 4,
+                                date: "2026-02-09",
+                                beneficiary: "Mrs. S. Silva",
+                                packets: 3,
+                                category: "Lactating Mother",
+                                status: "Pending"
+                            }
+                        ],
+                        summary: {
+                            pregnant: 38,
+                            lactating: 45,
+                            children: 22,
+                            totalDistributed: 105,
+                            remaining: 105
+                        }
+                    }
+                };
+
+                // Current active area for Triposha
+                let currentTriposhaArea = 'uduthuththiripitiya';
+
+                // Switch between duty areas in different sections
+                function switchArea(sectionId, areaName, event) {
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    const section = document.getElementById(sectionId);
+                    if (!section) {
+                        console.error('Section not found:', sectionId);
+                        return;
+                    }
+
+                    const buttons = section.querySelectorAll('.duty-area-btn');
+                    buttons.forEach(btn => btn.classList.remove('active'));
+
+                    const clickedButton = Array.from(buttons).find(btn =>
+                        btn.getAttribute('onclick')?.includes(`'${areaName}'`)
+                    );
+                    if (clickedButton) {
+                        clickedButton.classList.add('active');
+                    }
+
+                    if (sectionId === 'triposha' && triposhaData[areaName]) {
+                        currentTriposhaArea = areaName;
+                        updateTriposhaContent(areaName);
+                        return;
+                    }
+
+                    const contentWrappers = section.querySelectorAll('.area-content-wrapper');
+                    contentWrappers.forEach(wrapper => {
+                        wrapper.classList.remove('active');
+                    });
+
+                    const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
+                    if (selectedWrapper) {
+                        selectedWrapper.classList.add('active');
+                    }
+
+                    if (sectionId === 'home-visits') {
+                        currentArea = areaName;
+                        loadHomeVisits();
+                    }
                 }
-            },
-            ambalangoda: {
-                header: {
-                    title: "Ambalangoda Area - Triposha Distribution",
-                    details: "Coverage: 18 villages | Beneficiaries: 95 families | Distribution Center: Ambalangoda DH"
-                },
-                stats: {
-                    received: 180,
-                    left: 30,
-                    total: 210,
-                    distributed: 105
-                },
-                records: [
-                    { id: 1, date: "2026-02-11", beneficiary: "Mrs. R. Bandara", packets: 3, category: "Lactating Mother", status: "Completed" },
-                    { id: 2, date: "2026-02-11", beneficiary: "Mrs. T. Fernando", packets: 2, category: "Pregnant Mother", status: "Completed" },
-                    { id: 3, date: "2026-02-10", beneficiary: "Mrs. K. Rajapaksha", packets: 2, category: "Child (6-23 months)", status: "Completed" },
-                    { id: 4, date: "2026-02-09", beneficiary: "Mrs. S. Silva", packets: 3, category: "Lactating Mother", status: "Pending" }
-                ],
-                summary: {
-                    pregnant: 38,
-                    lactating: 45,
-                    children: 22,
-                    totalDistributed: 105,
-                    remaining: 105
-                }
-            }
-        };
 
-        // Current active area for Triposha
-        let currentTriposhaArea = 'uduthuththiripitiya';
+                // Update Triposha content dynamically
+                function updateTriposhaContent(areaName) {
+                    const data = triposhaData[areaName];
+                    if (!data) return;
 
-        // Switch between duty areas in different sections
-        function switchArea(sectionId, areaName, event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+                    // Update header
+                    const headerTitle = document.querySelector('#triposha .area-header h4');
+                    const headerDetails = document.querySelector('#triposha .area-header p');
+                    if (headerTitle) headerTitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.header.title}`;
+                    if (headerDetails) headerDetails.textContent = data.header.details;
 
-            const section = document.getElementById(sectionId);
-            if (!section) {
-                console.error('Section not found:', sectionId);
-                return;
-            }
+                    // Update stats
+                    document.getElementById('packets-received-month').textContent = data.stats.received;
+                    document.getElementById('packets-left-previous').textContent = data.stats.left;
+                    document.getElementById('total-packets').textContent = data.stats.total;
+                    document.getElementById('packets-distributed').textContent = data.stats.distributed;
 
-            const buttons = section.querySelectorAll('.duty-area-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            const clickedButton = Array.from(buttons).find(btn =>
-                btn.getAttribute('onclick')?.includes(`'${areaName}'`)
-            );
-            if (clickedButton) {
-                clickedButton.classList.add('active');
-            }
-
-            if (sectionId === 'triposha' && triposhaData[areaName]) {
-                currentTriposhaArea = areaName;
-                updateTriposhaContent(areaName);
-                return;
-            }
-
-            const contentWrappers = section.querySelectorAll('.area-content-wrapper');
-            contentWrappers.forEach(wrapper => {
-                wrapper.classList.remove('active');
-            });
-
-            const selectedWrapper = section.querySelector(`.area-content-wrapper[data-area="${areaName}"]`);
-            if (selectedWrapper) {
-                selectedWrapper.classList.add('active');
-            }
-
-            if (sectionId === 'home-visits') {
-                currentArea = areaName;
-                loadHomeVisits();
-            }
-        }
-
-        // Update Triposha content dynamically
-        function updateTriposhaContent(areaName) {
-            const data = triposhaData[areaName];
-            if (!data) return;
-
-            // Update header
-            const headerTitle = document.querySelector('#triposha .area-header h4');
-            const headerDetails = document.querySelector('#triposha .area-header p');
-            if (headerTitle) headerTitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.header.title}`;
-            if (headerDetails) headerDetails.textContent = data.header.details;
-
-            // Update stats
-            document.getElementById('packets-received-month').textContent = data.stats.received;
-            document.getElementById('packets-left-previous').textContent = data.stats.left;
-            document.getElementById('total-packets').textContent = data.stats.total;
-            document.getElementById('packets-distributed').textContent = data.stats.distributed;
-
-            // Update distribution records table
-            const tbody = document.getElementById('distribution-records');
-            if (tbody) {
-                tbody.innerHTML = data.records.map(record => {
-                    const categoryType = record.category.toLowerCase().includes('pregnant') ? 'pregnant' : 
-                                        record.category.toLowerCase().includes('lactating') ? 'lactating' : 'children';
-                    return `
+                    // Update distribution records table
+                    const tbody = document.getElementById('distribution-records');
+                    if (tbody) {
+                        tbody.innerHTML = data.records.map(record => {
+                            const categoryType = record.category.toLowerCase().includes('pregnant') ? 'pregnant' :
+                                record.category.toLowerCase().includes('lactating') ? 'lactating' : 'children';
+                            return `
                     <tr data-id="${record.id}">
                         <td>${record.date}</td>
                         <td>${record.beneficiary}</td>
@@ -9646,41 +7670,42 @@ echo '</script>';
                             </button>
                         </td>
                     </tr>
-                `}).join('');
-            }
+                `
+                        }).join('');
+                    }
 
-            // Update monthly summary
-            document.getElementById('pregnant-packets').textContent = data.summary.pregnant + ' packets';
-            document.getElementById('lactating-packets').textContent = data.summary.lactating + ' packets';
-            document.getElementById('children-packets').textContent = data.summary.children + ' packets';
-            document.getElementById('total-distributed-summary').textContent = data.summary.totalDistributed + ' packets';
-            document.getElementById('remaining-packets').textContent = data.summary.remaining + ' packets';
-        }
+                    // Update monthly summary
+                    document.getElementById('pregnant-packets').textContent = data.summary.pregnant + ' packets';
+                    document.getElementById('lactating-packets').textContent = data.summary.lactating + ' packets';
+                    document.getElementById('children-packets').textContent = data.summary.children + ' packets';
+                    document.getElementById('total-distributed-summary').textContent = data.summary.totalDistributed + ' packets';
+                    document.getElementById('remaining-packets').textContent = data.summary.remaining + ' packets';
+                }
 
-        // Time-based greeting
-        function updateGreeting() {
-            const hour = new Date().getHours();
-            let greeting;
-            if (hour < 12) {
-                greeting = 'Good Morning';
-            } else if (hour < 18) {
-                greeting = 'Good Afternoon';
-            } else {
-                greeting = 'Good Evening';
-            }
-            const el = document.getElementById('greeting-text');
-            if (el) {
-                el.textContent = greeting + ', Madhavi!';
-            }
-        }
+                // Time-based greeting
+                function updateGreeting() {
+                    const hour = new Date().getHours();
+                    let greeting;
+                    if (hour < 12) {
+                        greeting = 'Good Morning';
+                    } else if (hour < 18) {
+                        greeting = 'Good Afternoon';
+                    } else {
+                        greeting = 'Good Evening';
+                    }
+                    const el = document.getElementById('greeting-text');
+                    if (el) {
+                        el.textContent = greeting + ', Madhavi!';
+                    }
+                }
 
-        // Run on load and update every minute
-        updateGreeting();
-        setInterval(updateGreeting, 60000);
-    </script>
+                // Run on load and update every minute
+                updateGreeting();
+                setInterval(updateGreeting, 60000);
+            </script>
 
-    <!-- Chatbot Widget -->
-    <!--<div id="chatbot" class="chatbot">
+            <!-- Chatbot Widget -->
+            <!--<div id="chatbot" class="chatbot">
         <div class="chatbot-header">
             <h4>MidConnect Support</h4>
             <button id="chatbot-close" class="chatbot-close">&times;</button>
@@ -9695,7 +7720,7 @@ echo '</script>';
         <i class="fas fa-comments"></i>
     </button> -->
 
-    <!--<style>
+            <!--<style>
         .chatbot-toggle {
             position: fixed;
             bottom: 2rem;
@@ -9874,7 +7899,7 @@ echo '</script>';
         }
     </style> -->
 
-    <!--<script>
+            <!--<script>
         const chatbotToggle = document.getElementById('chatbot-toggle');
         const chatbot = document.getElementById('chatbot');
         const chatbotClose = document.getElementById('chatbot-close');
@@ -9935,11 +7960,38 @@ echo '</script>';
         //     });
         // });
     </script> -->
-    <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="mkSuvkG19NuJ50hkdCPlJ";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+            <script>
+                (function() {
+                    if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                        window.chatbase = (...arguments) => {
+                            if (!window.chatbase.q) {
+                                window.chatbase.q = []
+                            }
+                            window.chatbase.q.push(arguments)
+                        };
+                        window.chatbase = new Proxy(window.chatbase, {
+                            get(target, prop) {
+                                if (prop === "q") {
+                                    return target.q
+                                }
+                                return (...args) => target(prop, ...args)
+                            }
+                        })
+                    }
+                    const onLoad = function() {
+                        const script = document.createElement("script");
+                        script.src = "https://www.chatbase.co/embed.min.js";
+                        script.id = "mkSuvkG19NuJ50hkdCPlJ";
+                        script.domain = "www.chatbase.co";
+                        document.body.appendChild(script)
+                    };
+                    if (document.readyState === "complete") {
+                        onLoad()
+                    } else {
+                        window.addEventListener("load", onLoad)
+                    }
+                })();
+            </script>
 </body>
-</html>
-</html>
 
-
+</html>

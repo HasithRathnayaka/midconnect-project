@@ -1,0 +1,96 @@
+#editProfileModal,
+#changePasswordModal {
+    z-index: 1060 !important;
+}
+
+#editProfileModal .modal-dialog,
+#changePasswordModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#editProfileModal .modal-content,
+#changePasswordModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.profile-info-item {
+    margin-bottom: 1rem;
+}
+
+.profile-info-item label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.profile-info-item p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+
+
+#editProfileModal,
+#changePasswordModal {
+    z-index: 1060 !important;
+}
+
+#editProfileModal .modal-dialog,
+#changePasswordModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#editProfileModal .modal-content,
+#changePasswordModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+.dashboard-widget-item {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dashboard-widget-item:last-child {
+    border-bottom: none;
+}
+
+.widget-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+.widget-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.widget-small {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.widget-status {
+    margin-top: 0.5rem;
+}
