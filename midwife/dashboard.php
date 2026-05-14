@@ -2296,59 +2296,75 @@ body.modal-open {
 
         <div class="content-with-sidebar">
             <!-- Dashboard Overview -->
-            <div id="dashboard" class="content-section">
-                <div class="welcome-banner">
-                    <div class="row">
-                        <div class="col-10">
-                            <h2 id="greeting-text">Good Morning, Madhavi!</h2>
-                            <p>Ready to make a difference in your community today. You have 5 scheduled activities.</p>
-                        </div>
+<div id="dashboard" class="content-section">
+    <div class="welcome-banner">
+        <div class="row">
+            <div class="col-10">
+                <h2 id="greeting-text">Good Morning, Madhavi!</h2>
+                <p>
+                    Ready to make a difference in your community today.
+                    You have <span id="dashboardScheduledCount">0</span> scheduled activities.
+                </p>
+            </div>
+        </div>
+    </div>
 
-                    </div>
+    <!-- Dynamic Dashboard Widgets -->
+    <div class="row" style="margin-bottom: 2rem;" id="dynamic-widgets-container">
+
+        <!-- 1. Urgent Meetings -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--accent-red); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--accent-red);">
+                        <i class="fas fa-exclamation-triangle"></i> Urgent Meetings
+                    </h4>
                 </div>
 
-
-                <!-- Dynamic Dashboard Widgets -->
-                <div class="row" style="margin-bottom: 2rem;" id="dynamic-widgets-container">
-                    <!-- 1. Urgent Meetings -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--accent-red); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--accent-red);"><i class="fas fa-exclamation-triangle"></i> Urgent Meetings</h4>
-                            </div>
-                            <div class="card-body" id="widget-urgent" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
+                <div class="card-body" id="urgentMeetingsList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
                     </div>
-
-                    <!-- 2. Upcoming Clinics -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--primary-blue); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--primary-blue);"><i class="fas fa-hospital"></i> Upcoming Clinics</h4>
-                            </div>
-                            <div class="card-body" id="widget-clinics" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. Time Table -->
-                    <div class="col-6" style="margin-bottom: 1.5rem;">
-                        <div class="card" style="border-top: 4px solid var(--secondary-green); height: 100%;">
-                            <div class="card-header">
-                                <h4 class="card-title" style="color: var(--secondary-green);"><i class="fas fa-clock"></i> Today's Time Table</h4>
-                            </div>
-                            <div class="card-body" id="widget-timetable" style="max-height: 250px; overflow-y: auto;">
-                                <div style="text-align: center; color: var(--text-muted); padding: 1rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
                 </div>
             </div>
+        </div>
+
+        <!-- 2. Upcoming Clinics -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--primary-blue); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--primary-blue);">
+                        <i class="fas fa-hospital"></i> Upcoming Clinics
+                    </h4>
+                </div>
+
+                <div class="card-body" id="upcomingClinicsList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Today's Time Table -->
+        <div class="col-6" style="margin-bottom: 1.5rem;">
+            <div class="card" style="border-top: 4px solid var(--secondary-green); height: 100%;">
+                <div class="card-header">
+                    <h4 class="card-title" style="color: var(--secondary-green);">
+                        <i class="fas fa-clock"></i> Today's Time Table
+                    </h4>
+                </div>
+
+                <div class="card-body" id="todaysTimetableList" style="max-height: 250px; overflow-y: auto;">
+                    <div style="text-align: center; color: var(--text-muted); padding: 1rem;">
+                        <i class="fas fa-spinner fa-spin"></i> Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
             <!-- Log Activity Section -->
             <div id="log-activity" class="content-section" style="display: none;">
@@ -3478,7 +3494,7 @@ body.modal-open {
         <h2>My Profile</h2>
 
         <div>
-             <button
+             <!-- <button
 
             class="btn btn-primary"
 
@@ -3508,7 +3524,7 @@ body.modal-open {
 
             <i class="fas fa-key"></i> Change Password
 
-        </button>
+        </button> -->
         </div>
     </div>
 
@@ -5365,6 +5381,7 @@ body.modal-open {
             <script src="../js/midwife/maternal-child-care-tabs.js"></script>
             <script src="../js/midwife/maternal-child-care.js"></script>
             <script src="../js/midwife/midwife-profile.js"></script>
+            <script src="../js/midwife/load-dashboard-widgets.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

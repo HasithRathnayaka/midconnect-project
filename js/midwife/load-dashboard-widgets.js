@@ -18,71 +18,105 @@ function loadDashboardWidgets() {
             try {
                 data = JSON.parse(text);
             } catch (error) {
-                console.error('Dashboard widgets returned non-JSON:', text);
-                setDashboardWidgetError('urgentMeetingsList', 'Unable to load urgent meetings.');
-                setDashboardWidgetError('upcomingClinicsList', 'Unable to load upcoming clinics.');
-                setDashboardWidgetError('todayTimetableList', 'Unable to load today timetable.');
+                console.error('Invalid dashboard widgets JSON:', text);
+                renderDashboardWidgetError();
                 return;
             }
 
             if (!data.success) {
-                console.error(data.message || 'Dashboard widget loading failed.');
-                setDashboardWidgetError('urgentMeetingsList', data.message || 'Unable to load urgent meetings.');
-                setDashboardWidgetError('upcomingClinicsList', data.message || 'Unable to load upcoming clinics.');
-                setDashboardWidgetError('todayTimetableList', data.message || 'Unable to load today timetable.');
+                console.error(data.message || 'Failed to load dashboard widgets.');
+                renderDashboardWidgetError(data.message);
                 return;
             }
 
+            renderDashboardGreeting(data);
             renderUrgentMeetings(data.urgent_meetings || []);
             renderUpcomingClinics(data.upcoming_clinics || []);
-            renderTodayTimetable(data.todays_timetable || []);
-
-            updateDashboardGreetingCount(data.summary || {});
+            renderTodaysTimetable(data.todays_timetable || []);
+            renderDashboardSummary(data.summary || {});
         })
         .catch(function (error) {
-            console.error('Dashboard widgets load error:', error);
-            setDashboardWidgetError('urgentMeetingsList', 'Server error while loading urgent meetings.');
-            setDashboardWidgetError('upcomingClinicsList', 'Server error while loading upcoming clinics.');
-            setDashboardWidgetError('todayTimetableList', 'Server error while loading today timetable.');
+            console.error('Dashboard Widget Load Error:', error);
+            renderDashboardWidgetError();
         });
+}
+
+function renderDashboardGreeting(data) {
+    const greetingText = document.getElementById('greeting-text');
+
+    if (!greetingText) return;
+
+    const sessionName = window.midwifeSession && window.midwifeSession.full_name
+        ? window.midwifeSession.full_name
+        : '';
+
+    const firstName = sessionName
+        ? sessionName.split(' ')[0]
+        : 'Midwife';
+
+    greetingText.textContent = getGreetingText() + ', ' + firstName + '!';
+}
+
+function renderDashboardSummary(summary) {
+    const countElement = document.getElementById('dashboardScheduledCount');
+
+    if (!countElement) return;
+
+    countElement.textContent = Number(summary.scheduled_activities || 0);
 }
 
 function renderUrgentMeetings(records) {
     const container = document.getElementById('urgentMeetingsList');
+
     if (!container) return;
 
-    if (records.length === 0) {
+    if (!records.length) {
         container.innerHTML = `
-            <p class="text-muted">
+            <p class="text-muted" style="margin: 0;">
                 No urgent meetings found.
             </p>
         `;
         return;
     }
 
-    container.innerHTML = records.map(function (record) {
+    container.innerHTML = records.map(function (item) {
         return `
             <div class="dashboard-widget-item urgent-widget-item">
-                <div class="widget-item-title">
-                    ${escapeDashboardHtml(record.type_name || 'Urgent Meeting')}
+                <div class="widget-title">
+                    <i class="fas fa-exclamation-circle"></i>
+                    ${escapeDashboardHtml(item.type_name || 'Urgent Meeting')}
                 </div>
 
-                <div class="widget-item-meta">
-                    <i class="fas fa-calendar-alt"></i>
-                    ${formatDashboardDate(record.scheduled_date)}
-                    &nbsp; | &nbsp;
-                    <i class="fas fa-clock"></i>
-                    ${formatDashboardTime(record.start_time)}
+                <div class="widget-meta">
+                    <span>
+                        <i class="fas fa-calendar"></i>
+                        ${formatDashboardDate(item.scheduled_date)}
+                    </span>
+
+                    <span>
+                        <i class="fas fa-clock"></i>
+                        ${formatDashboardTime(item.start_time)}
+                    </span>
                 </div>
 
-                <div class="widget-item-meta">
-                    <i class="fas fa-map-marker-alt"></i>
-                    ${escapeDashboardHtml(record.location || '-')}
+                <div class="widget-meta">
+                    <span>
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${escapeDashboardHtml(item.location || '-')}
+                    </span>
                 </div>
 
-                <span class="status-badge status-danger">
-                    ${escapeDashboardHtml(record.priority_level || 'Urgent')}
-                </span>
+                ${item.patient_name ? `
+                    <div class="widget-small">
+                        Patient: ${escapeDashboardHtml(item.patient_name)}
+                    </div>
+                ` : ''}
+
+                ${item.description ? `
+                    <div class="widget-small">
+                        ${escapeDashboardHtml(item.description)}
+                    </div>
+                ` : ''}
             </div>
         `;
     }).join('');
@@ -90,108 +124,140 @@ function renderUrgentMeetings(records) {
 
 function renderUpcomingClinics(records) {
     const container = document.getElementById('upcomingClinicsList');
+
     if (!container) return;
 
-    if (records.length === 0) {
+    if (!records.length) {
         container.innerHTML = `
-            <p class="text-muted">
+            <p class="text-muted" style="margin: 0;">
                 No upcoming clinics found.
             </p>
         `;
         return;
     }
 
-    container.innerHTML = records.map(function (record) {
+    container.innerHTML = records.map(function (item) {
         return `
             <div class="dashboard-widget-item clinic-widget-item">
-                <div class="widget-item-title">
-                    ${escapeDashboardHtml(record.type_name || 'Clinic')}
+                <div class="widget-title">
+                    <i class="fas fa-hospital"></i>
+                    ${escapeDashboardHtml(item.type_name || 'Clinic')}
                 </div>
 
-                <div class="widget-item-meta">
-                    <i class="fas fa-calendar-alt"></i>
-                    ${formatDashboardDate(record.scheduled_date)}
-                    &nbsp; | &nbsp;
-                    <i class="fas fa-clock"></i>
-                    ${formatDashboardTime(record.start_time)}
+                <div class="widget-meta">
+                    <span>
+                        <i class="fas fa-calendar"></i>
+                        ${formatDashboardDate(item.scheduled_date)}
+                    </span>
+
+                    <span>
+                        <i class="fas fa-clock"></i>
+                        ${formatDashboardTime(item.start_time)}
+                    </span>
                 </div>
 
-                <div class="widget-item-meta">
-                    <i class="fas fa-map-marker-alt"></i>
-                    ${escapeDashboardHtml(record.location || '-')}
+                <div class="widget-meta">
+                    <span>
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${escapeDashboardHtml(item.location || '-')}
+                    </span>
                 </div>
 
-                <span class="status-badge status-active">
-                    ${escapeDashboardHtml(record.status || 'Scheduled')}
-                </span>
+                ${item.description ? `
+                    <div class="widget-small">
+                        ${escapeDashboardHtml(item.description)}
+                    </div>
+                ` : ''}
             </div>
         `;
     }).join('');
 }
 
-function renderTodayTimetable(records) {
-    const container = document.getElementById('todayTimetableList');
+function renderTodaysTimetable(records) {
+    const container = document.getElementById('todaysTimetableList');
+
     if (!container) return;
 
-    if (records.length === 0) {
+    if (!records.length) {
         container.innerHTML = `
-            <p class="text-muted">
-                No scheduled activities for today.
+            <p class="text-muted" style="margin: 0;">
+                No activities scheduled for today.
             </p>
         `;
         return;
     }
 
-    container.innerHTML = records.map(function (record) {
+    container.innerHTML = records.map(function (item) {
         return `
             <div class="dashboard-widget-item timetable-widget-item">
-                <div class="widget-time-row">
-                    <strong>${formatDashboardTime(record.start_time)}</strong>
-                    <span>${formatDashboardTime(record.estimated_end_time)}</span>
+                <div class="widget-title">
+                    <i class="fas fa-clock"></i>
+                    ${formatDashboardTime(item.start_time)}
+                    -
+                    ${formatDashboardTime(item.estimated_end_time)}
                 </div>
 
-                <div class="widget-item-title">
-                    ${escapeDashboardHtml(record.type_name || 'Scheduled Activity')}
+                <div class="widget-meta">
+                    <span>
+                        ${escapeDashboardHtml(item.type_name || 'Scheduled Activity')}
+                    </span>
                 </div>
 
-                <div class="widget-item-meta">
-                    <i class="fas fa-map-marker-alt"></i>
-                    ${escapeDashboardHtml(record.location || '-')}
+                <div class="widget-meta">
+                    <span>
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${escapeDashboardHtml(item.location || '-')}
+                    </span>
                 </div>
 
-                ${
-                    record.patient_name
-                        ? `<div class="widget-item-meta">
-                            <i class="fas fa-user"></i>
-                            ${escapeDashboardHtml(record.patient_name)}
-                           </div>`
-                        : ''
-                }
+                ${item.patient_name ? `
+                    <div class="widget-small">
+                        Patient: ${escapeDashboardHtml(item.patient_name)}
+                    </div>
+                ` : ''}
+
+                <div class="widget-status">
+                    ${renderDashboardStatusBadge(item.status || 'scheduled')}
+                </div>
             </div>
         `;
     }).join('');
 }
 
-function updateDashboardGreetingCount(summary) {
-    const scheduledCount = summary.scheduled_activities ?? null;
+function renderDashboardWidgetError(message) {
+    const errorText = message || 'Unable to load dashboard data.';
 
-    const greetingText = document.getElementById('dashboardGreetingSubText');
+    const containers = [
+        'urgentMeetingsList',
+        'upcomingClinicsList',
+        'todaysTimetableList'
+    ];
 
-    if (greetingText && scheduledCount !== null) {
-        greetingText.textContent = `Ready to make a difference in your community today. You have ${scheduledCount} scheduled activities.`;
-    }
+    containers.forEach(function (id) {
+        const container = document.getElementById(id);
+
+        if (container) {
+            container.innerHTML = `
+                <p class="text-muted" style="margin: 0;">
+                    ${escapeDashboardHtml(errorText)}
+                </p>
+            `;
+        }
+    });
 }
 
-function setDashboardWidgetError(containerId, message) {
-    const container = document.getElementById(containerId);
+function getGreetingText() {
+    const hour = new Date().getHours();
 
-    if (!container) return;
+    if (hour < 12) {
+        return 'Good Morning';
+    }
 
-    container.innerHTML = `
-        <p class="text-danger">
-            ${escapeDashboardHtml(message)}
-        </p>
-    `;
+    if (hour < 18) {
+        return 'Good Afternoon';
+    }
+
+    return 'Good Evening';
 }
 
 function formatDashboardDate(value) {
@@ -203,13 +269,56 @@ function formatDashboardDate(value) {
         return value;
     }
 
-    return date.toISOString().split('T')[0];
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
 }
 
 function formatDashboardTime(value) {
     if (!value) return '-';
 
-    return String(value).slice(0, 5);
+    const parts = String(value).split(':');
+
+    if (parts.length < 2) {
+        return value;
+    }
+
+    return parts[0] + ':' + parts[1];
+}
+
+function renderDashboardStatusBadge(status) {
+    const normalized = String(status || '').toLowerCase();
+
+    let className = 'status-badge status-active';
+
+    if (normalized === 'completed') {
+        className = 'status-badge status-success';
+    }
+
+    if (normalized === 'cancelled' || normalized === 'canceled') {
+        className = 'status-badge status-danger';
+    }
+
+    if (normalized === 'pending') {
+        className = 'status-badge status-warning';
+    }
+
+    return `
+        <span class="${className}">
+            ${escapeDashboardHtml(formatDashboardStatus(status))}
+        </span>
+    `;
+}
+
+function formatDashboardStatus(value) {
+    return String(value || '-')
+        .replaceAll('_', ' ')
+        .replaceAll('-', ' ')
+        .replace(/\b\w/g, function (char) {
+            return char.toUpperCase();
+        });
 }
 
 function escapeDashboardHtml(value) {
