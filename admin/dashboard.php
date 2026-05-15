@@ -469,7 +469,6 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                     <li><a href="#health-education"><i class="fas fa-chalkboard-teacher"></i> Health Education Sessions</a></li>
                     <li><a href="#emergency"><i class="fas fa-ambulance"></i> Emergency Responses</a></li>
                     <li><a href="#meetings"><i class="fas fa-handshake"></i> Meetings</a></li>
-                    <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -1419,24 +1418,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                 <div class="card"><div class="card-body" style="padding:0;"><div style="overflow-x:auto;"><table class="table monitoring-table" style="margin:0;"><thead><tr><th>Date & Time</th><th>Midwife</th><th>Meeting Topic</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead><tbody id="meeting-table"><tr><td colspan="6" class="text-center" style="padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody></table></div></div></div>
             </div>
 
-            <!-- SETTINGS -->
-            <div id="settings" class="content-section" style="display:none;">
-                <h2 style="margin-bottom:1rem;">System Settings</h2>
-                <div class="card"><div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4>Admin Settings</h4>
-                            <p>Manage admin accounts and permissions.</p>
-                            <button class="btn btn-primary">Manage Admins</button>
-                        </div>
-                        <div class="col-6">
-                            <h4>System Configuration</h4>
-                            <p>Configure system-wide settings and preferences.</p>
-                            <button class="btn btn-secondary">System Config</button>
-                        </div>
-                    </div>
-                </div></div>
-            </div>
+           
 
             </div>
     </div>
@@ -1767,24 +1749,6 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                 <div class="card"><div class="card-body"><p style="color:var(--text-muted);">Meeting tracking functionality will be implemented in the next phase. This will include staff meetings, community meetings, and training sessions.</p></div></div>
             </div>
 
-            <!-- SETTINGS -->
-            <div id="settings" class="content-section" style="display:none;">
-                <h2 style="margin-bottom:1rem;">System Settings</h2>
-                <div class="card"><div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4>Admin Settings</h4>
-                            <p>Manage admin accounts and permissions.</p>
-                            <button class="btn btn-primary">Manage Admins</button>
-                        </div>
-                        <div class="col-6">
-                            <h4>System Configuration</h4>
-                            <p>Configure system-wide settings and preferences.</p>
-                            <button class="btn btn-secondary">System Config</button>
-                        </div>
-                    </div>
-                </div></div>
-            </div>
 
         </div>
     </div>
@@ -3074,6 +3038,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
     <script src="../js/admin/admin-counseling.js"></script>
     <script src="../js/admin/admin-health-education.js"></script>
     <script src="../js/admin/admin-emergency.js"></script>
+    <script src="../js/admin/admin-meetings.js"></script>
 
     </body>
 </html>
