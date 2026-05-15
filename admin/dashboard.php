@@ -3072,6 +3072,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
     </script>
 
     <script src="../js/admin/admin-clinics.js"></script>
+    <script src="../js/admin/admin-vaccinations.js"></script>
 
     </body>
 </html>
