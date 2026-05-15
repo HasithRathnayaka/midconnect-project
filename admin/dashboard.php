@@ -1142,51 +1142,78 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
         </div>
     </div>
 </div>
-            <!-- Activity Monitoring -->
-            <div id="activities" class="content-section" style="display: none;">
-                <h2>Activity Monitoring</h2>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Real-time Activity Feed</h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Time</th>
-                                    <th>Midwife</th>
-                                    <th>Activity Type</th>
-                                    <th>Location</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>14:30</td>
-                                    <td>M. Perera</td>
-                                    <td>Home Visit</td>
-                                    <td>Kollupitiya</td>
-                                    <td><span class="status-badge status-active">Completed</span></td>
-                                    <td>
-                                        <button class="btn btn-info btn-sm">View Details</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>13:45</td>
-                                    <td>K. Silva</td>
-                                    <td>Vaccination</td>
-                                    <td>Clinic Center</td>
-                                    <td><span class="status-badge status-active">Completed</span></td>
-                                    <td>
-                                        <button class="btn btn-info btn-sm">View Details</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
+
+
+<!-- Activity Monitoring -->
+<div id="activities" class="content-section" style="display: none;">
+    <div class="d-flex justify-between align-center mb-3">
+        <h2>Activity Monitoring</h2>
+
+        <button class="btn btn-info btn-sm" type="button" onclick="loadAdminActivities()">
+            <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Real-time Activity Feed</h4>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Date</th>
+                            <th>Midwife</th>
+                            <th>Activity Type</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="adminActivitiesTableBody">
+                        <tr>
+                            <td colspan="7" class="text-muted text-center">
+                                <i class="fas fa-spinner fa-spin"></i> Loading activities...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+
+    <!-- Activity Details Modal -->
+    <div class="modal fade" id="adminActivityDetailsModal" tabindex="-1" role="dialog" aria-labelledby="adminActivityDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adminActivityDetailsModalLabel">Activity Details</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="adminActivityDetailsBody">
+                    <p class="text-muted">Loading details...</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- CLINICS -->
             <div id="clinics" class="content-section" style="display:none;">
@@ -1730,6 +1757,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
     <script src="../js/admin/admin-midwives.js"></script>
+    <script src="../js/admin/admin-activities.js"></script>
     <script>
         let activityChartInstance = null;
         let performanceChartInstance = null;
@@ -2324,66 +2352,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
 
         function debounceActivities() { clearTimeout(debTimer); debTimer = setTimeout(loadAdminActivities, 500); }
 
-        function loadAdminActivities() {
-            var tbody = document.getElementById('admin-activities-table');
-            if (!tbody) return;
-            tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>';
-            var keyword = (document.getElementById('actKeyword') || {}).value || '';
-            var dateFrom = (document.getElementById('actDateFrom') || {}).value || '';
-            var dateTo = (document.getElementById('actDateTo') || {}).value || '';
-            var type = (document.getElementById('actType') || {}).value || '';
-            var status = (document.getElementById('actStatus') || {}).value || '';
-            var midwife = (document.getElementById('actMidwife') || {}).value || '';
-            var sort = (document.getElementById('actSort') || {}).value || 'latest';
-            var adminArea = localStorage.getItem('admin_area') || 'Colombo';
-            var url = '../php/get_admin_activities.php?limit=100&sort=' + sort + '&area=' + encodeURIComponent(adminArea);
-            if (keyword) url += '&keyword=' + encodeURIComponent(keyword);
-            if (dateFrom) url += '&date_from=' + dateFrom;
-            if (dateTo) url += '&date_to=' + dateTo;
-            if (type) url += '&activity_type=' + encodeURIComponent(type);
-            if (status) url += '&status=' + status;
-            if (midwife) url += '&midwife_id=' + midwife;
-            fetch(url)
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    var lbl = document.getElementById('act-count-label');
-                    if (!data.success) {
-                        tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:red;">Failed to load activities.</td></tr>';
-                        return;
-                    }
-                    var acts = data.data.activities;
-                    if (lbl) lbl.textContent = 'Showing ' + acts.length + ' of ' + data.data.total + ' records';
-                    if (!acts.length) {
-                        tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="padding:2rem;color:var(--text-muted);">No activities match your filters.</td></tr>';
-                        return;
-                    }
-                    tbody.innerHTML = acts.map(function(a) {
-                        var statusCls = a.status === 'completed' ? 'status-active' : a.status === 'pending' ? 'status-on-leave' : 'status-inactive';
-                        var priBadge = '';
-                        if (a.priority_level && a.priority_level !== 'normal' && a.priority_level !== '') {
-                            var priCls = (a.priority_level === 'critical') ? 'priority-critical' : 'priority-high';
-                            priBadge = '<span class="status-badge ' + priCls + '" style="display:inline-block;">' + a.priority_level.toUpperCase() + '</span>';
-                        }
-                        var patient = a.patient_name ? ('<strong>' + a.patient_name + '</strong>' + (a.patient_age ? ' (' + a.patient_age + 'y)' : '') + '<br>') : '';
-                        var desc = a.description ? a.description.substring(0, 55) + (a.description.length > 55 ? '&hellip;' : '') : '';
-                        return '<tr>'
-                            + '<td style="white-space:nowrap;"><strong>' + a.date + '</strong><br><small style="color:var(--text-muted);">' + a.start_time + (a.end_time ? ' &ndash; ' + a.end_time : '') + '</small></td>'
-                            + '<td><strong>' + a.midwife_name + '</strong><br><small style="color:var(--text-muted);">' + a.assigned_area + '</small></td>'
-                            + '<td><span class="type-pill ' + a.activity_type_code + '">' + a.activity_type_name + '</span></td>'
-                            + '<td>' + patient + '<small>' + desc + '</small></td>'
-                            + '<td><small>' + (a.location || '&mdash;') + '</small></td>'
-                            + '<td><span class="status-badge ' + statusCls + '">' + a.status + '</span></td>'
-                            + '<td>' + (priBadge || '<small style="color:var(--text-muted);">Normal</small>') + '</td>'
-                            + '<td><button class="btn btn-sm btn-info" onclick="viewActivityDetail(' + a.activity_id + ')" title="View Details"><i class="fas fa-eye"></i></button></td>'
-                            + '</tr>';
-                    }).join('');
-                })
-                .catch(function(err) {
-                    console.error(err);
-                    tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="color:red;">Network error.</td></tr>';
-                });
-        }
-
+    
         function viewActivityDetail(id) {
             var modal = document.getElementById('activityDetailModal');
             var body = document.getElementById('activity-detail-body');
