@@ -437,8 +437,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="admin-profile.html" class="admin-name"><i class="fas fa-user-circle"></i> Dr. Sarah Johnson</a></li>
-                    <li><a href="#" id="notifications"><i class="fas fa-bell"></i> <span class="badge">3</span></a></li>
+                    <li><a href="#" class="admin-name"><i class="fas fa-user-circle"></i> Dr. Sarah Johnson</li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     <li class="nav-actions">
                         <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button>
@@ -459,7 +458,6 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             <div class="sidebar-menu">
                 <ul>
                     <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="#areas"><i class="fas fa-map-marked-alt"></i> Areas</a></li>
                     <li><a href="#midwives"><i class="fas fa-users"></i> Midwives</a></li>
                     <li><a href="#activities"><i class="fas fa-clipboard-list"></i> Activities</a></li>
                     <li><a href="#clinics"><i class="fas fa-clinic-medical"></i> Clinics</a></li>
@@ -479,476 +477,166 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
 
         <div class="content-with-sidebar">
 
-            <!-- Dashboard Overview -->
-            <div id="dashboard" class="content-section">
-                <div class="quick-stats">
-                    <div class="row">
-                        <div class="col-3">
-                            <h3>Welcome Back!</h3>
-                            <p>MOH Colombo 01 Office</p>
-                        </div>
-                        <div class="col-9">
-                            <div class="row">
-                                <div class="col-4 text-center">
-                                    <h2 id="top-total-midwives">24</h2>
-                                    <p>Active Midwives</p>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <h2 id="top-today-activities">156</h2>
-                                    <p>Activities Today</p>
-                                </div>
-                                <div class="col-4 text-center">
-                                    <h2 id="top-coverage-rate">98%</h2>
-                                    <p>Coverage Rate</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+           <!-- Dashboard Overview -->
+<div id="dashboard" class="content-section">
+    <div class="quick-stats">
+        <div class="row">
+            <div class="col-3">
+                <h3>Welcome Back!</h3>
+                <p id="dashboard-admin-office">Loading MOH office...</p>
+            </div>
 
-                <!-- Key Metrics -->
-                <div class="dashboard-stats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="sc-home-visits">89</div>
-                        <div class="stat-label">Home Visits Today</div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-number" id="sc-vaccinations">45</div>
-                        <div class="stat-label">Vaccinations</div>
-                    </div>
-                    <div class="stat-card info">
-                        <div class="stat-number" id="sc-clinic-sessions">22</div>
-                        <div class="stat-label">Clinic Sessions</div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-number" id="sc-pending-tasks">12</div>
-                        <div class="stat-label">Pending Tasks</div>
-                    </div>
-                </div>
-
-                <!-- Area-based Activity Section -->
-                <div class="area-section" style="margin-top: 2rem;">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">Select Duty Area</h3>
-                    
-                    <!-- Area Cards -->
-                    <div class="area-cards-container">
-                        <div class="area-card" data-area="Uduthuththiripitiya" onclick="selectArea('Uduthuththiripitiya')">
-                            <div class="area-card-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <div class="area-card-title">Uduthuththiripitiya</div>
-                            <div class="area-card-count">2 appointments today</div>
-                        </div>
-                        
-                        <div class="area-card" data-area="Kahambilihena" onclick="selectArea('Kahambilihena')">
-                            <div class="area-card-icon">
-                                <i class="fas fa-hospital"></i>
-                            </div>
-                            <div class="area-card-title">Kahambilihena</div>
-                            <div class="area-card-count">3 appointments today</div>
-                        </div>
-                        
-                        <div class="area-card" data-area="Opathella" onclick="selectArea('Opathella')">
-                            <div class="area-card-icon">
-                                <i class="fas fa-city"></i>
-                            </div>
-                            <div class="area-card-title">Opathella</div>
-                            <div class="area-card-count">1 appointments today</div>
-                        </div>
-                        
-                        <div class="area-card" data-area="Ambalangoda" onclick="selectArea('Ambalangoda')">
-                            <div class="area-card-icon">
-                                <i class="fas fa-tree"></i>
-                            </div>
-                            <div class="area-card-title">Ambalangoda</div>
-                            <div class="area-card-count">4 appointments today</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Area Details Panel -->
-                    <div class="area-details-panel" id="areaDetailsPanel" style="display: none;">
-                        <div class="area-header">
-                            <h4 id="areaTitle">Uduthuththiripitiya Area Schedule</h4>
-                            <div class="area-info">
-                                <span class="clinic-hours">Clinic Hours: 8:00 AM - 4:00 PM</span>
-                                <span class="contact-info">| Contact: +94 37 226 5432</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Area Activities Table -->
-                        <div class="area-activities-table">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Activity</th>
-                                        <th>Location</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="areaActivitiesBody">
-                                    <tr>
-                                        <td>09:00 AM</td>
-                                        <td>Home Visit - Postnatal Care</td>
-                                        <td>Patient Residence</td>
-                                        <td><span class="status-badge completed">Completed</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">View</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>11:00 AM</td>
-                                        <td>Vaccination - BCG</td>
-                                        <td>Health Center</td>
-                                        <td><span class="status-badge pending">Pending</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">View</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>02:00 PM</td>
-                                        <td>Clinic Consultation</td>
-                                        <td>Main Clinic</td>
-                                        <td><span class="status-badge scheduled">Scheduled</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-info">View</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="col-9">
                 <div class="row">
-                    <!-- Activity Chart -->
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Weekly Activity Overview</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="activityChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <h2 id="top-total-midwives">0</h2>
+                        <p>Active Midwives</p>
                     </div>
 
-                    <!-- Recent Activities -->
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Recent Activities</h4>
-                            </div>
-                            <div class="card-body" id="recent-activities-feed">
-                                <div class="activity-item">
-                                    <div class="activity-icon success">
-                                        <i class="fas fa-home"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Home Visit Completed</strong>
-                                        <p>M. Perera - 2 hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon info">
-                                        <i class="fas fa-syringe"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Vaccination Session</strong>
-                                        <p>K. Silva - 3 hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon warning">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Report Submitted</strong>
-                                        <p>A. Fernando - 4 hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon success">
-                                        <i class="fas fa-comments"></i>
-                                    </div>
-                                    <div>
-                                        <strong>Counseling Session</strong>
-                                        <p>D. Jayawardene - 5 hours ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Performance Summary -->
-                <div class="row">
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Performance Summary</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart-container">
-                                    <canvas id="performanceChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <h2 id="top-today-activities">0</h2>
+                        <p>Activities Today</p>
                     </div>
 
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Top Performing Midwives</h4>
-                            </div>
-                            <div class="card-body" id="top-midwives-list">
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e9ecef;">
-                                    <div>
-                                        <strong>Madhavi Perera</strong>
-                                        <p style="margin: 0; color: var(--gray);">95% completion rate</p>
-                                    </div>
-                                    <div class="status-badge status-active">Excellent</div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e9ecef;">
-                                    <div>
-                                        <strong>Kumari Silva</strong>
-                                        <p style="margin: 0; color: var(--gray);">92% completion rate</p>
-                                    </div>
-                                    <div class="status-badge status-active">Very Good</div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e9ecef;">
-                                    <div>
-                                        <strong>Anura Fernando</strong>
-                                        <p style="margin: 0; color: var(--gray);">88% completion rate</p>
-                                    </div>
-                                    <div class="status-badge status-active">Good</div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0;">
-                                    <div>
-                                        <strong>Dilani Jayawardene</strong>
-                                        <p style="margin: 0; color: var(--gray);">85% completion rate</p>
-                                    </div>
-                                    <div class="status-badge status-active">Good</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-4 text-center">
+                        <h2 id="top-coverage-rate">0%</h2>
+                        <p>Coverage Rate</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- AREAS -->
-            <div id="areas" class="content-section" style="display: none;">
-                <h2 style="margin-bottom: 1.5rem;">Area Monitoring</h2>
-                <div class="row">
-                    <!-- Udathuththiripitiya Area -->
-                    <div class="col-3">
-                        <div class="area-card" onclick="openAreaDetails('Udathuththiripitiya')" style="cursor: pointer;">
-                            <div class="area-card-header">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <h4>Udathuththiripitiya</h4>
-                            </div>
-                            <div class="area-card-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-udathuththiripitiya-midwives">0</span>
-                                    <span class="stat-label">Active Midwives</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-udathuththiripitiya-activities">0</span>
-                                    <span class="stat-label">Activities Today</span>
-                                </div>
-                            </div>
-                            <div class="area-card-footer">
-                                <span class="last-activity" id="area-udathuththiripitiya-last">No recent activity</span>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Key Metrics -->
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-number" id="sc-home-visits">0</div>
+            <div class="stat-label">Home Visits Today</div>
+        </div>
 
-                    <!-- Kahambilihena Area -->
-                    <div class="col-3">
-                        <div class="area-card" onclick="openAreaDetails('Kahambilihena')" style="cursor: pointer;">
-                            <div class="area-card-header">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <h4>Kahambilihena</h4>
-                            </div>
-                            <div class="area-card-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-kahambilihena-midwives">0</span>
-                                    <span class="stat-label">Active Midwives</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-kahambilihena-activities">0</span>
-                                    <span class="stat-label">Activities Today</span>
-                                </div>
-                            </div>
-                            <div class="area-card-footer">
-                                <span class="last-activity" id="area-kahambilihena-last">No recent activity</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="stat-card success">
+            <div class="stat-number" id="sc-vaccinations">0</div>
+            <div class="stat-label">Vaccinations</div>
+        </div>
 
-                    <!-- Opathella Area -->
-                    <div class="col-3">
-                        <div class="area-card" onclick="openAreaDetails('Opathella')" style="cursor: pointer;">
-                            <div class="area-card-header">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <h4>Opathella</h4>
-                            </div>
-                            <div class="area-card-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-opathella-midwives">0</span>
-                                    <span class="stat-label">Active Midwives</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-opathella-activities">0</span>
-                                    <span class="stat-label">Activities Today</span>
-                                </div>
-                            </div>
-                            <div class="area-card-footer">
-                                <span class="last-activity" id="area-opathella-last">No recent activity</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="stat-card info">
+            <div class="stat-number" id="sc-clinic-sessions">0</div>
+            <div class="stat-label">Clinic Sessions</div>
+        </div>
 
-                    <!-- Ambalangoda Area -->
-                    <div class="col-3">
-                        <div class="area-card" onclick="openAreaDetails('Ambalangoda')" style="cursor: pointer;">
-                            <div class="area-card-header">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <h4>Ambalangoda</h4>
-                            </div>
-                            <div class="area-card-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-ambalangoda-midwives">0</span>
-                                    <span class="stat-label">Active Midwives</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number" id="area-ambalangoda-activities">0</span>
-                                    <span class="stat-label">Activities Today</span>
-                                </div>
-                            </div>
-                            <div class="area-card-footer">
-                                <span class="last-activity" id="area-ambalangoda-last">No recent activity</span>
-                            </div>
-                        </div>
-                    </div>
+        <div class="stat-card warning">
+            <div class="stat-number" id="sc-pending-tasks">0</div>
+            <div class="stat-label">Pending Tasks</div>
+        </div>
+    </div>
+
+    <!-- Area-based Activity Section -->
+    <div class="area-section" style="margin-top: 2rem;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">Select Duty Area</h3>
+
+        <div class="area-cards-container" id="dashboard-area-cards">
+            <div class="text-center" style="padding:2rem; color:var(--text-muted);">
+                <i class="fas fa-spinner fa-spin"></i> Loading areas...
+            </div>
+        </div>
+
+        <div class="area-details-panel" id="areaDetailsPanel" style="display: none;">
+            <div class="area-header">
+                <h4 id="areaTitle">Area Schedule</h4>
+                <div class="area-info">
+                    <span class="clinic-hours">Live activity records from database</span>
                 </div>
             </div>
 
-            <!-- AREA DETAILS -->
-            <div id="area-details" class="content-section" style="display: none;">
-                <div class="area-details-header">
-                    <button class="btn btn-secondary" onclick="backToAreas()">
-                        <i class="fas fa-arrow-left"></i> Back to Areas
-                    </button>
-                    <h2 id="area-details-title">Area Details</h2>
+            <div class="area-activities-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Activity</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="areaActivitiesBody">
+                        <tr>
+                            <td colspan="5" class="text-center" style="padding:2rem;">
+                                Select a duty area to view activities.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Activity Chart -->
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Weekly Activity Overview</h4>
                 </div>
 
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Recent Activities</h4>
-                            </div>
-                            <div class="card-body" style="padding: 0;">
-                                <div style="overflow-x: auto;">
-                                    <table class="table monitoring-table" style="margin: 0;">
-                                        <thead>
-                                            <tr>
-                                                <th>Date & Time</th>
-                                                <th>Midwife</th>
-                                                <th>Activity Type</th>
-                                                <th>Patient / Details</th>
-                                                <th>Location</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="area-activities-table">
-                                            <tr>
-                                                <td colspan="7" class="text-center" style="padding: 2rem;">
-                                                    <i class="fas fa-spinner fa-spin"></i> Loading...
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Area Statistics</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="area-stat-item">
-                                    <span class="stat-label">Total Midwives:</span>
-                                    <span class="stat-value" id="area-total-midwives">0</span>
-                                </div>
-                                <div class="area-stat-item">
-                                    <span class="stat-label">Today's Activities:</span>
-                                    <span class="stat-value" id="area-today-activities">0</span>
-                                </div>
-                                <div class="area-stat-item">
-                                    <span class="stat-label">This Week:</span>
-                                    <span class="stat-value" id="area-week-activities">0</span>
-                                </div>
-                                <div class="area-stat-item">
-                                    <span class="stat-label">Completed:</span>
-                                    <span class="stat-value" id="area-completed-activities">0</span>
-                                </div>
-                                <div class="area-stat-item">
-                                    <span class="stat-label">Pending:</span>
-                                    <span class="stat-value" id="area-pending-activities">0</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card" style="margin-top: 1rem;">
-                            <div class="card-header">
-                                <h4 class="card-title">Activity Breakdown</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="area-activity-breakdown">
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Home Visits:</span>
-                                        <span class="activity-type-count" id="area-home-visits">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Vaccinations:</span>
-                                        <span class="activity-type-count" id="area-vaccinations">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Clinic Visits:</span>
-                                        <span class="activity-type-count" id="area-clinic-visits">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Counseling:</span>
-                                        <span class="activity-type-count" id="area-counseling">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Health Education:</span>
-                                        <span class="activity-type-count" id="area-health-education">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Emergency:</span>
-                                        <span class="activity-type-count" id="area-emergency">0</span>
-                                    </div>
-                                    <div class="activity-type-stat">
-                                        <span class="activity-type-name">Meetings:</span>
-                                        <span class="activity-type-count" id="area-meetings">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="activityChart"></canvas>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- Recent Activities -->
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Recent Activities</h4>
+                </div>
+
+                <div class="card-body" id="recent-activities-feed">
+                    <div class="text-center" style="padding:2rem; color:var(--text-muted);">
+                        <i class="fas fa-spinner fa-spin"></i> Loading recent activities...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Summary -->
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Performance Summary</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Top Performing Midwives</h4>
+                </div>
+
+                <div class="card-body" id="top-midwives-list">
+                    <div class="text-center" style="padding:2rem; color:var(--text-muted);">
+                        <i class="fas fa-spinner fa-spin"></i> Loading top midwives...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+          
             <!-- Midwife Management -->
            <!-- Midwife Management -->
 <div id="midwives" class="content-section" style="display: none;">
@@ -3039,6 +2727,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
     <script src="../js/admin/admin-health-education.js"></script>
     <script src="../js/admin/admin-emergency.js"></script>
     <script src="../js/admin/admin-meetings.js"></script>
+    <script src="../js/admin/admin-dashboard-overview.js"></script>
 
     </body>
 </html>
