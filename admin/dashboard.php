@@ -1216,44 +1216,118 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
 </div>
 
             <!-- CLINICS -->
-            <div id="clinics" class="content-section" style="display:none;">
-                <h2 style="margin-bottom:1rem;">Clinic Visits</h2>
-                <div class="filter-bar">
-                    <div class="row">
-                        <div class="col-3"><input type="text" class="form-control" id="clinicKeyword" placeholder="Search patient, clinic..." oninput="debounceClinics()"></div>
-                        <div class="col-2"><input type="date" class="form-control" id="clinicDateFrom" onchange="loadClinicActivities()"></div>
-                        <div class="col-2"><input type="date" class="form-control" id="clinicDateTo" onchange="loadClinicActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="clinicStatus" onchange="loadClinicActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
-                        <div class="col-3"><select class="form-control form-select" id="clinicMidwife" onchange="loadClinicActivities()"><option value="">All Midwives</option></select></div>
-                    </div>
-                </div>
-                <div class="card"><div class="card-body" style="padding:0;"><div style="overflow-x:auto;"><table class="table monitoring-table" style="margin:0;"><thead><tr><th>Date & Time</th><th>Midwife</th><th>Patient / Details</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead><tbody id="clinic-table">
-                                <tr>
-                                    <td><strong>09/05/2026 08:20</strong><br><small style="color:var(--text-muted);">08:20 – 09:00</small></td>
-                                    <td><strong>S. Fernando</strong><br><small style="color:var(--text-muted);">Central District</small></td>
-                                    <td><strong>Nadeesha Perera</strong> (28y)<br><small>Routine antenatal check and vitals review.</small></td>
-                                    <td><small>Galle Health Center</small></td>
-                                    <td><span class="status-badge status-active">Completed</span></td>
-                                    <td><button class="btn btn-sm btn-info">View Details</button></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>09/05/2026 10:15</strong><br><small style="color:var(--text-muted);">10:15 – 11:00</small></td>
-                                    <td><strong>N. Jayasuriya</strong><br><small style="color:var(--text-muted);">Southern Zone</small></td>
-                                    <td><strong>Kamala Silva</strong> (35y)<br><small>Postnatal follow-up with breastfeeding counseling.</small></td>
-                                    <td><small>Matara Clinic</small></td>
-                                    <td><span class="status-badge status-on-leave">Pending</span></td>
-                                    <td><button class="btn btn-sm btn-info">View Details</button></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>09/05/2026 13:40</strong><br><small style="color:var(--text-muted);">13:40 – 14:20</small></td>
-                                    <td><strong>P. Kumar</strong><br><small style="color:var(--text-muted);">Western Region</small></td>
-                                    <td><strong>Madhawa Senanayake</strong> (22y)<br><small>First clinic visit after referral from local midwife.</small></td>
-                                    <td><small>Colombo North Clinic</small></td>
-                                    <td><span class="status-badge status-inactive">In Progress</span></td>
-                                    <td><button class="btn btn-sm btn-info">View Details</button></td>
-                                </tr>
-                            </tbody></table></div></div></div>
+<div id="clinics" class="content-section" style="display:none;">
+    <h2 style="margin-bottom:1rem;">Clinic Visits</h2>
+
+    <div class="filter-bar">
+        <div class="row">
+            <div class="col-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="clinicKeyword"
+                    placeholder="Search patient, clinic..."
+                    oninput="debounceClinics()"
+                >
             </div>
+
+            <div class="col-2">
+                <input
+                    type="date"
+                    class="form-control"
+                    id="clinicDateFrom"
+                    onchange="loadClinicActivities()"
+                >
+            </div>
+
+            <div class="col-2">
+                <input
+                    type="date"
+                    class="form-control"
+                    id="clinicDateTo"
+                    onchange="loadClinicActivities()"
+                >
+            </div>
+
+            <div class="col-2">
+                <select
+                    class="form-control form-select"
+                    id="clinicStatus"
+                    onchange="loadClinicActivities()"
+                >
+                    <option value="">All Status</option>
+                    <option value="completed">Completed</option>
+                    <option value="scheduled">Scheduled</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <select
+                    class="form-control form-select"
+                    id="clinicMidwife"
+                    onchange="loadClinicActivities()"
+                >
+                    <option value="">All Midwives</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body" style="padding:0;">
+            <div style="overflow-x:auto;">
+                <table class="table monitoring-table" style="margin:0;">
+                    <thead>
+                        <tr>
+                            <th>Date &amp; Time</th>
+                            <th>Midwife</th>
+                            <th>Patient / Details</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="clinic-table">
+                        <tr>
+                            <td colspan="6" class="text-muted" style="text-align:center; padding:1rem;">
+                                <i class="fas fa-spinner fa-spin"></i> Loading clinic visits...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Clinic Details Modal -->
+<div class="modal fade" id="clinicDetailsModal" tabindex="-1" role="dialog" aria-labelledby="clinicDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="clinicDetailsModalLabel" class="modal-title">Clinic Visit Details</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="clinicDetailsBody">
+                Loading...
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- VACCINATIONS -->
             <div id="vaccinations" class="content-section" style="display:none;">
@@ -2996,6 +3070,8 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             }
         }
     </script>
+
+    <script src="../js/admin/admin-clinics.js"></script>
 
     </body>
 </html>
