@@ -1,0 +1,37 @@
+#viewMidwifeModal,
+#editMidwifeModal {
+    z-index: 1060 !important;
+}
+
+#viewMidwifeModal .modal-dialog,
+#editMidwifeModal .modal-dialog {
+    z-index: 1070 !important;
+    pointer-events: auto !important;
+}
+
+#viewMidwifeModal .modal-content,
+#editMidwifeModal .modal-content {
+    pointer-events: auto !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.admin-midwife-modal label,
+.admin-midwife-modal .form-label,
+.admin-midwife-modal strong,
+.admin-midwife-modal p,
+.admin-midwife-modal h5 {
+    color: var(--text-primary) !important;
+}
+
+.admin-midwife-modal .modal-title {
+    color: var(--text-primary) !important;
+}
+
+.admin-midwife-modal .form-control,
+.admin-midwife-modal .form-select {
+    color: var(--text-primary) !important;
+    background: var(--bg-primary) !important;
+}

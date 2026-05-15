@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    header('Location: ../admin-login.html');
+    exit;
+}
+
+$adminId = $_SESSION['admin_id'] ?? null;
+$adminName = $_SESSION['full_name'] ?? 'Admin';
+$adminEmail = $_SESSION['email'] ?? '';
+$adminMohOffice = $_SESSION['moh_office'] ?? '';
+$adminPosition = $_SESSION['position'] ?? 'MOH Officer';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -935,80 +951,197 @@
             </div>
 
             <!-- Midwife Management -->
-            <div id="midwives" class="content-section" style="display: none;">
-                <div class="filter-bar">
-                    <div class="row">
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="Search midwives..." id="searchMidwives">
-                        </div>
-                        <div class="col-3">
-                            <select class="form-control form-select" id="filterStatus">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="on-leave">On Leave</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <select class="form-control form-select" id="filterArea">
-                                <option value="">All Areas</option>
-                                <option value="area1">Colombo Central</option>
-                                <option value="area2">Colombo North</option>
-                                <option value="area3">Colombo South</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary" onclick="addNewMidwife()">
-                                <i class="fas fa-plus"></i> Add Midwife
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" id="midwivesGrid">
-                    <div class="col-6">
-                        <div class="card midwife-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-between align-center">
-                                    <div>
-                                        <h5>Madhavi Perera</h5>
-                                        <p>Employee ID: MW001</p>
-                                        <p>Area: Colombo Central</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="status-badge status-active">Active</div>
-                                        <div class="mt-2">
-                                            <button class="btn btn-info btn-sm" onclick="viewMidwifeDetails('MW001')">View</button>
-                                            <button class="btn btn-warning btn-sm" onclick="editMidwife('MW001')">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="card midwife-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-between align-center">
-                                    <div>
-                                        <h5>Kumari Silva</h5>
-                                        <p>Employee ID: MW002</p>
-                                        <p>Area: Colombo North</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <div class="status-badge status-active">Active</div>
-                                        <div class="mt-2">
-                                            <button class="btn btn-info btn-sm" onclick="viewMidwifeDetails('MW002')">View</button>
-                                            <button class="btn btn-warning btn-sm" onclick="editMidwife('MW002')">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+           <!-- Midwife Management -->
+<div id="midwives" class="content-section" style="display: none;">
+    <div class="filter-bar">
+        <div class="row">
+            <div class="col-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search midwives..."
+                    id="searchMidwives"
+                >
             </div>
 
+            <div class="col-3">
+                <select class="form-control form-select" id="filterStatus">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="on-leave">On Leave</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <select class="form-control form-select" id="filterArea">
+                    <option value="">All Areas</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <!-- Existing add function/backend preserved -->
+                <button class="btn btn-primary" onclick="addNewMidwife()">
+                    <i class="fas fa-plus"></i> Add Midwife
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="midwivesGrid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-spinner fa-spin"></i> Loading midwives...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- View Midwife Modal -->
+<div class="modal fade" id="viewMidwifeModal" tabindex="-1" role="dialog" aria-labelledby="viewMidwifeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content admin-midwife-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewMidwifeModalLabel">Midwife Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p><strong>Full Name:</strong> <span id="viewMidwifeFullName">-</span></p>
+                        <p><strong>Employee ID:</strong> <span id="viewMidwifeEmployeeId">-</span></p>
+                        <p><strong>Email:</strong> <span id="viewMidwifeEmail">-</span></p>
+                        <p><strong>Phone:</strong> <span id="viewMidwifePhone">-</span></p>
+                    </div>
+
+                    <div class="col-6">
+                        <p><strong>Assigned Area:</strong> <span id="viewMidwifeArea">-</span></p>
+                        <p><strong>MOH Office:</strong> <span id="viewMidwifeMohOffice">-</span></p>
+                        <p><strong>Hire Date:</strong> <span id="viewMidwifeHireDate">-</span></p>
+                        <p><strong>Status:</strong> <span id="viewMidwifeStatus">-</span></p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p><strong>Address:</strong></p>
+                <p id="viewMidwifeAddress">-</p>
+
+                <p><strong>Last Login:</strong> <span id="viewMidwifeLastLogin">-</span></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Midwife Modal -->
+<div class="modal fade" id="editMidwifeModal" tabindex="-1" role="dialog" aria-labelledby="editMidwifeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content admin-midwife-modal">
+            <form id="editMidwifeForm" action="../php/admin/update_midwife.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMidwifeModalLabel">Edit Midwife</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span>&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="midwife_id" id="editMidwifeId">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" name="full_name" id="editMidwifeFullName" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Employee ID</label>
+                                <input type="text" class="form-control" id="editMidwifeEmployeeId" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" name="email" id="editMidwifeEmail" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="text" class="form-control" name="phone" id="editMidwifePhone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Assigned Area *</label>
+                                <input type="text" class="form-control" name="assigned_area" id="editMidwifeArea" required>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">MOH Office *</label>
+                                <input type="text" class="form-control" name="moh_office" id="editMidwifeMohOffice" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Status *</label>
+                                <select class="form-control form-select" name="status" id="editMidwifeStatus" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="on-leave">On Leave</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Experience Years</label>
+                                <input type="number" class="form-control" name="experience_years" id="editMidwifeExperienceYears" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" name="address" id="editMidwifeAddress" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
             <!-- Activity Monitoring -->
             <div id="activities" class="content-section" style="display: none;">
                 <h2>Activity Monitoring</h2>
@@ -1596,6 +1729,7 @@
 
     <script src="../js/page-transitions.js"></script>
     <script src="../js/theme-toggle.js"></script>
+    <script src="../js/admin/admin-midwives.js"></script>
     <script>
         let activityChartInstance = null;
         let performanceChartInstance = null;
