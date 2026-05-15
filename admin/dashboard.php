@@ -1356,7 +1356,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><select class="form-control form-select" id="hvMidwife" onchange="loadHomeVisitActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
-                <div class="card"><div class="card-body" style="padding:0;"><div style="overflow-x:auto;"><table class="table monitoring-table" style="margin:0;"><thead><tr><th>Date & Time</th><th>Midwife</th><th>Patient / Details</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead><tbody id="home-visit-table"><tr><td colspan="6" class="text-center" style="padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody></table></div></div></div>
+                <div class="card"><div class="card-body" style="padding:0;"><div style="overflow-x:auto;"><table class="table monitoring-table" style="margin:0;"><thead><tr><th>Date & Time</th><th>Midwife</th><th>Patient / Details</th><th>Location</th><th>Status</th><th>Actions</th></tr></thead><tbody id="home-visits-table"><tr><td colspan="6" class="text-center" style="padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr></tbody></table></div></div></div>
             </div>
 
             <!-- COUNSELING SESSIONS -->
@@ -1693,9 +1693,9 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             <div id="home-visits" class="content-section" style="display:none;">
                 <div class="d-flex justify-between align-center" style="margin-bottom:1.25rem;">
                     <h2>Home Visits</h2>
-                    <button class="btn btn-primary" onclick="loadHomeVisitActivities()"><i class="fas fa-sync"></i> Refresh</button>
                 </div>
-                <div class="filter-bar">
+                     <button class="btn btn-primary" onclick="loadHomeVisitActivities()"><i class="fas fa-sync"></i> Refresh</button>
+               <div class="filter-bar">
                     <div class="row">
                         <div class="col-3"><input type="text" class="form-control" id="hvKeyword" placeholder="Search patient, address..." oninput="debounceHomeVisits()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="hvDateFrom" onchange="loadHomeVisitActivities()"></div>
@@ -2703,10 +2703,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             loadFilteredActivities('VACCINATION', 'vaccinations-table', ['vaccKeyword', 'vaccDateFrom', 'vaccDateTo', 'vaccStatus', 'vaccMidwife']);
         }
 
-        function loadHomeVisitActivities() {
-            loadFilteredActivities('HOME_VISIT', 'home-visits-table', ['hvKeyword', 'hvDateFrom', 'hvDateTo', 'hvStatus', 'hvMidwife']);
-        }
-
+     
         function loadCounselingActivities() {
             loadFilteredActivities('COUNSELING', 'counseling-table', ['counselKeyword', 'counselDateFrom', 'counselDateTo', 'counselStatus', 'counselMidwife']);
         }
@@ -2827,7 +2824,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
         // Load specific activity type functions
         function loadClinicActivities() { loadFilteredActivities('CLINIC_VISIT', 'clinic-table', ['clinicKeyword', 'clinicDateFrom', 'clinicDateTo', 'clinicStatus', 'clinicMidwife']); }
         function loadVaccinationActivities() { loadFilteredActivities('VACCINATION', 'vaccination-table', ['vaccKeyword', 'vaccDateFrom', 'vaccDateTo', 'vaccStatus', 'vaccMidwife']); }
-        function loadHomeVisitActivities() { loadFilteredActivities('HOME_VISIT', 'home-visit-table', ['hvKeyword', 'hvDateFrom', 'hvDateTo', 'hvStatus', 'hvMidwife']); }
+        // function loadHomeVisitActivities() { loadFilteredActivities('HOME_VISIT', 'home-visit-table', ['hvKeyword', 'hvDateFrom', 'hvDateTo', 'hvStatus', 'hvMidwife']); }
         function loadCounselingActivities() { loadFilteredActivities('COUNSELING', 'counseling-table', ['counselKeyword', 'counselDateFrom', 'counselDateTo', 'counselStatus', 'counselMidwife']); }
         function loadHealthEducationActivities() { loadFilteredActivities('HEALTH_EDUCATION', 'health-education-table', ['heKeyword', 'heDateFrom', 'heDateTo', 'heStatus', 'heMidwife']); }
         function loadEmergencyActivities() { loadFilteredActivities('EMERGENCY_RESPONSE', 'emergency-table', ['emergKeyword', 'emergDateFrom', 'emergDateTo', 'emergStatus', 'emergMidwife'], true); }
@@ -3073,6 +3070,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
 
     <script src="../js/admin/admin-clinics.js"></script>
     <script src="../js/admin/admin-vaccinations.js"></script>
+    <script src="../js/admin/admin-home-visits.js"></script>
 
     </body>
 </html>
