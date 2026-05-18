@@ -493,9 +493,7 @@ function checkExpiring() {
     );
 }
 
-function orderSupplies() {
-    alert('Order supplies function can be connected next.');
-}
+
 
 function printSchedule() {
     window.print();
