@@ -3763,12 +3763,22 @@ body.modal-open {
                                 </div>
 
                                 <div class="card-body">
-                                    <button class="btn btn-primary btn-block mb-3" type="button" data-toggle="modal" data-target="#triposhaDistributionModal">
-                                        <i class="fas fa-plus"></i> Record Distribution
-                                    </button>
+                                    <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#triposhaDistributionModal"
+                                        >
+                                            <i class="fas fa-plus"></i> Record Triposha Distribution
+                                        </button>
 
-                                    <button class="btn btn-secondary btn-block mb-3" onclick="openTriposhaInventoryModal()">
-                                        <i class="fas fa-box-open"></i> Update Inventory
+                                        <button
+                                            type="button"
+                                            class="btn btn-info"
+                                            data-toggle="modal"
+                                            data-target="#triposhaInventoryModal"
+                                        >
+                                            <i class="fas fa-boxes"></i> Update Inventory
                                     </button>
                                 </div>
                             </div>
