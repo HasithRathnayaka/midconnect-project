@@ -408,3 +408,41 @@ function escapeHtmlTriposha(value) {
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;');
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    fixTriposhaModalButtons();
+});
+
+function fixTriposhaModalButtons() {
+    const distributionButtons = document.querySelectorAll('[data-target="#triposhaDistributionModal"], [data-bs-target="#triposhaDistributionModal"]');
+    const inventoryButtons = document.querySelectorAll('[data-target="#triposhaInventoryModal"], [data-bs-target="#triposhaInventoryModal"]');
+
+    distributionButtons.forEach(function (button) {
+        button.setAttribute('type', 'button');
+        button.removeAttribute('disabled');
+        button.classList.remove('disabled');
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (typeof $ !== 'undefined' && $('#triposhaDistributionModal').modal) {
+                $('#triposhaDistributionModal').modal('show');
+            }
+        });
+    });
+
+    inventoryButtons.forEach(function (button) {
+        button.setAttribute('type', 'button');
+        button.removeAttribute('disabled');
+        button.classList.remove('disabled');
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (typeof $ !== 'undefined' && $('#triposhaInventoryModal').modal) {
+                $('#triposhaInventoryModal').modal('show');
+            }
+        });
+    });
+}
