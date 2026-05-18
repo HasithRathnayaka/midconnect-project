@@ -10,12 +10,12 @@ header('Content-Type: text/plain');
 |--------------------------------------------------------------------------
 */
 
-$username = 'admin003';
+$username = 'admin004';
 $plainPassword = '12345678';
 
-$fullName = 'Dr. Test Admin';
-$email = 'test.admin@health.gov.lk';
-$phone = '0770000000';
+$fullName = 'Dr. Kamal Fernanndo';
+$email = 'test.kamalfadmin@health.gov.lk';
+$phone = '077123456';
 $mohOffice = 'MOH Galle';
 $position = 'MOH Officer';
 
