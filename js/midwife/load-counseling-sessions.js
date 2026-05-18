@@ -202,7 +202,6 @@ function formatCounselingLocation(value) {
     const map = {
         clinic: 'MOH Clinic',
         home: 'Home Visit',
-        phone: 'Telephone',
         community: 'Community Center'
     };
 

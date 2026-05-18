@@ -2626,7 +2626,6 @@ body.modal-open {
                                 <select class="form-control form-select" name="location_type">
                                     <option value="clinic">MOH clinic</option>
                                     <option value="home">Home visit</option>
-                                    <option value="phone">Telephone</option>
                                     <option value="community">Community Center</option>
                                 </select>
                             </div>
@@ -2640,8 +2639,7 @@ body.modal-open {
                                 <label class="form-label">Follow-up required</label>
                                 <select class="form-control form-select" name="followup" id="counselingFollowupSelect">
                                     <option value="no">No</option>
-                                    <option value="yes">Yes — schedule</option>
-                                    <option value="referral">Referral to specialist</option>
+                                    <option value="yes">Yes</option>
                                 </select>
                             </div>
 
@@ -3415,13 +3413,7 @@ body.modal-open {
                                 <h4 class="card-title">Vaccine Inventory Status</h4>
 
                                 <div class="d-flex gap-2">
-                                    <button class="btn btn-warning" onclick="checkExpiring()">
-                                        <i class="fas fa-exclamation-triangle"></i> Check Expiring
-                                    </button>
-
-                                    <button class="btn btn-primary" onclick="orderSupplies()">
-                                        <i class="fas fa-shopping-cart"></i> Order Supplies
-                                    </button>
+                                   
                                 </div>
                             </div>
 
