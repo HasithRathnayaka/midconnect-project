@@ -1484,19 +1484,17 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
     <script src="../js/admin/admin-midwives.js"></script>
     <script src="../js/admin/admin-activities.js"></script>
     <script>
-        let activityChartInstance = null;
-        let performanceChartInstance = null;
+      
         let themeObserver = null;
         let chartRefreshTimer = null;
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            initializeCharts();
-            setupThemeAwareCharts();
             setupNavigation();
             checkAuthentication();
             setupSidebarToggle();
             setupProfileButtonNavigation();
+            setupSidebarToggleOnly();
         });
 
         // Sidebar Toggle Functionality
@@ -1818,7 +1816,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             }
 
             // Activity Chart
-            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            const activityCtx = document.getElementById('activityChartid').getContext('2d');
             activityChartInstance = new Chart(activityCtx, {
                 type: 'line',
                 data: {
@@ -2179,7 +2177,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
         }
 
         function buildWeeklyChart(breakdown) {
-            var ctx = document.getElementById('activityChart');
+            var ctx = document.getElementById('activityChartid');
             if (!ctx) return;
             var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             var textColor = isDark ? '#94a3b8' : '#6c757d';
