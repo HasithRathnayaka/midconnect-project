@@ -62,7 +62,7 @@ try {
             notes,
             created_at,
             updated_at
-        FROM triposha_distributions
+        FROM triposha_distribution_records
         WHERE midwife_id = ?
         ORDER BY distribution_date DESC, distribution_id DESC
     ");

@@ -36,7 +36,7 @@ try {
 
     $selectStmt = $pdo->prepare("
         SELECT *
-        FROM triposha_distributions
+        FROM triposha_distribution_records
         WHERE distribution_id = ?
         AND midwife_id = ?
         LIMIT 1
@@ -88,7 +88,7 @@ try {
     }
 
     $deleteStmt = $pdo->prepare("
-        DELETE FROM triposha_distributions
+        DELETE FROM triposha_distribution_records
         WHERE distribution_id = ?
         AND midwife_id = ?
     ");

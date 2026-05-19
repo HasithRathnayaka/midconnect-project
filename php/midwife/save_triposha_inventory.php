@@ -30,19 +30,31 @@ if (!$midwifeId) {
     exit;
 }
 
-$dutyArea = trim($_POST['duty_area'] ?? '');
+$adminMohOffice = trim($_SESSION['moh_office'] ?? '');
+
+$mohOfficeToDutyArea = [
+    'MOH Uduthuththiripitiya' => 'Uduthuththiripitiya',
+    'MOH Kahabilihena'       => 'Kahabilihena',
+    'MOH Opathella'          => 'Opathella',
+    'MOH Ambalangoda'        => 'Ambalangoda',
+    'MOH Colombo 01'         => 'Colombo Central',
+    'MOH Galle'              => 'Galle'
+];
+
+$dutyArea = $mohOfficeToDutyArea[$adminMohOffice] ?? '';
+
+if ($dutyArea === '') {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Unable to detect duty area from admin MOH office session.'
+    ]);
+    exit;
+}
+
 $inventoryMonthInput = trim($_POST['inventory_month'] ?? '');
 $packetsReceived = $_POST['packets_received'] ?? '';
 $packetsLeftPrevious = $_POST['packets_left_previous'] ?? '';
 $notes = trim($_POST['notes'] ?? '');
-
-if ($dutyArea === '' || $inventoryMonthInput === '' || $packetsReceived === '' || $packetsLeftPrevious === '') {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please fill all required fields.'
-    ]);
-    exit;
-}
 
 $inventoryMonth = $inventoryMonthInput . '-01';
 

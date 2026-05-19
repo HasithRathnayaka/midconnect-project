@@ -70,6 +70,8 @@ try {
     session_regenerate_id(true);
 
     $_SESSION['user_type'] = 'midwife';
+
+    
     $_SESSION['midwife_id'] = $midwife['midwife_id'];
     $_SESSION['employee_id'] = $midwife['employee_id'];
     $_SESSION['full_name'] = $midwife['full_name'];
