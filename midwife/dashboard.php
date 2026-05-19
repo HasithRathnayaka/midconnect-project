@@ -3840,6 +3840,7 @@ body.modal-open {
                                             class="btn btn-primary"
                                             data-toggle="modal"
                                             data-target="#triposhaDistributionModal"
+                                            style="margin-bottom: 15px;"
                                         >
                                             <i class="fas fa-plus"></i> Record Triposha Distribution
                                         </button>
