@@ -209,9 +209,7 @@ function renderScheduledVaccinations() {
                         <i class="fas fa-history"></i> History
                     </button>
 
-                    <button class="btn btn-warning btn-sm" onclick="rescheduleVaccine(${record.vaccination_id})">
-                        <i class="fas fa-calendar-alt"></i> Reschedule
-                    </button>
+                    
                 </div>
             </div>
         `;
@@ -360,9 +358,7 @@ function renderOverdueVaccinations() {
                         <i class="fas fa-phone"></i> Call Now
                     </button>
 
-                    <button class="btn btn-primary btn-sm" onclick="rescheduleVaccine(${record.vaccination_id})">
-                        <i class="fas fa-calendar-plus"></i> Reschedule
-                    </button>
+                    
                 </div>
             </div>
         `;
@@ -458,9 +454,6 @@ function viewVaccineHistory(vaccinationId) {
     );
 }
 
-function rescheduleVaccine(vaccinationId) {
-    alert('Reschedule function can be connected next. Vaccination ID: ' + vaccinationId);
-}
 
 function quickVaccinationLog() {
     alert('Quick vaccination log can be connected next.');

@@ -3118,10 +3118,6 @@ body.modal-open {
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#scheduleVisitModal">
                             <i class="fas fa-plus"></i> Schedule New Visit
                         </button>
-
-                        <button class="btn btn-success" onclick="quickVisitLog()">
-                            <i class="fas fa-clipboard-check"></i> Quick Visit Log
-                        </button>
                     </div>
                 </div>
 
@@ -3384,16 +3380,14 @@ body.modal-open {
                                 <h4 class="card-title">Today's Vaccination Schedule</h4>
 
                                 <div class="d-flex gap-2">
-                                    <select class="form-control" id="vaccinationCategoryFilter" style="width: 180px;" onchange="filterVaccinations(this.value)">
+                                    <select class="form-control" id="vaccinationCategoryFilter" style="width: 180px; padding: .375rem .75rem;" onchange="filterVaccinations(this.value)">
                                         <option value="all">All Vaccines</option>
                                         <option value="pediatric">Pediatric</option>
                                         <option value="maternal">Maternal</option>
                                         <option value="adult">Adult</option>
                                     </select>
 
-                                    <button class="btn btn-outline-primary" onclick="printSchedule()">
-                                        <i class="fas fa-print"></i> Print Schedule
-                                    </button>
+                                  
                                 </div>
                             </div>
 
@@ -6072,119 +6066,7 @@ body.modal-open {
                     }
                 }
 
-                function quickVisitLog() {
-                    const user = JSON.parse(localStorage.getItem('midwife_user') || '{}');
-                    const pendingVisits = currentHomeVisits.filter(v => v.status === 'scheduled');
-
-                    const modal = document.createElement('div');
-                    modal.className = 'modal-overlay';
-                    modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Quick Visit Log</h3>
-                        <button onclick="closeModal()" class="close-btn">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="quickLogForm">
-                            <div class="form-group">
-                                <label class="form-label">Select Visit *</label>
-                                <select class="form-control" id="quick_visit_id" required>
-                                    <option value="">Select from today's visits</option>
-                                    ${pendingVisits.map(v => `
-                                        <option value="${v.id}">${v.patient_name} - ${v.start_time} (${formatVisitType(v.visit_type)})</option>
-                                    `).join('')}
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Visit Status *</label>
-                                        <select class="form-control" id="quick_status" required>
-                                            <option value="completed">Completed Successfully</option>
-                                            <option value="partial">Partially Completed</option>
-                                            <option value="cancelled">Patient Not Available</option>
-                                            <option value="rescheduled">Rescheduled</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="form-label">End Time</label>
-                                        <input type="time" class="form-control" id="quick_end_time" value="${new Date().toTimeString().slice(0, 5)}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Visit Summary / Notes *</label>
-                                <textarea class="form-control" id="quick_notes" rows="4" required placeholder="Brief summary of the visit, findings, and actions taken..."></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="saveQuickVisit()">Log Visit</button>
-                    </div>
-                </div>
-            `;
-                    document.body.appendChild(modal);
-                }
-
-                async function saveQuickVisit() {
-                    const visitId = document.getElementById('quick_visit_id').value;
-                    const status = document.getElementById('quick_status').value;
-                    const endTime = document.getElementById('quick_end_time').value;
-                    const notes = document.getElementById('quick_notes').value;
-
-                    if (!visitId || !notes) {
-                        alert('Please select a visit and enter notes');
-                        return;
-                    }
-
-                    try {
-                        let response;
-                        if (status === 'completed') {
-                            response = await fetch(`../php/home_visits.php?action=complete&id=${visitId}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    notes: notes,
-                                    end_time: endTime
-                                })
-                            });
-                        } else {
-                            response = await fetch(`../php/home_visits.php?action=update&id=${visitId}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    status: status,
-                                    notes: notes
-                                })
-                            });
-                        }
-
-                        const result = await response.json();
-
-                        if (result.success) {
-                            alert('Visit logged successfully!');
-                            closeModal();
-                            await loadHomeVisits();
-                            if (status === 'completed') {
-                                switchVisitTab('completed');
-                            }
-                        } else {
-                            alert('Error: ' + result.message);
-                        }
-                    } catch (error) {
-                        console.error('Error logging visit:', error);
-                        alert('Error logging visit');
-                    }
-                }
-
-
+            
                 function getVisitTabFromUrl() {
                     const params = new URLSearchParams(window.location.search);
                     const tab = params.get('visitTab') || params.get('tab') || 'scheduled';
@@ -6275,10 +6157,6 @@ body.modal-open {
                     detailsCard.style.display = 'block';
                 }
 
-                function rescheduleVisit(visitId) {
-                    alert(`Rescheduling visit ID: ${visitId}`);
-                    // Implementation would open reschedule modal
-                }
 
                 function getDirections(visitId) {
                     alert(`Getting directions to visit location for visit ID: ${visitId}`);
@@ -6369,9 +6247,7 @@ body.modal-open {
                 }
 
 
-                function printSchedule() {
-                    alert('Printing vaccination schedule...');
-                }
+                
 
                 function administerVaccine(patientId) {
                     if (confirm('Are you ready to administer this vaccine?')) {
@@ -7707,294 +7583,8 @@ body.modal-open {
                 setInterval(updateGreeting, 60000);
             </script>
 
-            <!-- Chatbot Widget -->
-            <!--<div id="chatbot" class="chatbot">
-        <div class="chatbot-header">
-            <h4>MidConnect Support</h4>
-            <button id="chatbot-close" class="chatbot-close">&times;</button>
-        </div>
-        <div class="chatbot-messages" id="chatbot-messages"></div>
-        <div class="chatbot-input-group">
-            <input type="text" id="chatbot-input" placeholder="Type your message..." class="chatbot-input">
-            <button id="chatbot-send" class="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div> 
-    <button id="chatbot-toggle" class="chatbot-toggle">
-        <i class="fas fa-comments"></i>
-    </button> -->
-
-            <!--<style>
-        .chatbot-toggle {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--accent-teal);
-            color: white;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 166, 153, 0.4);
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
-
-        .chatbot-toggle:hover {
-            background: var(--secondary-dark-green);
-            box-shadow: 0 6px 16px rgba(0, 166, 153, 0.6);
-            transform: scale(1.1);
-        }
-
-        .chatbot {
-            position: fixed;
-            bottom: 5.5rem;
-            right: 2rem;
-            width: 350px;
-            height: 450px;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            display: none;
-            flex-direction: column;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .chatbot.active {
-            display: flex;
-        }
-
-        .chatbot-header {
-            background: var(--accent-teal);
-            color: white;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chatbot-header h4 {
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        .chatbot-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .chatbot-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            background: var(--bg-primary);
-        }
-
-        .chatbot-message {
-            margin-bottom: 1rem;
-            display: flex;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .chatbot-message.user {
-            justify-content: flex-end;
-        }
-
-        .chatbot-message-content {
-            max-width: 80%;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            word-wrap: break-word;
-        }
-
-        .chatbot-message.bot .chatbot-message-content {
-            background: #e9ecef;
-            color: var(--text-primary);
-        }
-
-        .chatbot-message.user .chatbot-message-content {
-            background: var(--accent-teal);
-            color: white;
-        }
-
-        .chatbot-input-group {
-            display: flex;
-            padding: 1rem;
-            border-top: 1px solid #e9ecef;
-            background: white;
-            gap: 0.5rem;
-        }
-
-        .chatbot-input {
-            flex: 1;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 0.75rem;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .chatbot-input:focus {
-            outline: none;
-            border-color: var(--accent-teal);
-            box-shadow: 0 0 0 3px rgba(0, 166, 153, 0.1);
-        }
-
-        .chatbot-send {
-            background: var(--accent-teal);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-
-        .chatbot-send:hover {
-            background: var(--secondary-dark-green);
-        }
-
-        :root[data-theme='dark'] .chatbot {
-            background: var(--bg-card);
-        }
-
-        :root[data-theme='dark'] .chatbot-input {
-            background: #081326;
-            color: white;
-            border-color: #5fb1ff;
-        }
-
-        :root[data-theme='dark'] .chatbot-message.bot .chatbot-message-content {
-            background: #333;
-            color: white;
-        }
-
-        :root[data-theme='dark'] .chatbot-input-group {
-            background: var(--bg-secondary);
-            border-top-color: #5fb1ff;
-        }
-
-        @media (max-width: 512px) {
-            .chatbot {
-                width: calc(100vw - 2rem);
-                height: 400px;
-                right: 1rem;
-                bottom: calc(4.5rem + 1rem);
-            }
-        }
-    </style> -->
-
-            <!--<script>
-        const chatbotToggle = document.getElementById('chatbot-toggle');
-        const chatbot = document.getElementById('chatbot');
-        const chatbotClose = document.getElementById('chatbot-close');
-        const chatbotInput = document.getElementById('chatbot-input');
-        const chatbotSend = document.getElementById('chatbot-send');
-        const chatbotMessages = document.getElementById('chatbot-messages');
-
-        chatbotToggle.addEventListener('click', () => {
-            chatbot.classList.toggle('active');
-            if (chatbot.classList.contains('active')) {
-                chatbotInput.focus();
-            }
-        });
-
-        chatbotClose.addEventListener('click', () => {
-            chatbot.classList.remove('active');
-        });
-
-        function sendMessage() {
-            const message = chatbotInput.value.trim();
-            if (message === '') return;
-
-            const userMessageDiv = document.createElement('div');
-            userMessageDiv.className = 'chatbot-message user';
-            userMessageDiv.innerHTML = `<div class="chatbot-message-content">${message}</div>`;
-            chatbotMessages.appendChild(userMessageDiv);
-
-            chatbotInput.value = '';
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-
-            setTimeout(() => {
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'chatbot-message bot';
-                const responses = [
-                    'Thank you for your message. How can I assist you today?',
-                    'I appreciate your inquiry. Please provide more details.',
-                    'That\'s a great question! Can you tell me more?',
-                    'I\'m here to help. What would you like to know about MidConnect?'
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                botMessageDiv.innerHTML = `<div class="chatbot-message-content">${randomResponse}</div>`;
-                chatbotMessages.appendChild(botMessageDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }, 500);
-        }
-
-        chatbotSend.addEventListener('click', sendMessage);
-        chatbotInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
-
-        // Duty Area Cards Functionality - Disabled (non-clickable)
-        // const dutyCards = document.querySelectorAll('.duty-area-btn');
-        // dutyCards.forEach(card => {
-        //     card.addEventListener('click', () => {
-        //         dutyCards.forEach(c => c.classList.remove('active'));
-        //         card.classList.add('active');
-        //     });
-        // });
-    </script> -->
-            <script>
-                (function() {
-                    if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-                        window.chatbase = (...arguments) => {
-                            if (!window.chatbase.q) {
-                                window.chatbase.q = []
-                            }
-                            window.chatbase.q.push(arguments)
-                        };
-                        window.chatbase = new Proxy(window.chatbase, {
-                            get(target, prop) {
-                                if (prop === "q") {
-                                    return target.q
-                                }
-                                return (...args) => target(prop, ...args)
-                            }
-                        })
-                    }
-                    const onLoad = function() {
-                        const script = document.createElement("script");
-                        script.src = "https://www.chatbase.co/embed.min.js";
-                        script.id = "mkSuvkG19NuJ50hkdCPlJ";
-                        script.domain = "www.chatbase.co";
-                        document.body.appendChild(script)
-                    };
-                    if (document.readyState === "complete") {
-                        onLoad()
-                    } else {
-                        window.addEventListener("load", onLoad)
-                    }
-                })();
-            </script>
+          
+          
 </body>
 
 </html>

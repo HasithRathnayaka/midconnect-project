@@ -353,3 +353,4 @@ document.getElementById('forgotPasswordModal').addEventListener('click', functio
         closeForgotPasswordModal();
     }
 });
+
