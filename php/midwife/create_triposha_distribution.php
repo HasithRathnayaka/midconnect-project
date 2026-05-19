@@ -93,7 +93,7 @@ try {
     $pdo->beginTransaction();
 
     $stmt = $pdo->prepare("
-        INSERT INTO triposha_distributions (
+        INSERT INTO triposha_distribution_records (
             midwife_id,
             duty_area,
             distribution_date,
