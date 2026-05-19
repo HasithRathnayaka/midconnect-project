@@ -129,20 +129,22 @@ function renderAdminMidwives() {
 
                                 <div class="mt-2">
                                     <button
-                                        class="btn btn-info btn-sm"
-                                        type="button"
-                                        onclick="viewMidwifeDetails('${escapeAdminAttribute(midwife.employee_id)}')"
-                                    >
-                                        View
-                                    </button>
 
-                                    <button
-                                        class="btn btn-warning btn-sm"
-                                        type="button"
-                                        onclick="editMidwife('${escapeAdminAttribute(midwife.employee_id)}')"
-                                    >
-                                        Edit
-                                    </button>
+                                    id="deactivate-btn-${Number(midwife.midwife_id)}"
+
+                                    class="btn btn-danger btn-sm"
+
+                                    type="button"
+
+                                    onclick="deactivateMidwife(${Number(midwife.midwife_id)})"
+
+                                    ${String(midwife.status || '').toLowerCase() !== 'active' ? 'disabled' : ''}
+
+                                >
+
+                                    <i class="fas fa-user-slash"></i> Deactivate
+
+                                </button>
                                 </div>
                             </div>
                         </div>
@@ -404,4 +406,71 @@ function escapeAdminHtml(value) {
 
 function escapeAdminAttribute(value) {
     return escapeAdminHtml(value);
+}
+
+function deactivateMidwife(midwifeId) {
+    if (!midwifeId) {
+        alert('Midwife ID not found.');
+        return;
+    }
+
+    if (!confirm('Are you sure you want to deactivate this midwife?')) {
+        return;
+    }
+
+    const button = document.getElementById('deactivate-btn-' + midwifeId);
+    const statusBox = document.getElementById('midwife-status-' + midwifeId);
+
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deactivating...';
+    }
+
+    fetch('../php/admin/deactivate_midwife.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        credentials: 'same-origin',
+        body: 'midwife_id=' + encodeURIComponent(midwifeId)
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+
+            if (data.success) {
+                // Update only this card without page refresh
+                if (statusBox) {
+                    statusBox.innerHTML = renderAdminStatusBadge('inactive');
+                }
+
+                if (button) {
+                    button.disabled = true;
+                    button.innerHTML = '<i class="fas fa-user-slash"></i> Deactivated';
+                    button.classList.remove('btn-danger');
+                    button.classList.add('btn-secondary');
+                }
+
+                // Optional: reload full grid from database
+                if (typeof loadMidwivesGrid === 'function') {
+                    loadMidwivesGrid();
+                }
+
+                return;
+            }
+
+            if (button) {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-user-slash"></i> Deactivate';
+            }
+        })
+        .catch(error => {
+            console.error('Deactivate error:', error);
+            alert('Server error while deactivating midwife.');
+
+            if (button) {
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-user-slash"></i> Deactivate';
+            }
+        });
 }

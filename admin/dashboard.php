@@ -637,7 +637,6 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
 </div>
 
           
-            <!-- Midwife Management -->
            <!-- Midwife Management -->
 <div id="midwives" class="content-section" style="display: none;">
     <div class="filter-bar">
