@@ -942,8 +942,7 @@ function bindCareForm(formId, modalId) {
                     }
 
                     // Force reload dashboard and keep patients section
-                    window.location.href = window.location.pathname + '?section=patients&_=' + Date.now();
-                    return;
+                    window.location.href = window.location.pathname + '#patients';                    return;
                 }
 
                 if (submitBtn) {
