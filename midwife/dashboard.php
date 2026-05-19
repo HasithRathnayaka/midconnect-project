@@ -2011,199 +2011,18 @@ echo '</script>';
             border-left: 5px solid var(--primary-blue);
         }
 
+/* =========================================================
+   Bootstrap Modal Layer Fix
+   Applies to all Midwife dashboard Bootstrap modals
+========================================================= */
 
-        #addScheduleModal,
-        #scheduleVisitModal,
-        #timetableModal,
-        #scheduleVaccinationModal,
-        #updateVaccineInventoryModal,
-        #triposhaInventoryModal,
-        #triposhaDistributionModal,
-        #pregnantMotherModal,
-        #lactatingMotherModal,
-        #postnatalMotherModal,
-        #newbornModal,
-        #youngChildModal,
-        #childModal {
-            z-index: 1060 !important;
-        }
-
-        #addScheduleModal .modal-dialog,
-        #scheduleVisitModal .modal-dialog,
-        #timetableModal .modal-dialog,
-        #scheduleVaccinationModal .modal-dialog,
-        #updateVaccineInventoryModal .modal-dialog,
-        #triposhaInventoryModal .modal-dialog,
-        #triposhaDistributionModal .modal-dialog,
-        #pregnantMotherModal .modal-dialog,
-        #lactatingMotherModal .modal-dialog,
-        #postnatalMotherModal .modal-dialog,
-        #newbornModal .modal-dialog,
-        #youngChildModal .modal-dialog,
-        #childModal .modal-dialog {
-            z-index: 1070 !important;
-            pointer-events: auto !important;
-        }
-
-        #addScheduleModal .modal-content,
-        #scheduleVisitModal .modal-content,
-        #timetableModal .modal-content,
-        #scheduleVaccinationModal .modal-content,
-        #updateVaccineInventoryModal .modal-content,
-        #triposhaInventoryModal .modal-content,
-        #triposhaDistributionModal .modal-content,
-        #pregnantMotherModal .modal-content,
-        #lactatingMotherModal .modal-content,
-        #postnatalMotherModal .modal-content,
-        #newbornModal .modal-content,
-        #youngChildModal .modal-content,
-        #childModal .modal-content {
-            pointer-events: auto !important;
-        }
-
-        .modal-backdrop {
-            z-index: 1050 !important;
-        }
-
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        .modal {
-            pointer-events: auto !important;
-        }
-
-        /* ================================
-   FIX: Modal label/input visibility
-   Maternal & Child Care modals
-================================ */
-
-#pregnantMotherModal .modal-content,
-#lactatingMotherModal .modal-content,
-#postnatalMotherModal .modal-content,
-#newbornModal .modal-content,
-#youngChildModal .modal-content,
-#childModal .modal-content {
-    background: #111827 !important;
-    color: #ffffff !important;
-}
-
-/* Modal headers */
-#pregnantMotherModal .modal-header,
-#lactatingMotherModal .modal-header,
-#postnatalMotherModal .modal-header,
-#newbornModal .modal-header,
-#youngChildModal .modal-header,
-#childModal .modal-header {
-    background: #0f172a !important;
-    border-bottom: 1px solid #334155 !important;
-    color: #ffffff !important;
-}
-
-#pregnantMotherModal .modal-title,
-#lactatingMotherModal .modal-title,
-#postnatalMotherModal .modal-title,
-#newbornModal .modal-title,
-#youngChildModal .modal-title,
-#childModal .modal-title {
-    color: #ffffff !important;
-    font-weight: 700 !important;
-}
-
-/* Labels */
-#pregnantMotherModal label,
-#lactatingMotherModal label,
-#postnatalMotherModal label,
-#newbornModal label,
-#youngChildModal label,
-#childModal label,
-#pregnantMotherModal .form-label,
-#lactatingMotherModal .form-label,
-#postnatalMotherModal .form-label,
-#newbornModal .form-label,
-#youngChildModal .form-label,
-#childModal .form-label {
-    color: #e5e7eb !important;
-    opacity: 1 !important;
-    font-weight: 600 !important;
-}
-
-/* Inputs, selects, textareas */
-#pregnantMotherModal .form-control,
-#lactatingMotherModal .form-control,
-#postnatalMotherModal .form-control,
-#newbornModal .form-control,
-#youngChildModal .form-control,
-#childModal .form-control,
-#pregnantMotherModal .form-select,
-#lactatingMotherModal .form-select,
-#postnatalMotherModal .form-select,
-#newbornModal .form-select,
-#youngChildModal .form-select,
-#childModal .form-select {
-    background-color: #0b1220 !important;
-    color: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    opacity: 1 !important;
-}
-
-/* Placeholder text */
-#pregnantMotherModal .form-control::placeholder,
-#lactatingMotherModal .form-control::placeholder,
-#postnatalMotherModal .form-control::placeholder,
-#newbornModal .form-control::placeholder,
-#youngChildModal .form-control::placeholder,
-#childModal .form-control::placeholder {
-    color: #94a3b8 !important;
-    opacity: 1 !important;
-}
-
-/* Select dropdown option text */
-#pregnantMotherModal select option,
-#lactatingMotherModal select option,
-#postnatalMotherModal select option,
-#newbornModal select option,
-#youngChildModal select option,
-#childModal select option {
-    background-color: #0b1220 !important;
-    color: #ffffff !important;
-}
-
-/* Textarea */
-#pregnantMotherModal textarea,
-#lactatingMotherModal textarea,
-#postnatalMotherModal textarea,
-#newbornModal textarea,
-#youngChildModal textarea,
-#childModal textarea {
-    background-color: #0b1220 !important;
-    color: #ffffff !important;
-}
-
-/* Close button */
-#pregnantMotherModal .close,
-#lactatingMotherModal .close,
-#postnatalMotherModal .close,
-#newbornModal .close,
-#youngChildModal .close,
-#childModal .close {
-    color: #ffffff !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-}
-
-/* Footer */
-#pregnantMotherModal .modal-footer,
-#lactatingMotherModal .modal-footer,
-#postnatalMotherModal .modal-footer,
-#newbornModal .modal-footer,
-#youngChildModal .modal-footer,
-#childModal .modal-footer {
-    border-top: 1px solid #334155 !important;
-    background: #111827 !important;
-}
-
-/* Modal z-index / disabled issue protection */
+#addScheduleModal,
+#scheduleVisitModal,
+#timetableModal,
+#scheduleVaccinationModal,
+#updateVaccineInventoryModal,
+#triposhaInventoryModal,
+#triposhaDistributionModal,
 #pregnantMotherModal,
 #lactatingMotherModal,
 #postnatalMotherModal,
@@ -2213,6 +2032,13 @@ echo '</script>';
     z-index: 1060 !important;
 }
 
+#addScheduleModal .modal-dialog,
+#scheduleVisitModal .modal-dialog,
+#timetableModal .modal-dialog,
+#scheduleVaccinationModal .modal-dialog,
+#updateVaccineInventoryModal .modal-dialog,
+#triposhaInventoryModal .modal-dialog,
+#triposhaDistributionModal .modal-dialog,
 #pregnantMotherModal .modal-dialog,
 #lactatingMotherModal .modal-dialog,
 #postnatalMotherModal .modal-dialog,
@@ -2223,6 +2049,13 @@ echo '</script>';
     pointer-events: auto !important;
 }
 
+#addScheduleModal .modal-content,
+#scheduleVisitModal .modal-content,
+#timetableModal .modal-content,
+#scheduleVaccinationModal .modal-content,
+#updateVaccineInventoryModal .modal-content,
+#triposhaInventoryModal .modal-content,
+#triposhaDistributionModal .modal-content,
 #pregnantMotherModal .modal-content,
 #lactatingMotherModal .modal-content,
 #postnatalMotherModal .modal-content,
@@ -2240,6 +2073,252 @@ body.modal-open {
     overflow: hidden;
 }
 
+.modal {
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   Maternal & Child Care Modals - LIGHT MODE
+   These styles apply normally when theme is light
+========================================================= */
+
+#pregnantMotherModal .modal-content,
+#lactatingMotherModal .modal-content,
+#postnatalMotherModal .modal-content,
+#newbornModal .modal-content,
+#youngChildModal .modal-content,
+#childModal .modal-content {
+    background: #ffffff !important;
+    color: #212529 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+#pregnantMotherModal .modal-header,
+#lactatingMotherModal .modal-header,
+#postnatalMotherModal .modal-header,
+#newbornModal .modal-header,
+#youngChildModal .modal-header,
+#childModal .modal-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    color: #212529 !important;
+}
+
+#pregnantMotherModal .modal-title,
+#lactatingMotherModal .modal-title,
+#postnatalMotherModal .modal-title,
+#newbornModal .modal-title,
+#youngChildModal .modal-title,
+#childModal .modal-title {
+    color: var(--primary-blue, #002e4f) !important;
+    font-weight: 700 !important;
+}
+
+#pregnantMotherModal label,
+#lactatingMotherModal label,
+#postnatalMotherModal label,
+#newbornModal label,
+#youngChildModal label,
+#childModal label,
+#pregnantMotherModal .form-label,
+#lactatingMotherModal .form-label,
+#postnatalMotherModal .form-label,
+#newbornModal .form-label,
+#youngChildModal .form-label,
+#childModal .form-label {
+    color: #212529 !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+#pregnantMotherModal .form-control,
+#lactatingMotherModal .form-control,
+#postnatalMotherModal .form-control,
+#newbornModal .form-control,
+#youngChildModal .form-control,
+#childModal .form-control,
+#pregnantMotherModal .form-select,
+#lactatingMotherModal .form-select,
+#postnatalMotherModal .form-select,
+#newbornModal .form-select,
+#youngChildModal .form-select,
+#childModal .form-select {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border: 1px solid #ced4da !important;
+    opacity: 1 !important;
+}
+
+#pregnantMotherModal .form-control::placeholder,
+#lactatingMotherModal .form-control::placeholder,
+#postnatalMotherModal .form-control::placeholder,
+#newbornModal .form-control::placeholder,
+#youngChildModal .form-control::placeholder,
+#childModal .form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
+}
+
+#pregnantMotherModal select option,
+#lactatingMotherModal select option,
+#postnatalMotherModal select option,
+#newbornModal select option,
+#youngChildModal select option,
+#childModal select option {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+#pregnantMotherModal textarea,
+#lactatingMotherModal textarea,
+#postnatalMotherModal textarea,
+#newbornModal textarea,
+#youngChildModal textarea,
+#childModal textarea {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+#pregnantMotherModal .close,
+#lactatingMotherModal .close,
+#postnatalMotherModal .close,
+#newbornModal .close,
+#youngChildModal .close,
+#childModal .close {
+    color: #212529 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+#pregnantMotherModal .modal-footer,
+#lactatingMotherModal .modal-footer,
+#postnatalMotherModal .modal-footer,
+#newbornModal .modal-footer,
+#youngChildModal .modal-footer,
+#childModal .modal-footer {
+    border-top: 1px solid #dee2e6 !important;
+    background: #ffffff !important;
+}
+
+
+/* =========================================================
+   Maternal & Child Care Modals - DARK MODE ONLY
+   These styles apply only when html/root has data-theme="dark"
+========================================================= */
+
+:root[data-theme='dark'] #pregnantMotherModal .modal-content,
+:root[data-theme='dark'] #lactatingMotherModal .modal-content,
+:root[data-theme='dark'] #postnatalMotherModal .modal-content,
+:root[data-theme='dark'] #newbornModal .modal-content,
+:root[data-theme='dark'] #youngChildModal .modal-content,
+:root[data-theme='dark'] #childModal .modal-content {
+    background: #111827 !important;
+    color: #ffffff !important;
+    border: 1px solid #334155 !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .modal-header,
+:root[data-theme='dark'] #lactatingMotherModal .modal-header,
+:root[data-theme='dark'] #postnatalMotherModal .modal-header,
+:root[data-theme='dark'] #newbornModal .modal-header,
+:root[data-theme='dark'] #youngChildModal .modal-header,
+:root[data-theme='dark'] #childModal .modal-header {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .modal-title,
+:root[data-theme='dark'] #lactatingMotherModal .modal-title,
+:root[data-theme='dark'] #postnatalMotherModal .modal-title,
+:root[data-theme='dark'] #newbornModal .modal-title,
+:root[data-theme='dark'] #youngChildModal .modal-title,
+:root[data-theme='dark'] #childModal .modal-title {
+    color: #ffffff !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal label,
+:root[data-theme='dark'] #lactatingMotherModal label,
+:root[data-theme='dark'] #postnatalMotherModal label,
+:root[data-theme='dark'] #newbornModal label,
+:root[data-theme='dark'] #youngChildModal label,
+:root[data-theme='dark'] #childModal label,
+:root[data-theme='dark'] #pregnantMotherModal .form-label,
+:root[data-theme='dark'] #lactatingMotherModal .form-label,
+:root[data-theme='dark'] #postnatalMotherModal .form-label,
+:root[data-theme='dark'] #newbornModal .form-label,
+:root[data-theme='dark'] #youngChildModal .form-label,
+:root[data-theme='dark'] #childModal .form-label {
+    color: #e5e7eb !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .form-control,
+:root[data-theme='dark'] #lactatingMotherModal .form-control,
+:root[data-theme='dark'] #postnatalMotherModal .form-control,
+:root[data-theme='dark'] #newbornModal .form-control,
+:root[data-theme='dark'] #youngChildModal .form-control,
+:root[data-theme='dark'] #childModal .form-control,
+:root[data-theme='dark'] #pregnantMotherModal .form-select,
+:root[data-theme='dark'] #lactatingMotherModal .form-select,
+:root[data-theme='dark'] #postnatalMotherModal .form-select,
+:root[data-theme='dark'] #newbornModal .form-select,
+:root[data-theme='dark'] #youngChildModal .form-select,
+:root[data-theme='dark'] #childModal .form-select {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+    border: 1px solid #64748b !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .form-control::placeholder,
+:root[data-theme='dark'] #lactatingMotherModal .form-control::placeholder,
+:root[data-theme='dark'] #postnatalMotherModal .form-control::placeholder,
+:root[data-theme='dark'] #newbornModal .form-control::placeholder,
+:root[data-theme='dark'] #youngChildModal .form-control::placeholder,
+:root[data-theme='dark'] #childModal .form-control::placeholder {
+    color: #94a3b8 !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal select option,
+:root[data-theme='dark'] #lactatingMotherModal select option,
+:root[data-theme='dark'] #postnatalMotherModal select option,
+:root[data-theme='dark'] #newbornModal select option,
+:root[data-theme='dark'] #youngChildModal select option,
+:root[data-theme='dark'] #childModal select option {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal textarea,
+:root[data-theme='dark'] #lactatingMotherModal textarea,
+:root[data-theme='dark'] #postnatalMotherModal textarea,
+:root[data-theme='dark'] #newbornModal textarea,
+:root[data-theme='dark'] #youngChildModal textarea,
+:root[data-theme='dark'] #childModal textarea {
+    background-color: #0b1220 !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .close,
+:root[data-theme='dark'] #lactatingMotherModal .close,
+:root[data-theme='dark'] #postnatalMotherModal .close,
+:root[data-theme='dark'] #newbornModal .close,
+:root[data-theme='dark'] #youngChildModal .close,
+:root[data-theme='dark'] #childModal .close {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+:root[data-theme='dark'] #pregnantMotherModal .modal-footer,
+:root[data-theme='dark'] #lactatingMotherModal .modal-footer,
+:root[data-theme='dark'] #postnatalMotherModal .modal-footer,
+:root[data-theme='dark'] #newbornModal .modal-footer,
+:root[data-theme='dark'] #youngChildModal .modal-footer,
+:root[data-theme='dark'] #childModal .modal-footer {
+    border-top: 1px solid #334155 !important;
+    background: #111827 !important;
+}
 
     </style>
 </head>
