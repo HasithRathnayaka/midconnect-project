@@ -60,7 +60,7 @@ $inventoryMonth = $inventoryMonthInput . '-01';
 
 try {
     $stmt = $pdo->prepare("
-        INSERT INTO triposha_distribution_records (
+        INSERT INTO triposha_inventory (
             midwife_id,
             duty_area,
             inventory_month,
