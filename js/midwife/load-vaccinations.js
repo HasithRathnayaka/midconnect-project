@@ -352,13 +352,6 @@ function renderOverdueVaccinations() {
                     <p><i class="fas fa-map-marker-alt"></i> ${escapeHtml(formatAreaName(record.duty_area))}</p>
                     <p><i class="fas fa-phone"></i> ${escapeHtml(record.contact_number || '-')}</p>
                 </div>
-
-                <div class="overdue-actions">
-                    <button class="btn btn-danger btn-sm" onclick="contactPatient('${escapeJs(record.contact_number || '')}')">
-                        <i class="fas fa-phone"></i> Call Now
-                    </button>
-
-                    
                 </div>
             </div>
         `;

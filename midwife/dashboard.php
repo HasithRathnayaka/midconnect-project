@@ -3300,10 +3300,6 @@ body.modal-open {
                                         <option value="week">This Week</option>
                                         <option value="month">This Month</option>
                                     </select>
-
-                                    <button class="btn btn-outline-primary" onclick="optimizeRoute()">
-                                        <i class="fas fa-route"></i> Optimize Route
-                                    </button>
                                 </div>
                             </div>
 
