@@ -48,20 +48,31 @@ try {
     if ($keyword !== '') {
         $where .= "
             AND (
-                hv.patient_name LIKE :keyword
-                OR hv.contact_number LIKE :keyword
-                OR hv.address LIKE :keyword
-                OR hv.duty_area LIKE :keyword
-                OR hv.visit_type LIKE :keyword
-                OR hv.reason LIKE :keyword
-                OR hv.notes LIKE :keyword
-                OR m.full_name LIKE :keyword
-                OR m.employee_id LIKE :keyword
-                OR m.assigned_area LIKE :keyword
+                hv.patient_name LIKE :keyword_1
+                OR hv.contact_number LIKE :keyword_2
+                OR hv.address LIKE :keyword_3
+                OR hv.duty_area LIKE :keyword_4
+                OR hv.visit_type LIKE :keyword_5
+                OR hv.reason LIKE :keyword_6
+                OR hv.notes LIKE :keyword_7
+                OR m.full_name LIKE :keyword_8
+                OR m.employee_id LIKE :keyword_9
+                OR m.assigned_area LIKE :keyword_10
             )
         ";
 
-        $params[':keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        $params[':keyword_1'] = $keywordValue;
+        $params[':keyword_2'] = $keywordValue;
+        $params[':keyword_3'] = $keywordValue;
+        $params[':keyword_4'] = $keywordValue;
+        $params[':keyword_5'] = $keywordValue;
+        $params[':keyword_6'] = $keywordValue;
+        $params[':keyword_7'] = $keywordValue;
+        $params[':keyword_8'] = $keywordValue;
+        $params[':keyword_9'] = $keywordValue;
+        $params[':keyword_10'] = $keywordValue;
     }
 
     if ($dateFrom !== '') {
@@ -75,7 +86,7 @@ try {
     }
 
     if ($status !== '') {
-        $where .= " AND LOWER(hv.status) = LOWER(:status)";
+        $where .= " AND LOWER(TRIM(hv.status)) = LOWER(TRIM(:status))";
         $params[':status'] = $status;
     }
 

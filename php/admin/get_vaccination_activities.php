@@ -48,24 +48,39 @@ try {
     if ($keyword !== '') {
         $where .= "
             AND (
-                vr.patient_name LIKE :keyword
-                OR vr.mother_name LIKE :keyword
-                OR vr.patient_age LIKE :keyword
-                OR vr.contact_number LIKE :keyword
-                OR vr.address LIKE :keyword
-                OR vr.location LIKE :keyword
-                OR vr.dose_number LIKE :keyword
-                OR vr.batch_number LIKE :keyword
-                OR vr.notes LIKE :keyword
-                OR vi.vaccine_name LIKE :keyword
-                OR vi.vaccine_code LIKE :keyword
-                OR m.full_name LIKE :keyword
-                OR m.employee_id LIKE :keyword
-                OR m.assigned_area LIKE :keyword
+                vr.patient_name LIKE :keyword_1
+                OR vr.mother_name LIKE :keyword_2
+                OR CAST(vr.patient_age AS CHAR) LIKE :keyword_3
+                OR vr.contact_number LIKE :keyword_4
+                OR vr.address LIKE :keyword_5
+                OR vr.location LIKE :keyword_6
+                OR vr.dose_number LIKE :keyword_7
+                OR vr.batch_number LIKE :keyword_8
+                OR vr.notes LIKE :keyword_9
+                OR vi.vaccine_name LIKE :keyword_10
+                OR vi.vaccine_code LIKE :keyword_11
+                OR m.full_name LIKE :keyword_12
+                OR m.employee_id LIKE :keyword_13
+                OR m.assigned_area LIKE :keyword_14
             )
         ";
 
-        $params[':keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        $params[':keyword_1'] = $keywordValue;
+        $params[':keyword_2'] = $keywordValue;
+        $params[':keyword_3'] = $keywordValue;
+        $params[':keyword_4'] = $keywordValue;
+        $params[':keyword_5'] = $keywordValue;
+        $params[':keyword_6'] = $keywordValue;
+        $params[':keyword_7'] = $keywordValue;
+        $params[':keyword_8'] = $keywordValue;
+        $params[':keyword_9'] = $keywordValue;
+        $params[':keyword_10'] = $keywordValue;
+        $params[':keyword_11'] = $keywordValue;
+        $params[':keyword_12'] = $keywordValue;
+        $params[':keyword_13'] = $keywordValue;
+        $params[':keyword_14'] = $keywordValue;
     }
 
     if ($dateFrom !== '') {
@@ -79,7 +94,7 @@ try {
     }
 
     if ($status !== '') {
-        $where .= " AND LOWER(vr.status) = LOWER(:status)";
+        $where .= " AND LOWER(TRIM(vr.status)) = LOWER(TRIM(:status))";
         $params[':status'] = $status;
     }
 

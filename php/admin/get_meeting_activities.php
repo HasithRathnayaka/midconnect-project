@@ -38,8 +38,28 @@ $midwifeId = trim($_GET['midwife_id'] ?? '');
 
 try {
     /*
-     * Get all meeting-related activity type IDs directly from activity_types.
-     * This is better than only checking description/location text.
+     * Load midwife filter first.
+     * This allows frontend dropdown to work even if there are no meeting records.
+     */
+    $midwifeStmt = $pdo->prepare("
+        SELECT
+            midwife_id,
+            employee_id,
+            full_name,
+            assigned_area
+        FROM midwives
+        WHERE LOWER(TRIM(moh_office)) = LOWER(TRIM(:moh_office))
+        ORDER BY full_name ASC
+    ");
+
+    $midwifeStmt->execute([
+        ':moh_office' => $adminMohOffice
+    ]);
+
+    $midwives = $midwifeStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    /*
+     * Get meeting-related activity types.
      */
     $typeStmt = $pdo->prepare("
         SELECT type_id
@@ -57,52 +77,73 @@ try {
         echo json_encode([
             'success' => true,
             'records' => [],
-            'midwives' => [],
+            'midwives' => $midwives,
             'message' => 'No meeting activity type found in activity_types table.'
         ]);
         exit;
     }
 
-    $typePlaceholders = [];
-    $typeParams = [];
+    /*
+     * Separate type placeholders for activities query.
+     */
+    $activityTypePlaceholders = [];
+    $activityTypeParams = [];
 
     foreach ($meetingTypeIds as $index => $typeId) {
-        $key = ':type_id_' . $index;
-        $typePlaceholders[] = $key;
-        $typeParams[$key] = $typeId;
+        $key = ':activity_type_id_' . $index;
+        $activityTypePlaceholders[] = $key;
+        $activityTypeParams[$key] = (int) $typeId;
     }
 
-    $typeInSql = implode(',', $typePlaceholders);
+    $activityTypeInSql = implode(',', $activityTypePlaceholders);
+
+    /*
+     * Separate type placeholders for schedules query.
+     */
+    $scheduleTypePlaceholders = [];
+    $scheduleTypeParams = [];
+
+    foreach ($meetingTypeIds as $index => $typeId) {
+        $key = ':schedule_type_id_' . $index;
+        $scheduleTypePlaceholders[] = $key;
+        $scheduleTypeParams[$key] = (int) $typeId;
+    }
+
+    $scheduleTypeInSql = implode(',', $scheduleTypePlaceholders);
 
     /*
      * ACTIVITIES table meeting records
      */
     $activityWhere = "
         LOWER(TRIM(m.moh_office)) = LOWER(TRIM(:activity_moh_office))
-        AND a.activity_type_id IN ($typeInSql)
+        AND a.activity_type_id IN ($activityTypeInSql)
     ";
 
     $activityParams = array_merge([
         ':activity_moh_office' => $adminMohOffice
-    ], $typeParams);
+    ], $activityTypeParams);
 
     if ($keyword !== '') {
         $activityWhere .= "
             AND (
-                a.patient_name LIKE :activity_keyword
-                OR a.location LIKE :activity_keyword
-                OR a.description LIKE :activity_keyword
-                OR a.observations LIKE :activity_keyword
-                OR a.recommendations LIKE :activity_keyword
-                OR at.type_name LIKE :activity_keyword
-                OR at.type_code LIKE :activity_keyword
-                OR m.full_name LIKE :activity_keyword
-                OR m.employee_id LIKE :activity_keyword
-                OR m.assigned_area LIKE :activity_keyword
+                a.patient_name LIKE :activity_keyword_1
+                OR a.location LIKE :activity_keyword_2
+                OR a.description LIKE :activity_keyword_3
+                OR a.observations LIKE :activity_keyword_4
+                OR a.recommendations LIKE :activity_keyword_5
+                OR at.type_name LIKE :activity_keyword_6
+                OR at.type_code LIKE :activity_keyword_7
+                OR m.full_name LIKE :activity_keyword_8
+                OR m.employee_id LIKE :activity_keyword_9
+                OR m.assigned_area LIKE :activity_keyword_10
             )
         ";
 
-        $activityParams[':activity_keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        for ($i = 1; $i <= 10; $i++) {
+            $activityParams[':activity_keyword_' . $i] = $keywordValue;
+        }
     }
 
     if ($dateFrom !== '') {
@@ -116,13 +157,13 @@ try {
     }
 
     if ($status !== '') {
-        $activityWhere .= " AND LOWER(a.status) = LOWER(:activity_status)";
+        $activityWhere .= " AND LOWER(TRIM(a.status)) = LOWER(TRIM(:activity_status))";
         $activityParams[':activity_status'] = $status;
     }
 
     if ($midwifeId !== '') {
         $activityWhere .= " AND a.midwife_id = :activity_midwife_id";
-        $activityParams[':activity_midwife_id'] = $midwifeId;
+        $activityParams[':activity_midwife_id'] = (int) $midwifeId;
     }
 
     $activitySql = "
@@ -164,34 +205,37 @@ try {
     $activityStmt->execute($activityParams);
     $activityRecords = $activityStmt->fetchAll(PDO::FETCH_ASSOC);
 
-
     /*
      * SCHEDULES table meeting records
      */
     $scheduleWhere = "
         LOWER(TRIM(m.moh_office)) = LOWER(TRIM(:schedule_moh_office))
-        AND s.activity_type_id IN ($typeInSql)
+        AND s.activity_type_id IN ($scheduleTypeInSql)
     ";
 
     $scheduleParams = array_merge([
         ':schedule_moh_office' => $adminMohOffice
-    ], $typeParams);
+    ], $scheduleTypeParams);
 
     if ($keyword !== '') {
         $scheduleWhere .= "
             AND (
-                s.patient_name LIKE :schedule_keyword
-                OR s.location LIKE :schedule_keyword
-                OR s.description LIKE :schedule_keyword
-                OR at.type_name LIKE :schedule_keyword
-                OR at.type_code LIKE :schedule_keyword
-                OR m.full_name LIKE :schedule_keyword
-                OR m.employee_id LIKE :schedule_keyword
-                OR m.assigned_area LIKE :schedule_keyword
+                s.patient_name LIKE :schedule_keyword_1
+                OR s.location LIKE :schedule_keyword_2
+                OR s.description LIKE :schedule_keyword_3
+                OR at.type_name LIKE :schedule_keyword_4
+                OR at.type_code LIKE :schedule_keyword_5
+                OR m.full_name LIKE :schedule_keyword_6
+                OR m.employee_id LIKE :schedule_keyword_7
+                OR m.assigned_area LIKE :schedule_keyword_8
             )
         ";
 
-        $scheduleParams[':schedule_keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        for ($i = 1; $i <= 8; $i++) {
+            $scheduleParams[':schedule_keyword_' . $i] = $keywordValue;
+        }
     }
 
     if ($dateFrom !== '') {
@@ -205,13 +249,13 @@ try {
     }
 
     if ($status !== '') {
-        $scheduleWhere .= " AND LOWER(s.status) = LOWER(:schedule_status)";
+        $scheduleWhere .= " AND LOWER(TRIM(s.status)) = LOWER(TRIM(:schedule_status))";
         $scheduleParams[':schedule_status'] = $status;
     }
 
     if ($midwifeId !== '') {
         $scheduleWhere .= " AND s.midwife_id = :schedule_midwife_id";
-        $scheduleParams[':schedule_midwife_id'] = $midwifeId;
+        $scheduleParams[':schedule_midwife_id'] = (int) $midwifeId;
     }
 
     $scheduleSql = "
@@ -263,23 +307,6 @@ try {
     });
 
     $records = array_slice($records, 0, 200);
-
-    $midwifeStmt = $pdo->prepare("
-        SELECT
-            midwife_id,
-            employee_id,
-            full_name,
-            assigned_area
-        FROM midwives
-        WHERE LOWER(TRIM(moh_office)) = LOWER(TRIM(:moh_office))
-        ORDER BY full_name ASC
-    ");
-
-    $midwifeStmt->execute([
-        ':moh_office' => $adminMohOffice
-    ]);
-
-    $midwives = $midwifeStmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         'success' => true,

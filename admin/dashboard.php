@@ -437,7 +437,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
             </div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#" class="admin-name"><i class="fas fa-user-circle"></i> Dr. Sarah Johnson</li>
+                    <li><a href="admin-profile.html" class="admin-name"><i class="fas fa-user-circle"></i> Dr. Sarah Johnson</li>
                     <li><a href="#" id="logout" class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     <li class="nav-actions">
                         <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme"><span aria-hidden="true">🌙</span><span>Dark Mode</span></button>
@@ -1022,7 +1022,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="vaccKeyword" placeholder="Search patient, vaccine..." oninput="debounceVaccinations()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="vaccDateFrom" onchange="loadVaccinationActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="vaccDateTo" onchange="loadVaccinationActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="vaccStatus" onchange="loadVaccinationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="vaccStatus" onchange="loadVaccinationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="vaccMidwife" onchange="loadVaccinationActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1037,7 +1037,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="hvKeyword" placeholder="Search patient, address..." oninput="debounceHomeVisits()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="hvDateFrom" onchange="loadHomeVisitActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="hvDateTo" onchange="loadHomeVisitActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="hvStatus" onchange="loadHomeVisitActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="hvStatus" onchange="loadHomeVisitActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="hvMidwife" onchange="loadHomeVisitActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1052,7 +1052,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="counselKeyword" placeholder="Search patient, topic..." oninput="debounceCounseling()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="counselDateFrom" onchange="loadCounselingActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="counselDateTo" onchange="loadCounselingActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="counselStatus" onchange="loadCounselingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="counselStatus" onchange="loadCounselingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="counselMidwife" onchange="loadCounselingActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1067,7 +1067,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="heKeyword" placeholder="Search topic, location..." oninput="debounceHealthEducation()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="heDateFrom" onchange="loadHealthEducationActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="heDateTo" onchange="loadHealthEducationActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="heStatus" onchange="loadHealthEducationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="heStatus" onchange="loadHealthEducationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="heMidwife" onchange="loadHealthEducationActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1082,7 +1082,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="emergKeyword" placeholder="Search patient, emergency type..." oninput="debounceEmergency()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="emergDateFrom" onchange="loadEmergencyActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="emergDateTo" onchange="loadEmergencyActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="emergStatus" onchange="loadEmergencyActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="emergStatus" onchange="loadEmergencyActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="emergMidwife" onchange="loadEmergencyActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1097,7 +1097,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="meetingKeyword" placeholder="Search meeting topic..." oninput="debounceMeetings()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="meetingDateFrom" onchange="loadMeetingActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="meetingDateTo" onchange="loadMeetingActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="meetingStatus" onchange="loadMeetingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="meetingStatus" onchange="loadMeetingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="meetingMidwife" onchange="loadMeetingActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1307,7 +1307,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="clinicKeyword" placeholder="Search patient, location..." oninput="debounceClinics()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="clinicDateFrom" onchange="loadClinicActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="clinicDateTo" onchange="loadClinicActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="clinicStatus" onchange="loadClinicActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="clinicStatus" onchange="loadClinicActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="clinicMidwife" onchange="loadClinicActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1350,7 +1350,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="vaccKeyword" placeholder="Search patient, vaccine type..." oninput="debounceVaccinations()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="vaccDateFrom" onchange="loadVaccinationActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="vaccDateTo" onchange="loadVaccinationActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="vaccStatus" onchange="loadVaccinationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="vaccStatus" onchange="loadVaccinationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="vaccMidwife" onchange="loadVaccinationActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1368,7 +1368,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="hvKeyword" placeholder="Search patient, address..." oninput="debounceHomeVisits()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="hvDateFrom" onchange="loadHomeVisitActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="hvDateTo" onchange="loadHomeVisitActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="hvStatus" onchange="loadHomeVisitActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="hvStatus" onchange="loadHomeVisitActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="hvMidwife" onchange="loadHomeVisitActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1386,7 +1386,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="counselKeyword" placeholder="Search patient, counseling type..." oninput="debounceCounseling()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="counselDateFrom" onchange="loadCounselingActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="counselDateTo" onchange="loadCounselingActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="counselStatus" onchange="loadCounselingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="counselStatus" onchange="loadCounselingActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="counselMidwife" onchange="loadCounselingActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1404,7 +1404,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="heKeyword" placeholder="Search topic, location..." oninput="debounceHealthEducation()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="heDateFrom" onchange="loadHealthEducationActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="heDateTo" onchange="loadHealthEducationActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="heStatus" onchange="loadHealthEducationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="heStatus" onchange="loadHealthEducationActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="heMidwife" onchange="loadHealthEducationActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>
@@ -1422,7 +1422,7 @@ $adminPosition = $_SESSION['position'] ?? 'MOH Officer';
                         <div class="col-3"><input type="text" class="form-control" id="emergKeyword" placeholder="Search patient, emergency type..." oninput="debounceEmergency()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="emergDateFrom" onchange="loadEmergencyActivities()"></div>
                         <div class="col-2"><input type="date" class="form-control" id="emergDateTo" onchange="loadEmergencyActivities()"></div>
-                        <div class="col-2"><select class="form-control form-select" id="emergStatus" onchange="loadEmergencyActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="pending">Pending</option><option value="in_progress">In Progress</option></select></div>
+                        <div class="col-2"><select class="form-control form-select" id="emergStatus" onchange="loadEmergencyActivities()"><option value="">All Status</option><option value="completed">Completed</option><option value="Scheduled">Scheduled</option><option value="in_progress">In Progress</option></select></div>
                         <div class="col-3"><select class="form-control form-select" id="emergMidwife" onchange="loadEmergencyActivities()"><option value="">All Midwives</option></select></div>
                     </div>
                 </div>

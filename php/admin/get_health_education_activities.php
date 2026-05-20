@@ -48,18 +48,27 @@ try {
     if ($keyword !== '') {
         $where .= "
             AND (
-                he.topic LIKE :keyword
-                OR he.venue LIKE :keyword
-                OR he.audience LIKE :keyword
-                OR he.materials LIKE :keyword
-                OR he.outcomes LIKE :keyword
-                OR m.full_name LIKE :keyword
-                OR m.employee_id LIKE :keyword
-                OR m.assigned_area LIKE :keyword
+                he.topic LIKE :keyword_1
+                OR he.venue LIKE :keyword_2
+                OR he.audience LIKE :keyword_3
+                OR he.materials LIKE :keyword_4
+                OR he.outcomes LIKE :keyword_5
+                OR m.full_name LIKE :keyword_6
+                OR m.employee_id LIKE :keyword_7
+                OR m.assigned_area LIKE :keyword_8
             )
         ";
 
-        $params[':keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        $params[':keyword_1'] = $keywordValue;
+        $params[':keyword_2'] = $keywordValue;
+        $params[':keyword_3'] = $keywordValue;
+        $params[':keyword_4'] = $keywordValue;
+        $params[':keyword_5'] = $keywordValue;
+        $params[':keyword_6'] = $keywordValue;
+        $params[':keyword_7'] = $keywordValue;
+        $params[':keyword_8'] = $keywordValue;
     }
 
     if ($dateFrom !== '') {
@@ -73,7 +82,7 @@ try {
     }
 
     if ($status !== '') {
-        $where .= " AND LOWER(he.status) = LOWER(:status)";
+        $where .= " AND LOWER(TRIM(he.status)) = LOWER(TRIM(:status))";
         $params[':status'] = $status;
     }
 

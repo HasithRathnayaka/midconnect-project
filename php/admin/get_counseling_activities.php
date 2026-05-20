@@ -48,18 +48,27 @@ try {
     if ($keyword !== '') {
         $where .= "
             AND (
-                cs.client_ref LIKE :keyword
-                OR cs.focus LIKE :keyword
-                OR cs.location_type LIKE :keyword
-                OR cs.notes LIKE :keyword
-                OR cs.referral_details LIKE :keyword
-                OR m.full_name LIKE :keyword
-                OR m.employee_id LIKE :keyword
-                OR m.assigned_area LIKE :keyword
+                cs.client_ref LIKE :keyword_1
+                OR cs.focus LIKE :keyword_2
+                OR cs.location_type LIKE :keyword_3
+                OR cs.notes LIKE :keyword_4
+                OR cs.referral_details LIKE :keyword_5
+                OR m.full_name LIKE :keyword_6
+                OR m.employee_id LIKE :keyword_7
+                OR m.assigned_area LIKE :keyword_8
             )
         ";
 
-        $params[':keyword'] = '%' . $keyword . '%';
+        $keywordValue = '%' . $keyword . '%';
+
+        $params[':keyword_1'] = $keywordValue;
+        $params[':keyword_2'] = $keywordValue;
+        $params[':keyword_3'] = $keywordValue;
+        $params[':keyword_4'] = $keywordValue;
+        $params[':keyword_5'] = $keywordValue;
+        $params[':keyword_6'] = $keywordValue;
+        $params[':keyword_7'] = $keywordValue;
+        $params[':keyword_8'] = $keywordValue;
     }
 
     if ($dateFrom !== '') {
@@ -73,7 +82,7 @@ try {
     }
 
     if ($status !== '') {
-        $where .= " AND LOWER(cs.status) = LOWER(:status)";
+        $where .= " AND LOWER(TRIM(cs.status)) = LOWER(TRIM(:status))";
         $params[':status'] = $status;
     }
 
